@@ -13,7 +13,7 @@
   ################################################################
   # Define the High Level definitions for this project
   ################################################################
-  define('PAGE_TITLE',       'Template');
+  define('PAGE_TITLE',       'Lab 101');
   define('NAVBAR_TITLE',     '');
   define('NAVBAR_TITLE_URL', '#');
 
@@ -25,8 +25,8 @@
   define('AUTH_SERVER',     'https://intranet.usna.edu/CS/AUTH/');
   define('AUTH_MESSAGE',    'Please log on');
   define('AUTH_TITLE',      'Template');
-  define('AUTH_IDENTIFIER', 'aaaaaaaa-cfca-40e9-85b3-47f0596f9855');
-  define('AUTH_SECRET',     'bbbbbbbb-4ffb-4a03-b36b-1928d8ade526');
+  define('AUTH_IDENTIFIER', '4aac57d5-6a73-4c03-9feb-254a34e743ca');
+  define('AUTH_SECRET',     '6a90cb17-8156-4a6e-91d1-7ce091eeaee5');
   define('AUTH_TOKEN_TIME', 100);
   define('AUTH_LIBRARY',    LIBRARY_PATH.'lib_auth_usna.php');
 
@@ -45,16 +45,30 @@
   # API queries or similar functions.
   define('DATABASE_MYSQL',
           array('default'=>array('host'=>'midn.cs.usna.edu',
-                                 'user'=>'dbusername',
-                                 'password'=>'dbpassword',
-                                 'name'=>'dbschemaname')));
+                                 'user'=>'m183990',
+                                 'password'=>'m183990',
+                                 'name'=>'m183990_IT452')));
+
+  ################################################################
+  # DANGER # DANGER # DANGER # DANGER # DANGER # DANGER # DANGER #
+  ################################################################
+  # Development System information (Development Server)          #
+  # Only Define these if you want logon-less Development         #
+  # on a private test web server.  Authentication                #
+  # will not be enforced if running on a development machine.    #
+  # For this to work the DB_HOST must be listed as something     #
+  # like localhost or 127.0.0.1 so it works with both            #
+  # production and development environments                      #
+  ################################################################
+  define('DEVELOPER_HOSTNAME', array('t5810','mich331csd00u'));
+  define('AUTH_DEV_LIBRARY', LIBRARY_PATH.'lib_auth_developer.php');
 
   ################################################################
   # Dynamic Navbar Building                                      #
   ################################################################
 
   # What is the order that modules should appear, and what
-  # navbar options are available.
+  # NavBar options are available.
   define('MODULE_NAV',
     array('api'      =>array('type'=>'dropdown', 'title'=>'Application Interface', 'icon'=>'glyphicon-globe',       'rtext'=>" API",            'caret'=>true),
           'review'   =>array('type'=>'dropdown', 'title'=>'Review',                'icon'=>'glyphicon-th-large',    'rtext'=>" Review",         'caret'=>true),
@@ -83,19 +97,5 @@
   # What Files should not be processed?
   define('MODULE_IGNORE',
     array('api.php','home.php'));
-
-  ################################################################
-  # DANGER # DANGER # DANGER # DANGER # DANGER # DANGER # DANGER #
-  ################################################################
-  # Development System information (Development Server)          #
-  # Only Define these if you want logon-less Development         #
-  # on a private test web server.  Authentication                #
-  # will not be enforced if running on a development machine.    #
-  # For this to work the DB_HOST must be listed as something     #
-  # like localhost or 127.0.0.1 so it works with both            #
-  # production and development environments                      #
-  ################################################################
-  define('DEVELOPER_HOSTNAME', array('t5810','mich331csd00u'));
-  define('AUTH_DEV_LIBRARY', LIBRARY_PATH.'lib_auth_developer.php');
 
 ?>
