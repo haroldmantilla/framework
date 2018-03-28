@@ -1,0 +1,4 @@
+Raleway Font:
+  Location: https://fonts.google.com/specimen/Raleway
+  License: Open Font License
+    http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL_web
