@@ -47,5 +47,5 @@
   require_once('lib_modules.php');
 
   // Plus whatever other libraries you may need.
-
+  require_once('lib_db.php')
 ?>

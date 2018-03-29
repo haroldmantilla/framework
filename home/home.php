@@ -6,14 +6,14 @@
   $MODULE_DEF = array('name'       => 'Default Home Page',
                       'version'    => 1.0,
                       'display'    => '',
-                      'tab'        => '',
+                      'tab'        => 'user',
                       'position'   => 0,
                       'student'    => true,
                       'instructor' => true,
                       'guest'      => true,
                       'access'     => array());
   ###############################################################
-
+  
   # Load in Configuration Parameters
   require_once("../etc/config.inc.php");
 

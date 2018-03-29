@@ -6,7 +6,7 @@
   $MODULE_DEF = array('name'       => 'Test',
                       'version'    => 1.0,
                       'display'    => '',
-                      'tab'        => 'Pages',
+                      'tab'        => 'debug',
                       'position'   => 0,
                       'student'    => true,
                       'instructor' => true,
@@ -20,7 +20,7 @@
   # Load in template, if not already loaded
   require_once(LIBRARY_PATH.'template.php');
 
-  # The only change was that 'guest' => false now, so you must log on...
+  require_once(WEB_PATH.'navbar.php');
 
   echo "<pre>";
   print_r(USER);
