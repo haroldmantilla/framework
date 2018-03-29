@@ -6,7 +6,7 @@
   $MODULE_DEF = array('name'       => 'Test',
                       'version'    => 1.0,
                       'display'    => '',
-                      'tab'        => '',
+                      'tab'        => 'Pages',
                       'position'   => 0,
                       'student'    => true,
                       'instructor' => true,
