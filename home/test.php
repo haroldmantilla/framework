@@ -26,4 +26,10 @@
   print_r(USER);
   echo "</pre>";
 
+  $result = get_next_chit_number($db);
+  echo "<pre>";
+  print_r($result);
+  // echo "$result";
+  echo "</pre>";
+
 ?>
