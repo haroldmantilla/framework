@@ -7,13 +7,13 @@
                       'version'    => 1.0,
                       'display'    => 'Admin',
                       'tab'        => 'user',
-                      'position'   => 0,
+                      'position'   => 1,
                       'student'    => true,
                       'instructor' => true,
                       'guest'      => false,
                       'access'     => array('admin'=>'site'));
   ###############################################################
-  
+
   # Load in Configuration Parameters
   require_once("../etc/config.inc.php");
 
@@ -27,19 +27,17 @@
 
 ?>
 
-<!DOCTYPE html>
-
 <script type="text/javascript">
   function redirect(location){
     window.location = location;
   }
-</script>  
+</script>
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
     </div>
   </div>
-  
+
 <div class="row">
   <div class="col-md-2">
   </div>
@@ -62,28 +60,28 @@ echo "</div>";
 echo "<div class=\"col-md-8 text-center\">";
 
 //get num Users
-$num_users = get_num_users();
+$num_users = get_num_users($db);
 
 //get num mids
-$num_mids = get_num_mids();
+$num_mids = get_num_mids($db);
 
 //get unique companies
-$num_companies = get_num_companies();
+$num_companies = get_num_companies($db);
 
 //get num chits
-$num_total_chits = get_num_total_chits();
+$num_total_chits = get_num_total_chits($db);
 
 //get num active chits
-$num_active_chits = get_num_active_chits();
+$num_active_chits = get_num_active_chits($db);
 
 //get num battOs
-$num_bigOs = get_num_bigOs();
+$num_bigOs = get_num_bigOs($db);
 
 //get num officers
-$num_officers = get_num_officers();
+$num_officers = get_num_officers($db);
 
 //get num SELs
-$num_SELs = get_num_SELs();
+$num_SELs = get_num_SELs($db);
 echo "<br>";
 echo "<br>";
 echo "<br>";

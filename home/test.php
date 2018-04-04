@@ -3,7 +3,7 @@
   ###############################################################
   #              Security and Navbar Configuration              #
   ###############################################################
-  $MODULE_DEF = array('name'       => 'Test',
+  $MODULE_DEF = array('name'       => 'Show Variables',
                       'version'    => 1.0,
                       'display'    => '',
                       'tab'        => 'debug',
@@ -11,7 +11,7 @@
                       'student'    => true,
                       'instructor' => true,
                       'guest'      => false,
-                      'access'     => array());
+                      'access'     => array('admin'=>'developer'));
   ###############################################################
 
   # Load in Configuration Parameters
@@ -21,14 +21,16 @@
   require_once(LIBRARY_PATH.'template.php');
 
   require_once(WEB_PATH.'navbar.php');
+  //
+  // echo "<pre>";
+  // print_r(USER);
+  // echo "</pre>";
 
-  echo "<pre>";
-  print_r(USER);
-  echo "</pre>";
 
-  $result = get_next_chit_number($db);
+  $num_users = get_num_users($db); 
   echo "<pre>";
-  print_r($result);
+
+  print_r($num_users);
   // echo "$result";
   echo "</pre>";
 

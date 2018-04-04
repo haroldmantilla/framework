@@ -1,12 +1,12 @@
-<?php 
+<?php
 
 function get_users($db){
   $query = "call getUsers()";
   $stmt = build_query($db, $query, array());
-  
+
   $stmt->bind_result($results);
   $results = stmt_to_assoc_array($stmt);
-  
+
   $stmt->close();
   return $results;
 }
@@ -14,10 +14,10 @@ function get_users($db){
 function get_potential_coc_midn($db, $company){
   $query = "call getPotentialCoC(?)";
   $stmt = build_query($db, $query, array($company));
-  
+
   $stmt->bind_result($results['username'], $results['lastName'], $results['firstName'], $results['rank'], $results['alpha'], $results['company']);
   $results = stmt_to_assoc_array($stmt);
-  
+
   $stmt->close();
   return $results;
 }
@@ -25,9 +25,9 @@ function get_potential_coc_midn($db, $company){
 function get_potential_coc_officers($db){
   $query = "call getPotentialCoCOfficers()";
   $stmt = build_query($db, $query, array());
-  
+
   $stmt->bind_result($results['username'], $results['lastName'], $results['firstName'], $results['rank']);
-  
+
   $results = stmt_to_assoc_array($stmt);
 
   $stmt->close();
@@ -39,7 +39,7 @@ function get_potential_coc_SELs($db){
   $stmt = build_query($db, $query, array());
 
   $stmt->bind_result($results['username'], $results['lastName'], $results['firstName'], $results['rank']);
-  
+
   $results = stmt_to_assoc_array($stmt);
 
   $stmt->close();
@@ -53,7 +53,7 @@ function get_potential_coc_SELs($db){
 //   $stmt = build_query($db, $query, array());
 //   $stmt->bind_result($results['username']);
 //   $results = stmt_to_assoc_array($stmt);
-// 
+//
 //   $valid = false;
 //   foreach ($results as $key => $row) {
 //     if($username == $row['username']){
@@ -65,7 +65,7 @@ function get_potential_coc_SELs($db){
 // }
 
 function get_company_number($db, $username){
-  
+
   $query = "call getCompanyNumber(?)";
 
   $stmt = build_query($db, $query, array($username));
@@ -82,14 +82,14 @@ function get_company_number($db, $username){
 function register_leader($db, $username, $first, $last, $billet, $rank, $service, $level, $accesslevel="user"){
 
   $query = "call createLeader(?,?,?,?,?,?,?,?,?,?)";
-  
+
   $stmt = build_query($db, $query, array($username, $first, $last, $billet, $rank, $service, $level, $accesslevel));
-  
+
   $stmt->close();
 }
 
 function get_user_information($db, $username){
-  
+
   $query = "call viewLeader(?)";
   $stmt = build_query($db, $query, array($username));
 
@@ -103,12 +103,12 @@ function get_user_information($db, $username){
 
 // TESTME
 function update_basic_leader_info($db, $username, $rank, $first, $last, $billet){
-  
+
   $query = "call updateLeader(?,?,?,?,?)";
   $stmt = build_query($db, $query, array($username, $rank, $first, $last, $billet));
 
   $stmt->close();
-  
+
 }
 
 function get_midshipman_information($db, $username){
@@ -141,17 +141,17 @@ function is_midshipman($db, $username){
   $stmt->bind_result($results['username'], $results['firstName'], $results['lastName'], $results['billet'], $results['accesslevel'], $results['rank'], $results['service'], $results['level']);
 
   $results = stmt_to_assoc_array($stmt);
-  
+
   $valid = false;
   foreach ($results as $key => $row) {
     if($row['username'] == $username ){
       $valid = true;
     }
   }
-  
+
   $stmt->close();
   return $valid;
-    
+
 }
 
 function in_midshipman_table($db, $username){
@@ -167,10 +167,10 @@ function in_midshipman_table($db, $username){
       $valid = true;
     }
   }
-  
+
   $stmt->close();
   return $valid;
-    
+
 }
 
 // TESTME
@@ -178,7 +178,7 @@ function update_midshipman($db, $username, $company, $year, $room, $phone, $SQPR
   $query = "call updateMidshipman(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
   $stmt = build_query($db, $query, array($username, $company, $year, $room, $phone, $SQPR, $CQPR, $aptitude, $conduct, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6));
 
-  
+
     $stmt->close();
 }
 
@@ -187,14 +187,14 @@ function create_midshipman($db, $username, $company, $year, $room, $phone, $SQPR
   $query = "call createMidshipman(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
   $stmt = build_query($db, $query, array($username, $company, $year, $room, $phone, $SQPR, $CQPR, $aptitude, $conduct, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6));
 
-  
+
     $stmt->close();
 }
 
 function get_next_chit_number($db){
   $query = "call lastChitNumber()";
   $stmt = build_query($db, $query, array());
-  
+
   $stmt->bind_result($results);
 
   $results = stmt_to_assoc_array($stmt);
@@ -203,13 +203,13 @@ function get_next_chit_number($db){
       return $row['chitNumber'] + 1;
     }
   }
-  
+
   $stmt->close();
   return -1;
 }
 
 function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, $requestType, $requestOther, $addr_careOf, $addr_street, $addr_city, $addr_state, $addr_zip, $remarks, $createDate, $startDate, $startTime, $endDate, $endTime, $orm, $supportingdocs, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6){
-  
+
   if(empty($coc_0)){
     $coc_0 = 'NULL';
     $coc_0_status = 'NULL';
@@ -309,12 +309,12 @@ function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, 
     $coc_6_date = 'NULL';
     $coc_6_time = 'NULL';
   }
-  
+
   $query = "call createChit(?,?,?,?,?,?,?,?,?,?,?,0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  
+
   $stmt = build_query($db, $query, array($chitnumber, $creator, $shortdescription, $reference, $requestType, $requestOther, $addr_careOf, $addr_street, $addr_city, $addr_state, $addr_zip, $remarks, $createDate, $startDate, $startTime, $endDate, $endTime, $orm, $supportingdocs, $coc_0, $coc_0_status, $coc_0_comments, $coc_0_date, $coc_0_time, $coc_1, $coc_1_status, $coc_1_comments, $coc_1_date, $coc_1_time, $coc_2, $coc_2_status, $coc_2_comments, $coc_2_date, $coc_2_time, $coc_3, $coc_3_status, $coc_3_comments, $coc_3_date, $coc_3_time, $coc_4, $coc_4_status, $coc_4_comments, $coc_4_date, $coc_4_time, $coc_5, $coc_5_status, $coc_5_comments, $coc_5_date, $coc_5_time, $coc_6, $coc_6_status, $coc_6_comments, $coc_6_date, $coc_6_time));
-  
-  
+
+
   $stmt->close();
 }
 
@@ -347,13 +347,13 @@ function action($db, $chit, $who, $what, $today, $now){
     $today = 'NULL';
     $now = 'NULL';
   }
-  
+
   $query .= "?,?,?,?)";
-  
+
   $stmt = build_query($db, $query, array($chit, $what, $today, $now));
-  
+
   $stmt->close();
-  
+
 }
 
 function comment($db, $chit, $who, $comment){
@@ -384,10 +384,123 @@ function comment($db, $chit, $who, $comment){
   $query .= "?,?)";
 
   $stmt = build_query($db, $query, array($chit, $comment));
-  
+
   $stmt->close();
 }
 
+function get_user_chits($db, $username){
+	$query = "call getUserChits(?)";
+	$stmt = build_query($db, $query, array($username));
+
+	$stmt->bind_result($results['chitNumber'], $results['creator'], $results['description'], $results['reference'], $results['requestType'], $results['requestOther'], $results['addr_careOf'], $results['addr_street'], $results['addr_city'], $results['addr_state'], $results['addr_zip'], $results['archiveactive'], $results['remarks'], $results['createdDate'], $results['startDate'], $results['startTime'], $results['endDate'], $results['endTime'], $results['ormURL'], $results['supportingDocsURL'], $results['coc_0_username'], $results['coc_0_status'], $results['coc_0_comments'], $results['coc_0_date'], $results['coc_0_time'], $results['coc_1_username'], $results['coc_1_status'], $results['coc_1_comments'], $results['coc_1_date'], $results['coc_1_time'], $results['coc_2_username'], $results['coc_2_status'], $results['coc_2_comments'], $results['coc_2_date'], $results['coc_2_time'], $results['coc_3_username'], $results['coc_3_status'], $results['coc_3_comments'], $results['coc_3_date'], $results['coc_3_time'], $results['coc_4_username'], $results['coc_4_status'], $results['coc_4_comments'], $results['coc_4_date'], $results['coc_4_time'], $results['coc_5_username'], $results['coc_5_status'], $results['coc_5_comments'], $results['coc_5_date'], $results['coc_5_time'], $results['coc_6_username'], $results['coc_6_status'], $results['coc_6_comments'], $results['coc_6_date'], $results['coc_6_time']);
+
+
+
+	$results = stmt_to_assoc_array($stmt);
+
+	$stmt->close();
+	return $results;
+
+
+}
+
+
+function get_num_users($db){
+  $query = "call getNumUsers()";
+  $stmt = build_query($db, $query, array());
+  $stmt->bind_result($results);
+
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results[0]['count'];
+
+}
+
+function get_num_mids($db){
+  $query = "call getNumMids()";
+  $stmt = build_query($db, $query, array());
+  $stmt->bind_result($results);
+
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results[0]['count'];
+
+}
+
+
+function get_num_companies($db){
+  $query = "call getNumCompanies()";
+  $stmt = build_query($db, $query, array());
+  $stmt->bind_result($results);
+
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results[0]['count'];
+
+}
+
+function get_num_total_chits($db){
+  $query = "call getNumTotalChits()";
+  $stmt = build_query($db, $query, array());
+  $stmt->bind_result($results);
+
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results[0]['count'];
+
+}
+
+function get_num_active_chits($db){
+  $query = "call getNumActiveChits()";
+  $stmt = build_query($db, $query, array());
+  $stmt->bind_result($results);
+
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results[0]['count'];
+
+}
+
+function get_num_bigOs($db){
+  $query = "call getNumBigOs()";
+  $stmt = build_query($db, $query, array());
+  $stmt->bind_result($results);
+
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results[0]['count'];
+
+}
+
+function get_num_officers($db){
+  $query = "call getNumOfficers()";
+  $stmt = build_query($db, $query, array());
+  $stmt->bind_result($results);
+
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results[0]['count'];
+
+}
+
+function get_num_SELs($db){
+  $query = "call getNumSELs()";
+  $stmt = build_query($db, $query, array());
+  $stmt->bind_result($results);
+
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results[0]['count'];
+
+}
 
 
 

@@ -1,65 +1,49 @@
-<!DOCTYPE html>
+<?php
 
-<html>
-<head>
-  <meta charset="utf-8">
-  <link rel="icon" href="./imgs/icon.ico"/>
+  ###############################################################
+  #              Security and Navbar Configuration              #
+  ###############################################################
+  $MODULE_DEF = array('name'       => 'Profile',
+                      'version'    => 1.0,
+                      'display'    => 'Profile',
+                      'tab'        => 'user',
+                      'position'   => 0,
+                      'student'    => true,
+                      'instructor' => true,
+                      'guest'      => false,
+                      'access'     => array());
+  ###############################################################
 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>eChits</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="includes/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!-- <link type="text/css" rel="stylesheet" href="style.css" /> -->
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="includes/bootstrap/js/bootstrap.min.js"></script>
-  <!-- jQuery CDN -->
-  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-  <!-- Bootstrap Js CDN -->
-  <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+  # Load in Configuration Parameters
+  require_once("../etc/config.inc.php");
 
-  <script type="text/javascript">
-  function redirect(location){
-    window.location = location;
-  }
-  //
-  // function editinfo(){
-  //   var editdiv = document.getElementById("edit");
-  //   html = "<div class=\"row\"><div class=\"col-sm-10 well\"></div><div class=\"col-sm-2\"></div></div>";
-  //
-  //
-  //
-  //   editdiv.innerHTML = html;
-  // }
+  # Load in template, if not already loaded
+  require_once(LIBRARY_PATH.'template.php');
 
-  </script>
+  # Load in The NavBar
+  # Note: You too will have automated NavBar generation
+  #       support in your future templates...
+  require_once(WEB_PATH.'navbar.php');
 
-  <style type="text/css">
-  .btn-space {
-    margin-top: 5px;
-  }
-  </style>
+?>
+<script type="text/javascript">
+function redirect(location){
+	window.location = location;
+}
 
+</script>
 
-
-</head>
-<body>
-  <?php
-  session_start();
-  require_once('./includes/nav.inc.php');
-  require_once("./includes/nimitz.inc.php");
-  require_once("./includes/error.inc.php");
-  require_once("./includes/func.inc.php");
-  nav();
-  ?>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-      </div>
-    </div>
-
+<style type="text/css">
+.btn-space {
+	margin-top: 5px;
+}
+</style>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+		</div>
+	</div>
+	
     <?php
     // session_destroy();
     // $_POST = array();
@@ -93,7 +77,7 @@
     //edit basic info
     if(isset($_POST['changes']) && $_POST['changes'] == "Submit Changes" && isset($_POST['rank']) && !empty($_POST['rank']) && isset($_POST['firstname']) && !empty($_POST['firstname']) && isset($_POST['lastname']) && !empty($_POST['lastname']) && isset($_POST['billet']) && !empty($_POST['billet'])){
 
-      update_basic_leader_info($_SESSION['username'], $_POST['rank'], $_POST['firstname'], $_POST['lastname'], $_POST['billet']);
+      update_basic_leader_info($db, $_SESSION['username'], $_POST['rank'], $_POST['firstname'], $_POST['lastname'], $_POST['billet']);
 
 
 
@@ -102,7 +86,7 @@
     if(isset($_POST['changepass']) && isset($_POST['oldpassword']) && isset($_POST['password1']) && isset($_POST['password2'])){
 
       //check if valid oldpasssword
-      $login = get_login_info($_SESSION['username']);
+      $login = get_login_info($db, $_SESSION['username']);
       $pass = $_POST['oldpassword'];
       $salt = $login[0];
       $hash = $login[1];

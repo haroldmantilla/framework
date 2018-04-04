@@ -8,8 +8,8 @@
                       'display'    => '',
                       'tab'        => 'user',
                       'position'   => 11,
-                      'student'    => true,
-                      'instructor' => true,
+                      'student'    => false,
+                      'instructor' => false,
                       'guest'      => false,
                       'access'     => array());
   ###############################################################

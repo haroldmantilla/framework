@@ -7,7 +7,7 @@ $MODULE_DEF = array('name'       => 'Query',
 'student'    => true,
 'instructor' => true,
 'guest'      => false,
-'access'     => array('admin'=>'db'));
+'access'     => array('admin'=>'db', 'admin'=>'developer'));
 
 
 	# Load in Configuration Parameters
