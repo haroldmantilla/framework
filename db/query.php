@@ -92,11 +92,14 @@ require_once(WEB_PATH.'navbar.php');
 			url: "query.php",
 			data: $("#form").serialize(),
 			success: function(result) {
+				
+				$("#error").html("");
 				$("#success").html(result);
 				// console.log(result);
 			},
 			error: function(result) {
-				$("#error").html(result);
+				$("#success").html("");
+				$("#error").html(result.responseText);
 			}
 			
 		} );
@@ -108,7 +111,6 @@ require_once(WEB_PATH.'navbar.php');
 	<script type="text/javascript">
 	$( document ).ajaxComplete(function() {
 
-				
 		$('#results').DataTable( {
 			"lengthMenu": [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]],
 			"pageLength": 10,
