@@ -3,9 +3,9 @@
   ###############################################################
   #              Security and Navbar Configuration              #
   ###############################################################
-  $MODULE_DEF = array('name'       => 'Profile',
+  $MODULE_DEF = array('name'       => 'My Profile',
                       'version'    => 1.0,
-                      'display'    => 'Profile',
+                      'display'    => 'My Profile',
                       'tab'        => 'user',
                       'position'   => 0,
                       'student'    => true,
@@ -38,251 +38,132 @@ function redirect(location){
 	margin-top: 5px;
 }
 </style>
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 		</div>
 	</div>
-	
-    <?php
-    // session_destroy();
-    // $_POST = array();
-    // $_REQUEST = array();
-    // die;
-    $debug = false;
-    // $debug = true;
-
-    unset($_SESSION['error']);
-    unset($_SESSION['success']);
-
-
-    if (!isset($_SESSION['username'])) {
-      header("Location: ./login.php");
-
+  
+  <?php
+  $debug = false;
+  // $debug = true;
+  
+  //edit basic info
+  if(isset($_POST['changes']) && $_POST['changes'] == "Submit Changes" && isset($_POST['rank']) && !empty($_POST['rank']) && isset($_POST['firstname']) && !empty($_POST['firstname']) && isset($_POST['lastname']) && !empty($_POST['lastname']) && isset($_POST['billet']) && !empty($_POST['billet'])){
+    
+    update_basic_leader_info($db, USER['user'], $_POST['rank'], $_POST['firstname'], $_POST['lastname'], $_POST['billet']);
+    
+    
+    
+  }
+  
+  $userinfo = get_user_information($db, USER['user']);
+  
+  // echo "<pre>";
+  // print_r($userinfo);
+  // echo "</pre>";
+  
+  if(isset($_POST['editbasic'])){
+    echo "<div class=\"row\">";
+    echo "<div class=\"col-sm-10\">";
+    echo "<div class=\"well\">";
+    echo "<form action=\"?\" method=\"post\">";
+    
+    if($userinfo['level'] == "MID"){
+      echo "<select class='form-control' name='rank' id='rank' required>";
+      echo "
+      <option value='MIDN 4/C'"; if($userinfo['rank'] == "MIDN 4/C"){echo "selected";} echo ">MIDN 4/C</option>
+      <option value='MIDN 3/C'"; if($userinfo['rank'] == "MIDN 3/C"){echo "selected";} echo ">MIDN 3/C</option>
+      <option value='MIDN 2/C'"; if($userinfo['rank'] == "MIDN 2/C"){echo "selected";} echo ">MIDN 2/C</option>
+      <option value='MIDN 1/C'"; if($userinfo['rank'] == "MIDN 1/C"){echo "selected";} echo ">MIDN 1/C</option>
+      <option value='MIDN ENS'"; if($userinfo['rank'] == "MIDN ENS"){echo "selected";} echo ">MIDN ENS</option>
+      <option value='MIDN LTJG'"; if($userinfo['rank'] == "MIDN LTJG"){echo "selected";} echo ">MIDN LTJG</option>
+      <option value='MIDN LT'"; if($userinfo['rank'] == "MIDN LT"){echo "selected";} echo ">MIDN LT</option>
+      <option value='MIDN LCDR'"; if($userinfo['rank'] == "MIDN LCDR"){echo "selected";} echo ">MIDN LCDR</option>
+      <option value='MIDN CDR'"; if($userinfo['rank'] == "MIDN CDR"){echo "selected";} echo ">MIDN CDR</option>
+      <option value='MIDN CAPT'"; if($userinfo['rank'] == "MIDN CAPT"){echo "selected";} echo ">MIDN CAPT</option>
+      ";
+      echo "</select>";
     }
-
-    if($debug){
-      echo "<pre>";
-      print_r($_SESSION);
-      echo "</pre>";
+    elseif($userinfo['level'] == "Officer" && $userinfo['service'] == "USN" ){
+      echo "<select class='form-control' name='rank' id='rank' required>";
+      echo "
+      <option value='LT'"; if($userinfo['rank'] == "LT"){echo "selected";} echo ">LT</option>
+      <option value='LCDR'"; if($userinfo['rank'] == "LCDR"){echo "selected";} echo ">LCDR</option>
+      <option value='CDR'"; if($userinfo['rank'] == "CDR"){echo "selected";} echo ">CDR</option>
+      <option value='CAPT'"; if($userinfo['rank'] == "CAPT"){echo "selected";} echo ">CAPT</option>
+      ";
+      echo "</select>";
     }
-
-    if($debug){
-      echo "<pre>";
-      print_r($_POST);
-      echo "</pre>";
+    elseif($userinfo['level'] == "Officer" && $userinfo['service'] == "USMC" ){
+      echo "<select class='form-control' name='rank' id='rank' required>";
+      echo "
+      <option value='Capt'"; if($userinfo['rank'] == "Capt"){echo "selected";} echo ">Capt</option>
+      <option value='Maj'"; if($userinfo['rank'] == "Maj"){echo "selected";} echo ">Maj</option>
+      <option value='LtCol'"; if($userinfo['rank'] == "LtCol"){echo "selected";} echo ">LtCol</option>
+      <option value='Col'"; if($userinfo['rank'] == "Col"){echo "selected";} echo ">Col</option>
+      ";
+      echo "</select>";
     }
-
-
-    //edit basic info
-    if(isset($_POST['changes']) && $_POST['changes'] == "Submit Changes" && isset($_POST['rank']) && !empty($_POST['rank']) && isset($_POST['firstname']) && !empty($_POST['firstname']) && isset($_POST['lastname']) && !empty($_POST['lastname']) && isset($_POST['billet']) && !empty($_POST['billet'])){
-
-      update_basic_leader_info($db, $_SESSION['username'], $_POST['rank'], $_POST['firstname'], $_POST['lastname'], $_POST['billet']);
-
-
-
+    elseif($userinfo['level'] == "SEL" && $userinfo['service'] == "USN" ){
+      echo "<select class='form-control' name='rank' id='rank' required>";
+      echo "<option value='ATCS'"; if($userinfo['rank'] == "ATCS"){echo "selected";} echo ">ATCS</option><option value='FCCS'"; if($userinfo['rank'] == "FCCS"){echo "selected";} echo ">FCCS</option><option value='YNCS'"; if($userinfo['rank'] == "YNCS"){echo "selected";} echo ">YNCS</option>";
+      echo "</select>";
     }
-
-    if(isset($_POST['changepass']) && isset($_POST['oldpassword']) && isset($_POST['password1']) && isset($_POST['password2'])){
-
-      //check if valid oldpasssword
-      $login = get_login_info($db, $_SESSION['username']);
-      $pass = $_POST['oldpassword'];
-      $salt = $login[0];
-      $hash = $login[1];
-      $concat = $pass . $salt;
-      $md5 = md5($pass . $salt);
-
-      if(md5($concat) != $hash){
-        $_SESSION['error'] = "Old password is not valid!";
-        $_POST['changepassword'] = "Change Password";
-      }
-
-      //check if passwords match
-      if(empty($_SESSION['error']) && $_POST['password1'] != $_POST['password2']){
-        $_SESSION['error'] = "New passwords do not match!";
-        $_POST['changepassword'] = "Change Password";
-      }
-
-      //check if old password is new password
-      if(empty($_SESSION['error']) && $_POST['oldpassword'] == $_POST['password1']){
-        $_SESSION['error'] = "New password cannot be match oldpassword!";
-        $_POST['changepassword'] = "Change Password";
-      }
-
-      //check if new password is at least 4 characters
-      if(empty($_SESSION['error']) && strlen($_POST['password1']) < 4){
-        $_SESSION['error'] = "New password is too short!";
-        $_POST['changepassword'] = "Change Password";
-      }
-
-      unset($_POST['oldpassword']);
-      unset($_POST['password2']);
-      unset($pass);
-
-      if(!isset($_SESSION['error'])){
-
-        //make change
-        $salt = generateRandomString();
-        $hash = md5($_POST['password1'] . $salt );
-        change_password($_SESSION['username'], $salt, $hash);
-
-        //verify change
-        $login = get_login_info($_SESSION['username']);
-        $pass = $_POST['password1'];
-        $salt = $login[0];
-        $hash = $login[1];
-        $concat = $pass . $salt;
-        $md5 = md5($pass . $salt);
-
-        if(md5($concat) != $hash){
-          $_SESSION['error'] = "Error writing to database!";
-          $_POST['changepassword'] = "Change Password";
-        }
-        else{
-          $_SESSION['success'] = "Password changed!";
-        }
-
-
-      }
+    elseif($userinfo['level'] == "SEL" && $userinfo['service'] == "USMC" ){
+      echo "<select class='form-control' name='rank' id='rank' required>";
+      echo "
+      <option value='SSgt'"; if($userinfo['rank'] == "SSgt"){echo "selected";} echo ">SSgt</option>
+      <option value='GySgt'"; if($userinfo['rank'] == "GySgt"){echo "selected";} echo ">GySgt</option>
+      ";
+      echo "</select>";
     }
-
-    $userinfo = get_user_information($_SESSION['username']);
-
-
-    //
-    // if($debug){
-    //   echo "<pre>";
-    //   print_r($userinfo);
-    //   echo "</pre>";
-    // }
-    if(isset($_POST['changepassword'])){
-      echo "<div class=\"row\">";
-      echo "<div class=\"col-sm-10\">";
-      echo "<div class=\"well\">";
-      echo "<form action=\"?\" method=\"post\">";
-      echo "<input type=\"password\" class=\"form-control\" name=\"oldpassword\" maxlength=\"32\" placeholder=\"Old Password\" required>";
-      echo "<input type=\"password\" class=\"form-control\" name=\"password1\" maxlength=\"32\" placeholder=\"New Password\" required>";
-      echo "<input type=\"password\" class=\"form-control\" name=\"password2\" maxlength=\"32\" placeholder=\"Confirm New Password\" required>";
-      echo "</div>";
-      echo "</div>";
-
-      echo "<div class=\"col-sm-2 btn-toolbar text-center\">";
-      echo "<input type=\"submit\" class=\"btn btn-default \" name=\"changepass\" value=\"Change Password\">";
-      echo "<button class=\"btn btn-danger btn-space\" onclick=\"redirect('./profile.php')\">Cancel</button>";
-      echo "</form>";
-      echo "</div>";
-      echo "</div>";
-
-      if(isset($_SESSION['error'])) {
-        echo "<div class=\"alert alert-danger\">".$_SESSION['error']."</div>";
-        unset($_SESSION['error']);
-      }
-
-
+    
+    
+    echo "<input type=\"text\" class=\"form-control\" name=\"firstname\" maxlength=\"20\" value=\"{$userinfo['firstName']}\" placeholder=\"First Name\"required>";
+    
+    echo "<input type=\"text\" class=\"form-control\" name=\"lastname\" maxlength=\"20\" value=\"{$userinfo['lastName']}\" placeholder=\"Last Name\"required>";
+    
+    echo "<input type=\"text\" class=\"form-control\" name=\"billet\" maxlength=\"40\" value=\"{$userinfo['billet']}\" placeholder=\"Billet\" required>";
+    
+    echo "</div>";
+    echo "</div>";
+    
+    echo "<div class=\"col-sm-2 btn-toolbar text-center\">";
+    
+    echo "<input type=\"submit\" class=\"btn btn-default \" name=\"changes\" value=\"Submit Changes\">";
+    echo "<button class=\"btn btn-danger btn-space\" onclick=\"redirect('./profile.php')\">Cancel</button>";
+    echo "</form>";
+    echo "</div>";
+    echo "</div>";
+    
+  }
+  else{
+    echo "<div class=\"row\">";
+    echo "<div class=\"col-sm-10\">";
+    echo "<div class=\"well\">";
+    echo "<h5>{$userinfo['rank']} {$userinfo['firstName']} {$userinfo['lastName']}, {$userinfo['service']}</h5>";
+    echo "<h5>{$userinfo['billet']}</h5>";
+    
+    echo "</div>";
+    echo "</div>";
+    
+    echo "<div class=\"col-sm-2\">";
+    echo "<form action=\"?\" method=\"post\">";
+    echo "<input type=\"submit\" class=\"btn btn-secondary\" name=\"editbasic\" value=\"Edit Basic Information\">";
+    echo "</form>";
+    echo "</div>";
+    echo "</div>";
+    if(isset($_SESSION['success'])) {
+      echo "<div class=\"alert alert-success\">".$_SESSION['success']."</div>";
+      unset($_SESSION['success']);
     }
-    elseif(isset($_POST['editbasic'])){
-      echo "<div class=\"row\">";
-      echo "<div class=\"col-sm-10\">";
-      echo "<div class=\"well\">";
-      echo "<form action=\"?\" method=\"post\">";
-
-      if($_SESSION['level'] == "MID"){
-        echo "<select class='form-control' name='rank' id='rank' required>";
-        echo "
-        <option value='MIDN 4/C'"; if($userinfo['rank'] == "MIDN 4/C"){echo "selected";} echo ">MIDN 4/C</option>
-        <option value='MIDN 3/C'"; if($userinfo['rank'] == "MIDN 3/C"){echo "selected";} echo ">MIDN 3/C</option>
-        <option value='MIDN 2/C'"; if($userinfo['rank'] == "MIDN 2/C"){echo "selected";} echo ">MIDN 2/C</option>
-        <option value='MIDN 1/C'"; if($userinfo['rank'] == "MIDN 1/C"){echo "selected";} echo ">MIDN 1/C</option>
-        <option value='MIDN ENS'"; if($userinfo['rank'] == "MIDN ENS"){echo "selected";} echo ">MIDN ENS</option>
-        <option value='MIDN LTJG'"; if($userinfo['rank'] == "MIDN LTJG"){echo "selected";} echo ">MIDN LTJG</option>
-        <option value='MIDN LT'"; if($userinfo['rank'] == "MIDN LT"){echo "selected";} echo ">MIDN LT</option>
-        <option value='MIDN LCDR'"; if($userinfo['rank'] == "MIDN LCDR"){echo "selected";} echo ">MIDN LCDR</option>
-        <option value='MIDN CDR'"; if($userinfo['rank'] == "MIDN CDR"){echo "selected";} echo ">MIDN CDR</option>
-        <option value='MIDN CAPT'"; if($userinfo['rank'] == "MIDN CAPT"){echo "selected";} echo ">MIDN CAPT</option>
-        ";
-        echo "</select>";
-      }
-      elseif($_SESSION['level'] == "Officer" && $userinfo['service'] == "USN" ){
-        echo "<select class='form-control' name='rank' id='rank' required>";
-        echo "
-        <option value='LT'"; if($userinfo['rank'] == "LT"){echo "selected";} echo ">LT</option>
-        <option value='LCDR'"; if($userinfo['rank'] == "LCDR"){echo "selected";} echo ">LCDR</option>
-        <option value='CDR'"; if($userinfo['rank'] == "CDR"){echo "selected";} echo ">CDR</option>
-        <option value='CAPT'"; if($userinfo['rank'] == "CAPT"){echo "selected";} echo ">CAPT</option>
-        ";
-        echo "</select>";
-      }
-      elseif($_SESSION['level'] == "Officer" && $userinfo['service'] == "USMC" ){
-        echo "<select class='form-control' name='rank' id='rank' required>";
-        echo "
-        <option value='Capt'"; if($userinfo['rank'] == "Capt"){echo "selected";} echo ">Capt</option>
-        <option value='Maj'"; if($userinfo['rank'] == "Maj"){echo "selected";} echo ">Maj</option>
-        <option value='LtCol'"; if($userinfo['rank'] == "LtCol"){echo "selected";} echo ">LtCol</option>
-        <option value='Col'"; if($userinfo['rank'] == "Col"){echo "selected";} echo ">Col</option>
-        ";
-        echo "</select>";
-      }
-      elseif($_SESSION['level'] == "SEL" && $userinfo['service'] == "USN" ){
-        echo "<select class='form-control' name='rank' id='rank' required>";
-        echo "<option value='ATCS'"; if($userinfo['rank'] == "ATCS"){echo "selected";} echo ">ATCS</option><option value='FCCS'"; if($userinfo['rank'] == "FCCS"){echo "selected";} echo ">FCCS</option><option value='YNCS'"; if($userinfo['rank'] == "YNCS"){echo "selected";} echo ">YNCS</option>";
-        echo "</select>";
-      }
-      elseif($_SESSION['level'] == "SEL" && $userinfo['service'] == "USMC" ){
-        echo "<select class='form-control' name='rank' id='rank' required>";
-        echo "
-        <option value='SSgt'"; if($userinfo['rank'] == "SSgt"){echo "selected";} echo ">SSgt</option>
-        <option value='GySgt'"; if($userinfo['rank'] == "GySgt"){echo "selected";} echo ">GySgt</option>
-        ";
-        echo "</select>";
-      }
-
-
-      echo "<input type=\"text\" class=\"form-control\" name=\"firstname\" maxlength=\"20\" value=\"{$userinfo['firstName']}\" placeholder=\"First Name\"required>";
-
-      echo "<input type=\"text\" class=\"form-control\" name=\"lastname\" maxlength=\"20\" value=\"{$userinfo['lastName']}\" placeholder=\"Last Name\"required>";
-
-      echo "<input type=\"text\" class=\"form-control\" name=\"billet\" maxlength=\"40\" value=\"{$userinfo['billet']}\" placeholder=\"Billet\" required>";
-
-      echo "</div>";
-      echo "</div>";
-
-      echo "<div class=\"col-sm-2 btn-toolbar text-center\">";
-
-      echo "<input type=\"submit\" class=\"btn btn-default \" name=\"changes\" value=\"Submit Changes\">";
-      echo "<button class=\"btn btn-danger btn-space\" onclick=\"redirect('./profile.php')\">Cancel</button>";
-      echo "</form>";
-      echo "</div>";
-      echo "</div>";
-
-    }
-    else{
-      echo "<div class=\"row\">";
-      echo "<div class=\"col-sm-10\">";
-      echo "<div class=\"well\">";
-      echo "<h5>{$userinfo['rank']} {$userinfo['firstName']} {$userinfo['lastName']}, {$userinfo['service']}</h5>";
-      echo "<h5>{$userinfo['billet']}</h5>";
-
-      echo "</div>";
-      echo "</div>";
-
-      echo "<div class=\"col-sm-2\">";
-      echo "<form action=\"?\" method=\"post\">";
-      echo "<input type=\"submit\" class=\"btn btn-secondary\" name=\"editbasic\" value=\"Edit Basic Information\">";
-      echo "<input type=\"submit\" class=\"btn btn-secondary btn-space \" name=\"changepassword\" value=\"Change Password\">";
-      echo "</form>";
-      echo "</div>";
-      echo "</div>";
-      if(isset($_SESSION['success'])) {
-        echo "<div class=\"alert alert-success\">".$_SESSION['success']."</div>";
-        unset($_SESSION['success']);
-      }
-
-      if($_SESSION['level'] != "MID"){
-
-
-      $subordinates = get_subordinates($_SESSION['username']);
-
+    
+    
+    if($userinfo['level'] != "MID"){
+      $subordinates = get_subordinates(USER['user']);
+      
       if(isset($subordinates) && !empty($subordinates)){
         echo "<div class=\"row\">";
         echo "<div class=\"col-sm-10\">";
@@ -335,17 +216,13 @@ function redirect(location){
 
 
 
-    if($_SESSION['level'] == "MID"){
+    if($userinfo['level'] == "MID"){
 
-      $is_midshipman = in_midshipman_table($_SESSION['username']);
+      $is_midshipman = in_midshipman_table($db, USER['user']);
 
-      $midshipmaninfo = get_midshipman_information($_SESSION['username']);
+      $midshipmaninfo = get_midshipman_information($db, USER['user']);
 
       if(isset($_POST['changemidshipmaninfo']) && $_POST['changemidshipmaninfo'] == "Submit Changes" && isset($_POST['company']) &&  isset($_POST['year']) &&  isset($_POST['room']) &&  isset($_POST['phonenumber']) &&  isset($_POST['SQPR']) &&  isset($_POST['CQPR']) &&  isset($_POST['aptitudegrade']) &&  isset($_POST['conductgrade']) ){
-
-        if($_SESSION['accesslevel'] == "safety" || $_SESSION['accesslevel'] == "MISLO"){
-          $_POST['company'] = $midshipmaninfo['company'];
-        }
 
         if(!isset($_POST['coc_0'])){
           $_POST['coc_0'] = null;
@@ -357,7 +234,7 @@ function redirect(location){
           $_POST['coc_6'] = null;
         }
 
-        if(in_array($_SESSION['username'], array($_POST['coc_0'], $_POST['coc_1'], $_POST['coc_2'], $_POST['coc_3'], $_POST['coc_4'], $_POST['coc_5'], $_POST['coc_6']))){
+        if(in_array(USER['user'], array($_POST['coc_0'], $_POST['coc_1'], $_POST['coc_2'], $_POST['coc_3'], $_POST['coc_4'], $_POST['coc_5'], $_POST['coc_6']))){
           $_SESSION['error'] = "You cannot be in your own Chain of Command!";
           $_POST['editmidshipmaninfo'] = "Submit Changes";
         }
@@ -367,11 +244,11 @@ function redirect(location){
         }
         else{
           if($is_midshipman){
-            update_midshipman($_SESSION['username'],$_POST['company'], $_POST['year'], $_POST['room'], $_POST['phonenumber'], $_POST['SQPR'], $_POST['CQPR'], $_POST['aptitudegrade'], $_POST['conductgrade'], $_POST['coc_0'], $_POST['coc_1'], $_POST['coc_2'], $_POST['coc_3'], $_POST['coc_4'], $_POST['coc_5'], $_POST['coc_6']);
+            update_midshipman($db, USER['user'],$_POST['company'], $_POST['year'], $_POST['room'], $_POST['SQPR'], $_POST['CQPR'], $_POST['phonenumber'], $_POST['aptitudegrade'], $_POST['conductgrade'], $_POST['coc_0'], $_POST['coc_1'], $_POST['coc_2'], $_POST['coc_3'], $_POST['coc_4'], $_POST['coc_5'], $_POST['coc_6']);
             unset($_POST['changemidshipmaninfo']);
           }
           else{
-            create_midshipman($_SESSION['username'],$_POST['company'], $_POST['year'], $_POST['room'], $_POST['phonenumber'], $_POST['SQPR'], $_POST['CQPR'], $_POST['aptitudegrade'], $_POST['conductgrade'], $_POST['coc_0'], $_POST['coc_1'], $_POST['coc_2'], $_POST['coc_3'], $_POST['coc_4'], $_POST['coc_5'], $_POST['coc_6']);
+            create_midshipman($db, USER['user'],$_POST['company'], $_POST['year'], $_POST['room'], $_POST['phonenumber'], $_POST['SQPR'], $_POST['CQPR'], $_POST['aptitudegrade'], $_POST['conductgrade'], $_POST['coc_0'], $_POST['coc_1'], $_POST['coc_2'], $_POST['coc_3'], $_POST['coc_4'], $_POST['coc_5'], $_POST['coc_6']);
             unset($_POST['changemidshipmaninfo']);
           }
         }
@@ -476,8 +353,6 @@ function redirect(location){
         }
         else{
 
-
-
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-12 text-center\">";
           echo "<br><br><br><p><u>Chain of Command</u></p>";
@@ -485,11 +360,10 @@ function redirect(location){
           echo "</div>"; //closes row
 
 
-
-          $coc_options_midn = get_potential_coc_midn($midshipmaninfo['company']);
-
-          $coc_options_officers = get_potential_coc_officers();
-          $coc_options_SELs = get_potential_coc_SELs();
+          $coc_options_midn = get_potential_coc_midn($db, $midshipmaninfo['company']);
+          
+          $coc_options_officers = get_potential_coc_officers($db);
+          $coc_options_SELs = get_potential_coc_SELs($db);
 
           // echo "<pre>";
           // print_r($coc_options_midn);
@@ -684,7 +558,7 @@ function redirect(location){
       //else profile filled out, display
       else{
 
-          $midshipmaninfo = get_midshipman_information($_SESSION['username']);
+          $midshipmaninfo = get_midshipman_information($db, USER['user']);
 
         echo "<div class=\"row\">";
         echo "<div class=\"col-sm-10\">";
@@ -733,7 +607,7 @@ function redirect(location){
         }
 
         if(isset($midshipmaninfo['coc_0']) && !empty($midshipmaninfo['coc_0'])){
-          $coc_0_info = get_user_information($midshipmaninfo['coc_0']);
+          $coc_0_info = get_user_information($db, $midshipmaninfo['coc_0']);
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
           echo "<p></p>";
@@ -755,7 +629,7 @@ function redirect(location){
 
 
         if(isset($midshipmaninfo['coc_1']) && !empty($midshipmaninfo['coc_1'])){
-          $coc_1_info = get_user_information($midshipmaninfo['coc_1']);
+          $coc_1_info = get_user_information($db, $midshipmaninfo['coc_1']);
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
           echo "<p></p>";
@@ -776,7 +650,7 @@ function redirect(location){
         }
 
         if(isset($midshipmaninfo['coc_2']) && !empty($midshipmaninfo['coc_2'])){
-          $coc_2_info = get_user_information($midshipmaninfo['coc_2']);
+          $coc_2_info = get_user_information($db, $midshipmaninfo['coc_2']);
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
           echo "<p></p>";
@@ -796,7 +670,7 @@ function redirect(location){
           echo "</div>"; //closes row
         }
         if(isset($midshipmaninfo['coc_3']) && !empty($midshipmaninfo['coc_3'])){
-          $coc_3_info = get_user_information($midshipmaninfo['coc_3']);
+          $coc_3_info = get_user_information($db, $midshipmaninfo['coc_3']);
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
           echo "<p></p>";
@@ -816,7 +690,7 @@ function redirect(location){
           echo "</div>"; //closes row
         }
         if(isset($midshipmaninfo['coc_4']) && !empty($midshipmaninfo['coc_4'])){
-          $coc_4_info = get_user_information($midshipmaninfo['coc_4']);
+          $coc_4_info = get_user_information($db, $midshipmaninfo['coc_4']);
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
           echo "<p></p>";
@@ -836,7 +710,7 @@ function redirect(location){
           echo "</div>"; //closes row
         }
         if(isset($midshipmaninfo['coc_5']) && !empty($midshipmaninfo['coc_5'])){
-          $coc_5_info = get_user_information($midshipmaninfo['coc_5']);
+          $coc_5_info = get_user_information($db, $midshipmaninfo['coc_5']);
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
           echo "<p></p>";
@@ -856,7 +730,7 @@ function redirect(location){
           echo "</div>"; //closes row
         }
         if(isset($midshipmaninfo['coc_6']) && !empty($midshipmaninfo['coc_6'])){
-          $coc_6_info = get_user_information($midshipmaninfo['coc_6']);
+          $coc_6_info = get_user_information($db, $midshipmaninfo['coc_6']);
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
           echo "<p></p>";
@@ -899,8 +773,8 @@ function redirect(location){
           unset($_SESSION['success']);
         }
 
-        $subordinates = get_subordinates($_SESSION['username']);
-
+        $subordinates = get_subordinates($db, USER['user']);
+        
         if(isset($subordinates) && !empty($subordinates)){
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-10\">";
@@ -949,7 +823,6 @@ function redirect(location){
         }
 
       }
-
 
     }
 

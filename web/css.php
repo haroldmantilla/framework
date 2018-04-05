@@ -11,7 +11,7 @@
          any other head content must come *after* these tags -->
 
     <!-- Icon to use in the browser tab -->
-    <link rel="icon" href="<?php echo WEB_PATH; ?>images/web-icon.png">
+    <link rel="icon" href="<?php echo WEB_PATH; ?>images/icon.ico">
 
     <!-- Provide the page title -->
     <title><?php echo $PAGE_TITLE; ?></title>

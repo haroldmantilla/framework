@@ -21,17 +21,12 @@
   require_once(LIBRARY_PATH.'template.php');
 
   require_once(WEB_PATH.'navbar.php');
-  //
-  // echo "<pre>";
-  // print_r(USER);
-  // echo "</pre>";
-
-
-  $num_users = get_num_users($db); 
+  
   echo "<pre>";
-
-  print_r($num_users);
-  // echo "$result";
+  print_r(USER);
   echo "</pre>";
 
+
+  $results = query($db, "show tabdles;");
+  
 ?>

@@ -108,15 +108,15 @@ CREATE PROCEDURE updateLeader (
 	p_firstName VARCHAR(20),
 	p_lastName VARCHAR(20),
 	p_billet VARCHAR(40),
-    p_rank VARCHAR(9)
+	p_rank VARCHAR(9)
 )
 BEGIN
-	UPDATE Leader
-    SET firstName = p_firstName,
-		lastName = p_lastName,
-		billet = p_billet,
-        rank = p_rank
-	WHERE username = p_username;
+UPDATE Leader
+SET firstName = p_firstName,
+lastName = p_lastName,
+billet = p_billet,
+rank = p_rank
+WHERE username = p_username;
 END $$
 
 

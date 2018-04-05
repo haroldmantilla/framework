@@ -13,7 +13,7 @@
   ################################################################
   # Define the High Level definitions for this project
   ################################################################
-  define('PAGE_TITLE',       'Lab 101');
+  define('PAGE_TITLE',       'eChits');
   define('NAVBAR_TITLE',     '');
   define('NAVBAR_TITLE_URL', '#');
 

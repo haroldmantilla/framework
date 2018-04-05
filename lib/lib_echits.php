@@ -98,14 +98,14 @@ function get_user_information($db, $username){
   $results = stmt_to_assoc_array($stmt);
 
   $stmt->close();
-  return $results;
+  return $results[0];
 }
 
 // TESTME
 function update_basic_leader_info($db, $username, $rank, $first, $last, $billet){
 
   $query = "call updateLeader(?,?,?,?,?)";
-  $stmt = build_query($db, $query, array($username, $rank, $first, $last, $billet));
+  $stmt = build_query($db, $query, array($username, $first, $last, $billet, $rank));
 
   $stmt->close();
 
@@ -120,7 +120,7 @@ function get_midshipman_information($db, $username){
   $results = stmt_to_assoc_array($stmt);
 
   $stmt->close();
-  return $results;
+  return $results[0];
 }
 
 function get_chit_information($db, $number){
@@ -174,38 +174,176 @@ function in_midshipman_table($db, $username){
 }
 
 // TESTME
-function update_midshipman($db, $username, $company, $year, $room, $phone, $SQPR, $CQPR, $aptitude, $conduct, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6){
-  $query = "call updateMidshipman(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  $stmt = build_query($db, $query, array($username, $company, $year, $room, $phone, $SQPR, $CQPR, $aptitude, $conduct, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6));
+function update_midshipman($db, $username, $company, $year, $room, $SQPR, $CQPR, $phone, $aptitude, $conduct, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6){
+  
+  $username = "'".$username."'";
+  $company = "'".$company."'";
+  $year = "'".$year."'";
+  $room = "'".$room."'";
+  $phone = "'".$phone."'";
+  $SQPR = "'".$SQPR."'";
+  $CQPR = "'".$CQPR."'";
+  $aptitude = "'".$aptitude."'";
+  $conduct = "'".$conduct."'";
+
+  
+  if(empty($coc_0)){
+    $coc_0 = "NULL";
+  }
+  else{
+    $coc_0 = "'".$coc_0."'";
+  }
+  
+  if(empty($coc_1)){
+    $coc_1 = "NULL";
+  }
+  else{
+    $coc_1 = "'".$coc_1."'";
+  }
+  
+  if(empty($coc_2)){
+    $coc_2 = "NULL";
+  }
+  else{
+    $coc_2 = "'".$coc_2."'";
+  }
+  
+  if(empty($coc_3)){
+    $coc_3 = "NULL";
+  }
+  else{
+    $coc_3 = "'".$coc_3."'";
+  }
+  
+  if(empty($coc_4)){
+    $coc_4 = "NULL";
+  }
+  else{
+    $coc_4 = "'".$coc_4."'";
+  }
+  
+  if(empty($coc_5)){
+    $coc_5 = "NULL";
+  }
+  else{
+    $coc_5 = "'".$coc_5."'";
+  }
+  
+  if(empty($coc_6)){
+    $coc_6 = "NULL";
+  }
+  else{
+    $coc_6 = "'".$coc_6."'";
+  }
+  
+  $query = "call updateMidshipman(" .
+  $username . "," .
+  $company . "," .
+  $year . "," .
+  $room . "," .
+  $SQPR . "," .
+  $CQPR . "," .
+  $phone . "," .
+  $aptitude . "," .
+  $conduct . "," .
+  $coc_0 . "," .
+  $coc_1 . "," .
+  $coc_2 . "," .
+  $coc_3 . "," .
+  $coc_4 . "," .
+  $coc_5 . "," .
+  $coc_6 . ")";
+  
+  $stmt = build_query($db, $query, array());
 
 
-    $stmt->close();
+  $stmt->close();
 }
 
 // TESTME
 function create_midshipman($db, $username, $company, $year, $room, $phone, $SQPR, $CQPR, $aptitude, $conduct, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6){
-  $query = "call createMidshipman(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  $stmt = build_query($db, $query, array($username, $company, $year, $room, $phone, $SQPR, $CQPR, $aptitude, $conduct, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6));
+  $username = "'".$username."'";
+  $company = "'".$company."'";
+  $year = "'".$year."'";
+  $room = "'".$room."'";
+  $phone = "'".$phone."'";
+  $SQPR = "'".$SQPR."'";
+  $CQPR = "'".$CQPR."'";
+  $aptitude = "'".$aptitude."'";
+  $conduct = "'".$conduct."'";
 
-
-    $stmt->close();
-}
-
-function get_next_chit_number($db){
-  $query = "call lastChitNumber()";
+  
+  if(empty($coc_0)){
+    $coc_0 = "NULL";
+  }
+  else{
+    $coc_0 = "'".$coc_0."'";
+  }
+  
+  if(empty($coc_1)){
+    $coc_1 = "NULL";
+  }
+  else{
+    $coc_1 = "'".$coc_1."'";
+  }
+  
+  if(empty($coc_2)){
+    $coc_2 = "NULL";
+  }
+  else{
+    $coc_2 = "'".$coc_2."'";
+  }
+  
+  if(empty($coc_3)){
+    $coc_3 = "NULL";
+  }
+  else{
+    $coc_3 = "'".$coc_3."'";
+  }
+  
+  if(empty($coc_4)){
+    $coc_4 = "NULL";
+  }
+  else{
+    $coc_4 = "'".$coc_4."'";
+  }
+  
+  if(empty($coc_5)){
+    $coc_5 = "NULL";
+  }
+  else{
+    $coc_5 = "'".$coc_5."'";
+  }
+  
+  if(empty($coc_6)){
+    $coc_6 = "NULL";
+  }
+  else{
+    $coc_6 = "'".$coc_6."'";
+  }
+  
+  $query = "call createMidshipman(" .
+  $username . "," .
+  $company . "," .
+  $year . "," .
+  $room . "," .
+  $SQPR . "," .
+  $CQPR . "," .
+  $phone . "," .
+  $aptitude . "," .
+  $conduct . "," .
+  $coc_0 . "," .
+  $coc_1 . "," .
+  $coc_2 . "," .
+  $coc_3 . "," .
+  $coc_4 . "," .
+  $coc_5 . "," .
+  $coc_6 . ")";
+  
   $stmt = build_query($db, $query, array());
 
-  $stmt->bind_result($results);
-
-  $results = stmt_to_assoc_array($stmt);
-  foreach ($results as $key => $row) {
-    if (isset($row['chitNumber'])) {
-      return $row['chitNumber'] + 1;
-    }
-  }
 
   $stmt->close();
-  return -1;
 }
 
 function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, $requestType, $requestOther, $addr_careOf, $addr_street, $addr_city, $addr_state, $addr_zip, $remarks, $createDate, $startDate, $startTime, $endDate, $endTime, $orm, $supportingdocs, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6){
@@ -501,6 +639,20 @@ function get_num_SELs($db){
   return $results[0]['count'];
 
 }
+
+function get_subordinates($db, $username){
+  $query = "call getSubordinates(?)";
+  $stmt = build_query($db, $query, array($username));
+  $stmt->bind_result($results['username'], $results['firstName'], $results['lastName'], $results['billet'], $results['accesslevel'], $results['rank'], $results['service'], $results['level'],$results['alpha'],$results['company'],$results['classYear'],$results['room'],$results['SQPR'],$results['CQPR'],$results['phoneNumber'],$results['aptitudeGrade'],$results['conductGrade'], $results['coc_0'], $results['coc_1'], $results['coc_2'], $results['coc_3'], $results['coc_4'], $results['coc_5'], $results['coc_6']);
+
+
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results;
+
+}
+
 
 
 
