@@ -75,6 +75,7 @@
           'database' =>array('type'=>'dropdown', 'title'=>'Database',              'icon'=>'glyphicon-list',        'rtext'=>" Query Tools",    'caret'=>true),
           'tasks'    =>array('type'=>'dropdown', 'title'=>'Tasks',                 'icon'=>'glyphicon-cog',         'rtext'=>" Tasks",          'caret'=>true),
           'grades'   =>array('type'=>'dropdown', 'title'=>'Grades',                'icon'=>'glyphicon-signal',      'rtext'=>" Grades",         'caret'=>true),
+          'seperator'=>array(),
           'tools'    =>array('type'=>'dropdown', 'title'=>'System Tools',          'icon'=>'glyphicon-wrench',      'rtext'=>" Tools",          'caret'=>true),
           'admin'    =>array('type'=>'dropdown', 'title'=>'Administrative Tools',  'icon'=>'glyphicon-floppy-open', 'rtext'=>" Administration", 'caret'=>true),
           'debug'    =>array('type'=>'dropdown', 'title'=>'Project Debugging',     'icon'=>'glyphicon-send',        'rtext'=>" Debugging",      'caret'=>true)

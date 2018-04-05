@@ -643,20 +643,55 @@ function get_num_SELs($db){
 function get_subordinates($db, $username){
   $query = "call getSubordinates(?)";
   $stmt = build_query($db, $query, array($username));
-  $stmt->bind_result($results['username'], $results['firstName'], $results['lastName'], $results['billet'], $results['accesslevel'], $results['rank'], $results['service'], $results['level'],$results['alpha'],$results['company'],$results['classYear'],$results['room'],$results['SQPR'],$results['CQPR'],$results['phoneNumber'],$results['aptitudeGrade'],$results['conductGrade'], $results['coc_0'], $results['coc_1'], $results['coc_2'], $results['coc_3'], $results['coc_4'], $results['coc_5'], $results['coc_6']);
-
-
-  $results = stmt_to_assoc_array($stmt);
-
-  $stmt->close();
+  $row = bind_result_array($stmt);
+  $results = array();
+  $count = 0;
+  if(!$stmt->error)
+  {
+    while($stmt->fetch()){
+      $results[$count] = getCopy($row);
+      $count=$count+1;
+    }
+  }
   return $results;
 
 }
 
 
+function get_active_chits($db){
+  $query="call getActiveChits()";
+  $stmt = build_query($db, $query, array());
+  $row = bind_result_array($stmt);
+  $results = array();
+  $count = 0;
+  if(!$stmt->error)
+  {
+    while($stmt->fetch()){
+      $results[$count] = getCopy($row);
+      $count=$count+1;
+    }
+  }
+  return $results;
+}
 
 
-
+function get_archived_chits($db)
+{
+  
+    $query="call getArchivedChits()";
+    $stmt = build_query($db, $query, array());
+    $row = bind_result_array($stmt);
+    $results = array();
+    $count = 0;
+    if(!$stmt->error)
+    {
+      while($stmt->fetch()){
+        $results[$count] = getCopy($row);
+        $count=$count+1;
+      }
+    }
+    return $results;
+}
 
 
 

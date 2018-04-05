@@ -3,7 +3,7 @@
   ###############################################################
   #              Security and Navbar Configuration              #
   ###############################################################
-  $MODULE_DEF = array('name'       => 'Admininstrator Zone',
+  $MODULE_DEF = array('name'       => 'Statistics',
                       'version'    => 1.0,
                       'display'    => 'Admin',
                       'tab'        => 'user',
@@ -27,11 +27,6 @@
 
 ?>
 
-<script type="text/javascript">
-  function redirect(location){
-    window.location = location;
-  }
-</script>
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">

@@ -1,70 +1,43 @@
-<!DOCTYPE html>
 <?php
-session_start();
-  if(!isset($_SESSION['username'])){
-  //if username isn't set send them to a login page
-  header("Location: ./login.php");
-      }
- ?>
-<script type="text/javascript">
-  function redirect(location){
-    window.location = location;
-  }
-</script>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="icon" href="./imgs/icon.ico"/>
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>eChits</title>
-	  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="includes/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link type="text/css" rel="stylesheet" href="style.css" /> -->
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="includes/bootstrap/js/bootstrap.min.js"></script>
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <!-- Bootstrap Js CDN -->
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+  ###############################################################
+  #              Security and Navbar Configuration              #
+  ###############################################################
+  $MODULE_DEF = array('name'       => 'Manage Users',
+                      'version'    => 1.0,
+                      'display'    => 'Admin',
+                      'tab'        => 'user',
+                      'position'   => 1,
+                      'student'    => true,
+                      'instructor' => true,
+                      'guest'      => false,
+                      'access'     => array('admin'=>'site'));
+  ###############################################################
 
-  </head>
-  <body>
-    <?php
+  # Load in Configuration Parameters
+  require_once("../etc/config.inc.php");
 
-    require_once('./includes/func.inc.php');
-    require_once('./includes/nav.inc.php');
-    require_once("./includes/nimitz.inc.php");
-    require_once("./includes/error.inc.php");
+  # Load in template, if not already loaded
+  require_once(LIBRARY_PATH.'template.php');
 
-    nav();
-    ?>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-        </div>
-      </div>
+  # Load in The NavBar
+  # Note: You too will have automated NavBar generation
+  #       support in your future templates...
+  require_once(WEB_PATH.'navbar.php');
 
+?>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+    </div>
+  </div>
+  
 <?php
-// session_destroy();
-// $_POST = array();
-// $_REQUEST = array();
-// die;
 
 $debug = false;
 // $debug = true;
 
-
-if (!isset($_SESSION['username'])) {
-	header("Location: ./login.php");
-}
-
-if (!isset($_SESSION['accesslevel']) || ($_SESSION['accesslevel'] !== "admin" && $_SESSION['accesslevel'] !== "MISLO")) {
-	header("Location: ./login.php");
-}
 
 if (!isset($_SESSION['company'])) {
   $company = get_company_number($_SESSION['username']);
@@ -86,9 +59,7 @@ echo "<div class=\"col-md-1\">";
 echo "</div>";
 echo "<div class=\"col-md-1\">";
 
-if($_SESSION['accesslevel'] == "admin"){
-  echo "<button class=\"btn btn-primary\" onclick=\"location.href = './adminchits.php';\">View Chits</button>";
-}
+echo "<button class=\"btn btn-primary\" onclick=\"location.href = './adminchits.php';\">View Chits</button>";
 
 echo "</div>";
 echo "<div class=\"col-md-6 \">";
