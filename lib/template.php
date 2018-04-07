@@ -48,7 +48,9 @@
 
   // Plus whatever other libraries you may need.
   require_once('lib_db.php');
-  
-  
+
+
+  require_once('lib_tables.php');
+
   require_once('lib_echits.php');
 ?>

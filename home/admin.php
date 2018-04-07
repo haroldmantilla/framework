@@ -34,16 +34,16 @@
   </div>
 
 <div class="row">
-  <div class="col-md-2">
+  <div class="col-sm-2">
   </div>
-  <div class="col-md-4 text-center">
+  <div class="col-sm-4 text-center">
     <button class="btn btn-primary" onclick="location.href = './adminchits.php';">View Chits</button>
   </div>
 
-  <div class="col-md-4 text-center">
+  <div class="col-sm-4 text-center">
     <button class="btn btn-primary" onclick="location.href = './adminusers.php';">View Users</button>
   </div>
-  <div class="col-md-2">
+  <div class="col-sm-2">
   </div>
 </div>
 

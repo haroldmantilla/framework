@@ -175,7 +175,7 @@ function in_midshipman_table($db, $username){
 
 // TESTME
 function update_midshipman($db, $username, $company, $year, $room, $SQPR, $CQPR, $phone, $aptitude, $conduct, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6){
-  
+
   $username = "'".$username."'";
   $company = "'".$company."'";
   $year = "'".$year."'";
@@ -186,56 +186,56 @@ function update_midshipman($db, $username, $company, $year, $room, $SQPR, $CQPR,
   $aptitude = "'".$aptitude."'";
   $conduct = "'".$conduct."'";
 
-  
+
   if(empty($coc_0)){
     $coc_0 = "NULL";
   }
   else{
     $coc_0 = "'".$coc_0."'";
   }
-  
+
   if(empty($coc_1)){
     $coc_1 = "NULL";
   }
   else{
     $coc_1 = "'".$coc_1."'";
   }
-  
+
   if(empty($coc_2)){
     $coc_2 = "NULL";
   }
   else{
     $coc_2 = "'".$coc_2."'";
   }
-  
+
   if(empty($coc_3)){
     $coc_3 = "NULL";
   }
   else{
     $coc_3 = "'".$coc_3."'";
   }
-  
+
   if(empty($coc_4)){
     $coc_4 = "NULL";
   }
   else{
     $coc_4 = "'".$coc_4."'";
   }
-  
+
   if(empty($coc_5)){
     $coc_5 = "NULL";
   }
   else{
     $coc_5 = "'".$coc_5."'";
   }
-  
+
   if(empty($coc_6)){
     $coc_6 = "NULL";
   }
   else{
     $coc_6 = "'".$coc_6."'";
   }
-  
+
   $query = "call updateMidshipman(" .
   $username . "," .
   $company . "," .
@@ -253,7 +253,7 @@ function update_midshipman($db, $username, $company, $year, $room, $SQPR, $CQPR,
   $coc_4 . "," .
   $coc_5 . "," .
   $coc_6 . ")";
-  
+
   $stmt = build_query($db, $query, array());
 
 
@@ -272,56 +272,56 @@ function create_midshipman($db, $username, $company, $year, $room, $phone, $SQPR
   $aptitude = "'".$aptitude."'";
   $conduct = "'".$conduct."'";
 
-  
+
   if(empty($coc_0)){
     $coc_0 = "NULL";
   }
   else{
     $coc_0 = "'".$coc_0."'";
   }
-  
+
   if(empty($coc_1)){
     $coc_1 = "NULL";
   }
   else{
     $coc_1 = "'".$coc_1."'";
   }
-  
+
   if(empty($coc_2)){
     $coc_2 = "NULL";
   }
   else{
     $coc_2 = "'".$coc_2."'";
   }
-  
+
   if(empty($coc_3)){
     $coc_3 = "NULL";
   }
   else{
     $coc_3 = "'".$coc_3."'";
   }
-  
+
   if(empty($coc_4)){
     $coc_4 = "NULL";
   }
   else{
     $coc_4 = "'".$coc_4."'";
   }
-  
+
   if(empty($coc_5)){
     $coc_5 = "NULL";
   }
   else{
     $coc_5 = "'".$coc_5."'";
   }
-  
+
   if(empty($coc_6)){
     $coc_6 = "NULL";
   }
   else{
     $coc_6 = "'".$coc_6."'";
   }
-  
+
   $query = "call createMidshipman(" .
   $username . "," .
   $company . "," .
@@ -339,7 +339,7 @@ function create_midshipman($db, $username, $company, $year, $room, $phone, $SQPR
   $coc_4 . "," .
   $coc_5 . "," .
   $coc_6 . ")";
-  
+
   $stmt = build_query($db, $query, array());
 
 
@@ -643,16 +643,9 @@ function get_num_SELs($db){
 function get_subordinates($db, $username){
   $query = "call getSubordinates(?)";
   $stmt = build_query($db, $query, array($username));
-  $row = bind_result_array($stmt);
-  $results = array();
-  $count = 0;
-  if(!$stmt->error)
-  {
-    while($stmt->fetch()){
-      $results[$count] = getCopy($row);
-      $count=$count+1;
-    }
-  }
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
   return $results;
 
 }
@@ -661,36 +654,25 @@ function get_subordinates($db, $username){
 function get_active_chits($db){
   $query="call getActiveChits()";
   $stmt = build_query($db, $query, array());
-  $row = bind_result_array($stmt);
-  $results = array();
-  $count = 0;
-  if(!$stmt->error)
-  {
-    while($stmt->fetch()){
-      $results[$count] = getCopy($row);
-      $count=$count+1;
-    }
-  }
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
   return $results;
+
 }
 
 
 function get_archived_chits($db)
 {
-  
+
     $query="call getArchivedChits()";
     $stmt = build_query($db, $query, array());
-    $row = bind_result_array($stmt);
-    $results = array();
-    $count = 0;
-    if(!$stmt->error)
-    {
-      while($stmt->fetch()){
-        $results[$count] = getCopy($row);
-        $count=$count+1;
-      }
-    }
+
+	$results = stmt_to_assoc_array($stmt);
+
+    $stmt->close();
     return $results;
+
 }
 
 
