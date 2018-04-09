@@ -62,15 +62,15 @@
   #############################################################################
   if (!(!isset(USER['user']) || USER['user'] == 'guest' || USER['user'] == 'no-one' || USER['user'] == '')) {
     # Debugging Options
-    if (ADMIN) {
+    // if (ADMIN) {
+    //   $USER_OPTIONS[] = array('type'=>'seperator');
+    //   if (isset($_SESSION['debug'])) {
+    //     $USER_OPTIONS[] = array('url'=>'?debug=off', 'type'=>'url', 'title'=>'', 'text'=>'<font color=#D1551F>Turn Debugging Off</font>');
+    //   } else {
+    //     $USER_OPTIONS[] = array('url'=>'?debug=on', 'type'=>'url', 'title'=>'', 'text'=>'Turn Debugging On');
+    //   }
       $USER_OPTIONS[] = array('type'=>'seperator');
-      if (isset($_SESSION['debug'])) {
-        $USER_OPTIONS[] = array('url'=>'?debug=off', 'type'=>'url', 'title'=>'', 'text'=>'<font color=#D1551F>Turn Debugging Off</font>');
-      } else {
-        $USER_OPTIONS[] = array('url'=>'?debug=on', 'type'=>'url', 'title'=>'', 'text'=>'Turn Debugging On');
-      }
-      $USER_OPTIONS[] = array('type'=>'seperator');
-    }
+    // }
     $USER_OPTIONS[] = array('url'=>'?logoff=1', 'type'=>'url', 'title'=>'', 'text'=>'Log Off');
   }
   $NAVBAR[] = array('type'=>'dropdown', 'title'=>'User Tools', 'icon'=>'glyphicon-user', 'rtext'=>" $user", 'options'=>$USER_OPTIONS, 'caret'=>true);
@@ -100,6 +100,21 @@
   #############################################################################
   # Manual NavBar functions
   #############################################################################
+
+  # query db to see if they are in leader
+  $query = "select * from Leader where username='";
+  $query .= USER['user'];
+  $query .="'";
+  $results = query($db, $query, true);
+
+  # if not in Leader, redirect to register.php
+  if(empty($results)){
+	  header("Location: home/register.php");
+  }
+
+  // echo "<pre>";
+  // print_r($results);
+  // echo "</pre>";
 
   #############################################################################
   # Load in the appropriate CSS and Navbar Display libraries.

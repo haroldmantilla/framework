@@ -723,8 +723,9 @@ END $$
 DROP PROCEDURE IF EXISTS getAdmins$$
 CREATE PROCEDURE getAdmins()
 BEGIN
-	SELECT * FROM Leader WHERE accesslevel = "admin";
+	SELECT DISTINCT auth_access.user, auth_access.access, auth_access.value, Leader.* from auth_access, Leader where auth_access.user = Leader.username and auth_access.access = "admin" GROUP BY (auth_access.user);
 END $$
+
 
 
 DROP PROCEDURE IF EXISTS getStaff$$
@@ -734,19 +735,17 @@ BEGIN
 END $$
 
 
-DROP PROCEDURE IF EXISTS getSafeties$$
-CREATE PROCEDURE getSafeties()
-BEGIN
-	SELECT Leader.*, Midshipman.* FROM Leader, Midshipman WHERE Leader.username = Midshipman.alpha and accesslevel = "safety";
-END $$
-
-
 DROP PROCEDURE IF EXISTS getMISLOs$$
 CREATE PROCEDURE getMISLOs()
 BEGIN
-	SELECT DISTINCT Leader.*, Midshipman.* FROM Leader, Midshipman WHERE Leader.username = Midshipman.alpha and accesslevel = "MISLO";
+	SELECT DISTINCT auth_access.user, auth_access.access, auth_access.value, Leader.* from auth_access, Leader where auth_access.user = Leader.username and auth_access.access = "MISLO" GROUP BY (auth_access.user);
 END $$
 
+DROP PROCEDURE IF EXISTS getSafeties$$
+CREATE PROCEDURE getSafeties()
+BEGIN
+	SELECT DISTINCT auth_access.user, auth_access.access, auth_access.value, Leader.* from auth_access, Leader where auth_access.user = Leader.username and auth_access.access = "safety" GROUP BY (auth_access.user);
+END $$
 
 
 DROP PROCEDURE IF EXISTS getCompleteMids$$

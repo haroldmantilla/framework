@@ -7,7 +7,7 @@ $MODULE_DEF = array('name'       => 'Query',
 'student'    => true,
 'instructor' => true,
 'guest'      => false,
-'access'     => array('admin'=>'db', 'admin'=>'developer'));
+'access'     => array('admin'=>'db'));
 
 
 	# Load in Configuration Parameters
@@ -19,7 +19,7 @@ $MODULE_DEF = array('name'       => 'Query',
 
 	if (isset($_REQUEST['query']) && !empty($_REQUEST['query'])) {
 			$results = query($db, $_REQUEST['query']);
-			assoc_array_to_table($results, "results");
+			assoc_array_to_table($results, "results", true);
 			die;
 		}
 
@@ -40,7 +40,7 @@ require_once(WEB_PATH.'navbar.php');
 			</div>
 
 			<div class="col-sm-2">
-				<button type="submit" class="btn btn-primary" onclick="return do_query();">RUN QUERY</button>
+				<button type="submit" class="btn btn-primary" id="submit" onclick="return do_query();">RUN QUERY</button>
 			</div>
 		</form>
 
@@ -91,6 +91,17 @@ require_once(WEB_PATH.'navbar.php');
 		} );
 	});
 
+
+	$(function () {
+    $("#query").keypress(function (e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        // alert(code);
+        if (code == 13) {
+            $("#submit").trigger('click');
+            return false;
+        }
+    });
+	});
 
 
 </script>

@@ -1,31 +1,31 @@
 <?php
-   session_start();
-   $_SESSION['id'] = session_id();
-   if(isset($_SESSION['username'])) { header("Location: ./index.php");   die(); }
+
+  ###############################################################
+  #              Security and Navbar Configuration              #
+  ###############################################################
+  $MODULE_DEF = array('name'       => 'Default Home Page',
+                      'version'    => 1.0,
+                      'display'    => '',
+                      'tab'        => 'user',
+                      'position'   => 0,
+                      'student'    => true,
+                      'instructor' => true,
+                      'guest'      => true,
+                      'access'     => array());
+  ###############################################################
+
+  # Load in Configuration Parameters
+  require_once("../etc/config.inc.php");
+
+  # Load in template, if not already loaded
+  require_once(LIBRARY_PATH.'template.php');
+
+  # Load in The NavBar
+  # Note: You too will have automated NavBar generation
+  #       support in your future templates...
+  require_once(WEB_PATH.'navbar.php');
 
 ?>
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>eChits</title>
-    <link href="includes/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" href="./imgs/icon.ico"/>
-
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
-    <!-- <link type="text/css" rel="stylesheet" href="style.css" /> -->
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="./includes/bootstrap/js/bootstrap.min.js"></script>
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <!-- Bootstrap Js CDN -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
    <style>
       .center-div {
         position: absolute;
@@ -99,13 +99,7 @@
       return;
     }
     </script>
-  </head>
 
-  <body>
-    <?php
-       require('./includes/nav.inc.php');
-       nav(1);
-    ?>
   <div class="center-div">
     <form method=post action="login/register-user.php" id=reg-form onsubmit="return inputCheck(this)">
       <div class="well text-center">

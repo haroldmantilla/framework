@@ -5,13 +5,13 @@
   ###############################################################
   $MODULE_DEF = array('name'       => 'Manage Chits',
                       'version'    => 1.0,
-                      'display'    => 'Admin',
-                      'tab'        => 'user',
+                      'display'    => 'Manage Chits',
+                      'tab'        => 'admin',
                       'position'   => 1,
                       'student'    => true,
                       'instructor' => true,
                       'guest'      => false,
-                      'access'     => array('admin'=>'site'));
+                      'access'     => array('admin'=>'admin'));
   ###############################################################
 
   # Load in Configuration Parameters
@@ -25,13 +25,17 @@
   #       support in your future templates...
   require_once(WEB_PATH.'navbar.php');
 
+  if(isset($_REQUEST['delete']) && !empty($_REQUEST['delete'])){
+    blast_chits($db);
+  }
+
 ?>
  <div class="container-fluid">
    <div class="row">
      <div class="col-md-12">
      </div>
    </div>
-   
+
 <?php
 // session_destroy();
 // $_POST = array();
@@ -41,28 +45,31 @@
 $debug = false;
 // $debug = true;
 
+?>
+<form action='./adminchits.php' method='POST'>
+  <div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-6">
 
-echo "<div class=\"row\">";
-echo "<div class=\"col-md-1\">";
-echo "</div>";
-echo "<div class=\"col-md-1\">";
+    </div>
+    <div class="col-md-4">
+      <div class="input-group">
+        <input type='text' class='form-control' name='FILTER' placeholder='Search Chit Description'>
+        <span class="input-group-btn">
+          <button type='submit' class='btn btn-default'>Find Chit</button>
+        </span>
+      </div>
+    </div>
+    <div class="col-md-1">
 
-echo "<button class=\"btn btn-primary\" onclick=\"location.href = './adminusers.php';\">View Users</button>";
+    </div>
+  </div>
+</form>
 
-echo "</div>";
-echo "<div class=\"col-md-9 \">";
-echo "<form class='navbar-form navbar-right' action='./adminchits.php' method='POST'><div class='form-group'>
-</div>
-<input type='text' class='form-control' name='FILTER' placeholder='Search Chit Description'>
-<button type='submit' class='btn btn-default'>Find Chit</button>
-</form>";
-echo "</div>";
-echo "<div class=\"col-md-1\">";
-echo "</div>";
-echo "</div>";
+<div class="panel-group" id="accordion">
 
-echo "<div class=\"panel-group\" id=\"accordion\">";
-
+<?php
 
 $activechits = get_active_chits($db);
 $archivedchits = get_archived_chits($db);
@@ -279,23 +286,10 @@ $archivedchits = get_archived_chits($db);
   echo "</div>";
 
 
-echo "<div class=\"row\">";
-echo "<div class=\"col-sm-5\">";
-echo "</div>";
+echo "<div class=\"navbar navbar-fixed-bottom text-center\">";
 
-echo "<div class=\"col-sm-2\">";
-  echo "<br>";
-  echo "<br>";
-  echo "<br>";
-  echo "<br>";
-  echo "<br>";
   echo "<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#blastModal\">Permanently Delete All Chits</button>";
 
-
-echo "</div>";
-
-echo "<div class=\"col-sm-5\">";
-echo "</div>";
 
 echo "</div>";
 
@@ -321,7 +315,7 @@ echo "
 						</div>
 						<div class=\"col-xs-6 text-right\">
 							<div class=\"next\">
-                <form action=\"blast.script.php\" method=\"post\">
+                <form action=\"?\" method=\"post\">
                 <input type=\"hidden\" name=\"delete\" value=\"blast\">
                 <input type=\"submit\" class=\"btn btn-danger\" value=\"Delete All Chits\">
               </form>

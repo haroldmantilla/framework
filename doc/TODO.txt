@@ -1,48 +1,53 @@
+CURRENTLY WORKING ON: mychits.php
+
+
+
 ask about become site permissions
 
-remove debugging on/off option, or at least use it to hide some tab options
+adminstats.php needs to look better (historical data in database?)   https://www.noupe.com/development/how-to-create-your-own-stats.html
 
-convert pages
+help.php
+----ask questions
+----submit feedback
+----submit feature requests
 
-----adminchits.php
-----admin.php
-----adminusers.php
+Change scripts over to php code at top of pages
 ----approve.script.php
-----blank_chit_custom.pdf
-----blank_chit.pdf
-----blastcompany.script.php
-----blast.script.php
-----changepass.script.php
 ----comment.script.php
-----debug_chit.php
-----delete.script.php
+----blastcompany.script.php
 ----deleteuser.script.php
 ----deny.script.php
 ----designateadmin.script.php
 ----designateMISLO.script.php
 ----designatesafety.script.php
-----editchit.php
-----generate_pdf.php
 ----getcoc.script.php
-----home.php
-----index.php
-----login.php
-----login-user.php
-----logout.php
-----makechit.php
 ----pending.script.php
 ----permanentlydelete.script.php
-----print.script.php
-----profile.php
-----register.php
-----register-user.php
 ----removeadmin.script.php
 ----removeMISLO.script.php
 ----removesafety.script.php
 ----restore.script.php
+----print.script.php
+----view.script.php
+
+-------------------------------
+----adminchits.php
+----admin.php
+----adminusers.php
+----blank_chit_custom.pdf
+----blank_chit.pdf
+----debug_chit.php
+----delete.script.php
+----editchit.php
+----generate_pdf.php
+----home.php
+----index.php
+----makechit.php
+----profile.php
+----register.php
+----register-user.php
 ----scratch.php
 ----test.html
 ----test.php
 ----update-chit.php
 ----viewchit.php
-----view.script.php

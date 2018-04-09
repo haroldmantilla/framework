@@ -5,13 +5,13 @@
   ###############################################################
   $MODULE_DEF = array('name'       => 'Statistics',
                       'version'    => 1.0,
-                      'display'    => 'Admin',
-                      'tab'        => 'user',
+                      'display'    => 'Statistics',
+                      'tab'        => 'admin',
                       'position'   => 1,
                       'student'    => true,
                       'instructor' => true,
                       'guest'      => false,
-                      'access'     => array('admin'=>'site'));
+                      'access'     => array('admin'=>'admin'));
   ###############################################################
 
   # Load in Configuration Parameters
@@ -33,19 +33,6 @@
     </div>
   </div>
 
-<div class="row">
-  <div class="col-sm-2">
-  </div>
-  <div class="col-sm-4 text-center">
-    <button class="btn btn-primary" onclick="location.href = './adminchits.php';">View Chits</button>
-  </div>
-
-  <div class="col-sm-4 text-center">
-    <button class="btn btn-primary" onclick="location.href = './adminusers.php';">View Users</button>
-  </div>
-  <div class="col-sm-2">
-  </div>
-</div>
 
 <?php
 

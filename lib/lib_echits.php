@@ -70,12 +70,10 @@ function get_company_number($db, $username){
 
   $stmt = build_query($db, $query, array($username));
 
-  $stmt->bind_result($results['company']);
-
   $results = stmt_to_assoc_array($stmt);
 
   $stmt->close();
-  return $results;
+  return $results[0]['company'];
 }
 
 // TESTME
@@ -668,11 +666,128 @@ function get_archived_chits($db)
     $query="call getArchivedChits()";
     $stmt = build_query($db, $query, array());
 
-	$results = stmt_to_assoc_array($stmt);
+    $results = stmt_to_assoc_array($stmt);
 
     $stmt->close();
     return $results;
 
+}
+
+function get_active_orm_chits_company($db, $company){
+  $query="call getActiveORMChitsCompany(?)";
+  $stmt = build_query($db, $query, array($company));
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results;
+
+}
+
+function get_archived_orm_chits_company($db, $company){
+  $query="call getArchivedORMChitsCompany(?)";
+  $stmt = build_query($db, $query, array($company));
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results;
+
+}
+
+function get_admins($db){
+  $query = "call getAdmins()";
+  $stmt = build_query($db, $query, array());
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  
+  
+  
+  return $results;
+}
+
+function get_company($db, $company){
+  $query = "call getCompany(?)";
+  $stmt = build_query($db, $query, array($company));
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results;
+}
+
+function get_staff($db){
+  $query = "call getStaff()";
+  $stmt = build_query($db, $query, array());
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results;
+}
+
+
+
+function get_safeties($db){
+  $query = "call getSafeties()";
+  $stmt = build_query($db, $query, array());
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results;
+}
+
+
+
+function get_MISLOs($db){
+  $query = "call getMISLOs()";
+  $stmt = build_query($db, $query, array());
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results;
+}
+
+
+function get_complete_mids($db){
+  $query = "call getCompleteMids()";
+  $stmt = build_query($db, $query, array());
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results;
+}
+
+function get_incomplete_mids($db){
+  $query = "call getInCompleteMids()";
+  $stmt = build_query($db, $query, array());
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results;
+}
+
+function blast_chits_company($db, $company){
+  $query = "call gblastChitsCompany(?)";
+  $stmt = build_query($db, $query, array($company));
+  
+  $stmt->close();
+  return true;
+}
+
+function blast_chits($db){
+  $query = "call blastChits";
+  $stmt = build_query($db, $query, array());
+  
+  $stmt->close();
+  return true;
+}
+
+
+function get_subordinate_chits($db, $coc){
+  $query = "call getSubordinateChits(?)";
+  $stmt = build_query($db, $query, array($coc));
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  return $results;
 }
 
 

@@ -6,12 +6,12 @@
   $MODULE_DEF = array('name'       => 'Manage Users',
                       'version'    => 1.0,
                       'display'    => 'Admin',
-                      'tab'        => 'user',
+                      'tab'        => 'admin',
                       'position'   => 1,
                       'student'    => true,
                       'instructor' => true,
                       'guest'      => false,
-                      'access'     => array('admin'=>'site'));
+                      'access'     => array('admin'=>'admin'));
   ###############################################################
 
   # Load in Configuration Parameters
@@ -28,163 +28,55 @@
 ?>
 
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-    </div>
-  </div>
-  
+
 <?php
 
 $debug = false;
-// $debug = true;
+
+$company = get_company_number($db, USER['user']);
 
 
-if (!isset($_SESSION['company'])) {
-  $company = get_company_number($_SESSION['username']);
-  if($company == 0){
-    header("Location: ./login.php");
-  }
-  else{
-    $_SESSION['company'] = $company;
-  }
-}
-
-// echo "<pre>";
-// print_r($_POST);
-// echo "</pre>";
+?>
 
 
-echo "<div class=\"row\">";
-echo "<div class=\"col-md-1\">";
-echo "</div>";
-echo "<div class=\"col-md-1\">";
+<form action='./adminusersall.php' method='POST'>
+  <div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-6">
 
-echo "<button class=\"btn btn-primary\" onclick=\"location.href = './adminchits.php';\">View Chits</button>";
+    </div>
+    <div class="col-md-4">
+      <div class="input-group">
+        <input type='text' class='form-control' name='FILTER' id="search" placeholder='Search...' autofocus>
+        <span class="input-group-btn">
+          <button type='submit' class='btn btn-default'>Find User</button>
+        </span>
+      </div>
+    </div>
+    <div class="col-md-1">
 
-echo "</div>";
-echo "<div class=\"col-md-6 \">";
+    </div>
+  </div>
+</form>
 
+<div class="panel-group" id="accordion">
 
-echo "<div class=\"row\">";
-echo "  <div class=\"col-md-12\" style=\"text-align:center\">";
-
-if($_SESSION['accesslevel'] == "admin"){
-  echo "<div class=\"input-group\" style=\"display: inlinie-block;\">";
-  echo "<form action=\"?\" method=\"post\" id=\"stayopen\">";
-  echo "<label style=\"margin-right: 20px;\"><input onchange=\"this.form.submit()\"  type=\"checkbox\" name=\"Administrators\" value=\"Administrators\" ";
-  if(isset($_POST['None'])){
-    unset($_SESSION['Administrators']);
-    unset($_SESSION['MISLOs']);
-    unset($_SESSION['Safety_Officers']);
-    unset($_SESSION['Staff']);
-    unset($_SESSION['MIDN']);
-    unset($_SESSION['NoCompany']);
-
-    unset($_POST['Administrators']);
-    unset($_POST['MISLOs']);
-    unset($_POST['Safety_Officers']);
-    unset($_POST['Staff']);
-    unset($_POST['MIDN']);
-    unset($_POST['NoCompany']);
-  }
-  else{
-    if(!isset($_SESSION['Administrators']) && isset($_POST['Administrators']) ){
-      $_SESSION['Administrators'] = $_POST['Administrators'];
-    }
-    if(!isset($_SESSION['MISLOs']) && isset($_POST['MISLOs'])){
-      $_SESSION['MISLOs'] = $_POST['MISLOs'];
-    }
-    if(!isset($_SESSION['Safety_Officers']) && isset($_POST['Safety_Officers'])){
-      $_SESSION['Safety_Officers'] = $_POST['Safety_Officers'];
-    }
-    if(!isset($_SESSION['Staff']) && isset($_POST['Staff'])){
-      $_SESSION['Staff'] = $_POST['Staff'];
-    }
-    if(!isset($_SESSION['MIDN']) && isset($_POST['MIDN'])){
-      $_SESSION['MIDN'] = $_POST['MIDN'];
-    }
-    if(!isset($_SESSION['NoCompany']) && isset($_POST['NoCompany'])){
-      $_SESSION['NoCompany'] = $_POST['NoCompany'];
-    }
-  }
+<?php
 
 
-  if(isset($_SESSION['Administrators'])){
-    echo "checked=checked";
-  }
-  echo ">Administrators</label>";
-
-  echo "<label style=\"margin-right: 20px;\"><input onchange=\"this.form.submit()\"  type=\"checkbox\" name=\"MISLOs\" value=\"MISLOs\" ";
-  if(isset($_SESSION['MISLOs'])){
-    echo "checked=checked";
-  }
-  echo ">MISLOs</label>";
-
-  echo "<label style=\"margin-right: 20px;\"><input onchange=\"this.form.submit()\"  type=\"checkbox\" name=\"Safety_Officers\" value=\"Safety Officers\" ";
-  if(isset($_SESSION['Safety_Officers'])){
-    echo "checked=checked";
-  }
-  echo ">Safety Officers</label>";
-
-  echo "<label style=\"margin-right: 20px;\"><input onchange=\"this.form.submit()\"  type=\"checkbox\" name=\"Staff\" value=\"Staff\" ";
-  if(isset($_SESSION['Staff'])){
-    echo "checked=checked";
-  }
-  echo ">Staff</label>";
-
-  echo "<label style=\"margin-right: 20px;\"><input onchange=\"this.form.submit()\"  type=\"checkbox\" name=\"MIDN\" value=\"MIDN\" ";
-  if(isset($_SESSION['MIDN'])){
-    echo "checked=checked";
-  }
-  echo ">MIDN</label>";
-
-  echo "<label style=\"margin-right: 50px;\"><input onchange=\"this.form.submit()\"  type=\"checkbox\" name=\"NoCompany\" value=\"NoCompany\" ";
-  if(isset($_SESSION['NoCompany'])){
-    echo "checked=checked";
-  }
-  echo ">MIDN w/o Company</label>";
-  echo "<input class=\"btn btn-dark\" type=\"submit\" name=\"None\" value=\"Close All\">";
-
-
-  echo "</form>";
-  echo " </div>";
-}
-echo " </div>";
-echo "</div> ";
-
-echo "</div> ";
-
-
-
-echo "<div class=\"col-md-3 \">";
-echo "<form class='navbar-form navbar-right' action='./adminusers.php' method='POST'><div class='form-group'>
-<input type='text' class='form-control' name='FILTER' placeholder='Search for Users'>
-        </div>
-        <button type='submit' class='btn btn-default'>Find User</button>
-      </form>";
-echo "</div>";
-
-echo "<div class=\"col-md-1\">";
-echo "</div>";
-echo "</div>";
-
-echo "<div class=\"panel-group\" id=\"accordion\">";
-
-if($_SESSION['accesslevel'] == "admin"){
-
-  $admins = get_admins();
-  $MISLOs = get_MISLOs();
-  $safeties = get_safeties();
-  $staff = get_staff();
-  $completemids = get_complete_mids();
-  $incompletemids = get_incomplete_mids();
+$admins = get_admins($db);
+$MISLOs = get_MISLOs($db);
+$safeties = get_safeties($db);
+$staff = get_staff($db);
+$completemids = get_complete_mids($db);
+$incompletemids = get_incomplete_mids($db);
 
 
   if(!empty($admins)){
 
     echo "<div class='row'>";
     echo "<div class='col-md-1'>";
-
     echo "</div>";
     echo "<div class='col-md-10'>";
     echo "<div class=\"panel panel-default\">";
@@ -198,8 +90,26 @@ if($_SESSION['accesslevel'] == "admin"){
     echo "</a>";
 
     echo "<div id=\"collapse1\" class=\"panel-collapse collapse ";
-    if(isset($_SESSION['Administrators'])){ echo "in ";}
-    echo "\">";
+    $in = false;
+    if(isset($_POST['FILTER']) && !empty($_POST['FILTER'])){
+      foreach ($admins as $user){
+
+        $namepos = stripos($user['lastName'], $_POST['FILTER']);
+        $firstpos = stripos($user['firstName'], $_POST['FILTER']);
+        $unamepos = stripos($user['username'], $_POST['FILTER']);
+        $rankpos = stripos($user['rank'], $_POST['FILTER']);
+
+        if($namepos !== false || $unamepos !== false || $firstpos !== false || $rankpos !== false) {
+          $in=true;
+          break;
+        }
+      }
+    }
+    if($in){ echo "in \"> ";}
+    else{
+      echo " \"> ";
+    }
+
     echo "<div class=\"panel-body\">";
     //rows go here
     echo "<table class='table table-hover'>";
@@ -272,12 +182,32 @@ if($_SESSION['accesslevel'] == "admin"){
     echo "</div>";
     echo "</a>";
 
-    echo "<div id=\"collapse2\" class=\"panel-collapse collapse "; if(isset($_SESSION['MISLOs'])){ echo "in ";} echo "\">";
+    echo "<div id=\"collapse2\" class=\"panel-collapse collapse ";
+    $in = false;
+    if(isset($_POST['FILTER']) && !empty($_POST['FILTER'])){
+      foreach ($MISLOs as $user){
+
+        $namepos = stripos($user['lastName'], $_POST['FILTER']);
+        $firstpos = stripos($user['firstName'], $_POST['FILTER']);
+        $unamepos = stripos($user['username'], $_POST['FILTER']);
+        $rankpos = stripos($user['rank'], $_POST['FILTER']);
+
+        if($namepos !== false || $unamepos !== false || $firstpos !== false || $rankpos !== false) {
+          $in=true;
+          break;
+        }
+      }
+    }
+    if($in){ echo "in \"> ";}
+    else{
+      echo " \"> ";
+    }
+
     echo "<div class=\"panel-body\">";
     //rows go here
     echo "<table class='table table-hover'>";
     echo "<thead>";
-    echo "<tr><th>Username</th><th>Name</th><th>Company</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
+    echo "<tr><th>Username</th><th>Name</th><th class=\"text-right\">Actions</th></tr></thead>";
 
     foreach ($MISLOs as $user){
 
@@ -287,7 +217,6 @@ if($_SESSION['accesslevel'] == "admin"){
         $firstpos = stripos($user['firstName'], $_POST['FILTER']);
         $unamepos = stripos($user['username'], $_POST['FILTER']);
         $rankpos = stripos($user['rank'], $_POST['FILTER']);
-        $levelpos = stripos($user['level'], $_POST['FILTER']);
 
         if($namepos === false && $unamepos === false && $firstpos === false && $rankpos === false && $levelpos === false) {
           continue;
@@ -299,8 +228,6 @@ if($_SESSION['accesslevel'] == "admin"){
       echo "<tr>";
       echo "<td>{$user['username']}</td>";
       echo "<td>{$user['rank']} {$user['firstName']} {$user['lastName']}, {$user['service']} </td>";
-      echo "<td>{$user['company']}</td>";
-      echo "<td>{$user['level']}</td>";
 
       echo "<td>";
 
@@ -322,6 +249,7 @@ if($_SESSION['accesslevel'] == "admin"){
     echo "</table>";
     echo "</div>"; //panel
     echo "</div>"; //panel
+
     echo "</div>"; //panel
     echo "</div>"; // col
 
@@ -347,7 +275,27 @@ if($_SESSION['accesslevel'] == "admin"){
     echo "</div>";
     echo "</a>";
 
-    echo "<div id=\"collapse3\" class=\"panel-collapse collapse "; if(isset($_SESSION['Safety_Officers'])){ echo "in ";} echo "\">";
+    echo "<div id=\"collapse3\" class=\"panel-collapse collapse ";
+    $in = false;
+    if(isset($_POST['FILTER']) && !empty($_POST['FILTER'])){
+      foreach ($safeties as $user){
+
+        $namepos = stripos($user['lastName'], $_POST['FILTER']);
+        $firstpos = stripos($user['firstName'], $_POST['FILTER']);
+        $unamepos = stripos($user['username'], $_POST['FILTER']);
+        $rankpos = stripos($user['rank'], $_POST['FILTER']);
+
+        if($namepos !== false || $unamepos !== false || $firstpos !== false || $rankpos !== false) {
+          $in=true;
+          break;
+        }
+      }
+    }
+    if($in){ echo "in \"> ";}
+    else{
+      echo " \"> ";
+    }
+
     echo "<div class=\"panel-body\">";
     //rows go here
     echo "<table class='table table-hover'>";
@@ -374,7 +322,6 @@ if($_SESSION['accesslevel'] == "admin"){
       echo "<tr>";
       echo "<td>{$user['username']}</td>";
       echo "<td>{$user['rank']} {$user['firstName']} {$user['lastName']}, {$user['service']} </td>";
-      echo "<td>{$user['company']}</td>";
       echo "<td>{$user['level']}</td>";
 
       echo "<td>";
@@ -394,6 +341,7 @@ if($_SESSION['accesslevel'] == "admin"){
     echo "</table>";
     echo "</div>"; //panel
     echo "</div>"; //panel
+
     echo "</div>"; //panel
     echo "</div>"; // col
 
@@ -419,7 +367,29 @@ if($_SESSION['accesslevel'] == "admin"){
     echo "</div>";
     echo "</a>";
 
-    echo "<div id=\"collapse4\" class=\"panel-collapse collapse "; if(isset($_SESSION['Staff'])){ echo "in ";} echo "\">";
+    echo "<div id=\"collapse4\" class=\"panel-collapse collapse ";
+    $in = false;
+    if(isset($_POST['FILTER']) && !empty($_POST['FILTER'])){
+      foreach ($staff as $user){
+
+        $namepos = stripos($user['lastName'], $_POST['FILTER']);
+        $firstpos = stripos($user['firstName'], $_POST['FILTER']);
+        $unamepos = stripos($user['username'], $_POST['FILTER']);
+        $rankpos = stripos($user['rank'], $_POST['FILTER']);
+        $levelpos = stripos($user['level'], $_POST['FILTER']);
+
+        if($namepos !== false || $unamepos !== false || $firstpos !== false || $rankpos !== false || $levelpos !== false) {
+          $in=true;
+          break;
+        }
+      }
+    }
+    if($in){ echo "in \"> ";}
+    else{
+      echo " \"> ";
+    }
+
+
     echo "<div class=\"panel-body\">";
     //rows go here
     echo "<table class='table table-hover'>";
@@ -469,13 +439,16 @@ if($_SESSION['accesslevel'] == "admin"){
     }
 
     echo "</table>";
-    echo "</div>";
+    echo "</div>"; //panel
+    echo "</div>"; //panel
+
+    echo "</div>"; //panel
+    echo "</div>"; // col
+
+
     echo "<div class='col-md-1'>";
-    echo "</div>";
-    echo "</div>";
-    echo "</div>";
-    echo "</div>";
-    echo  "</div>";
+    echo "</div>"; // col
+    echo "</div>"; // row
   }
 
   if(!empty($completemids)){
@@ -494,7 +467,29 @@ if($_SESSION['accesslevel'] == "admin"){
     echo "</div>";
     echo "</a>";
 
-    echo "<div id=\"collapse5\" class=\"panel-collapse collapse "; if(isset($_SESSION['MIDN'])){ echo "in ";} echo "\">";
+    echo "<div id=\"collapse5\" class=\"panel-collapse collapse ";
+    $in = false;
+    if(isset($_POST['FILTER']) && !empty($_POST['FILTER'])){
+      foreach ($completemids as $user){
+
+        $namepos = stripos($user['lastName'], $_POST['FILTER']);
+        $firstpos = stripos($user['firstName'], $_POST['FILTER']);
+        $unamepos = stripos($user['username'], $_POST['FILTER']);
+        $rankpos = stripos($user['rank'], $_POST['FILTER']);
+        $levelpos = stripos($user['level'], $_POST['FILTER']);
+
+        if($namepos !== false || $unamepos !== false || $firstpos !== false || $rankpos !== false || $levelpos !== false) {
+          $in=true;
+          break;
+        }
+      }
+    }
+
+    if($in){ echo "in \"> ";}
+    else{
+      echo " \"> ";
+    }
+
     echo "<div class=\"panel-body\">";
     //rows go here
     echo "<table class='table table-hover'>";
@@ -568,20 +563,23 @@ if($_SESSION['accesslevel'] == "admin"){
     }
 
     echo "</table>";
-    echo "</div>";
+    echo "</div>"; //panel
+    echo "</div>"; //panel
+
+    echo "</div>"; //panel
+    echo "</div>"; // col
+
+
     echo "<div class='col-md-1'>";
-    echo "</div>";
-    echo "</div>";
-    echo "</div>";
-    echo "</div>";
-    echo  "</div>";
+    echo "</div>"; // col
+    echo "</div>"; // row
   }
 
   if(!empty($incompletemids)){
 
     echo "<div class='row'>";
     echo "<div class='col-md-1'>";
-    echo "</div>";
+    echo "</div>"; // col
     echo "<div class='col-md-10'>";
     echo "<div class=\"panel panel-default\">";
 
@@ -590,10 +588,31 @@ if($_SESSION['accesslevel'] == "admin"){
     echo "<h3 class=\"panel-title\">";
     echo "<strong>Midshipmen Unassigned to Companies</strong>";
     echo "</h3>";
-    echo "</div>";
+    echo "</div>"; // panel heading
     echo "</a>";
 
-    echo "<div id=\"collapse6\" class=\"panel-collapse collapse "; if(isset($_SESSION['NoCompany'])){ echo "in ";} echo "\">";
+    echo "<div id=\"collapse6\" class=\"panel-collapse collapse ";
+    $in = false;
+    if(isset($_POST['FILTER']) && !empty($_POST['FILTER'])){
+      foreach ($incompletemids as $user){
+
+        $namepos = stripos($user['lastName'], $_POST['FILTER']);
+        $firstpos = stripos($user['firstName'], $_POST['FILTER']);
+        $unamepos = stripos($user['username'], $_POST['FILTER']);
+        $rankpos = stripos($user['rank'], $_POST['FILTER']);
+        $levelpos = stripos($user['level'], $_POST['FILTER']);
+
+        if($namepos !== false || $unamepos !== false || $firstpos !== false || $rankpos !== false || $levelpos !== false) {
+          $in=true;
+          break;
+        }
+      }
+    }
+    if($in){ echo "in \"> ";}
+    else{
+      echo " \"> ";
+    }
+
     echo "<div class=\"panel-body\">";
     //rows go here
     echo "<table class='table table-hover'>";
@@ -645,336 +664,45 @@ if($_SESSION['accesslevel'] == "admin"){
     echo "</table>";
     echo "</div>"; //panel
     echo "</div>"; //panel
+
     echo "</div>"; //panel
     echo "</div>"; // col
-
 
     echo "<div class='col-md-1'>";
     echo "</div>"; // col
     echo "</div>"; // row
   }
 
-  echo "</div>";
-  die;
 
-}
-elseif($_SESSION['accesslevel'] == "MISLO"){
+  echo "</div>"; //panel-group
 
-  $MISLOs = array();
-  $safeties = array();
-  $users = get_company($_SESSION['company']);
 
-  foreach ($users as $key => $user) {
-    if($user['accesslevel'] == "safety"){
-      array_push($safeties, $user);
-      unset($users[$key]);
-
-    }
-    elseif($user['accesslevel'] == "MISLO"){
-      array_push($MISLOs, $user);
-      unset($users[$key]);
-    }
-  }
-
-
-    if(!empty($MISLOs)){
-
-      echo "<div class='row'>";
-      echo "<div class='col-md-1'>";
-      echo "</div>";
-      echo "<div class='col-md-10'>";
-      echo "<div class=\"panel panel-default\">";
-
-      echo "<a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse2\" style=\"color: #000000;\">";
-      echo "<div class=\"panel-heading\">";
-      echo "<h3 class=\"panel-title\">";
-      echo "<strong>MISLO</strong>";
-      echo "</h3>";
-      echo "</div>";
-      echo "</a>";
-
-      echo "<div id=\"collapse2\" class=\"panel-collapse collapse in\">";
-      echo "<div class=\"panel-body\">";
-      //rows go here
-      echo "<table class='table table-hover'>";
-      echo "<thead>";
-      echo "<tr><th>Username</th><th>Name</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
-
-      foreach ($MISLOs as $user){
-
-        if(isset($_POST['FILTER']) && !empty($_POST['FILTER'])){
-
-          $namepos = stripos($user['lastName'], $_POST['FILTER']);
-          $firstpos = stripos($user['firstName'], $_POST['FILTER']);
-          $unamepos = stripos($user['username'], $_POST['FILTER']);
-          $rankpos = stripos($user['rank'], $_POST['FILTER']);
-          $levelpos = stripos($user['level'], $_POST['FILTER']);
-
-          if($namepos === false && $unamepos === false && $firstpos === false && $rankpos === false && $levelpos === false) {
-            continue;
-          }
-
-        }
-
-
-        echo "<tr>";
-        echo "<td>{$user['username']}</td>";
-        echo "<td>{$user['rank']} {$user['firstName']} {$user['lastName']}, {$user['service']} </td>";
-        echo "<td>{$user['level']}</td>";
-
-        echo "<td>";
-
-
-        echo "
-        <form style=\"float: right;\" action=\"changepass.script.php\" method=\"post\">
-        <input type=\"hidden\" name=\"nametochange\" id=\"nametochange\" value=\"{$user['username']}\">
-        <input type=\"submit\"  class=\"btn btn-dark\" value=\"Reset Password\"></form>";
-
-
-        echo "<form style=\"float: right; \" action=\"removeMISLO.script.php\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"removeMISLO\" value=\"Remove MISLO\"></form>";
-
-
-        echo "</td>";
-        echo "</tr>";
-      }
-      echo "</table>";
-      echo "</div>"; //panel
-      echo "</div>"; //panel
-      echo "</div>"; //panel
-      echo "</div>"; // col
-
-
-      echo "<div class='col-md-1'>";
-      echo "</div>"; // col
-      echo "</div>"; // row
-    }
-
-    if(!empty($safeties)){
-
-      echo "<div class='row'>";
-      echo "<div class='col-md-1'>";
-      echo "</div>";
-      echo "<div class='col-md-10'>";
-      echo "<div class=\"panel panel-default\">";
-
-      echo "<a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse3\" style=\"color: #000000;\">";
-      echo "<div class=\"panel-heading\">";
-      echo "<h3 class=\"panel-title\">";
-      echo "<strong>Safety Officer</strong>";
-      echo "</h3>";
-      echo "</div>";
-      echo "</a>";
-
-      echo "<div id=\"collapse3\" class=\"panel-collapse collapse in\">";
-      echo "<div class=\"panel-body\">";
-      //rows go here
-      echo "<table class='table table-hover'>";
-      echo "<thead>";
-      echo "<tr><th>Username</th><th>Name</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
-
-      foreach ($safeties as $user){
-
-        if(isset($_POST['FILTER']) && !empty($_POST['FILTER'])){
-
-          $namepos = stripos($user['lastName'], $_POST['FILTER']);
-          $firstpos = stripos($user['firstName'], $_POST['FILTER']);
-          $unamepos = stripos($user['username'], $_POST['FILTER']);
-          $rankpos = stripos($user['rank'], $_POST['FILTER']);
-          $levelpos = stripos($user['level'], $_POST['FILTER']);
-
-          if($namepos === false && $unamepos === false && $firstpos === false && $rankpos === false && $levelpos === false) {
-            continue;
-          }
-
-        }
-
-
-        echo "<tr>";
-        echo "<td>{$user['username']}</td>";
-        echo "<td>{$user['rank']} {$user['firstName']} {$user['lastName']}, {$user['service']} </td>";
-        echo "<td>{$user['level']}</td>";
-
-        echo "<td>";
-
-
-        echo "
-        <form style=\"float: right;\" action=\"changepass.script.php\" method=\"post\">
-        <input type=\"hidden\" name=\"nametochange\" id=\"nametochange\" value=\"{$user['username']}\">
-        <input type=\"submit\"  class=\"btn btn-dark\" value=\"Reset Password\"></form>";
-
-
-        echo "<form style=\"float: right; \" action=\"removesafety.script.php\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"removesafety\" value=\"Remove Safety Officer\"></form>";
-
-
-
-        echo "</td>";
-        echo "</tr>";
-      }
-
-      echo "</table>";
-      echo "</div>"; //panel
-      echo "</div>"; //panel
-      echo "</div>"; //panel
-      echo "</div>"; // col
-
-
-      echo "<div class='col-md-1'>";
-      echo "</div>"; // col
-      echo "</div>"; // row
-    }
-
-
-    if(!empty($users)){
-
-      echo "<div class='row'>";
-      echo "<div class='col-md-1'>";
-      echo "</div>";
-      echo "<div class='col-md-10'>";
-      echo "<div class=\"panel panel-default\">";
-
-      echo "<a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse5\" style=\"color: #000000;\">";
-      echo "<div class=\"panel-heading\">";
-      echo "<h3 class=\"panel-title\">";
-      echo "<strong>Midshipmen</strong>";
-      echo "</h3>";
-      echo "</div>";
-      echo "</a>";
-
-      echo "<div id=\"collapse5\" class=\"panel-collapse collapse in\">";
-      echo "<div class=\"panel-body\">";
-      //rows go here
-      echo "<table class='table table-hover'>";
-      echo "<thead>";
-      echo "<tr><th>Username</th><th>Name</th><th>Access</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
-
-      foreach ($users as $user){
-
-        if(isset($_POST['FILTER']) && !empty($_POST['FILTER'])){
-
-          $namepos = stripos($user['lastName'], $_POST['FILTER']);
-          $firstpos = stripos($user['firstName'], $_POST['FILTER']);
-          $unamepos = stripos($user['username'], $_POST['FILTER']);
-          $rankpos = stripos($user['rank'], $_POST['FILTER']);
-          $levelpos = stripos($user['level'], $_POST['FILTER']);
-
-          if($namepos === false && $unamepos === false && $firstpos === false && $rankpos === false && $levelpos === false) {
-            continue;
-          }
-
-        }
-
-
-        echo "<tr>";
-        echo "<td>{$user['username']}</td>";
-        echo "<td>{$user['rank']} {$user['firstName']} {$user['lastName']}, {$user['service']} </td>";
-
-        echo "<td>{$user['accesslevel']}</td>";
-
-        echo "<td>{$user['level']}</td>";
-
-        echo "<td>";
-        if($user['accesslevel'] != "admin"){
-
-          echo "<form style=\"float: right; \" action=\"deleteuser.script.php\" method=\"post\"><input type=\"hidden\" name=\"usertodelete\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-danger\" name=\"deleteuser\" value=\"Delete User\"></form>";
-
-          echo "
-          <form style=\"float: right;\" action=\"changepass.script.php\" method=\"post\">
-          <input type=\"hidden\" name=\"nametochange\" id=\"nametochange\" value=\"{$user['username']}\">
-          <input type=\"submit\"  class=\"btn btn-dark\" value=\"Reset Password\"></form>";
-
-
-          echo "<form style=\"float: right; \" action=\"designateMISLO.script.php\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"designateMISLO\" value=\"Designate MISLO\"></form>";
-
-          echo "<form style=\"float: right; \" action=\"designatesafety.script.php\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"designatesafety\" value=\"Designate Safety Officer\"></form>";
-
-        }
-
-        echo "</td>";
-        echo "</tr>";
-      }
-
-      echo "</table>";
-      echo "</div>";
-      echo "<div class='col-md-1'>";
-      echo "</div>";
-      echo "</div>";
-      echo "</div>";
-      echo "</div>";
-      echo  "</div>";
-    }
-
-
-
-  }
-
-  echo "<div class=\"row\">";
-  echo "<div class=\"col-sm-5\">";
-  echo "</div>";
-
-  echo "<div class=\"col-sm-2\">";
-  if($_SESSION['accesslevel'] == "MISLO"){
-    echo "<br>";
-    echo "<br>";
-    echo "<br>";
-    echo "<br>";
-    echo "<br>";
-    echo "<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#blastModal\">Permanently Delete All Chits for your Company</button>";
-  }
-
-  echo "</div>";
-
-  echo "<div class=\"col-sm-5\">";
-  echo "</div>";
-
-  echo "</div>";
-
-
-
-  echo "</div>";
-
-
-
-  echo "
-  		<!-- Blast Chits Modal -->
-  		<div id=\"blastModal\" class=\"modal fade\" role=\"dialog\">
-  			<div class=\"modal-dialog\">
-
-  				<!-- Modal content-->
-  				<div class=\"modal-content\">
-  					<div class=\"modal-header text-center\">
-  						<button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>
-  						<h4 class=\"modal-title\">Are you sure you want to delete all chits for your company?</h4>
-              <h5 class=\"modal-title\">This action cannot be undone.</h5>
-  					</div>
-  					<div class=\"modal-footer\">
-
-  						<div class=\"col-xs-6 text-left\">
-  							<div class=\"previous\">
-  								<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cancel</button>
-  							</div>
-  						</div>
-  						<div class=\"col-xs-6 text-right\">
-  							<div class=\"next\">
-                  <form action=\"blastcompany.script.php\" method=\"post\">
-                  <input type=\"hidden\" name=\"delete\" value=\"blast\">
-                  <input type=\"hidden\" name=\"company\" value=\"{$_SESSION['company']}\">
-                  <input type=\"submit\" class=\"btn btn-danger\" value=\"Delete All Chits\">
-                </form>
-  							</div>
-  						</div>
-
-
-  					</div>
-  				</div>
-
-  			</div>
-  		</div>";
-
+  echo "</div>"; //container-fluid
 
 ?>
 
 </div>
 
+<script type="text/javascript">
+
+$(document).keypress(function(e){
+	 $("#search").focus();
+   return true;
+});
+//
+// $(function () {
+//   $("#query").keypress(function (e) {
+//       var code = (e.keyCode ? e.keyCode : e.which);
+//       // alert(code);
+//
+//       if (code == 13) {
+//           $("#submit").trigger('click');
+//           return false;
+//       }
+//   });
+// });
+
+</script>
 
 </body>
 
