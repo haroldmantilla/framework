@@ -1,9 +1,9 @@
-Milestone 1:
-Conversion to Framework
-Status: Good progress has been made. 
+Milestone 2:
+Complete Conversion to Framework
+Status: Almost complete. 
 
-Two of my simpler pages have been converted over, and I redid the whole database and lib_db to work with the framework. Although 50% of the pages are not converted, I think about 50% of the work is done as I slowly figure out how I'm going to convert everything and get all the moving pieces talking again. 
+I am almost completely done converting. I've run into many more issues than expected, including adapting my rudimentary user access controls to the framework, database access levels, breaking apart pages into multiple pages, issues with large database calls, and using ajax to do posts to the database. All in all, I only have a few more pages to convert, and then I need to fix how the divs render with the different font used by the framework. 
 
-query.php works as expected. 
+upload.php works as expected. I did the progress bar as well for the challenge problem. 
 
 On track. 

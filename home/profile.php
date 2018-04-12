@@ -42,6 +42,13 @@ function redirect(location){
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
+      <?php 
+      if(isset($_SESSION['error'])) {
+        echo "<div class=\"alert alert-danger\">".$_SESSION['error']."</div>";
+        unset($_SESSION['error']);
+      }
+      ?>
+
 		</div>
 	</div>
   
@@ -602,10 +609,7 @@ function redirect(location){
         echo "</div>";
         echo "</div>"; //closes row
 
-        if(isset($midshipmaninfo['company']) && empty($midshipmaninfo['coc_0']) && empty($midshipmaninfo['coc_1']) && empty($midshipmaninfo['coc_2']) && empty($midshipmaninfo['coc_3']) && empty($midshipmaninfo['coc_4']) && empty($midshipmaninfo['coc_5']) && empty($midshipmaninfo['coc_6'])){
-            echo "<div class=\"alert alert-warning text-center\">You have not designated your Chain of Command yet! Click the \"Edit Midshipman Information\" button to proceed.</div>";
-        }
-
+  
         if(isset($midshipmaninfo['coc_0']) && !empty($midshipmaninfo['coc_0'])){
           $coc_0_info = get_user_information($db, $midshipmaninfo['coc_0']);
           echo "<div class=\"row\">";

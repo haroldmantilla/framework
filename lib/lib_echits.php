@@ -76,22 +76,26 @@ function get_company_number($db, $username){
   return $results[0]['company'];
 }
 
-// TESTME
-function register_leader($db, $username, $first, $last, $billet, $rank, $service, $level, $accesslevel="user"){
+function register_leader($db, $username, $first, $last, $billet, $rank, $service, $level){
 
-  $query = "call createLeader(?,?,?,?,?,?,?,?,?,?)";
-
-  $stmt = build_query($db, $query, array($username, $first, $last, $billet, $rank, $service, $level, $accesslevel));
-
+  $query = "call createLeader(?,?,?,?,?,?,?)";
+  $stmt = build_query($db, $query, array($username, $first, $last, $billet, $rank, $service, $level));
   $stmt->close();
+  
+  if($level == "MID"){
+    $query = "call designateMID(?)";
+    $stmt = build_query($db, $query, array($username));
+    $stmt->close();
+  }
+  
+  
 }
+
 
 function get_user_information($db, $username){
 
   $query = "call viewLeader(?)";
   $stmt = build_query($db, $query, array($username));
-
-  $stmt->bind_result($results['username'], $results['firstName'], $results['lastName'], $results['billet'], $results['accesslevel'], $results['rank'], $results['service'], $results['level']);
 
   $results = stmt_to_assoc_array($stmt);
 
@@ -109,17 +113,74 @@ function update_basic_leader_info($db, $username, $rank, $first, $last, $billet)
 
 }
 
-function get_midshipman_information($db, $username){
-  $query = "call viewMidshipman(?)";
-  $stmt = build_query($db, $query, array($username));
+function is_user($db, $username){
 
-  $stmt->bind_result($results['alpha'], $results['company'], $results['classYear'], $results['room'], $results['SQPR'], $results['CQPR'], $results['phoneNumber'], $results['aptitudeGrade'], $results['conductGrade'], $results['coc_0'], $results['coc_1'], $results['coc_2'], $results['coc_3'], $results['coc_4'], $results['coc_5'], $results['coc_6']);
+  $query = "call viewLeader(?)";
+  $stmt = build_query($db, $query, array($username));
+  
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  if(!empty($results)){
+    return true;
+  }
+  else {
+    return false;
+  }
+  
+}
+
+function get_next_chit_number($db){
+  $query = "call lastChitNumber()";
+  $stmt = build_query($db, $query, array());
 
   $results = stmt_to_assoc_array($stmt);
 
   $stmt->close();
-  return $results[0];
+  if(!empty($results)){
+    return $results[0] + 1;
+  }
+  else{
+    return false;
+  }
 }
+
+function get_midshipman_information($db, $username){
+  $query = "call viewMidshipman(?)";
+  $stmt = build_query($db, $query, array($username));
+
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  if(!empty($results)){
+    return $results[0];
+  }
+  else{
+    return false;
+  }
+}
+
+function coc_complete($db, $username){
+  $query = "call cocComplete(?)";
+  $stmt = build_query($db, $query, array($username));
+
+  $results = stmt_to_assoc_array($stmt);
+
+  $stmt->close();
+  if(empty($results)){
+    return false;
+  }
+  
+  if(empty($results[0]['coc_0']) && empty($results[0]['coc_1']) && empty($results[0]['coc_2']) && empty($results[0]['coc_3']) && empty($results[0]['coc_4']) && empty($results[0]['coc_5']) && empty($results[0]['coc_6'])){
+    return false;
+  }
+  else{
+    return true;
+  }
+  
+}
+
+
 
 function get_chit_information($db, $number){
   $query = "call viewChit(?)";
@@ -130,14 +191,12 @@ function get_chit_information($db, $number){
   $results = stmt_to_assoc_array($stmt);
 
   $stmt->close();
-  return $results;
+  return $results[0];
 }
 
 function is_midshipman($db, $username){
   $query = "call getMidshipmen()";
   $stmt = build_query($db, $query, array());
-  $stmt->bind_result($results['username'], $results['firstName'], $results['lastName'], $results['billet'], $results['accesslevel'], $results['rank'], $results['service'], $results['level']);
-
   $results = stmt_to_assoc_array($stmt);
 
   $valid = false;
@@ -149,6 +208,23 @@ function is_midshipman($db, $username){
 
   $stmt->close();
   return $valid;
+
+}
+
+function is_archived($db, $chitNumber){
+  $query = "call getArchivedChits()";
+  $stmt = build_query($db, $query, array());
+  $results = stmt_to_assoc_array($stmt);
+
+  $archived = false;
+  foreach ($results as $key => $row) {
+    if($row['chitNumber'] == $chitNumber ){
+      $archived = true;
+    }
+  }
+
+  $stmt->close();
+  return $archived;
 
 }
 
@@ -344,7 +420,7 @@ function create_midshipman($db, $username, $company, $year, $room, $phone, $SQPR
   $stmt->close();
 }
 
-function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, $requestType, $requestOther, $addr_careOf, $addr_street, $addr_city, $addr_state, $addr_zip, $remarks, $createDate, $startDate, $startTime, $endDate, $endTime, $orm, $supportingdocs, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6){
+function create_chit_x($db, $chitnumber, $creator, $shortdescription, $reference, $requestType, $requestOther, $addr_careOf, $addr_street, $addr_city, $addr_state, $addr_zip, $remarks, $createDate, $startDate, $startTime, $endDate, $endTime, $orm, $supportingdocs, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6){
 
   if(empty($coc_0)){
     $coc_0 = 'NULL';
@@ -454,6 +530,237 @@ function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, 
   $stmt->close();
 }
 
+function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, $requestType, $requestOther, $addr_careOf, $addr_street, $addr_city, $addr_state, $addr_zip, $remarks, $createdDate, $startDate, $startTime, $endDate, $endTime, $orm, $supportingdocs, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6){
+  
+
+  $creator = "'".$creator."'";
+  $shortdescription = "'".$shortdescription."'";
+  $reference = "'".$reference."'";
+  $requestType = "'".$requestType."'";
+  
+
+  if(!empty($requestOther)){
+    $requestOther = "'".$requestOther."'";
+  }
+  else{
+    $requestOther = 'NULL';
+  }
+
+  if(!empty($addr_careOf)){
+    $addr_careOf = "'".$addr_careOf."'";
+  }
+  else{
+    $addr_careOf = 'NULL';
+  }
+
+
+  if(!empty($orm)){
+    $orm = "'".$orm."'";
+  }
+  else{
+    $orm = 'NULL';
+  }
+
+
+  if(!empty($supportingdocs)){
+    $supportingdocs = "'".$supportingdocs."'";
+  }
+  else{
+    $supportingdocs = 'NULL';
+  }
+
+  $addr_street = "'".$addr_street."'";
+  $addr_city = "'".$addr_city."'";
+  $addr_state = "'".$addr_state."'";
+  $addr_zip = "'".$addr_zip."'";
+  $remarks = "'".$remarks."'";
+  $createdDate = "'".$createdDate."'";
+  $startDate = "'".$startDate."'";
+  $startTime = "'".$startTime."'";
+  $endDate = "'".$endDate."'";
+  $endTime = "'".$endTime."'";
+
+  if(empty($coc_0)){
+    $coc_0 = 'NULL';
+    $coc_0_status = 'NULL';
+    $coc_0_comments = 'NULL';
+    $coc_0_date = 'NULL';
+    $coc_0_time = 'NULL';
+  }
+  else{
+    $coc_0 = "'".$coc_0."'";
+    $coc_0_status = "'PENDING'";
+    $coc_0_comments = 'NULL';
+    $coc_0_date = 'NULL';
+    $coc_0_time = 'NULL';
+  }
+
+
+  if(empty($coc_1)){
+    $coc_1 = 'NULL';
+    $coc_1_status = 'NULL';
+    $coc_1_comments = 'NULL';
+    $coc_1_date = 'NULL';
+    $coc_1_time = 'NULL';
+  }
+  else{
+    $coc_1 = "'".$coc_1."'";
+    $coc_1_status = "'PENDING'";
+    $coc_1_comments = 'NULL';
+    $coc_1_date = 'NULL';
+    $coc_1_time = 'NULL';
+  }
+
+
+  if(empty($coc_2)){
+    $coc_2 = 'NULL';
+    $coc_2_status = 'NULL';
+    $coc_2_comments = 'NULL';
+    $coc_2_date = 'NULL';
+    $coc_2_time = 'NULL';
+  }
+  else{
+    $coc_2 = "'".$coc_2."'";
+    $coc_2_status = "'PENDING'";
+    $coc_2_comments = 'NULL';
+    $coc_2_date = 'NULL';
+    $coc_2_time = 'NULL';
+  }
+
+  if(empty($coc_3)){
+    $coc_3 = 'NULL';
+    $coc_3_status = 'NULL';
+    $coc_3_comments = 'NULL';
+    $coc_3_date = 'NULL';
+    $coc_3_time = 'NULL';
+  }
+  else{
+    $coc_3 = "'".$coc_3."'";
+    $coc_3_status = "'PENDING'";
+    $coc_3_comments = 'NULL';
+    $coc_3_date = 'NULL';
+    $coc_3_time = 'NULL';
+  }
+
+  if(empty($coc_4)){
+    $coc_4 = 'NULL';
+    $coc_4_status = 'NULL';
+    $coc_4_comments = 'NULL';
+    $coc_4_date = 'NULL';
+    $coc_4_time = 'NULL';
+  }
+  else{
+    $coc_4 = "'".$coc_4."'";
+    $coc_4_status = "'PENDING'";
+    $coc_4_comments = 'NULL';
+    $coc_4_date = 'NULL';
+    $coc_4_time = 'NULL';
+  }
+
+  if(empty($coc_5)){
+    $coc_5 = 'NULL';
+    $coc_5_status = 'NULL';
+    $coc_5_comments = 'NULL';
+    $coc_5_date = 'NULL';
+    $coc_5_time = 'NULL';
+  }
+  else{
+    $coc_5 = "'".$coc_5."'";
+    $coc_5_status = "'PENDING'";
+    $coc_5_comments = 'NULL';
+    $coc_5_date = 'NULL';
+    $coc_5_time = 'NULL';
+  }
+
+  if(empty($coc_6)){
+    $coc_6 = 'NULL';
+    $coc_6_status = 'NULL';
+    $coc_6_comments = 'NULL';
+    $coc_6_date = 'NULL';
+    $coc_6_time = 'NULL';
+  }
+  else{
+    $coc_6 = "'".$coc_6."'";
+    $coc_6_status = "'PENDING'";
+    $coc_6_comments = 'NULL';
+    $coc_6_date = 'NULL';
+    $coc_6_time = 'NULL';
+  }
+
+  $query = "call createChit(" .
+  $chitnumber . "," .
+  $creator . "," .
+  $shortdescription . "," .
+  $reference . "," .
+  $requestType . "," .
+  $requestOther . "," .
+  $addr_careOf . "," .
+  $addr_street . "," .
+  $addr_city . "," .
+  $addr_state . "," .
+  $addr_zip . "," .
+  "0" . "," .
+  $remarks . "," .
+  $createdDate . "," .
+  $startDate . "," .
+  $startTime . "," .
+  $endDate . "," .
+  $endTime . "," .
+
+  $orm . "," .
+  $supportingdocs . "," .
+
+  $coc_0 . "," .
+  $coc_0_status . "," .
+  $coc_0_comments . "," .
+  $coc_0_date . "," .
+  $coc_0_time . "," .
+
+  $coc_1 . "," .
+  $coc_1_status . "," .
+  $coc_1_comments . "," .
+  $coc_1_date . "," .
+  $coc_1_time . "," .
+
+  $coc_2 . "," .
+  $coc_2_status . "," .
+  $coc_2_comments . "," .
+  $coc_2_date . "," .
+  $coc_2_time . "," .
+
+  $coc_3 . "," .
+  $coc_3_status . "," .
+  $coc_3_comments . "," .
+  $coc_3_date . "," .
+  $coc_3_time . "," .
+
+  $coc_4 . "," .
+  $coc_4_status . "," .
+  $coc_4_comments . "," .
+  $coc_4_date . "," .
+  $coc_4_time . "," .
+
+  $coc_5 . "," .
+  $coc_5_status . "," .
+  $coc_5_comments . "," .
+  $coc_5_date . "," .
+  $coc_5_time . "," .
+
+  $coc_6 . "," .
+  $coc_6_status . "," .
+  $coc_6_comments . "," .
+  $coc_6_date . "," .
+  $coc_6_time  . ")";
+
+   // echo "$query";
+
+
+   $data = query($db, $query);
+
+   return true;
+}
+
+
 function action($db, $chit, $who, $what, $today, $now){
   $query = "call ";
 
@@ -527,18 +834,33 @@ function comment($db, $chit, $who, $comment){
 function get_user_chits($db, $username){
 	$query = "call getUserChits(?)";
 	$stmt = build_query($db, $query, array($username));
-
-	$stmt->bind_result($results['chitNumber'], $results['creator'], $results['description'], $results['reference'], $results['requestType'], $results['requestOther'], $results['addr_careOf'], $results['addr_street'], $results['addr_city'], $results['addr_state'], $results['addr_zip'], $results['archiveactive'], $results['remarks'], $results['createdDate'], $results['startDate'], $results['startTime'], $results['endDate'], $results['endTime'], $results['ormURL'], $results['supportingDocsURL'], $results['coc_0_username'], $results['coc_0_status'], $results['coc_0_comments'], $results['coc_0_date'], $results['coc_0_time'], $results['coc_1_username'], $results['coc_1_status'], $results['coc_1_comments'], $results['coc_1_date'], $results['coc_1_time'], $results['coc_2_username'], $results['coc_2_status'], $results['coc_2_comments'], $results['coc_2_date'], $results['coc_2_time'], $results['coc_3_username'], $results['coc_3_status'], $results['coc_3_comments'], $results['coc_3_date'], $results['coc_3_time'], $results['coc_4_username'], $results['coc_4_status'], $results['coc_4_comments'], $results['coc_4_date'], $results['coc_4_time'], $results['coc_5_username'], $results['coc_5_status'], $results['coc_5_comments'], $results['coc_5_date'], $results['coc_5_time'], $results['coc_6_username'], $results['coc_6_status'], $results['coc_6_comments'], $results['coc_6_date'], $results['coc_6_time']);
-
-
-
 	$results = stmt_to_assoc_array($stmt);
 
 	$stmt->close();
 	return $results;
 
+}
+
+function get_user_archived_chits($db, $username){
+	$query = "call getUserArchivedChits(?)";
+	$stmt = build_query($db, $query, array($username));
+	$results = stmt_to_assoc_array($stmt);
+
+	$stmt->close();
+	return $results;
+}
+
+function get_subordinate_archived_chits($db, $username){
+	$query = "call getSubordinateArchivedChits(?)";
+	$stmt = build_query($db, $query, array($username));
+	$results = stmt_to_assoc_array($stmt);
+
+	$stmt->close();
+	return $results;
 
 }
+
+
 
 
 function get_num_users($db){

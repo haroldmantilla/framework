@@ -92,7 +92,7 @@ $completemids = get_company($db, $company);
     //rows go here
     echo "<table class='table table-hover'>";
     echo "<thead>";
-    echo "<tr><th>Username</th><th>Name</th><th>Company</th><th>Access</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
+    echo "<tr><th>Username</th><th>Name</th><th>Company</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
 
     foreach ($completemids as $user){
 
@@ -135,7 +135,6 @@ $completemids = get_company($db, $company);
       echo "<td>{$user['rank']} {$user['firstName']} {$user['lastName']}, {$user['service']} </td>";
 
       echo "<td>{$user['company']}</td>";
-      echo "<td>{$user['accesslevel']}</td>";
 
       echo "<td>{$user['level']}</td>";
 

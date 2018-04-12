@@ -3,7 +3,7 @@
   ###############################################################
   #              Security and Navbar Configuration              #
   ###############################################################
-  $MODULE_DEF = array('name'       => 'Manage Users',
+  $MODULE_DEF = array('name'       => 'Manage All Users',
                       'version'    => 1.0,
                       'display'    => 'Admin',
                       'tab'        => 'admin',
@@ -114,7 +114,7 @@ $incompletemids = get_incomplete_mids($db);
     //rows go here
     echo "<table class='table table-hover'>";
     echo "<thead>";
-    echo "<tr><th>Username</th><th>Name</th><th>Access</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
+    echo "<tr><th>Username</th><th>Name</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
 
     foreach ($admins as $user){
 
@@ -136,7 +136,6 @@ $incompletemids = get_incomplete_mids($db);
       echo "<tr>";
       echo "<td>{$user['username']}</td>";
       echo "<td>{$user['rank']} {$user['firstName']} {$user['lastName']}, {$user['service']} </td>";
-      echo "<td>{$user['accesslevel']}</td>";
       echo "<td>{$user['level']}</td>";
 
       echo "<td>";
@@ -394,7 +393,7 @@ $incompletemids = get_incomplete_mids($db);
     //rows go here
     echo "<table class='table table-hover'>";
     echo "<thead>";
-    echo "<tr><th>Username</th><th>Name</th><th>Access</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
+    echo "<tr><th>Username</th><th>Name</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
 
     foreach ($staff as $user){
 
@@ -416,7 +415,6 @@ $incompletemids = get_incomplete_mids($db);
       echo "<tr>";
       echo "<td>{$user['username']}</td>";
       echo "<td>{$user['rank']} {$user['firstName']} {$user['lastName']}, {$user['service']} </td>";
-      echo "<td>{$user['accesslevel']}</td>";
       echo "<td>{$user['level']}</td>";
 
       echo "<td>";
@@ -494,7 +492,7 @@ $incompletemids = get_incomplete_mids($db);
     //rows go here
     echo "<table class='table table-hover'>";
     echo "<thead>";
-    echo "<tr><th>Username</th><th>Name</th><th>Company</th><th>Access</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
+    echo "<tr><th>Username</th><th>Name</th><th>Company</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
 
     foreach ($completemids as $user){
 
@@ -537,7 +535,6 @@ $incompletemids = get_incomplete_mids($db);
       echo "<td>{$user['rank']} {$user['firstName']} {$user['lastName']}, {$user['service']} </td>";
 
       echo "<td>{$user['company']}</td>";
-      echo "<td>{$user['accesslevel']}</td>";
 
       echo "<td>{$user['level']}</td>";
 
@@ -617,7 +614,7 @@ $incompletemids = get_incomplete_mids($db);
     //rows go here
     echo "<table class='table table-hover'>";
     echo "<thead>";
-    echo "<tr><th>Username</th><th>Name</th><th>Access</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
+    echo "<tr><th>Username</th><th>Name</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
 
     foreach ($incompletemids as $user){
 
@@ -640,7 +637,6 @@ $incompletemids = get_incomplete_mids($db);
       echo "<td>{$user['username']}</td>";
       echo "<td>{$user['rank']} {$user['firstName']} {$user['lastName']}, {$user['service']} </td>";
 
-      echo "<td>{$user['accesslevel']}</td>";
 
       echo "<td>{$user['level']}</td>";
 

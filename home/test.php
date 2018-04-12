@@ -11,7 +11,7 @@
                       'student'    => true,
                       'instructor' => true,
                       'guest'      => false,
-                      'access'     => array('admin'=>'developer'));
+                      'access'     => array('admin'=>'db'));
   ###############################################################
 
   # Load in Configuration Parameters
@@ -38,5 +38,8 @@
   echo "CUSTOM: ";
   print_r($data);
   echo "</pre>";
+  
+  $results = coc_complete($db, "m183990");
+  echo "$results";
 
 ?>

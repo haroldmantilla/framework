@@ -9,6 +9,9 @@
 
   # Location of the web and CSS files
   define('WEB_PATH', '../web/');
+  
+  define('HOME_PATH', '../home/');
+
 
   ################################################################
   # Define the High Level definitions for this project
@@ -73,7 +76,7 @@
     array('api'      =>array('type'=>'dropdown', 'title'=>'Application Interface', 'icon'=>'glyphicon-globe',       'rtext'=>" API",            'caret'=>true),
           'review'   =>array('type'=>'dropdown', 'title'=>'Review',                'icon'=>'glyphicon-th-large',    'rtext'=>" Review",         'caret'=>true),
           'database' =>array('type'=>'dropdown', 'title'=>'Database',              'icon'=>'glyphicon-list',        'rtext'=>" Query Tools",    'caret'=>true),
-          'chits'    =>array('type'=>'dropdown', 'title'=>'Chits',                 'icon'=>'glyphicon-file',         'rtext'=>" Chits",          'caret'=>true),
+          'chits'    =>array('type'=>'dropdown', 'title'=>'View Chits',                 'icon'=>'glyphicon-file',         'rtext'=>" Chits",          'caret'=>true),
           'tasks'    =>array('type'=>'dropdown', 'title'=>'Tasks',                 'icon'=>'glyphicon-cog',         'rtext'=>" Tasks",          'caret'=>true),
           'grades'   =>array('type'=>'dropdown', 'title'=>'Grades',                'icon'=>'glyphicon-signal',      'rtext'=>" Grades",         'caret'=>true),
           'seperator'=>array(),

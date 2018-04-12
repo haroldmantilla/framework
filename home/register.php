@@ -3,14 +3,14 @@
   ###############################################################
   #              Security and Navbar Configuration              #
   ###############################################################
-  $MODULE_DEF = array('name'       => 'Default Home Page',
+  $MODULE_DEF = array('name'       => 'Register',
                       'version'    => 1.0,
                       'display'    => '',
-                      'tab'        => 'user',
+                      'tab'        => '',
                       'position'   => 0,
                       'student'    => true,
                       'instructor' => true,
-                      'guest'      => true,
+                      'guest'      => false,
                       'access'     => array());
   ###############################################################
 
@@ -19,28 +19,57 @@
 
   # Load in template, if not already loaded
   require_once(LIBRARY_PATH.'template.php');
+  
+  if(isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['level']) && isset($_POST['billet']) && isset($_POST['service']) && isset($_POST['rank'])){
+    
+    if(strlen($_POST['firstname']) > 20){
+      $_SESSION['error'] = "Firstname too long!";
+    }
+    
+    if(strlen($_POST['lastname']) > 20){
+      $_SESSION['error'] = "Lastname too long!";
+    }
+    
+    if(strlen($_POST['billet']) > 40){
+      $_SESSION['error'] = "Billet too long!";
+    }
+    
+    
+    $level = $_POST['level'];
+    $first = $_POST['firstname'];
+    $last = $_POST['lastname'];
+    $billet = $_POST['billet'];
+    $service = $_POST['service'];
+    $rank = $_POST['rank'];
+    
+    register_leader($db, USER['user'], $first, $last, $billet, $rank, $service, $level);
+    
+    $successful_write = is_user($db, USER['user']);
+    
+    
 
-  # Load in The NavBar
-  # Note: You too will have automated NavBar generation
-  #       support in your future templates...
-  require_once(WEB_PATH.'navbar.php');
+
+    if(!$successful_write) {
+      $_SESSION['error'] = "Unsuccessful write to database! Contact the website administrator if the error persists.";
+    }
+    else{
+      header("Location: index.php");
+    }
+    
+  }
+  
+  
+    # Load in The NavBar
+    require_once(WEB_PATH.'navbar.php');
+  
+
 
 ?>
    <style>
-      .center-div {
-        position: absolute;
-        margin: auto;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 331px;
-        height: 300px;
-      }
-      h1, body {
-        font-family: Raleway;
-      }
-
+   h1, body {
+     font-family: Raleway;
+   }
+   
       .zerodiv {
         padding-left: 0;
         padding-right: 0;
@@ -99,12 +128,26 @@
       return;
     }
     </script>
+    
 
-  <div class="center-div">
-    <form method=post action="login/register-user.php" id=reg-form onsubmit="return inputCheck(this)">
+  <div class="row">
+    <div class="col-xs-4">
+    </div>
+    <div class="col-xs-4">
+      <?php 
+      if(isset($_SESSION['error'])){
+        echo "<div class=\"alert alert-danger text-center\">";
+        echo $_SESSION['error'];
+        echo "</div>";
+      }
+      else{
+        echo "<div class=\"alert alert-danger text-center\">Your profile is <strong>incomplete!</strong> Please register to continue.</div>";
+      }
+      ?>
+      
+    <form method=post action="?" id=reg-form onsubmit="return inputCheck(this)">
       <div class="well text-center">
-        <h2>eChits Register</h2>
-
+      
         <select class="form-control" name='level' id="level" onkeypress="rankswitch();" onclick="rankswitch();" required>
           <option value="MID" selected>MID</option>
           <option value="SEL">SEL</option>
@@ -139,15 +182,9 @@
         <input type="text" class="form-control" name="firstname" maxlength="20" placeholder="First name" required>
         <input type="text" class="form-control" name="lastname" maxlength="20" placeholder="Last name" required>
         <input type="text" class="form-control" name="billet" maxlength="40" placeholder="Billet" required>
-        <input type="email" class="form-control" name="email" maxlength="20" placeholder="Email" required>
-        <input type="text" class="form-control" name="username" maxlength="10" placeholder="Username" required>
-        <input type="password" class="form-control" name="password1" maxlength="32" placeholder="Password" required>
-        <input type="password" class="form-control" name="password2" maxlength="32" placeholder="Confirm Password" required>
 
         <!-- <a href=login.php><button type=button>Login</button></a> -->
-        <!-- <button type=button class="btn btn-default" onclick="window.location.href='./login.php'">Login</button> -->
         <button type=submit class="btn btn-default" id=register-button form=reg-form value=Register>Register</button>
-        <!-- <button type=button class="btn btn-default" onclick="window.location.href='./change.php'">Change password</button> -->
       </div>
       <?php
         if(isset($_SESSION['error'])) {
@@ -157,29 +194,18 @@
           echo "<div class=\"alert alert-success\">".$_SESSION['success']."</div>";
           unset($_SESSION['success']);
         }
+        
        ?>
+       
       <div class="alert alert-danger" id=error style="visibility:hidden;"></div>
     </form>
 
     <!-- Client-side check  -->
-    <script type=text/javascript>
-      function inputCheck($form) {
-        if($form.elements['username'].value.indexOf(" ") != -1 || $form.elements['username'].value.indexOf("-") != -1) {
-          // alert("Username should not contain \" \" or \"-\"!");
-          document.getElementById("error").innerHTML = "Username should not contain \" \" or \"-\"!";
-          document.getElementById("error").style.visibility = "visible";
-          return false;
-        } else if($form.elements['email'].value.indexOf("@usna.edu") == -1) { // email not in usna.edu domain
-          document.getElementById("error").innerHTML = "Email not in USNA domain!";
-          document.getElementById("error").style.visibility = "visible";
-          return false;
-        }
-        return true;
-      }
-
-      // document.getElementById("register-button").focus();
-    </script>
+    
   </div>
+  <div class="col-xs-4">
+  </div>
+</div>
 
   </body>
 </html>

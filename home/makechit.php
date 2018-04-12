@@ -1,123 +1,336 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>eChits</title>
-    <link rel="icon" href="./imgs/icon.ico"/>
-	  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="includes/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link type="text/css" rel="stylesheet" href="style.css" /> -->
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="includes/bootstrap/js/bootstrap.min.js"></script>
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <!-- Bootstrap Js CDN -->
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-    <!-- This CSS is how we mimic the appearance of the chit -->
-
-    <script type="text/javascript">
-    function redirect(location){
-      window.location = location;
-    }
-    </script>
-
-    <script type="text/javascript">
-    function idleTimer() {
-      var t;
-      //window.onload = resetTimer;
-      window.onmousemove = resetTimer; // catches mouse movements
-      window.onmousedown = resetTimer; // catches mouse movements
-      window.onclick = resetTimer;     // catches mouse clicks
-      window.onscroll = resetTimer;    // catches scrolling
-      window.onkeypress = resetTimer;  //catches keyboard actions
-
-      function logout() {
-        window.location.href = './logout.php';  //Adapt to actual logout script
-      }
-
-      function reload() {
-        window.location = self.location.href;  //Reloads the current page
-      }
-
-      function resetTimer() {
-        clearTimeout(t);
-        t= setTimeout(reload, 600000);  // time is in milliseconds (1000 is 1 second)
-        t = setTimeout(logout, 1200000);  // time is in milliseconds (1000 is 1 second)
-      }
-    }
-    idleTimer();
-    </script>
-
-    <script type="text/javascript">
-    function routeTo(){
-      var to_username = document.getElementById("route_to").value;
-
-      var xhttp = new XMLHttpRequest();
-
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          var coc = this.responseText.split(";")
-
-          document.getElementById("pos_0").innerHTML = coc[0];
-          document.getElementById("pos_1").innerHTML = coc[1];
-          document.getElementById("pos_2").innerHTML = coc[2];
-          document.getElementById("pos_3").innerHTML = coc[3];
-          document.getElementById("pos_4").innerHTML = coc[4];
-          document.getElementById("pos_5").innerHTML = coc[5];
-          document.getElementById("pos_6").innerHTML = coc[6];
-
-        }
-      };
-
-      xhttp.open("GET", "./getcoc.script.php?to=" + to_username, true);
-      xhttp.send();
-
-    }
-    </script>
-
-    <style>
-    .box {
-      padding: 0;
-      border: 1px solid #000000 !important;
-      margin: 0;
-    }
-
-    .courier{
-      font-family: "Courier New", Courier, monospace;
-    }
-
-    </style>
-  </head>
-  <body>
 <?php
-session_start();
-require_once('./includes/nav.inc.php');
-require_once('./includes/func.inc.php');
-require_once("./includes/nimitz.inc.php");
-require_once("./includes/error.inc.php");
-nav();
-// session_destroy();
-// $_POST = array();
-// $_REQUEST = array();
-// die;
 
-$debug = false;
-// $debug = true;
+  ###############################################################
+  #              Security and Navbar Configuration              #
+  ###############################################################
+  $MODULE_DEF = array('name'       => 'Make Chit',
+                      'version'    => 1.0,
+                      'display'    => 'Make Chit',
+                      'tab'        => '',
+                      'position'   => 1,
+                      'student'    => true,
+                      'instructor' => true,
+                      'guest'      => false,
+                      'access'     => array('level'=>'MID'));
+  ###############################################################
 
-if (!isset($_SESSION['username'])) {
-  echo "<script>redirect('./login.php')</script>";
-  header("Location: ./login.php");
+  # Load in Configuration Parameters
+  require_once("../etc/config.inc.php");
+
+  # Load in template, if not already loaded
+  require_once(LIBRARY_PATH.'template.php');
+
+
+
+  if(isset($_REQUEST['to'])){
+    $midshipmaninfo = get_midshipman_information($db, USER['user']);
+
+    $response = "";
+    $pos_0 = null;
+    $pos_1 = null;
+    $pos_2 = null;
+
+    $user_info = get_user_information($db, $_REQUEST['to']);
+
+    if($_REQUEST['to'] == $midshipmaninfo['coc_0']){
+
+        if(!empty($midshipmaninfo['coc_0'])){
+        $info = get_user_information($db, $midshipmaninfo['coc_0']);
+        $pos_0 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+      }
+
+      if(!empty($midshipmaninfo['coc_1'])){
+        $info = get_user_information($db, $midshipmaninfo['coc_1']);
+        $pos_1 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+      }
+
+      if(!empty($midshipmaninfo['coc_2'])){
+        $info = get_user_information($db, $midshipmaninfo['coc_2']);
+        $pos_2 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+      }
+
+
+    }
+    elseif($_REQUEST['to'] == $midshipmaninfo['coc_1']){
+      $pos_0 = "<br><br><br>";
+
+      if(!empty($midshipmaninfo['coc_1'])){
+        $info = get_user_information($db, $midshipmaninfo['coc_1']);
+        $pos_1 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+      }
+
+      if(!empty($midshipmaninfo['coc_2'])){
+        $info = get_user_information($db, $midshipmaninfo['coc_2']);
+        $pos_2 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+      }
+
+    }
+    elseif($_REQUEST['to'] == $midshipmaninfo['coc_2']){
+
+      $pos_0 = "<br><br><br>";
+      $pos_1 = "<br><br><br>";
+
+
+      if(!empty($midshipmaninfo['coc_2'])){
+        $info = get_user_information($db, $midshipmaninfo['coc_2']);
+        $pos_2 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+      }
+
+    }
+
+
+
+    if(!empty($midshipmaninfo['coc_3'])){
+      $info = get_user_information($db, $midshipmaninfo['coc_3']);
+      $pos_3 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+    }
+    else{
+      $pos_3 = "<br><br><br>";
+    }
+
+    if(!empty($midshipmaninfo['coc_4'])){
+      $info = get_user_information($db, $midshipmaninfo['coc_4']);
+      $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+    }
+    else{
+      $pos_4 = "<br><br><br>";
+    }
+
+    if(!empty($midshipmaninfo['coc_5'])){
+      $info = get_user_information($db, $midshipmaninfo['coc_5']);
+      $pos_5 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+    }
+    else{
+      $pos_5 = "<br><br><br>";
+    }
+
+    if(!empty($midshipmaninfo['coc_6'])){
+      $info = get_user_information($db, $midshipmaninfo['coc_6']);
+      $pos_6 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+      $info = get_user_information($db, $midshipmaninfo['coc_5']);
+      $pos_5 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+      $info = get_user_information($db, $midshipmaninfo['coc_4']);
+      $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+      $info = get_user_information($db, $midshipmaninfo['coc_3']);
+      $pos_3 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+    }
+    elseif(!empty($midshipmaninfo['coc_5'])){
+      $pos_3 = "<br><br><br>";
+
+      $info = get_user_information($db, $midshipmaninfo['coc_5']);
+      $pos_6 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+      $info = get_user_information($db, $midshipmaninfo['coc_4']);
+      $pos_5 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+      $info = get_user_information($db, $midshipmaninfo['coc_3']);
+      $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+    }
+    elseif(!empty($midshipmaninfo['coc_4'])){
+      $pos_3 = "<br><br><br>";
+      $pos_4 = "<br><br><br>";
+
+      $info = get_user_information($db, $midshipmaninfo['coc_4']);
+      $pos_6 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+      $info = get_user_information($db, $midshipmaninfo['coc_3']);
+      $pos_5 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+    }
+
+    elseif(!empty($midshipmaninfo['coc_3'])){
+      $pos_3 = "<br><br><br>";
+      $pos_4 = "<br><br><br>";
+      $pos_5 = "<br><br><br>";
+
+      $info = get_user_information($db, $midshipmaninfo['coc_3']);
+      $pos_6 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+    }
+    else{
+      $pos_3 = "<br><br><br>";
+      $pos_4 = "<br><br><br>";
+      $pos_5 = "<br><br><br>";
+      $pos_6 = "<br><br><br>";
+    }
+
+
+    echo $pos_0 . ";" . $pos_1 . ";" . $pos_2 . ";" . $pos_3 . ";" . $pos_4 . ";". $pos_5 . ";". $pos_6 ;
+    die;
+  }
+  
+  //if post is set, write to database, redirect to viewchit
+  if(isset($_POST['SHORT_DESCRIPTION']) && isset($_POST['TO_USERNAME']) && isset($_POST['REFERENCE']) && isset($_POST['REQUEST_TYPE']) && isset($_POST['ADDRESS_CITY']) && isset($_POST['ADDRESS_2']) && isset($_POST['ADDRESS_STATE']) && isset($_POST['ADDRESS_ZIP']) && isset($_POST['REMARKS']) && isset($_POST['BEGIN_DATE']) && isset($_POST['BEGIN_TIME']) && isset($_POST['END_DATE']) && isset($_POST['END_TIME'])){
+
+
+        $midshipmaninfo = get_midshipman_information($db, USER['user']);
+        $userinfo = get_user_information($db, USER['user']);
+
+
+        $_POST['SHORT_DESCRIPTION'] = addslashes($_POST['SHORT_DESCRIPTION']);
+        $_POST['REFERENCE'] = addslashes($_POST['REFERENCE']);
+        $_POST['ADDRESS_CITY'] = addslashes($_POST['ADDRESS_CITY']);
+        $_POST['ADDRESS_2'] = addslashes($_POST['ADDRESS_2']);
+        $_POST['ADDRESS_STATE'] = addslashes($_POST['ADDRESS_STATE']);
+        $_POST['ADDRESS_ZIP'] = addslashes($_POST['ADDRESS_ZIP']);
+        $_POST['REMARKS'] = addslashes($_POST['REMARKS']);
+        $_POST['BEGIN_DATE'] = addslashes($_POST['BEGIN_DATE']);
+        $_POST['BEGIN_TIME'] = addslashes($_POST['BEGIN_TIME']);
+        $_POST['END_DATE'] = addslashes($_POST['END_DATE']);
+        $_POST['END_TIME'] = addslashes($_POST['END_TIME']);
+
+
+
+        if(!empty($_POST['ORM'])){
+          if(strpos($_POST['ORM'], "https://") === false){
+            $_POST['ORM'] = "https://" . $_POST['ORM'];
+          }
+        }
+
+        if(!empty($_POST['DOCS'])){
+          if(strpos($_POST['DOCS'], "https://") === false){
+            $_POST['DOCS'] = "https://" . $_POST['DOCS'];
+          }
+        }
+
+        $chitnumber = get_next_chit_number($db);
+        // $_SESSION['error'] = $chitnumber;
+
+        if(empty($chitnumber)){
+          $chitnumber = 1;
+        }
+
+
+        $today = date("dMy");
+        $today = strtoupper($today);
+
+        if($_POST['TO_USERNAME'] == $midshipmaninfo['coc_0']){
+          $coc_0 = $midshipmaninfo['coc_0'];
+          $coc_1 = $midshipmaninfo['coc_1'];
+          $coc_2 = $midshipmaninfo['coc_2'];
+          $coc_3 = $midshipmaninfo['coc_3'];
+          $coc_4 = $midshipmaninfo['coc_4'];
+          $coc_5 = $midshipmaninfo['coc_5'];
+          $coc_6 = $midshipmaninfo['coc_6'];
+        }
+        elseif($_POST['TO_USERNAME'] == $midshipmaninfo['coc_1']){
+          $coc_0 = null;
+          $coc_1 = $midshipmaninfo['coc_1'];
+          $coc_2 = $midshipmaninfo['coc_2'];
+          $coc_3 = $midshipmaninfo['coc_3'];
+          $coc_4 = $midshipmaninfo['coc_4'];
+          $coc_5 = $midshipmaninfo['coc_5'];
+          $coc_6 = $midshipmaninfo['coc_6'];
+        }
+        elseif($_POST['TO_USERNAME'] == $midshipmaninfo['coc_2']){
+          $coc_0 = null;
+          $coc_1 = null;
+          $coc_2 = $midshipmaninfo['coc_2'];
+          $coc_3 = $midshipmaninfo['coc_3'];
+          $coc_4 = $midshipmaninfo['coc_4'];
+          $coc_5 = $midshipmaninfo['coc_5'];
+          $coc_6 = $midshipmaninfo['coc_6'];
+        }
+
+        if(isset($_POST['REQUEST_OTHER'])){
+          $requestOther = addslashes($_POST['REQUEST_OTHER']);
+        }
+        else{
+          $requestOther = null;
+        }
+
+
+        if(isset($_POST['ADDRESS_1'])){
+          $addr_1 = addslashes($_POST['ADDRESS_1']);
+        }
+        else{
+          $addr_1 = null;
+        }
+
+        create_chit($db, $chitnumber, USER['user'], $_POST['SHORT_DESCRIPTION'], $_POST['REFERENCE'], $_POST['REQUEST_TYPE'], $requestOther, $addr_1, $_POST['ADDRESS_2'], $_POST['ADDRESS_CITY'], $_POST['ADDRESS_STATE'], $_POST['ADDRESS_ZIP'], $_POST['REMARKS'], $today, $_POST['BEGIN_DATE'], $_POST['BEGIN_TIME'], $_POST['END_DATE'], $_POST['END_TIME'], $_POST['ORM'], $_POST['DOCS'], $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6);
+
+        $afterchitnumber = get_next_chit_number($db);
+        if($afterchitnumber > $chitnumber){
+          $_SESSION['success'] = "Chit has been made!";
+          $_SESSION['chit'] = $chitnumber;
+          echo "<script type='text/javascript'>redirect('viewchit.php')</script>";
+        }
+        else{
+          $_SESSION['error'] = "Error creating chit!";
+        }
+
+
+      }
+      elseif(isset($_POST['SHORT_DESCRIPTION']) && isset($_POST['TO_USERNAME']) && isset($_POST['REFERENCE']) && isset($_POST['ADDRESS_CITY']) && isset($_POST['ADDRESS_2']) && isset($_POST['ADDRESS_STATE']) && isset($_POST['ADDRESS_ZIP']) && isset($_POST['REMARKS']) && isset($_POST['BEGIN_DATE']) && isset($_POST['BEGIN_TIME']) && isset($_POST['END_DATE']) && isset($_POST['END_TIME'])){
+        $_SESSION['error'] = "Select a request type!";
+      }
+
+
+    
+  
+  # Load in The NavBar
+  require_once(WEB_PATH.'navbar.php');
+  
+  
+  $midshipmaninfo = get_midshipman_information($db, USER['user']);
+  $userinfo = get_user_information($db, USER['user']);
+
+
+?>
+
+<script type="text/javascript">
+function redirect(location){
+  window.location = location;
+}
+</script>
+
+<script type="text/javascript">
+function routeTo(){
+  var to_username = document.getElementById("route_to").value;
+  
+  var xhttp = new XMLHttpRequest();
+  
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var coc = this.responseText.split(";")
+      
+      document.getElementById("pos_0").innerHTML = coc[0];
+      document.getElementById("pos_1").innerHTML = coc[1];
+      document.getElementById("pos_2").innerHTML = coc[2];
+      document.getElementById("pos_3").innerHTML = coc[3];
+      document.getElementById("pos_4").innerHTML = coc[4];
+      document.getElementById("pos_5").innerHTML = coc[5];
+      document.getElementById("pos_6").innerHTML = coc[6];
+      
+    }
+  };
+  
+  xhttp.open("GET", "./makechit.php?to=" + to_username, true);
+  xhttp.send();
+  
+}
+</script>
+
+<style>
+.box {
+  padding: 0;
+  border: 1px solid #000000 !important;
+  margin: 0;
 }
 
+</style>
 
-$is_midshipman = is_midshipman($_SESSION['username']);
-if(!$is_midshipman){
-  header("Location: ./index.php");
-}
+<?php
 
 
 if(!isset($_SESSION['visit'])){
@@ -139,465 +352,339 @@ $_SESSION['submitted']=0;
 
   </div>
 
-<?php
-if($debug){
-  echo "<pre>";
-  print_r($_POST);
-  echo "</pre>";
-}
+
+    <form  role="form" action="?" method="post">
 
 
-//if post is set, write to database, redirect to viewchit
-if(
-    isset($_POST['SHORT_DESCRIPTION']) && isset($_POST['TO_USERNAME']) && isset($_POST['REFERENCE']) && isset($_POST['REQUEST_TYPE']) && isset($_POST['ADDRESS_CITY']) && isset($_POST['ADDRESS_2']) && isset($_POST['ADDRESS_STATE']) && isset($_POST['ADDRESS_ZIP']) && isset($_POST['REMARKS']) && isset($_POST['BEGIN_DATE']) && isset($_POST['BEGIN_TIME']) && isset($_POST['END_DATE']) && isset($_POST['END_TIME'])){
-
-
-      $midshipmaninfo = get_midshipman_information($_SESSION['username']);
-      $userinfo = get_user_information($_SESSION['username']);
-
-
-      $_POST['SHORT_DESCRIPTION'] = addslashes($_POST['SHORT_DESCRIPTION']);
-      $_POST['REFERENCE'] = addslashes($_POST['REFERENCE']);
-      $_POST['ADDRESS_CITY'] = addslashes($_POST['ADDRESS_CITY']);
-      $_POST['ADDRESS_2'] = addslashes($_POST['ADDRESS_2']);
-      $_POST['ADDRESS_STATE'] = addslashes($_POST['ADDRESS_STATE']);
-      $_POST['ADDRESS_ZIP'] = addslashes($_POST['ADDRESS_ZIP']);
-      $_POST['REMARKS'] = addslashes($_POST['REMARKS']);
-      $_POST['BEGIN_DATE'] = addslashes($_POST['BEGIN_DATE']);
-      $_POST['BEGIN_TIME'] = addslashes($_POST['BEGIN_TIME']);
-      $_POST['END_DATE'] = addslashes($_POST['END_DATE']);
-      $_POST['END_TIME'] = addslashes($_POST['END_TIME']);
+      <div class="row" style="border: 1px solid #000000">
+        <div class="col-sm-12">
 
 
 
-      if(!empty($_POST['ORM'])){
-        if(strpos($_POST['ORM'], "https://") === false){
-          $_POST['ORM'] = "https://" . $_POST['ORM'];
-        }
-      }
-
-      if(!empty($_POST['DOCS'])){
-        if(strpos($_POST['DOCS'], "https://") === false){
-          $_POST['DOCS'] = "https://" . $_POST['DOCS'];
-        }
-      }
-
-      $chitnumber = get_next_chit_number();
-      // $_SESSION['error'] = $chitnumber;
-
-      if(empty($chitnumber)){
-        $chitnumber = 1;
-      }
-
-
-      $today = date("dMy");
-      $today = strtoupper($today);
-
-      if($_POST['TO_USERNAME'] == $midshipmaninfo['coc_0']){
-        $coc_0 = $midshipmaninfo['coc_0'];
-        $coc_1 = $midshipmaninfo['coc_1'];
-        $coc_2 = $midshipmaninfo['coc_2'];
-        $coc_3 = $midshipmaninfo['coc_3'];
-        $coc_4 = $midshipmaninfo['coc_4'];
-        $coc_5 = $midshipmaninfo['coc_5'];
-        $coc_6 = $midshipmaninfo['coc_6'];
-      }
-      elseif($_POST['TO_USERNAME'] == $midshipmaninfo['coc_1']){
-        $coc_0 = null;
-        $coc_1 = $midshipmaninfo['coc_1'];
-        $coc_2 = $midshipmaninfo['coc_2'];
-        $coc_3 = $midshipmaninfo['coc_3'];
-        $coc_4 = $midshipmaninfo['coc_4'];
-        $coc_5 = $midshipmaninfo['coc_5'];
-        $coc_6 = $midshipmaninfo['coc_6'];
-      }
-      elseif($_POST['TO_USERNAME'] == $midshipmaninfo['coc_2']){
-        $coc_0 = null;
-        $coc_1 = null;
-        $coc_2 = $midshipmaninfo['coc_2'];
-        $coc_3 = $midshipmaninfo['coc_3'];
-        $coc_4 = $midshipmaninfo['coc_4'];
-        $coc_5 = $midshipmaninfo['coc_5'];
-        $coc_6 = $midshipmaninfo['coc_6'];
-      }
-
-      if(isset($_POST['REQUEST_OTHER'])){
-        $requestOther = addslashes($_POST['REQUEST_OTHER']);
-      }
-      else{
-        $requestOther = null;
-      }
-
-
-      if(isset($_POST['ADDRESS_1'])){
-        $addr_1 = addslashes($_POST['ADDRESS_1']);
-      }
-      else{
-        $addr_1 = null;
-      }
-
-      create_chit($chitnumber, $_SESSION['username'], $_POST['SHORT_DESCRIPTION'], $_POST['REFERENCE'], $_POST['REQUEST_TYPE'], $requestOther, $addr_1, $_POST['ADDRESS_2'], $_POST['ADDRESS_CITY'], $_POST['ADDRESS_STATE'], $_POST['ADDRESS_ZIP'], $_POST['REMARKS'], $today, $_POST['BEGIN_DATE'], $_POST['BEGIN_TIME'], $_POST['END_DATE'], $_POST['END_TIME'], $_POST['ORM'], $_POST['DOCS'], $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6);
-
-      $afterchitnumber = get_next_chit_number();
-      if($afterchitnumber > $chitnumber){
-        $_SESSION['success'] = "Chit has been made!";
-        $_SESSION['chit'] = $chitnumber;
-        echo "<script type='text/javascript'>redirect('viewchit.php')</script>";
-      }
-      else{
-        $_SESSION['error'] = "Error creating chit!";
-      }
-
-
-    }
-    elseif(isset($_POST['SHORT_DESCRIPTION']) && isset($_POST['TO_USERNAME']) && isset($_POST['REFERENCE']) && isset($_POST['ADDRESS_CITY']) && isset($_POST['ADDRESS_2']) && isset($_POST['ADDRESS_STATE']) && isset($_POST['ADDRESS_ZIP']) && isset($_POST['REMARKS']) && isset($_POST['BEGIN_DATE']) && isset($_POST['BEGIN_TIME']) && isset($_POST['END_DATE']) && isset($_POST['END_TIME'])){
-      $_SESSION['error'] = "Select a request type!";
-    }
-
-
-    if(isset($_SESSION['error'])){
-      echo "<div class=\"alert alert-danger\">{$_SESSION['error']}</div>";
-      unset($_SESSION['error']);
-    }
-
-    $midshipmaninfo = get_midshipman_information($_SESSION['username']);
-    $userinfo = get_user_information($_SESSION['username']);
-    ?>
-
-
-
-  <form  class="courier" role="form" action="?" method="post">
-
-
-    <div class="row" style="border: 1px solid #000000">
+    <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; border-top: 1px solid #000000;">
       <div class="col-sm-12">
+        <strong>Special Request (Midshipman)</strong>
+        <input required type="text" name="SHORT_DESCRIPTION" class="form-control-sm" placeholder="Briefly describe your request in one sentence." size="60" maxlength="100" value="<?php if(isset($_POST['SHORT_DESCRIPTION'])){echo "{$_POST['SHORT_DESCRIPTION']}";}?>"/>
+        <button style="float: right;" type="button" class="btn btn-default" data-toggle="modal" data-target="#whoModal">Who should I route my chit to?</button>
 
-
-
-  <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; border-top: 1px solid #000000;">
-    <div class="col-sm-12">
-      <strong>Special Request (Midshipman)</strong>
-      <input required type="text" name="SHORT_DESCRIPTION" class="form-control-sm" placeholder="Briefly describe your request in one sentence." size="60" maxlength="100" value="<?php if(isset($_POST['SHORT_DESCRIPTION'])){echo "{$_POST['SHORT_DESCRIPTION']}";}?>"/>
-      <button style="float: right;" type="button" class="btn btn-default" data-toggle="modal" data-target="#whoModal">Who should I route my chit to?</button>
-
-    </div>
-  </div>
-
-
-  <div class="row" style="border-bottom:1px solid #000000;">
-
-    <div class="col-sm-6" style="border-left: 1px solid #000000; border-top: 1px solid #000000; ">
-      <div class="row">
-        <div class="col-sm-1">
-          To:
-        </div>
-
-
-        <div class="col-sm-11">
-          <select id="route_to" onchange="routeTo();" class="form-control" name="TO_USERNAME" >
-            <?php
-            //TODO change is_midshipman to is_routable()
-            if(isset($midshipmaninfo['coc_0']) && !is_midshipman($midshipmaninfo['coc_0'])){
-            $option_info = get_user_information($midshipmaninfo['coc_0']);
-            echo "<option value=\"{$midshipmaninfo['coc_0']}\">";
-            echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']} </option>";
-          }?>
-        <?php if(isset($midshipmaninfo['coc_1'])  && !is_midshipman($midshipmaninfo['coc_1'])){
-            $option_info = get_user_information($midshipmaninfo['coc_1']);
-            echo "<option value=\"{$midshipmaninfo['coc_1']}\">";
-            echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-          }?>
-        <?php if(isset($midshipmaninfo['coc_2']) && !is_midshipman($midshipmaninfo['coc_2'])){
-            $option_info = get_user_information($midshipmaninfo['coc_2']);
-            echo "<option value=\"{$midshipmaninfo['coc_2']}\">";
-            echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-          }?>
-        <?php if(isset($midshipmaninfo['coc_3']) && !is_midshipman($midshipmaninfo['coc_3'])){
-            $option_info = get_user_information($midshipmaninfo['coc_3']);
-            echo "<option value=\"{$midshipmaninfo['coc_3']}>\"";
-            echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-          }?>
-        <?php if(isset($midshipmaninfo['coc_4'])  && !is_midshipman($midshipmaninfo['coc_4'])){
-            $option_info = get_user_information($midshipmaninfo['coc_4']);
-            echo "<option value=\"{$midshipmaninfo['coc_4']}\">";
-            echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-          }?>
-        <?php if(isset($midshipmaninfo['coc_5'])  && !is_midshipman($midshipmaninfo['coc_5'])){
-            $option_info = get_user_information($midshipmaninfo['coc_5']);
-            echo "<option value=\"{$midshipmaninfo['coc_5']}\">";
-            echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-          }?>
-          <?php if(isset($midshipmaninfo['coc_6'])  && !is_midshipman($midshipmaninfo['coc_6'])){
-            $option_info = get_user_information($midshipmaninfo['coc_6']);
-            echo "<option value=\"{$midshipmaninfo['coc_6']}\">";
-            echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-          }?>
-          </select>
-        </div>
-        <div class="col-sm-2">
-        </div>
-      </div>
-
-    </div>
-
-    <script type="text/javascript">
-    routeTo();
-    </script>
-
-    <div class="col-sm-6" style="border-right: 1px solid #000000; border-top: 1px solid #000000; ">
-      <div class="row" style="border-left: 1px solid #000000;">
-        <div class="col-sm-9" >
-          <div class="row">
-            <div class="col-sm-2">
-              From:
-            </div>
-            <div class="col-sm-10">
-              <?php
-              echo "{$userinfo['rank']} {$userinfo['firstName']} {$userinfo['lastName']}, {$userinfo['service']}";
-              ?>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3" style="border-left: 1px solid #000000; ">
-          <div class="row">
-            <div class="col-sm-12">
-              Alpha Number
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-12">
-              <?php
-              echo "{$midshipmaninfo['alpha']}";
-              ?>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
-  </div>
 
-  <div class="row">
-      <div class="col-sm-6" style="border-left: 1px solid #000000;">
-        <div class="row"  >
-          <div class="col-sm-12">
-            VIA:
-          </div>
-        </div>
+    <div class="row" style="border-bottom:1px solid #000000;">
+
+      <div class="col-sm-6" style="border-left: 1px solid #000000; border-top: 1px solid #000000; ">
         <div class="row">
-          <div class="col-sm-12">
-            Chain-of-Command
+          <div class="col-sm-1">
+            To:
+          </div>
+
+
+          <div class="col-sm-11">
+            <select id="route_to" onchange="routeTo();" class="form-control" name="TO_USERNAME" >
+              <?php
+              //TODO change is_midshipman to is_routable()
+              if(isset($midshipmaninfo['coc_0']) && !is_midshipman($db, $midshipmaninfo['coc_0'])){
+              $option_info = get_user_information($db, $midshipmaninfo['coc_0']);
+              echo "<option value=\"{$midshipmaninfo['coc_0']}\">";
+              echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']} </option>";
+            }?>
+          <?php if(isset($midshipmaninfo['coc_1'])  && !is_midshipman($db, $midshipmaninfo['coc_1'])){
+              $option_info = get_user_information($db, $midshipmaninfo['coc_1']);
+              echo "<option value=\"{$midshipmaninfo['coc_1']}\">";
+              echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
+            }?>
+          <?php if(isset($midshipmaninfo['coc_2']) && !is_midshipman($db, $midshipmaninfo['coc_2'])){
+              $option_info = get_user_information($db, $midshipmaninfo['coc_2']);
+              echo "<option value=\"{$midshipmaninfo['coc_2']}\">";
+              echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
+            }?>
+          <?php if(isset($midshipmaninfo['coc_3']) && !is_midshipman($db, $midshipmaninfo['coc_3'])){
+              $option_info = get_user_information($db, $midshipmaninfo['coc_3']);
+              echo "<option value=\"{$midshipmaninfo['coc_3']}>\"";
+              echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
+            }?>
+          <?php if(isset($midshipmaninfo['coc_4'])  && !is_midshipman($db, $midshipmaninfo['coc_4'])){
+              $option_info = get_user_information($db, $midshipmaninfo['coc_4']);
+              echo "<option value=\"{$midshipmaninfo['coc_4']}\">";
+              echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
+            }?>
+          <?php if(isset($midshipmaninfo['coc_5'])  && !is_midshipman($db, $midshipmaninfo['coc_5'])){
+              $option_info = get_user_information($db, $midshipmaninfo['coc_5']);
+              echo "<option value=\"{$midshipmaninfo['coc_5']}\">";
+              echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
+            }?>
+            <?php if(isset($midshipmaninfo['coc_6'])  && !is_midshipman($db, $midshipmaninfo['coc_6'])){
+              $option_info = get_user_information($db, $midshipmaninfo['coc_6']);
+              echo "<option value=\"{$midshipmaninfo['coc_6']}\">";
+              echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
+            }?>
+            </select>
+          </div>
+          <div class="col-sm-2">
           </div>
         </div>
+
       </div>
-      <div class="col-sm-6">
-        <div class="row">
-          <div class="col-sm-12">
+
+      <script type="text/javascript">
+      routeTo();
+      </script>
+
+      <div class="col-sm-6" style="border-right: 1px solid #000000; border-top: 1px solid #000000; ">
+        <div class="row" style="border-left: 1px solid #000000;">
+          <div class="col-sm-9" >
             <div class="row">
+              <div class="col-sm-2">
+                From:
+              </div>
+              <div class="col-sm-10">
+                <?php
+                echo "{$userinfo['rank']} {$userinfo['firstName']} {$userinfo['lastName']}, {$userinfo['service']}";
+                ?>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3" style="border-left: 1px solid #000000; ">
+            <div class="row">
+              <div class="col-sm-12">
+                Alpha Number
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <?php
+                echo "{$midshipmaninfo['alpha']}";
+                ?>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-              <div class="col-sm-3" style="border-left: 1px solid #000000;">
-                <div class="row">
-                  <div class="col-sm-12">
-                    Class Year
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6" style="border-left: 1px solid #000000;">
+          <div class="row"  >
+            <div class="col-sm-12">
+              VIA:
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              Chain-of-Command
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="row">
+
+                <div class="col-sm-3" style="border-left: 1px solid #000000;">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      Class Year
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <?php
-                    echo "{$midshipmaninfo['classYear']}";
-                     ?>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <?php
+                      echo "{$midshipmaninfo['classYear']}";
+                       ?>
 
+                     </div>
                    </div>
                  </div>
-               </div>
-               <div class="col-sm-3" style="border-left: 1px solid #000000;  ">
-                <div class="row">
-                  <div class="col-sm-12">
-                    Company
+                 <div class="col-sm-3" style="border-left: 1px solid #000000;  ">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      Company
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <?php
+                      echo "{$midshipmaninfo['company']}";
+                       ?>
+                    </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <?php
-                    echo "{$midshipmaninfo['company']}";
-                     ?>
+                <div class="col-sm-3" style="border-left: 1px solid #000000; ">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      Room Number
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <?php
+                      echo "{$midshipmaninfo['room']}";
+                       ?>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-sm-3" style="border-left: 1px solid #000000; ">
-                <div class="row">
-                  <div class="col-sm-12">
-                    Room Number
+                <div class="col-sm-3" style="border-left: 1px solid #000000; border-right:1px solid #000000;">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      Rank
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <?php
+                      echo "{$userinfo['rank']}";
+                       ?>
+                    </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <?php
-                    echo "{$midshipmaninfo['room']}";
-                     ?>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-3" style="border-left: 1px solid #000000; border-right:1px solid #000000;">
-                <div class="row">
-                  <div class="col-sm-12">
-                    Rank
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <?php
-                    echo "{$userinfo['rank']}";
-                     ?>
-                  </div>
-                </div>
-              </div>
-          </div>
+            </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
 
-        <div class="row">
-          <div class="col-sm-6" style="border-left: 1px solid #000000; border-top:1px solid #000000;">
-            <div class="row"  >
-              <div class="col-sm-12">
-                REF:
+          <div class="row">
+            <div class="col-sm-6" style="border-left: 1px solid #000000; border-top:1px solid #000000;">
+              <div class="row"  >
+                <div class="col-sm-12">
+                  REF:
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <select class="form-control" name="REFERENCE" >
+                    <?php
+
+                    echo "<option value=\"COMDTMIDNINST 5400.6T MIDREGS\" ";
+                    if(isset($_POST['REFERENCE']) && $_POST['REFERENCE'] == "COMDTMIDNINST 5400.6T MIDREGS"){
+                      echo "selected=\"selected\"";
+                    }
+                    echo ">COMDTMIDNINST 5400.6T MIDREGS</option>";
+
+
+                    echo "<option value=\"COMDTMIDNINST 1020.3B MIDSHIPMEN UNIFORM REGULATIONS\" ";
+                    if(isset($_POST['REFERENCE']) && $_POST['REFERENCE'] == "COMDTMIDNINST 1020.3B MIDSHIPMEN UNIFORM REGULATIONS"){
+                      echo "selected=\"selected\"";
+                    }
+                    echo ">COMDTMIDNINST 1020.3B MIDSHIPMEN UNIFORM REGULATIONS</option>";
+
+                    echo "<option value=\"COMDTMIDNINST 1050.2 OVERSEAS LEAVE/LIBERTY POLICY\" ";
+                    if(isset($_POST['REFERENCE']) && $_POST['REFERENCE'] == "COMDTMIDNINST 1050.2 OVERSEAS LEAVE/LIBERTY POLICY"){
+                      echo "selected=\"selected\"";
+                    }
+                    echo ">COMDTMIDNINST 1050.2 OVERSEAS LEAVE/LIBERTY POLICY</option>";
+
+                    echo "<option value=\"COMDTMIDNINST 1531.1 TAILGATING SOP\" ";
+                    if(isset($_POST['REFERENCE']) && $_POST['REFERENCE'] == "COMDTMIDNINST 1531.1 TAILGATING SOP"){
+                      echo "selected=\"selected\"";
+                    }
+                    echo ">COMDTMIDNINST 1531.1 TAILGATING SOP</option>";
+
+
+                    echo "<option value=\"COMDTMIDNINST 1601.10L BANCROFT HALL WATCH INSTRUCTION\" ";
+                    if(isset($_POST['REFERENCE']) && $_POST['REFERENCE'] == "COMDTMIDNINST 1601.10L BANCROFT HALL WATCH INSTRUCTION"){
+                      echo "selected=\"selected\"";
+                    }
+                    echo ">COMDTMIDNINST 1601.10L BANCROFT HALL WATCH INSTRUCTION</option>";
+
+                    echo "<option value=\"COMDTMIDNINST 3500.1 DINING-INS AND DINING OUTS\" ";
+                    if(isset($_POST['REFERENCE']) && $_POST['REFERENCE'] == "COMDTMIDNINST 3500.1 DINING-INS AND DINING OUTS"){
+                      echo "selected=\"selected\"";
+                    }
+                    echo ">COMDTMIDNINST 3500.1 DINING-INS AND DINING OUTS</option>";
+
+                    echo "<option value=\"COMDTMIDNINST 1610.2H CONDUCT MANUAL\" ";
+                    if(isset($_POST['REFERENCE']) && $_POST['REFERENCE'] == "COMDTMIDNINST 1610.2H CONDUCT MANUAL"){
+                      echo "selected=\"selected\"";
+                    }
+                    echo ">COMDTMIDNINST 1610.2H CONDUCT MANUAL</option>";
+
+                    echo "<option value=\"COMDTMIDNINST 1600.2H APTITUDE FOR COMMISSION SYSTEM\" ";
+                    if(isset($_POST['REFERENCE']) && $_POST['REFERENCE'] == "COMDTMIDNINST 1600.2H APTITUDE FOR COMMISSION SYSTEM"){
+                      echo "selected=\"selected\"";
+                    }
+                    echo ">COMDTMIDNINST 1600.2H APTITUDE FOR COMMISSION SYSTEM</option>";
+
+
+
+                    ?>
+                  </select>
+
+
+
+
+                </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <select class="form-control" name="REFERENCE" >
-                  <?php
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="row">
 
-                  echo "<option value=\"COMDTMIDNINST 5400.6T MIDREGS\" ";
-                  if(isset($_POST['REFERENCE']) && $_POST['REFERENCE'] == "COMDTMIDNINST 5400.6T MIDREGS"){
-                    echo "selected=\"selected\"";
-                  }
-                  echo ">COMDTMIDNINST 5400.6T MIDREGS</option>";
-
-
-                  echo "<option value=\"COMDTMIDNINST 1020.3B MIDSHIPMEN UNIFORM REGULATIONS\" ";
-                  if(isset($_POST['REFERENCE']) && $_POST['REFERENCE'] == "COMDTMIDNINST 1020.3B MIDSHIPMEN UNIFORM REGULATIONS"){
-                    echo "selected=\"selected\"";
-                  }
-                  echo ">COMDTMIDNINST 1020.3B MIDSHIPMEN UNIFORM REGULATIONS</option>";
-
-                  echo "<option value=\"COMDTMIDNINST 1050.2 OVERSEAS LEAVE/LIBERTY POLICY\" ";
-                  if(isset($_POST['REFERENCE']) && $_POST['REFERENCE'] == "COMDTMIDNINST 1050.2 OVERSEAS LEAVE/LIBERTY POLICY"){
-                    echo "selected=\"selected\"";
-                  }
-                  echo ">COMDTMIDNINST 1050.2 OVERSEAS LEAVE/LIBERTY POLICY</option>";
-
-                  echo "<option value=\"COMDTMIDNINST 1531.1 TAILGATING SOP\" ";
-                  if(isset($_POST['REFERENCE']) && $_POST['REFERENCE'] == "COMDTMIDNINST 1531.1 TAILGATING SOP"){
-                    echo "selected=\"selected\"";
-                  }
-                  echo ">COMDTMIDNINST 1531.1 TAILGATING SOP</option>";
-
-
-                  echo "<option value=\"COMDTMIDNINST 1601.10L BANCROFT HALL WATCH INSTRUCTION\" ";
-                  if(isset($_POST['REFERENCE']) && $_POST['REFERENCE'] == "COMDTMIDNINST 1601.10L BANCROFT HALL WATCH INSTRUCTION"){
-                    echo "selected=\"selected\"";
-                  }
-                  echo ">COMDTMIDNINST 1601.10L BANCROFT HALL WATCH INSTRUCTION</option>";
-
-                  echo "<option value=\"COMDTMIDNINST 3500.1 DINING-INS AND DINING OUTS\" ";
-                  if(isset($_POST['REFERENCE']) && $_POST['REFERENCE'] == "COMDTMIDNINST 3500.1 DINING-INS AND DINING OUTS"){
-                    echo "selected=\"selected\"";
-                  }
-                  echo ">COMDTMIDNINST 3500.1 DINING-INS AND DINING OUTS</option>";
-
-                  echo "<option value=\"COMDTMIDNINST 1610.2H CONDUCT MANUAL\" ";
-                  if(isset($_POST['REFERENCE']) && $_POST['REFERENCE'] == "COMDTMIDNINST 1610.2H CONDUCT MANUAL"){
-                    echo "selected=\"selected\"";
-                  }
-                  echo ">COMDTMIDNINST 1610.2H CONDUCT MANUAL</option>";
-
-                  echo "<option value=\"COMDTMIDNINST 1600.2H APTITUDE FOR COMMISSION SYSTEM\" ";
-                  if(isset($_POST['REFERENCE']) && $_POST['REFERENCE'] == "COMDTMIDNINST 1600.2H APTITUDE FOR COMMISSION SYSTEM"){
-                    echo "selected=\"selected\"";
-                  }
-                  echo ">COMDTMIDNINST 1600.2H APTITUDE FOR COMMISSION SYSTEM</option>";
-
-
-
-                  ?>
-                </select>
-
-
-
-
+                    <div class="col-sm-3" style="border-left: 1px solid #000000; border-top: 1px solid #000000; padding-bottom: 15px">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          SQPR
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <?php
+                          echo "{$midshipmaninfo['SQPR']}";
+                           ?>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-3" style="border-left: 1px solid #000000; border-top: 1px solid #000000; padding-bottom: 15px;">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          CQPR
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <?php
+                          echo "{$midshipmaninfo['CQPR']}";
+                           ?>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-3" style="border-left: 1px solid #000000; border-top: 1px solid #000000; padding-bottom: 15px;">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          Perf. Grade
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <?php
+                          echo "{$midshipmaninfo['aptitudeGrade']}";
+                           ?>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-3" style="border-left: 1px solid #000000; border-right:1px solid #000000; border-top:1px solid #000000; padding-bottom: 15px;">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          Conduct Grade
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <?php
+                          echo "{$midshipmaninfo['conductGrade']}";
+                           ?>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-sm-6">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="row">
-
-                  <div class="col-sm-3" style="border-left: 1px solid #000000; border-top: 1px solid #000000; padding-bottom: 15px">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        SQPR
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <?php
-                        echo "{$midshipmaninfo['SQPR']}";
-                         ?>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-3" style="border-left: 1px solid #000000; border-top: 1px solid #000000; padding-bottom: 15px;">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        CQPR
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <?php
-                        echo "{$midshipmaninfo['CQPR']}";
-                         ?>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-3" style="border-left: 1px solid #000000; border-top: 1px solid #000000; padding-bottom: 15px;">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        Perf. Grade
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <?php
-                        echo "{$midshipmaninfo['aptitudeGrade']}";
-                         ?>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-3" style="border-left: 1px solid #000000; border-right:1px solid #000000; border-top:1px solid #000000; padding-bottom: 15px;">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        Conduct Grade
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <?php
-                        echo "{$midshipmaninfo['conductGrade']}";
-                         ?>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
 <div class="form-check">
   <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; border-top: 1px solid #000000;">

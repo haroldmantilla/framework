@@ -7,7 +7,7 @@ $MODULE_DEF = array('name' => 'Upload',
 'student'    => true,
 'instructor' => true,
 'guest'      => false,
-'access'     => array('admin'=>'db', 'admin'=>'developer'));
+'access'     => array('admin'=>'db'));
 
 
 # Load in Configuration Parameters

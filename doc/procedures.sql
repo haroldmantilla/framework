@@ -90,15 +90,14 @@ CREATE PROCEDURE createLeader (
 	p_firstName VARCHAR(20),
 	p_lastName VARCHAR(20),
 	p_billet VARCHAR(40),
-  p_accesslevel varchar(20),
   p_rank VARCHAR(9),
   p_service VARCHAR(4),
   p_level varchar(10)
 )
 BEGIN
-	INSERT INTO Leader(username, firstName, lastName, billet, accesslevel, rank, service, level)
-	VALUES (p_username, p_firstName, p_lastName, p_billet, p_accesslevel, p_rank, p_service, p_level)
-    ON DUPLICATE KEY UPDATE username = p_username, firstName = p_firstName, 	lastName = p_lastName, billet = p_billet,  accesslevel = p_accesslevel,	rank = p_rank, service = p_service, level = p_level;
+	INSERT INTO Leader(username, firstName, lastName, billet, rank, service, level)
+	VALUES (p_username, p_firstName, p_lastName, p_billet,  p_rank, p_service, p_level)
+    ON DUPLICATE KEY UPDATE username = p_username, firstName = p_firstName, 	lastName = p_lastName, billet = p_billet, rank = p_rank, service = p_service, level = p_level;
 END $$
 
 
@@ -353,6 +352,14 @@ DROP procedure if exists getMidshipmen$$
 CREATE PROCEDURE getMidshipmen()
 BEGIN
 	SELECT * FROM Leader WHERE level = "MID";
+END $$
+
+DROP procedure if exists cocComplete$$
+CREATE PROCEDURE cocComplete(
+	p_username varchar(10)
+)
+BEGIN
+	SELECT coc_0, coc_1, coc_2, coc_3, coc_4, coc_5, coc_6 FROM Midshipman WHERE alpha = p_username;
 END $$
 
 
@@ -759,7 +766,7 @@ END $$
 DROP PROCEDURE IF EXISTS getInCompleteMids$$
 CREATE PROCEDURE getInCompleteMids()
 BEGIN
-	SELECT Leader.* FROM Leader WHERE Leader.level = "MID" and Leader.accesslevel != "MISLO" and Leader.accesslevel != "safety" and Leader.accesslevel != "admin" and Leader.username NOT IN (SELECT Midshipman.alpha FROM Midshipman);
+  SELECT Leader.* FROM Leader WHERE Leader.level = "MID" and Leader.username NOT IN (SELECT Midshipman.alpha FROM Midshipman);
 END $$
 
 
@@ -775,7 +782,7 @@ END $$
 DROP PROCEDURE IF EXISTS getNonAdmins$$
 CREATE PROCEDURE getNonAdmins()
 BEGIN
-	SELECT * FROM Leader WHERE accesslevel = "user";
+	SELECT * FROM Leader WHERE username not in (SELECT * from auth_access where access="admin");
 END $$
 
 
@@ -784,10 +791,17 @@ CREATE PROCEDURE designateAdmin(
 	p_username varchar(10)
 )
 BEGIN
-	UPDATE Leader
-    SET accesslevel = "admin"
-    WHERE username = p_username;
+   INSERT INTO auth_access(user, access, value) values (p_username, 'admin', 'admin') ON DUPLICATE KEY UPDATE user = user, access = 'admin', value = 'admin';
 END $$
+
+DROP PROCEDURE IF EXISTS designateMID$$
+CREATE PROCEDURE designateMID(
+	p_username varchar(10)
+)
+BEGIN
+   INSERT INTO auth_access(user, access, value) values (p_username, 'level', 'MID') ON DUPLICATE KEY UPDATE user = user, access = 'level', value = 'MID';
+END $$
+
 
 
 DROP PROCEDURE IF EXISTS designateMISLO$$
@@ -795,9 +809,8 @@ CREATE PROCEDURE designateMISLO(
 	p_username varchar(10)
 )
 BEGIN
-	UPDATE Leader
-    SET accesslevel = "MISLO"
-    WHERE username = p_username;
+  INSERT INTO auth_access(user, access, value) values (p_username, 'admin', 'MISLO') ON DUPLICATE KEY UPDATE user = user, access = 'admin', value = 'MISLO';
+
 END $$
 
 
@@ -805,10 +818,9 @@ DROP PROCEDURE IF EXISTS designateSafety$$
 CREATE PROCEDURE designateSafety(
 	p_username varchar(10)
 )
-BEGIN
-	UPDATE Leader
-    SET accesslevel = "safety"
-    WHERE username = p_username;
+BEGIN  
+ INSERT INTO auth_access(user, access, value) values (p_username, 'admin', 'safety') ON DUPLICATE KEY UPDATE user = user, access = 'admin', value = 'safety';
+
 END $$
 
 
@@ -818,9 +830,9 @@ CREATE PROCEDURE removeAdmin(
 	p_username varchar(10)
 )
 BEGIN
-	UPDATE Leader
-    SET accesslevel = "user"
-    WHERE username = p_username;
+
+DELETE FROM auth_access WHERE (user, access, value) = (p_username, 'admin', 'admin');
+
 END $$
 
 DROP PROCEDURE IF EXISTS removeMISLO$$
@@ -828,9 +840,9 @@ CREATE PROCEDURE removeMISLO(
 	p_username varchar(10)
 )
 BEGIN
-	UPDATE Leader
-    SET accesslevel = "user"
-    WHERE username = p_username;
+
+DELETE FROM auth_access WHERE (user, access, value) = (p_username, 'admin', 'MISLO');
+
 END $$
 
 
@@ -839,9 +851,8 @@ CREATE PROCEDURE removeSafety(
 	p_username varchar(10)
 )
 BEGIN
-	UPDATE Leader
-    SET accesslevel = "user"
-    WHERE username = p_username;
+DELETE FROM auth_access WHERE (user, access, value) = (p_username, 'admin', 'safety');
+
 END $$
 
 

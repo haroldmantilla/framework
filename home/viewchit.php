@@ -1,23 +1,31 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>eChits</title>
-    <link rel="icon" href="./imgs/icon.ico"/>
-	  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="includes/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link type="text/css" rel="stylesheet" href="style.css" /> -->
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="includes/bootstrap/js/bootstrap.min.js"></script>
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <!-- Bootstrap Js CDN -->
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-    <!-- This CSS is how we mimic the appearance of the chit -->
+<?php
+
+  ###############################################################
+  #              Security and Navbar Configuration              #
+  ###############################################################
+  $MODULE_DEF = array('name'       => 'Make Chit',
+                      'version'    => 1.0,
+                      'display'    => 'Make Chit',
+                      'tab'        => '',
+                      'position'   => 1,
+                      'student'    => true,
+                      'instructor' => true,
+                      'guest'      => false,
+                      'access'     => array('level'=>'MID'));
+  ###############################################################
+
+  # Load in Configuration Parameters
+  require_once("../etc/config.inc.php");
+
+  # Load in template, if not already loaded
+  require_once(LIBRARY_PATH.'template.php');
+  
+  # Load in The NavBar
+  require_once(WEB_PATH.'navbar.php');
+  
+  
+  $_SESSION['submitted']=0;
+  ?>
 
     <script type="text/javascript">
     function redirect(location){
@@ -26,33 +34,6 @@
     </script>
 
 
-        <script type="text/javascript">
-        function idleTimer() {
-          var t;
-          //window.onload = resetTimer;
-          window.onmousemove = resetTimer; // catches mouse movements
-          window.onmousedown = resetTimer; // catches mouse movements
-          window.onclick = resetTimer;     // catches mouse clicks
-          window.onscroll = resetTimer;    // catches scrolling
-          window.onkeypress = resetTimer;  //catches keyboard actions
-
-          function logout() {
-            window.location.href = './logout.php';  //Adapt to actual logout script
-          }
-
-          function reload() {
-            window.location = self.location.href;  //Reloads the current page
-          }
-
-          function resetTimer() {
-            clearTimeout(t);
-            t= setTimeout(reload, 600000);  // time is in milliseconds (1000 is 1 second)
-            t = setTimeout(logout, 1200000);  // time is in milliseconds (1000 is 1 second)
-          }
-        }
-        idleTimer();
-        </script>
-
     <style>
     .box {
       padding: 0;
@@ -60,43 +41,9 @@
       margin: 0;
     }
 
-    .courier{
-      font-family: "Courier New", Courier, monospace;
-    }
 
     </style>
-  </head>
-  <body>
-<?php
-session_start();
-require_once('./includes/nav.inc.php');
-require_once('./includes/func.inc.php');
-require_once("./includes/nimitz.inc.php");
-require_once("./includes/error.inc.php");
-nav();
-// session_destroy();
-// $chit = array();
-// $_REQUEST = array();
-// die;
 
-$debug = false;
-// $debug = true;
-
-if (!isset($_SESSION['username'])) {
-  header("Location: ./login.php");
-}
-
-if (!isset($_SESSION['chit'])) {
-  header("Location: ./index.php");
-}
-
-
-
-
-$_SESSION['submitted']=0;
-
-
-?>
 <div class="container">
 
 
@@ -105,11 +52,6 @@ $_SESSION['submitted']=0;
   </div>
 
 <?php
-if($debug){
-  echo "<pre>";
-  print_r($_SESSION);
-  echo "</pre>";
-}
 
 if(isset($_SESSION['error'])) {
   echo "<div class=\"alert alert-danger\">".$_SESSION['error']."</div>";
@@ -117,9 +59,9 @@ if(isset($_SESSION['error'])) {
 }
 
 
-$chit = get_chit_information($_SESSION['chit']);
-$midshipmaninfo = get_midshipman_information($chit['creator']);
-$ownerinfo = get_user_information($chit['creator']);
+$chit = get_chit_information($db, $_SESSION['chit']);
+$midshipmaninfo = get_midshipman_information($db, $chit['creator']);
+$ownerinfo = get_user_information($db, $chit['creator']);
 
 $chit['description'] = stripslashes($chit['description']);
 $chit['reference'] = stripslashes($chit['reference']);
@@ -134,14 +76,8 @@ $chit['endDate'] = stripslashes($chit['endDate']);
 $chit['endTime'] = stripslashes($chit['endTime']);
 
 
-if($debug){
-  echo "<pre>";
-  print_r($chit);
-  echo "</pre>";
-}
-
-$is_archived = is_archived($_SESSION['chit']);
-$is_midshipman = is_midshipman($_SESSION['username']);
+$is_archived = is_archived($db, $_SESSION['chit']);
+$is_midshipman = is_midshipman($db, USER['user']);
 
 if($is_archived){
   echo "<div class=\"alert alert-warning\">This chit is archived! In order for this chit to be acted upon, it must be restored.</div>";
@@ -178,15 +114,15 @@ elseif(isset($_SESSION['success'])){
         <div class="col-sm-11">
           <?php
           if(isset($chit['coc_0_username'])){
-            $coc_0 = get_user_information($chit['coc_0_username']);
+            $coc_0 = get_user_information($db, $chit['coc_0_username']);
             echo "{$coc_0['rank']} {$coc_0['firstName']} {$coc_0['lastName']}, {$coc_0['service']}";
           }
           elseif(isset($chit['coc_1_username'])){
-            $coc_1 = get_user_information($chit['coc_1_username']);
+            $coc_1 = get_user_information($db, $chit['coc_1_username']);
             echo "{$coc_1['rank']} {$coc_1['firstName']} {$coc_1['lastName']}, {$coc_1['service']}";
           }
           elseif(isset($chit['coc_2_username'])){
-            $coc_2 = get_user_information($chit['coc_2_username']);
+            $coc_2 = get_user_information($db, $chit['coc_2_username']);
             echo "{$coc_2['rank']} {$coc_2['firstName']} {$coc_2['lastName']}, {$coc_2['service']}";
           }
            ?>
@@ -728,7 +664,7 @@ elseif(isset($_SESSION['success'])){
             <div class="col-sm-12" id="pos_6">
               <?php
               if(isset($pos_6['username'])){
-                $info = get_user_information($pos_6['username']);
+                $info = get_user_information($db, $pos_6['username']);
 
                 echo "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
@@ -772,7 +708,7 @@ elseif(isset($_SESSION['success'])){
             <div class="col-sm-12">
               <?php
               if(isset($pos_6['username'])){
-                if($_SESSION['username'] == $pos_6['username']){
+                if(USER['user'] == $pos_6['username']){
                   if($pos_6['status'] == "APPROVED"){
                     echo "<br><strong>{$pos_6['status']}</strong><br><br>";
                   }
@@ -811,7 +747,7 @@ elseif(isset($_SESSION['success'])){
             <div class="col-sm-12">
               <?php
               if(isset($pos_6['username'])){
-                if($_SESSION['username'] == $pos_6['username']){
+                if(USER['user'] == $pos_6['username']){
                   if($pos_6['status'] == "DENIED"){
                     echo "<br><strong>{$pos_6['status']}</strong><br><br>";
                   }
@@ -850,7 +786,7 @@ elseif(isset($_SESSION['success'])){
     <div class="col-sm-6" style="border-right: 1px solid #000000; ">
       <?php
       if(isset($pos_6)){
-        if($_SESSION['username'] == $pos_6['username'] && !$is_archived){
+        if(USER['user'] == $pos_6['username'] && !$is_archived){
           echo "<form action=\"comment.script.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
           echo "<div class=\"input-group\">";
 
@@ -919,7 +855,7 @@ elseif(isset($_SESSION['success'])){
                  <div class="col-sm-12" id="pos_5">
                    <?php
                    if(isset($pos_5['username'])){
-                     $info = get_user_information($pos_5['username']);
+                     $info = get_user_information($db, $pos_5['username']);
 
                      echo "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
@@ -963,7 +899,7 @@ elseif(isset($_SESSION['success'])){
                  <div class="col-sm-12">
                    <?php
                    if(isset($pos_5['username'])){
-                     if($_SESSION['username'] == $pos_5['username']){
+                     if(USER['user'] == $pos_5['username']){
                        if($pos_5['status'] == "APPROVED"){
                          echo "<br><strong>{$pos_5['status']}</strong><br><br>";
                        }
@@ -1003,7 +939,7 @@ elseif(isset($_SESSION['success'])){
                  <div class="col-sm-12">
                    <?php
                    if(isset($pos_5['username'])){
-                     if($_SESSION['username'] == $pos_5['username']){
+                     if(USER['user'] == $pos_5['username']){
                        if($pos_5['status'] == "DENIED"){
                          echo "<br><strong>{$pos_5['status']}</strong><br><br>";
                        }
@@ -1042,7 +978,7 @@ elseif(isset($_SESSION['success'])){
          <div class="col-sm-6" style="border-right: 1px solid #000000; ">
            <?php
            if(isset($pos_5['username'])){
-             if($_SESSION['username'] == $pos_5['username'] && !$is_archived){
+             if(USER['user'] == $pos_5['username'] && !$is_archived){
                echo "<form action=\"comment.script.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
                echo "<div class=\"input-group\">";
 
@@ -1112,7 +1048,7 @@ elseif(isset($_SESSION['success'])){
                 <div class="col-sm-12" id="pos_4">
                   <?php
                   if(isset($pos_4['username'])){
-                    $info = get_user_information($pos_4['username']);
+                    $info = get_user_information($db, $pos_4['username']);
 
                     echo "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
@@ -1156,7 +1092,7 @@ elseif(isset($_SESSION['success'])){
                 <div class="col-sm-12">
                   <?php
                   if(isset($pos_4['username'])){
-                    if($_SESSION['username'] == $pos_4['username']){
+                    if(USER['user'] == $pos_4['username']){
                       if($pos_4['status'] == "APPROVED"){
                         echo "<br><strong>{$pos_4['status']}</strong><br><br>";
                       }
@@ -1196,7 +1132,7 @@ elseif(isset($_SESSION['success'])){
                 <div class="col-sm-12">
                   <?php
                   if(isset($pos_4['username'])){
-                    if($_SESSION['username'] == $pos_4['username']){
+                    if(USER['user'] == $pos_4['username']){
                       if($pos_4['status'] == "DENIED"){
                         echo "<br><strong>{$pos_4['status']}</strong><br><br>";
                       }
@@ -1235,7 +1171,7 @@ elseif(isset($_SESSION['success'])){
         <div class="col-sm-6" style="border-right: 1px solid #000000; ">
           <?php
           if(isset($pos_4['username'])){
-            if($_SESSION['username'] == $pos_4['username'] && !$is_archived){
+            if(USER['user'] == $pos_4['username'] && !$is_archived){
               echo "<form action=\"comment.script.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
               echo "<div class=\"input-group\">";
 
@@ -1301,7 +1237,7 @@ elseif(isset($_SESSION['success'])){
                   <div class="col-sm-12" id="pos_3">
                     <?php
                     if(isset($pos_3['username'])){
-                      $info = get_user_information($pos_3['username']);
+                      $info = get_user_information($db, $pos_3['username']);
 
                       echo "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
@@ -1345,7 +1281,7 @@ elseif(isset($_SESSION['success'])){
                   <div class="col-sm-12">
                     <?php
                     if(isset($pos_3['username'])){
-                      if($_SESSION['username'] == $pos_3['username']){
+                      if(USER['user'] == $pos_3['username']){
                         if($pos_3['status'] == "APPROVED"){
                           echo "<br><strong>{$pos_3['status']}</strong><br><br>";
                         }
@@ -1385,7 +1321,7 @@ elseif(isset($_SESSION['success'])){
                   <div class="col-sm-12">
                     <?php
                     if(isset($pos_3['username'])){
-                      if($_SESSION['username'] == $pos_3['username']){
+                      if(USER['user'] == $pos_3['username']){
                         if($pos_3['status'] == "DENIED"){
                           echo "<br><strong>{$pos_3['status']}</strong><br><br>";
                         }
@@ -1424,7 +1360,7 @@ elseif(isset($_SESSION['success'])){
           <div class="col-sm-6" style="border-right: 1px solid #000000; ">
             <?php
             if(isset($pos_3['username'])){
-              if($_SESSION['username'] == $pos_3['username'] && !$is_archived){
+              if(USER['user'] == $pos_3['username'] && !$is_archived){
                 echo "<form action=\"comment.script.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
                 echo "<div class=\"input-group\">";
 
@@ -1531,7 +1467,7 @@ elseif(isset($_SESSION['success'])){
                     <div class="col-sm-12" id="pos_2">
                       <?php
                       if(isset($pos_2['username'])){
-                        $info = get_user_information($pos_2['username']);
+                        $info = get_user_information($db, $pos_2['username']);
 
                         echo "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
@@ -1575,7 +1511,7 @@ elseif(isset($_SESSION['success'])){
                     <div class="col-sm-12">
                       <?php
                       if(isset($pos_2['username'])){
-                        if($_SESSION['username'] == $pos_2['username']){
+                        if(USER['user'] == $pos_2['username']){
                           if($pos_2['status'] == "APPROVED"){
                             echo "<br><strong>{$pos_2['status']}</strong><br><br>";
                           }
@@ -1615,7 +1551,7 @@ elseif(isset($_SESSION['success'])){
                     <div class="col-sm-12">
                       <?php
                       if(isset($pos_2['username'])){
-                        if($_SESSION['username'] == $pos_2['username']){
+                        if(USER['user'] == $pos_2['username']){
                           if($pos_2['status'] == "DENIED"){
                             echo "<br><strong>{$pos_2['status']}</strong><br><br>";
                           }
@@ -1655,7 +1591,7 @@ elseif(isset($_SESSION['success'])){
             <div class="col-sm-6" style="border-right: 1px solid #000000; ">
               <?php
               if(isset($pos_2['username'])){
-                if($_SESSION['username'] == $pos_2['username'] && !$is_archived){
+                if(USER['user'] == $pos_2['username'] && !$is_archived){
                   echo "<form action=\"comment.script.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
                   echo "<div class=\"input-group\">";
 
@@ -1723,7 +1659,7 @@ elseif(isset($_SESSION['success'])){
                       <div class="col-sm-12" id="pos_1">
                         <?php
                         if(isset($pos_1['username'])){
-                          $info = get_user_information($pos_1['username']);
+                          $info = get_user_information($db, $pos_1['username']);
 
                           echo "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
@@ -1767,7 +1703,7 @@ elseif(isset($_SESSION['success'])){
                       <div class="col-sm-12">
                         <?php
                         if(isset($pos_1['username'])){
-                          if($_SESSION['username'] == $pos_1['username']){
+                          if(USER['user'] == $pos_1['username']){
                             if($pos_1['status'] == "APPROVED"){
                               echo "<br><strong>{$pos_1['status']}</strong><br><br>";
                             }
@@ -1807,7 +1743,7 @@ elseif(isset($_SESSION['success'])){
                       <div class="col-sm-12">
                         <?php
                         if(isset($pos_1['username'])){
-                          if($_SESSION['username'] == $pos_1['username']){
+                          if(USER['user'] == $pos_1['username']){
                             if($pos_1['status'] == "DENIED"){
                               echo "<br><strong>{$pos_1['status']}</strong><br><br>";
                             }
@@ -1846,7 +1782,7 @@ elseif(isset($_SESSION['success'])){
               <div class="col-sm-6" style="border-right: 1px solid #000000; ">
                 <?php
                 if(isset($pos_1['username'])){
-                  if($_SESSION['username'] == $pos_1['username'] && !$is_archived){
+                  if(USER['user'] == $pos_1['username'] && !$is_archived){
                     echo "<form action=\"comment.script.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
                     echo "<div class=\"input-group\">";
 
@@ -1914,7 +1850,7 @@ elseif(isset($_SESSION['success'])){
                         <div class="col-sm-12" id="pos_0">
                           <?php
                           if(isset($pos_0['username'])){
-                            $info = get_user_information($pos_0['username']);
+                            $info = get_user_information($db, $pos_0['username']);
 
                             echo "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
@@ -1958,7 +1894,7 @@ elseif(isset($_SESSION['success'])){
                         <div class="col-sm-12">
                           <?php
                           if(isset($pos_0['username'])){
-                            if($_SESSION['username'] == $pos_0['username']){
+                            if(USER['user'] == $pos_0['username']){
                               if($pos_0['status'] == "APPROVED"){
                                 echo "<br><strong>{$pos_0['status']}</strong><br><br>";
                               }
@@ -1999,7 +1935,7 @@ elseif(isset($_SESSION['success'])){
                         <div class="col-sm-12">
                           <?php
                           if(isset($pos_0['username'])){
-                            if($_SESSION['username'] == $pos_0['username']){
+                            if(USER['user'] == $pos_0['username']){
                               if($pos_0['status'] == "DENIED"){
                                 echo "<br><strong>{$pos_0['status']}</strong><br><br>";
                               }
@@ -2038,7 +1974,7 @@ elseif(isset($_SESSION['success'])){
                 <div class="col-sm-6" style="border-right: 1px solid #000000; ">
                   <?php
                   if(isset($pos_0['username'])){
-                    if($_SESSION['username'] == $pos_0['username'] && !$is_archived){
+                    if(USER['user'] == $pos_0['username'] && !$is_archived){
                       echo "<form action=\"comment.script.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
                       echo "<div class=\"input-group\">";
 
@@ -2127,7 +2063,7 @@ elseif(isset($_SESSION['success'])){
       <div class="previous">
 
         <?php
-        if(!$is_archived && $chit['creator'] == $_SESSION['username']){
+        if(!$is_archived && $chit['creator'] == USER['user']){
           echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#editModal\">Edit Chit</button>";
         }
 

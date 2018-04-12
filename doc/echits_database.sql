@@ -1,12 +1,15 @@
 USE m183990_IT452;
 
+DROP TABLE IF EXISTS `Midshipman`;
+DROP TABLE IF EXISTS `Chit`;
+DROP TABLE IF EXISTS `Leader`;
+
 DROP TABLE IF EXISTS `Leader`;
 CREATE TABLE Leader(
 	username VARCHAR(10) NOT NULL,
 	firstName VARCHAR(20) NULL,
 	lastName VARCHAR(20) NULL,
 	billet VARCHAR(40) NULL,
-	accesslevel VARCHAR(20),
 	rank VARCHAR(9),
 	service VARCHAR(4),
 	level VARCHAR(7),
@@ -137,25 +140,25 @@ CREATE TABLE Chit(
 );
 
 
-INSERT INTO Leader(username, firstName, lastName, billet, accesslevel, rank, service, level) values
-('andrew', 'Jeremy', 'Andrew', '1st Battalion Officer', 'user', 'CDR', 'USN', 'Officer'),
-('egarcia', 'Eric', 'Garcia', '1st Company Officer', 'user', 'LT', 'USN', 'Officer'),
-('skhan', 'Sidorak', 'Khan', '1st Company SEL', 'user', 'GySgt', 'USMC', 'SEL'),
-('m184890', 'Margaret', 'Pana', '1st Company Commander', 'user', 'MIDN LT', 'USN', 'MID'),
-('m182700',  'Mathew', 'Hogue', '1st Company XO', 'user', 'MIDN LTJG', 'USN', 'MID'),
-('m183990', 'Scott', 'Mayer', 'Platoon Commander', 'admin', 'MIDN LTJG', 'USN', 'MID'),
-('m181674', 'Daniel', 'Dwyer', 'Platoon Commander', 'user', 'MIDN LTJG', 'USN', 'MID'),
-('m181752', 'Theresa', 'Erbach', 'Platoon Commander', 'user', 'MIDN LTJG', 'USN', 'MID'),
-('m180078', 'Dakota', 'Allen', 'Platoon Commander', 'user', 'MIDN LTJG', 'USN', 'MID'),
-('m181536',  'Noreen', 'Domingo', 'Squad Leader', 'user', 'MIDN ENS', 'USN', 'MID'),
-('m185280', 'Timothy', 'Ragan', 'Squad Leader', 'user', 'MIDN ENS', 'USN', 'MID'),
-('m194818',  'Jay', 'Oh', 'Squad Leader', 'user', 'MIDN 2/C', 'USN', 'MID'),
-('m180978',  'Andrew', 'Chang', 'Squad Leader', 'user', 'MIDN ENS', 'USN', 'MID'),
-('m181458',  'Julie', 'Dejnozka', 'Squad Leader', 'user', 'MIDN ENS', 'USN', 'MID'),
-('m195448', 'Jocelyn', 'Rodriguez', 'Squad Leader', 'user', 'MIDN 2/C', 'USN', 'MID'),
-('m184068',  'Kevin', 'McCoy', 'Squad Leader', 'user', 'MIDN ENS', 'USN', 'MID'),
-('m190000', 'Kristina', 'Bodeman', 'MISLO', 'MISLO', 'MIDN 2/C', 'USN', 'MID'),
-('m190001', 'Andrew', 'Eisenhauer', 'Safety Officer', 'safety', 'MIDN 2/C', 'USN', 'MID');
+INSERT INTO Leader(username, firstName, lastName, billet, rank, service, level) values
+('andrew', 'Jeremy', 'Andrew', '1st Battalion Officer', 'CDR', 'USN', 'Officer'),
+('egarcia', 'Eric', 'Garcia', '1st Company Officer', 'LT', 'USN', 'Officer'),
+('skhan', 'Sidorak', 'Khan', '1st Company SEL', 'GySgt', 'USMC', 'SEL'),
+('m184890', 'Margaret', 'Pana', '1st Company Commander', 'MIDN LT', 'USN', 'MID'),
+('m182700',  'Mathew', 'Hogue', '1st Company XO', 'MIDN LTJG', 'USN', 'MID'),
+('m183990', 'Scott', 'Mayer', 'Platoon Commander', 'MIDN LTJG', 'USN', 'MID'),
+('m181674', 'Daniel', 'Dwyer', 'Platoon Commander', 'MIDN LTJG', 'USN', 'MID'),
+('m181752', 'Theresa', 'Erbach', 'Platoon Commander', 'MIDN LTJG', 'USN', 'MID'),
+('m180078', 'Dakota', 'Allen', 'Platoon Commander', 'MIDN LTJG', 'USN', 'MID'),
+('m181536',  'Noreen', 'Domingo', 'Squad Leader', 'MIDN ENS', 'USN', 'MID'),
+('m185280', 'Timothy', 'Ragan', 'Squad Leader', 'MIDN ENS', 'USN', 'MID'),
+('m194818',  'Jay', 'Oh', 'Squad Leader', 'MIDN 2/C', 'USN', 'MID'),
+('m180978',  'Andrew', 'Chang', 'Squad Leader', 'MIDN ENS', 'USN', 'MID'),
+('m181458',  'Julie', 'Dejnozka', 'Squad Leader', 'MIDN ENS', 'USN', 'MID'),
+('m195448', 'Jocelyn', 'Rodriguez', 'Squad Leader', 'MIDN 2/C', 'USN', 'MID'),
+('m184068',  'Kevin', 'McCoy', 'Squad Leader', 'MIDN ENS', 'USN', 'MID'),
+('m190000', 'Kristina', 'Bodeman', 'MISLO', 'MIDN 2/C', 'USN', 'MID'),
+('m190001', 'Andrew', 'Eisenhauer', 'Safety Officer', 'MIDN 2/C', 'USN', 'MID');
 
 
 INSERT INTO Midshipman(alpha, company, classYear, room, SQPR, CQPR, phoneNumber, aptitudeGrade, conductGrade, coc_0, coc_1, coc_2, coc_3, coc_4, coc_5, coc_6) values
