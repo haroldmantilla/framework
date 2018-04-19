@@ -40,11 +40,14 @@
       border: 1px solid #000000 !important;
       margin: 0;
     }
-
+    
+    #courier {
+      font-family: "Courier New", Courier, monospace;
+    }
 
     </style>
 
-<div class="container">
+<div class="container" id="courier">
 
 
   <div id="banner">

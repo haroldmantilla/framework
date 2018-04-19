@@ -16,6 +16,14 @@ CREATE TABLE Leader(
 	primary key (username)
 );
 
+DROP TABLE IF EXISTS `Board`;
+CREATE TABLE Board(
+	username VARCHAR(10) NOT NULL,
+	post VARCHAR(200) NULL,
+	id INT NOT NULL AUTO_INCREMENT,
+	primary key (id)
+);
+
 
 DROP TABLE IF EXISTS `Midshipman`;
 CREATE TABLE Midshipman(
@@ -174,7 +182,7 @@ INSERT INTO Chit(chitNumber, creator, description, reference, requestType, reque
 
 -- use mysql;
 -- drop user if exists WebService;
--- 
+--
 -- SET GLOBAL validate_password_policy=LOW;
 -- CREATE USER WebService identified by 'ccac42bd73188d78ef8b9c6b24f4262c';
 

@@ -29,7 +29,6 @@ if (isset($_FILES['myfiles']) && !empty($_FILES['myfiles'])) {
 }
 
 
-
 # Load in The NavBar
 require_once(WEB_PATH.'navbar.php');
 ?>

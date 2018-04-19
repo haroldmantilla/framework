@@ -166,6 +166,7 @@
 
 
     echo $pos_0 . ";" . $pos_1 . ";" . $pos_2 . ";" . $pos_3 . ";" . $pos_4 . ";". $pos_5 . ";". $pos_6 ;
+    header("location: viewchit.php");
     die;
   }
   
@@ -288,6 +289,7 @@
 
 ?>
 
+
 <script type="text/javascript">
 function redirect(location){
   window.location = location;
@@ -328,6 +330,10 @@ function routeTo(){
   margin: 0;
 }
 
+#courier {
+  font-family: "Courier New", Courier, monospace;
+}
+
 </style>
 
 <?php
@@ -345,7 +351,7 @@ $_SESSION['submitted']=0;
 
 
 ?>
-<div class="container">
+<div class="container" id="courier">
 
 
   <div id="banner">

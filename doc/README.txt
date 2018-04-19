@@ -1,9 +1,11 @@
-Milestone 2:
-Complete Conversion to Framework
-Status: Almost complete. 
+Milestone 3:
+Add Features.
+Status: In progress.  
 
-I am almost completely done converting. I've run into many more issues than expected, including adapting my rudimentary user access controls to the framework, database access levels, breaking apart pages into multiple pages, issues with large database calls, and using ajax to do posts to the database. All in all, I only have a few more pages to convert, and then I need to fix how the divs render with the different font used by the framework. 
+I have run into many more converting issues than expected. I've spent many more hours converting than originally anticipated, and that's been the main bottle neck. I'm chipping away at it, but by the end, eChits will be ready to hand off to any developer familiar with the framework. 
 
-upload.php works as expected. I did the progress bar as well for the challenge problem. 
+Some of the main things I accomplished this milestone were forcing the authentication and profile registration, which required putting extra code in the navbar. 
 
-On track. 
+/tools/demo.php works. I did the revealable and hide-able 100% solution as well. 
+
+I will be able to get everything done, it's just taking longer than expected. 
