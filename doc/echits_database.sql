@@ -20,6 +20,7 @@ DROP TABLE IF EXISTS `Board`;
 CREATE TABLE Board(
 	username VARCHAR(10) NOT NULL,
 	post VARCHAR(200) NULL,
+	posttime DATETIME NULL,
 	id INT NOT NULL AUTO_INCREMENT,
 	primary key (id)
 );
