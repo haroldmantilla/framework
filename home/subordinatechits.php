@@ -185,8 +185,8 @@ if (!empty($readychits)){
 
 
         $chitstatus = "PENDING";
-        if($chit['coc_0_status'] == "DENIED" || $chit['coc_1_status'] == "DENIED" || $chit['coc_2_status'] == "DENIED" || $chit['coc_3_status'] == "DENIED" || $chit['coc_4_status'] == "DENIED" || $chit['coc_5_status'] == "DENIED" || $chit['coc_6_status'] == "DENIED"){
-          $chitstatus = "DENIED";
+        if($chit['coc_0_status'] == "DISAPPROVED" || $chit['coc_1_status'] == "DISAPPROVED" || $chit['coc_2_status'] == "DISAPPROVED" || $chit['coc_3_status'] == "DISAPPROVED" || $chit['coc_4_status'] == "DISAPPROVED" || $chit['coc_5_status'] == "DISAPPROVED" || $chit['coc_6_status'] == "DISAPPROVED"){
+          $chitstatus = "DISAPPROVED";
         }
 
 
@@ -213,8 +213,8 @@ if (!empty($readychits)){
         elseif($chitstatus == "APPROVED"){
           echo "<td><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-success\" disabled>Approved</button></td>";
         }
-        elseif($chitstatus == "DENIED"){
-          echo "<td><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>Denied</button></td>";
+        elseif($chitstatus == "DISAPPROVED"){
+          echo "<td><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>DISAPPROVED</button></td>";
         }
 
 
@@ -247,8 +247,8 @@ if (!empty($readychits)){
         elseif($mystatus == "APPROVED"){
           echo "<td class=\"min\"><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-success\" disabled>Approved</button></td>";
         }
-        elseif($mystatus == "DENIED"){
-          echo "<td class=\"min\"><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>Denied</button></td>";
+        elseif($mystatus == "DISAPPROVED"){
+          echo "<td class=\"min\"><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>DISAPPROVED</button></td>";
         }
 
 
@@ -264,7 +264,7 @@ if (!empty($readychits)){
 
             echo "<form style=\"float: right;\" action=\"print.script.php\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-default\" name=\"viewbutton\" value=\"Print Chit\"></form>";
         }
-        elseif ($chitstatus == "DENIED") {
+        elseif ($chitstatus == "DISAPPROVED") {
 
           echo "<form  style=\"float: right;\"  action=\"delete.script.php\" method=\"post\">
           <input type=\"hidden\" name=\"delete\" value=\"{$chit['chitNumber']}\"/>
@@ -334,8 +334,8 @@ if (!empty($subchits)){
 
 
         $chitstatus = "PENDING";
-        if($chit['coc_0_status'] == "DENIED" || $chit['coc_1_status'] == "DENIED" || $chit['coc_2_status'] == "DENIED" || $chit['coc_3_status'] == "DENIED" || $chit['coc_4_status'] == "DENIED" || $chit['coc_5_status'] == "DENIED" || $chit['coc_6_status'] == "DENIED"){
-          $chitstatus = "DENIED";
+        if($chit['coc_0_status'] == "DISAPPROVED" || $chit['coc_1_status'] == "DISAPPROVED" || $chit['coc_2_status'] == "DISAPPROVED" || $chit['coc_3_status'] == "DISAPPROVED" || $chit['coc_4_status'] == "DISAPPROVED" || $chit['coc_5_status'] == "DISAPPROVED" || $chit['coc_6_status'] == "DISAPPROVED"){
+          $chitstatus = "DISAPPROVED";
         }
 
 
@@ -362,8 +362,8 @@ if (!empty($subchits)){
         elseif($chitstatus == "APPROVED"){
           echo "<td><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-success\" disabled>Approved</button></td>";
         }
-        elseif($chitstatus == "DENIED"){
-          echo "<td><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>Denied</button></td>";
+        elseif($chitstatus == "DISAPPROVED"){
+          echo "<td><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>DISAPPROVED</button></td>";
         }
 
 
@@ -396,8 +396,8 @@ if (!empty($subchits)){
         elseif($mystatus == "APPROVED"){
           echo "<td class=\"min\"><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-success\" disabled>Approved</button></td>";
         }
-        elseif($mystatus == "DENIED"){
-          echo "<td class=\"min\"><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>Denied</button></td>";
+        elseif($mystatus == "DISAPPROVED"){
+          echo "<td class=\"min\"><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>DISAPPROVED</button></td>";
         }
 
 
@@ -413,7 +413,7 @@ if (!empty($subchits)){
 
             echo "<form style=\"float: right;\" action=\"print.script.php\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-default\" name=\"viewbutton\" value=\"Print Chit\"></form>";
         }
-        elseif ($chitstatus == "DENIED") {
+        elseif ($chitstatus == "DISAPPROVED") {
 
           echo "<form  style=\"float: right;\"  action=\"delete.script.php\" method=\"post\">
           <input type=\"hidden\" name=\"delete\" value=\"{$chit['chitNumber']}\"/>

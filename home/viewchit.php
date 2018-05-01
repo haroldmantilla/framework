@@ -11,7 +11,7 @@
                       'student'    => true,
                       'instructor' => true,
                       'guest'      => false,
-                      'access'     => array('level'=>'MID'));
+                      'access'     => array());
   ###############################################################
 
   # Load in Configuration Parameters
@@ -19,11 +19,241 @@
 
   # Load in template, if not already loaded
   require_once(LIBRARY_PATH.'template.php');
+
+
+  if(isset($_REQUEST['chit'])){
+    $_SESSION['chit'] = $_REQUEST['chit'];
+  }
+  
+  if(!isset($_SESSION['chit'])){
+    // sleep(5);
+    header("Location: home.php");
+    die;
+  }
+  
+  
+  if(isset($_REQUEST['approve'])){
+    
+    $chit = get_chit_information($db, $_SESSION['chit']);
+    $who = USER['user'];
+
+    if($chit['coc_0_username'] == USER['user']){
+      $who = "coc_0";
+    }
+    elseif($chit['coc_1_username'] == USER['user']){
+      $who = "coc_1";
+    }
+    elseif($chit['coc_2_username'] == USER['user']){
+      $who = "coc_2";
+    }
+    elseif($chit['coc_3_username'] == USER['user']){
+      $who = "coc_3";
+    }
+    elseif($chit['coc_4_username'] == USER['user']){
+      $who = "coc_4";
+    }
+    elseif($chit['coc_5_username'] == USER['user']){
+      $who = "coc_5";
+    }
+    elseif($chit['coc_6_username'] == USER['user']){
+      $who = "coc_6";
+    }
+    elseif($chit['coc_7_username'] == USER['user']){
+      $who = "coc_7";
+    }
+    elseif($chit['coc_8_username'] == USER['user']){
+      $who = "coc_8";
+    }
+
+    // echo "$who";
+
+    $today = date("dMy");
+    $today = strtoupper($today);
+    $now = date("Hi");
+    $chit = $_SESSION['chit'];
+
+    action($db, $chit, $who, "APPROVED", $today, $now);
+
+
+    //redirect
+    header("Location: ./viewchit.php");
+    die;
+  }
+  elseif (isset($_REQUEST['disapprove'])) {
+    
+    $chit = get_chit_information($db, $_SESSION['chit']);
+    $who = USER['user'];
+
+    if($chit['coc_0_username'] == USER['user']){
+      $who = "coc_0";
+    }
+    elseif($chit['coc_1_username'] == USER['user']){
+      $who = "coc_1";
+    }
+    elseif($chit['coc_2_username'] == USER['user']){
+      $who = "coc_2";
+    }
+    elseif($chit['coc_3_username'] == USER['user']){
+      $who = "coc_3";
+    }
+    elseif($chit['coc_4_username'] == USER['user']){
+      $who = "coc_4";
+    }
+    elseif($chit['coc_5_username'] == USER['user']){
+      $who = "coc_5";
+    }
+    elseif($chit['coc_6_username'] == USER['user']){
+      $who = "coc_6";
+    }
+    elseif($chit['coc_7_username'] == USER['user']){
+      $who = "coc_7";
+    }
+    elseif($chit['coc_8_username'] == USER['user']){
+      $who = "coc_8";
+    }
+
+
+    $today = date("dMy");
+    $today = strtoupper($today);
+    $now = date("Hi");
+    $chit = $_SESSION['chit'];
+
+    action($db, $chit, $who, "DISAPPROVED", $today, $now);
+
+    //redirect
+    header("Location: ./viewchit.php");
+    die;
+  }
+  elseif (isset($_REQUEST['pending'])) {
+    
+    $chit = get_chit_information($db, $_SESSION['chit']);
+    $who = USER['user'];
+
+    if($chit['coc_0_username'] == USER['user']){
+      $who = "coc_0";
+    }
+    elseif($chit['coc_1_username'] == USER['user']){
+      $who = "coc_1";
+    }
+    elseif($chit['coc_2_username'] == USER['user']){
+      $who = "coc_2";
+    }
+    elseif($chit['coc_3_username'] == USER['user']){
+      $who = "coc_3";
+    }
+    elseif($chit['coc_4_username'] == USER['user']){
+      $who = "coc_4";
+    }
+    elseif($chit['coc_5_username'] == USER['user']){
+      $who = "coc_5";
+    }
+    elseif($chit['coc_6_username'] == USER['user']){
+      $who = "coc_6";
+    }
+    elseif($chit['coc_7_username'] == USER['user']){
+      $who = "coc_7";
+    }
+    elseif($chit['coc_8_username'] == USER['user']){
+      $who = "coc_8";
+    }
+
+
+    $today = date("dMy");
+    $today = strtoupper($today);
+    $now = date("Hi");
+    $chit = $_SESSION['chit'];
+
+    action($db, $chit, $who, "PENDING", $today, $now);
+
+    //redirect
+    header("Location: ./viewchit.php");
+    die;
+  }
+  elseif (isset($_REQUEST['comments'])) {
+    
+    $chit = get_chit_information($db, $_SESSION['chit']);
+    $who = USER['user'];
+
+    if($chit['coc_0_username'] == USER['user']){
+      $who = "coc_0";
+    }
+    elseif($chit['coc_1_username'] == USER['user']){
+      $who = "coc_1";
+    }
+    elseif($chit['coc_2_username'] == USER['user']){
+      $who = "coc_2";
+    }
+    elseif($chit['coc_3_username'] == USER['user']){
+      $who = "coc_3";
+    }
+    elseif($chit['coc_4_username'] == USER['user']){
+      $who = "coc_4";
+    }
+    elseif($chit['coc_5_username'] == USER['user']){
+      $who = "coc_5";
+    }
+    elseif($chit['coc_6_username'] == USER['user']){
+      $who = "coc_6";
+    }
+    elseif($chit['coc_7_username'] == USER['user']){
+      $who = "coc_7";
+    }
+    elseif($chit['coc_8_username'] == USER['user']){
+      $who = "coc_8";
+    }
+    
+    $chit = $_SESSION['chit'];
+    $comments = addslashes($_POST['comments']);
+
+    comment($db, $chit, $who, $comments);
+
+    //redirect
+    header("Location: ./viewchit.php");
+    die;
+  }
+  elseif (isset($_REQUEST['print'])) {
+    
+    header("Location: generate_pdf.php");
+    die;
+  }
+  elseif (isset($_REQUEST['archive'])) {
+    
+    $chit = $_REQUEST['archive'];
+
+    archive_chit($db, $chit);
+
+    unset($_SESSION['chit']);
+
+    //redirect
+    if(isset($_SERVER['HTTP_REFERER'])){
+      if(strpos($_SERVER['HTTP_REFERER'], "viewchit.php")){
+        header("Location: ./index.php");
+      }
+    }
+
+    header("Location: {$_SERVER['HTTP_REFERER']}");
+    
+    die;
+  }
+  elseif (isset($_REQUEST['restore'])) {
+    
+    $chit = $_REQUEST['chit'];
+
+    restore_chit($db, $chit);
+
+    //redirect
+    $_SESSION['success'] = "Chit successfully restored!";
+    header("Location: {$_SERVER['HTTP_REFERER']}");
+
+
+    die;
+  }
+
   
   # Load in The NavBar
   require_once(WEB_PATH.'navbar.php');
-  
-  
+
+
   $_SESSION['submitted']=0;
   ?>
 
@@ -40,7 +270,7 @@
       border: 1px solid #000000 !important;
       margin: 0;
     }
-    
+
     #courier {
       font-family: "Courier New", Courier, monospace;
     }
@@ -61,8 +291,18 @@ if(isset($_SESSION['error'])) {
   unset($_SESSION['error']);
 }
 
+// echo "<pre>";
+// print_r($_REQUEST);
+// echo "</pre>";
 
-$chit = get_chit_information($db, $_SESSION['chit']);
+if(isset($_REQUEST['chit'])){
+	$_SESSION['chit'] = $_REQUEST['chit'];
+	$chit = get_chit_information($db, $_REQUEST['chit']);
+}
+else{
+	$chit = get_chit_information($db, $_SESSION['chit']);
+}
+
 $midshipmaninfo = get_midshipman_information($db, $chit['creator']);
 $ownerinfo = get_user_information($db, $chit['creator']);
 
@@ -127,6 +367,14 @@ elseif(isset($_SESSION['success'])){
           elseif(isset($chit['coc_2_username'])){
             $coc_2 = get_user_information($db, $chit['coc_2_username']);
             echo "{$coc_2['rank']} {$coc_2['firstName']} {$coc_2['lastName']}, {$coc_2['service']}";
+          }
+          elseif(isset($chit['coc_3_username'])){
+            $coc_3 = get_user_information($db, $chit['coc_3_username']);
+            echo "{$coc_3['rank']} {$coc_3['firstName']} {$coc_3['lastName']}, {$coc_3['service']}";
+          }
+          elseif(isset($chit['coc_4_username'])){
+            $coc_4 = get_user_information($db, $chit['coc_4_username']);
+            echo "{$coc_4['rank']} {$coc_4['firstName']} {$coc_4['lastName']}, {$coc_4['service']}";
           }
            ?>
         </div>
@@ -592,7 +840,16 @@ elseif(isset($_SESSION['success'])){
 
   $coc_6 = array("username"=>$chit['coc_6_username'], "status"=>$chit['coc_6_status'], "comments"=> $chit['coc_6_comments'], "date"=> $chit['coc_6_date'], "time"=> $chit['coc_6_time']);
 
+  
+  $coc_7 = array("username"=>$chit['coc_7_username'], "status"=>$chit['coc_7_status'], "comments"=> $chit['coc_7_comments'], "date"=> $chit['coc_7_date'], "time"=> $chit['coc_7_time']);
+  
+    
+  $coc_8 = array("username"=>$chit['coc_8_username'], "status"=>$chit['coc_8_status'], "comments"=> $chit['coc_8_comments'], "date"=> $chit['coc_8_date'], "time"=> $chit['coc_8_time']);
 
+
+  
+  $pos_8 = null;
+  $pos_7 = null;
   $pos_6 = null;
   $pos_5 = null;
   $pos_4 = null;
@@ -601,7 +858,22 @@ elseif(isset($_SESSION['success'])){
   $pos_1 = null;
   $pos_0 = null;
 
-  if(isset($chit['coc_6_username'])){
+  if(isset($chit['coc_8_username'])){
+    $pos_8 = $coc_8;
+    $pos_7 = $coc_7;
+    $pos_6 = $coc_6;
+    $pos_5 = $coc_5;
+    $pos_4 = $coc_4;
+    $pos_3 = $coc_3;
+  }
+  elseif(isset($chit['coc_7_username'])){
+    $pos_7 = $coc_7;
+    $pos_6 = $coc_6;
+    $pos_5 = $coc_5;
+    $pos_4 = $coc_4;
+    $pos_3 = $coc_3;
+  }
+  elseif(isset($chit['coc_6_username'])){
     $pos_6 = $coc_6;
     $pos_5 = $coc_5;
     $pos_4 = $coc_4;
@@ -654,20 +926,26 @@ elseif(isset($_SESSION['success'])){
   if(isset($pos_6['comments']) && !empty($pos_6['comments'])){
     $pos_6['comments'] = stripslashes($pos_6['comments']);
   }
+  if(isset($pos_7['comments']) && !empty($pos_7['comments'])){
+    $pos_7['comments'] = stripslashes($pos_7['comments']);
+  }  
+  if(isset($pos_8['comments']) && !empty($pos_8['comments'])){
+    $pos_8['comments'] = stripslashes($pos_8['comments']);
+  }
   ?>
 
   <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-  <!--  pos_6 -->
+  <!--  pos_8 -->
   <div class="row" style="border-bottom:1px solid #000000;">
     <div class="col-sm-6">
       <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; ">
         <div class="col-sm-4" style="border-right: 1px solid #000000;">
           <div class="row">
-            <div class="col-sm-12" id="pos_6">
+            <div class="col-sm-12" id="pos_8">
               <?php
-              if(isset($pos_6['username'])){
-                $info = get_user_information($db, $pos_6['username']);
+              if(isset($pos_8['username'])){
+                $info = get_user_information($db, $pos_8['username']);
 
                 echo "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
@@ -684,17 +962,17 @@ elseif(isset($_SESSION['success'])){
         </div>
         <div class="col-sm-2" style="border-right: 1px solid #000000;">
           <div class="row" style="text-align: center; ">
-            <div class="col-sm-12" id="pos_6_date">
+            <div class="col-sm-12" id="pos_8_date">
               <?php
-              if(isset($pos_6['username'])){
-                if($pos_6['status'] == "PENDING"){
+              if(isset($pos_8['username'])){
+                if($pos_8['status'] == "PENDING"){
                   echo "<br>";
-                  echo "<strong>{$pos_6['status']}</strong>";
+                  echo "<strong>{$pos_8['status']}</strong>";
                   echo "<br>";
                   echo "<br>";
                 }
                 else{
-                  echo "{$pos_6['time']} {$pos_6['date']}<br><br>";
+                  echo "{$pos_8['time']} {$pos_8['date']}<br><br>";
                 }
               }
               else {
@@ -710,15 +988,15 @@ elseif(isset($_SESSION['success'])){
           <div class="row" style="text-align: center; border-right: 1px solid #000000;">
             <div class="col-sm-12">
               <?php
-              if(isset($pos_6['username'])){
-                if(USER['user'] == $pos_6['username']){
-                  if($pos_6['status'] == "APPROVED"){
-                    echo "<br><strong>{$pos_6['status']}</strong><br><br>";
+              if(isset($pos_8['username'])){
+                if(USER['user'] == $pos_8['username']){
+                  if($pos_8['status'] == "APPROVED"){
+                    echo "<br><strong>{$pos_8['status']}</strong><br><br>";
                   }
                   else{
                     if(!$is_archived){
                       echo "<div class=\"input-group\">";
-                      echo "<span class=\"input-group-btn\"><button class=\"btn btn-success\" onclick=\"window.location.href='./approve.script.php'\" type=\"button\" style=\"margin-top: 6px\" >Approve</button></span>";
+                      echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-success\" type=\"submit\" name=\"approve\" type=\"button\" style=\"margin-top: 6px\" >Approve</button></form></span>";
                       echo "</div>";
                       echo "<br>";
                     }
@@ -728,8 +1006,8 @@ elseif(isset($_SESSION['success'])){
                   }
                 }
                 else{
-                  if($pos_6['status'] == "APPROVED"){
-                    echo "<br><strong>{$pos_6['status']}</strong><br><br>";
+                  if($pos_8['status'] == "APPROVED"){
+                    echo "<br><strong>{$pos_8['status']}</strong><br><br>";
                   }
                   else{
                     echo "<br><br><br>";
@@ -749,15 +1027,15 @@ elseif(isset($_SESSION['success'])){
           <div class="row" style="text-align: center;">
             <div class="col-sm-12">
               <?php
-              if(isset($pos_6['username'])){
-                if(USER['user'] == $pos_6['username']){
-                  if($pos_6['status'] == "DENIED"){
-                    echo "<br><strong>{$pos_6['status']}</strong><br><br>";
+              if(isset($pos_8['username'])){
+                if(USER['user'] == $pos_8['username']){
+                  if($pos_8['status'] == "DISAPPROVED"){
+                    echo "<br><strong>{$pos_8['status']}</strong><br><br>";
                   }
                   else{
                     if(!$is_archived){
                       echo "<div class=\"input-group\">";
-                      echo "<span class=\"input-group-btn\"><button class=\"btn btn-danger\" onclick=\"window.location.href='./deny.script.php'\" type=\"button\" style=\"margin-top: 6px\">Deny</button></span>";
+                      echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-danger\" name=\"disapprove\" type=\"submit\" style=\"margin-top: 6px\">Deny</button></form></span>";
                       echo "</div>";
                       echo "<br>";
                     }
@@ -769,8 +1047,8 @@ elseif(isset($_SESSION['success'])){
 
                 }
                 else{
-                  if($pos_6['status'] == "DENIED"){
-                    echo "<br><strong>{$pos_6['status']}</strong><br><br>";
+                  if($pos_8['status'] == "DISAPPROVED"){
+                    echo "<br><strong>{$pos_8['status']}</strong><br><br>";
                   }
                   else{
 
@@ -788,28 +1066,28 @@ elseif(isset($_SESSION['success'])){
     </div>
     <div class="col-sm-6" style="border-right: 1px solid #000000; ">
       <?php
-      if(isset($pos_6)){
-        if(USER['user'] == $pos_6['username'] && !$is_archived){
-          echo "<form action=\"comment.script.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
+      if(isset($pos_8)){
+        if(USER['user'] == $pos_8['username'] && !$is_archived){
+          echo "<form action=\"viewchit.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
           echo "<div class=\"input-group\">";
 
 
-          echo "<input name=\"comments\" maxlength=\"200\" class=\"form-control\" type=\"text\" value=\"{$pos_6['comments']}\">";
+          echo "<input name=\"comments\" maxlength=\"200\" class=\"form-control\" type=\"text\" value=\"{$pos_8['comments']}\">";
 
           echo "<span class=\"input-group-btn\">";
 
           echo "<button class=\"btn btn-primary\" type=\"submit\" >Save Comments</button>";
+          echo "<button class=\"btn btn-default\" type=\"submit\" name=\"pending\">Revert to Pending</button>";
           echo "</form>";
 
-          echo "<button class=\"btn btn-default\" type=\"button\" onclick=\"window.location.href='./pending.script.php'\">Revert to Pending</button>";
 
           echo "</span>";
           echo "</div>";
           echo "<br>";
         }
         else{
-          if(isset($pos_6['comments']) && !empty($pos_6['comments'])){
-            $out = stripslashes($pos_6['comments']);
+          if(isset($pos_8['comments']) && !empty($pos_8['comments'])){
+            $out = stripslashes($pos_8['comments']);
 
             $comments = preg_split('/\s+/', $out);
             $count = 0;
@@ -845,20 +1123,21 @@ elseif(isset($_SESSION['success'])){
       ?>
     </div>
   </div>
-
-
-  <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-  <!--  pos_5 -->
+  
+  
+  
   <div class="row" style="border-bottom:1px solid #000000;">
     <div class="col-sm-6">
+      
+      <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+      <!--  pos_7 -->
       <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; ">
              <div class="col-sm-4" style="border-right: 1px solid #000000;">
                <div class="row">
                  <div class="col-sm-12" id="pos_5">
                    <?php
-                   if(isset($pos_5['username'])){
-                     $info = get_user_information($db, $pos_5['username']);
+                   if(isset($pos_7['username'])){
+                     $info = get_user_information($db, $pos_7['username']);
 
                      echo "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
@@ -877,15 +1156,15 @@ elseif(isset($_SESSION['success'])){
                <div class="row" style="text-align: center; ">
                  <div class="col-sm-12" id="pos_5_date">
                    <?php
-                   if(isset($pos_5['username'])){
-                     if($pos_5['status'] == "PENDING"){
+                   if(isset($pos_7['username'])){
+                     if($pos_7['status'] == "PENDING"){
                        echo "<br>";
-                       echo "<strong>{$pos_5['status']}</strong>";
+                       echo "<strong>{$pos_7['status']}</strong>";
                        echo "<br>";
                        echo "<br>";
                      }
                      else{
-                       echo "{$pos_5['time']} {$pos_5['date']}<br><br>";
+                       echo "{$pos_7['time']} {$pos_7['date']}<br><br>";
                      }
                    }
                    else {
@@ -901,16 +1180,16 @@ elseif(isset($_SESSION['success'])){
                <div class="row" style="text-align: center; border-right: 1px solid #000000;">
                  <div class="col-sm-12">
                    <?php
-                   if(isset($pos_5['username'])){
-                     if(USER['user'] == $pos_5['username']){
-                       if($pos_5['status'] == "APPROVED"){
-                         echo "<br><strong>{$pos_5['status']}</strong><br><br>";
+                   if(isset($pos_7['username'])){
+                     if(USER['user'] == $pos_7['username']){
+                       if($pos_7['status'] == "APPROVED"){
+                         echo "<br><strong>{$pos_7['status']}</strong><br><br>";
                        }
                        else{
                          if(!$is_archived){
 
                          echo "<div class=\"input-group\">";
-                         echo "<span class=\"input-group-btn\"><button class=\"btn btn-success\" onclick=\"window.location.href='./approve.script.php'\" type=\"button\" style=\"margin-top: 6px\" >Approve</button></span>";
+                         echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-success\" type=\"submit\" name=\"approve\" type=\"button\" style=\"margin-top: 6px\" >Approve</button></form></span>";
                          echo "</div>";
                          echo "<br>";
                        }
@@ -920,8 +1199,8 @@ elseif(isset($_SESSION['success'])){
                        }
                      }
                      else{
-                       if($pos_5['status'] == "APPROVED"){
-                         echo "<br><strong>{$pos_5['status']}</strong><br><br>";
+                       if($pos_7['status'] == "APPROVED"){
+                         echo "<br><strong>{$pos_7['status']}</strong><br><br>";
                        }
                        else{
                          echo "<br><br><br>";
@@ -941,15 +1220,15 @@ elseif(isset($_SESSION['success'])){
                <div class="row" style="text-align: center;">
                  <div class="col-sm-12">
                    <?php
-                   if(isset($pos_5['username'])){
-                     if(USER['user'] == $pos_5['username']){
-                       if($pos_5['status'] == "DENIED"){
-                         echo "<br><strong>{$pos_5['status']}</strong><br><br>";
+                   if(isset($pos_7['username'])){
+                     if(USER['user'] == $pos_7['username']){
+                       if($pos_7['status'] == "DISAPPROVED"){
+                         echo "<br><strong>{$pos_7['status']}</strong><br><br>";
                        }
                        else{
                          if(!$is_archived){
                          echo "<div class=\"input-group\">";
-                         echo "<span class=\"input-group-btn\"><button class=\"btn btn-danger\" onclick=\"window.location.href='./deny.script.php'\" type=\"button\" style=\"margin-top: 6px\">Deny</button></span>";
+                       echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-danger\" name=\"disapprove\" type=\"submit\" style=\"margin-top: 6px\">Deny</button></form></span>";
                          echo "</div>";
                          echo "<br>";
                        }
@@ -961,8 +1240,8 @@ elseif(isset($_SESSION['success'])){
 
                      }
                      else{
-                       if($pos_5['status'] == "DENIED"){
-                         echo "<br><strong>{$pos_5['status']}</strong><br><br>";
+                       if($pos_7['status'] == "DISAPPROVED"){
+                         echo "<br><strong>{$pos_7['status']}</strong><br><br>";
                        }
                        else{
 
@@ -980,28 +1259,28 @@ elseif(isset($_SESSION['success'])){
          </div>
          <div class="col-sm-6" style="border-right: 1px solid #000000; ">
            <?php
-           if(isset($pos_5['username'])){
-             if(USER['user'] == $pos_5['username'] && !$is_archived){
-               echo "<form action=\"comment.script.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
+           if(isset($pos_7['username'])){
+             if(USER['user'] == $pos_7['username'] && !$is_archived){
+               echo "<form action=\"viewchit.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
                echo "<div class=\"input-group\">";
 
 
-               echo "<input name=\"comments\" maxlength=\"200\" class=\"form-control\" type=\"text\" value=\"{$pos_5['comments']}\">";
+               echo "<input name=\"comments\" maxlength=\"200\" class=\"form-control\" type=\"text\" value=\"{$pos_7['comments']}\">";
 
                echo "<span class=\"input-group-btn\">";
 
                echo "<button class=\"btn btn-primary\" type=\"submit\" >Save Comments</button>";
-               echo "</form>";
 
-               echo "<button class=\"btn btn-default\" type=\"button\" onclick=\"window.location.href='./pending.script.php'\">Revert to Pending</button>";
+               echo "<button class=\"btn btn-default\" type=\"submit\" name=\"pending\">Revert to Pending</button>";
+               echo "</form>";
 
                echo "</span>";
                echo "</div>";
                echo "<br>";
              }
              else{
-               if(isset($pos_5['comments']) && !empty($pos_5['comments'])){
-                 $out = stripslashes($pos_5['comments']);
+               if(isset($pos_7['comments']) && !empty($pos_7['comments'])){
+                 $out = stripslashes($pos_7['comments']);
 
                  $comments = preg_split('/\s+/', $out);
                  $count = 0;
@@ -1037,21 +1316,21 @@ elseif(isset($_SESSION['success'])){
             ?>
          </div>
        </div>
-
-
-
-    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-       <!--  pos_4 -->
-      <div class="row" style="border-bottom:1px solid #000000;">
+       
+       
+       
+       <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+       
+       <!--  pos_6 -->
+       <div class="row" style="border-bottom:1px solid #000000;">
         <div class="col-sm-6">
           <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; ">
             <div class="col-sm-4" style="border-right: 1px solid #000000;">
               <div class="row">
                 <div class="col-sm-12" id="pos_4">
                   <?php
-                  if(isset($pos_4['username'])){
-                    $info = get_user_information($db, $pos_4['username']);
+                  if(isset($pos_6['username'])){
+                    $info = get_user_information($db, $pos_6['username']);
 
                     echo "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
@@ -1070,15 +1349,15 @@ elseif(isset($_SESSION['success'])){
               <div class="row" style="text-align: center; ">
                 <div class="col-sm-12" id="pos_4_date">
                   <?php
-                  if(isset($pos_4['username'])){
-                    if($pos_4['status'] == "PENDING"){
+                  if(isset($pos_6['username'])){
+                    if($pos_6['status'] == "PENDING"){
                       echo "<br>";
-                      echo "<strong>{$pos_4['status']}</strong>";
+                      echo "<strong>{$pos_6['status']}</strong>";
                       echo "<br>";
                       echo "<br>";
                     }
                     else{
-                      echo "{$pos_4['time']} {$pos_4['date']}<br><br>";
+                      echo "{$pos_6['time']} {$pos_6['date']}<br><br>";
                     }
                   }
                   else {
@@ -1094,16 +1373,16 @@ elseif(isset($_SESSION['success'])){
               <div class="row" style="text-align: center; border-right: 1px solid #000000;">
                 <div class="col-sm-12">
                   <?php
-                  if(isset($pos_4['username'])){
-                    if(USER['user'] == $pos_4['username']){
-                      if($pos_4['status'] == "APPROVED"){
-                        echo "<br><strong>{$pos_4['status']}</strong><br><br>";
+                  if(isset($pos_6['username'])){
+                    if(USER['user'] == $pos_6['username']){
+                      if($pos_6['status'] == "APPROVED"){
+                        echo "<br><strong>{$pos_6['status']}</strong><br><br>";
                       }
                       else{
                         if(!$is_archived){
 
                         echo "<div class=\"input-group\">";
-                        echo "<span class=\"input-group-btn\"><button class=\"btn btn-success\" onclick=\"window.location.href='./approve.script.php'\" type=\"button\" style=\"margin-top: 6px\" >Approve</button></span>";
+                        echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-success\" type=\"submit\" name=\"approve\" type=\"button\" style=\"margin-top: 6px\" >Approve</button></form></span>";
                         echo "</div>";
                         echo "<br>";
                       }
@@ -1113,8 +1392,8 @@ elseif(isset($_SESSION['success'])){
                       }
                     }
                     else{
-                      if($pos_4['status'] == "APPROVED"){
-                        echo "<br><strong>{$pos_4['status']}</strong><br><br>";
+                      if($pos_6['status'] == "APPROVED"){
+                        echo "<br><strong>{$pos_6['status']}</strong><br><br>";
                       }
                       else{
                         echo "<br><br><br>";
@@ -1134,16 +1413,16 @@ elseif(isset($_SESSION['success'])){
               <div class="row" style="text-align: center;">
                 <div class="col-sm-12">
                   <?php
-                  if(isset($pos_4['username'])){
-                    if(USER['user'] == $pos_4['username']){
-                      if($pos_4['status'] == "DENIED"){
-                        echo "<br><strong>{$pos_4['status']}</strong><br><br>";
+                  if(isset($pos_6['username'])){
+                    if(USER['user'] == $pos_6['username']){
+                      if($pos_6['status'] == "DISAPPROVED"){
+                        echo "<br><strong>{$pos_6['status']}</strong><br><br>";
                       }
                       else{
                         if(!$is_archived){
 
                         echo "<div class=\"input-group\">";
-                        echo "<span class=\"input-group-btn\"><button class=\"btn btn-danger\" onclick=\"window.location.href='./deny.script.php'\" type=\"button\" style=\"margin-top: 6px\">Deny</button></span>";
+                      echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-danger\" name=\"disapprove\" type=\"submit\" style=\"margin-top: 6px\">Deny</button></form></span>";
                         echo "</div>";
                         echo "<br>";
                       }
@@ -1154,8 +1433,8 @@ elseif(isset($_SESSION['success'])){
 
                     }
                     else{
-                      if($pos_4['status'] == "DENIED"){
-                        echo "<br><strong>{$pos_4['status']}</strong><br><br>";
+                      if($pos_6['status'] == "DISAPPROVED"){
+                        echo "<br><strong>{$pos_6['status']}</strong><br><br>";
                       }
                       else{
 
@@ -1173,28 +1452,28 @@ elseif(isset($_SESSION['success'])){
         </div>
         <div class="col-sm-6" style="border-right: 1px solid #000000; ">
           <?php
-          if(isset($pos_4['username'])){
-            if(USER['user'] == $pos_4['username'] && !$is_archived){
-              echo "<form action=\"comment.script.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
+          if(isset($pos_6['username'])){
+            if(USER['user'] == $pos_6['username'] && !$is_archived){
+              echo "<form action=\"viewchit.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
               echo "<div class=\"input-group\">";
 
 
-              echo "<input name=\"comments\" maxlength=\"200\" class=\"form-control\" type=\"text\" value=\"{$pos_4['comments']}\">";
+              echo "<input name=\"comments\" maxlength=\"200\" class=\"form-control\" type=\"text\" value=\"{$pos_6['comments']}\">";
 
               echo "<span class=\"input-group-btn\">";
 
               echo "<button class=\"btn btn-primary\" type=\"submit\" >Save Comments</button>";
-              echo "</form>";
 
-              echo "<button class=\"btn btn-default\" type=\"button\" onclick=\"window.location.href='./pending.script.php'\">Revert to Pending</button>";
+              echo "<button class=\"btn btn-default\" type=\"submit\" name=\"pending\">Revert to Pending</button>";
+              echo "</form>";
 
               echo "</span>";
               echo "</div>";
               echo "<br>";
             }
             else{
-              if(isset($pos_4['comments']) && !empty($pos_4['comments'])){
-                $out = stripslashes($pos_4['comments']);
+              if(isset($pos_6['comments']) && !empty($pos_6['comments'])){
+                $out = stripslashes($pos_6['comments']);
                 $comments = preg_split('/\s+/', $out);
                 $count = 0;
                 $line = "";
@@ -1227,20 +1506,19 @@ elseif(isset($_SESSION['success'])){
           }
 
            ?>
-        </div>
-      </div>
-
-      <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-         <!--  pos_3 -->
+        </div></div>
+      
+        <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+        <!--  pos_5 -->
         <div class="row" style="border-bottom:1px solid #000000;">
           <div class="col-sm-6">
             <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; ">
               <div class="col-sm-4" style="border-right: 1px solid #000000;">
                 <div class="row">
-                  <div class="col-sm-12" id="pos_3">
+                  <div class="col-sm-12" id="pos_5">
                     <?php
-                    if(isset($pos_3['username'])){
-                      $info = get_user_information($db, $pos_3['username']);
+                    if(isset($pos_5['username'])){
+                      $info = get_user_information($db, $pos_5['username']);
 
                       echo "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
@@ -1257,17 +1535,17 @@ elseif(isset($_SESSION['success'])){
               </div>
               <div class="col-sm-2" style="border-right: 1px solid #000000;">
                 <div class="row" style="text-align: center; ">
-                  <div class="col-sm-12" id="pos_3_date">
+                  <div class="col-sm-12" id="pos_5_date">
                     <?php
-                    if(isset($pos_3['username'])){
-                      if($pos_3['status'] == "PENDING"){
+                    if(isset($pos_5['username'])){
+                      if($pos_5['status'] == "PENDING"){
                         echo "<br>";
-                        echo "<strong>{$pos_3['status']}</strong>";
+                        echo "<strong>{$pos_5['status']}</strong>";
                         echo "<br>";
                         echo "<br>";
                       }
                       else{
-                        echo "{$pos_3['time']} {$pos_3['date']}<br><br>";
+                        echo "{$pos_5['time']} {$pos_5['date']}<br><br>";
                       }
                     }
                     else {
@@ -1283,16 +1561,16 @@ elseif(isset($_SESSION['success'])){
                 <div class="row" style="text-align: center; border-right: 1px solid #000000;">
                   <div class="col-sm-12">
                     <?php
-                    if(isset($pos_3['username'])){
-                      if(USER['user'] == $pos_3['username']){
-                        if($pos_3['status'] == "APPROVED"){
-                          echo "<br><strong>{$pos_3['status']}</strong><br><br>";
+                    if(isset($pos_5['username'])){
+                      if(USER['user'] == $pos_5['username']){
+                        if($pos_5['status'] == "APPROVED"){
+                          echo "<br><strong>{$pos_5['status']}</strong><br><br>";
                         }
                         else{
                           if(!$is_archived){
 
                           echo "<div class=\"input-group\">";
-                          echo "<span class=\"input-group-btn\"><button class=\"btn btn-success\" onclick=\"window.location.href='./approve.script.php'\" type=\"button\" style=\"margin-top: 6px\" >Approve</button></span>";
+                          echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-success\" type=\"submit\" name=\"approve\" type=\"button\" style=\"margin-top: 6px\" >Approve</button></form></span>";
                           echo "</div>";
                           echo "<br>";
                         }
@@ -1302,8 +1580,8 @@ elseif(isset($_SESSION['success'])){
                         }
                       }
                       else{
-                        if($pos_3['status'] == "APPROVED"){
-                          echo "<br><strong>{$pos_3['status']}</strong><br><br>";
+                        if($pos_5['status'] == "APPROVED"){
+                          echo "<br><strong>{$pos_5['status']}</strong><br><br>";
                         }
                         else{
                           echo "<br><br><br>";
@@ -1323,16 +1601,16 @@ elseif(isset($_SESSION['success'])){
                 <div class="row" style="text-align: center;">
                   <div class="col-sm-12">
                     <?php
-                    if(isset($pos_3['username'])){
-                      if(USER['user'] == $pos_3['username']){
-                        if($pos_3['status'] == "DENIED"){
-                          echo "<br><strong>{$pos_3['status']}</strong><br><br>";
+                    if(isset($pos_5['username'])){
+                      if(USER['user'] == $pos_5['username']){
+                        if($pos_5['status'] == "DISAPPROVED"){
+                          echo "<br><strong>{$pos_5['status']}</strong><br><br>";
                         }
                         else{
                           if(!$is_archived){
 
                             echo "<div class=\"input-group\">";
-                            echo "<span class=\"input-group-btn\"><button class=\"btn btn-danger\" onclick=\"window.location.href='./deny.script.php'\" type=\"button\" style=\"margin-top: 6px\">Deny</button></span>";
+                          echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-danger\" name=\"disapprove\" type=\"submit\" style=\"margin-top: 6px\">Deny</button></form></span>";
                             echo "</div>";
                             echo "<br>";
                           }
@@ -1343,8 +1621,8 @@ elseif(isset($_SESSION['success'])){
 
                       }
                       else{
-                        if($pos_3['status'] == "DENIED"){
-                          echo "<br><strong>{$pos_3['status']}</strong><br><br>";
+                        if($pos_5['status'] == "DISAPPROVED"){
+                          echo "<br><strong>{$pos_5['status']}</strong><br><br>";
                         }
                         else{
 
@@ -1362,28 +1640,28 @@ elseif(isset($_SESSION['success'])){
           </div>
           <div class="col-sm-6" style="border-right: 1px solid #000000; ">
             <?php
-            if(isset($pos_3['username'])){
-              if(USER['user'] == $pos_3['username'] && !$is_archived){
-                echo "<form action=\"comment.script.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
+            if(isset($pos_5['username'])){
+              if(USER['user'] == $pos_5['username'] && !$is_archived){
+                echo "<form action=\"viewchit.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
                 echo "<div class=\"input-group\">";
 
 
-                echo "<input name=\"comments\" maxlength=\"200\" class=\"form-control\" type=\"text\" value=\"{$pos_3['comments']}\">";
+                echo "<input name=\"comments\" maxlength=\"200\" class=\"form-control\" type=\"text\" value=\"{$pos_5['comments']}\">";
 
                 echo "<span class=\"input-group-btn\">";
 
                 echo "<button class=\"btn btn-primary\" type=\"submit\" >Save Comments</button>";
-                echo "</form>";
 
-                echo "<button class=\"btn btn-default\" type=\"button\" onclick=\"window.location.href='./pending.script.php'\">Revert to Pending</button>";
+                echo "<button class=\"btn btn-default\" type=\"submit\" name=\"pending\">Revert to Pending</button>";
+                echo "</form>";
 
                 echo "</span>";
                 echo "</div>";
                 echo "<br>";
               }
               else{
-                if(isset($pos_3['comments']) && !empty($pos_3['comments'])){
-                  $out = stripslashes($pos_3['comments']);
+                if(isset($pos_5['comments']) && !empty($pos_5['comments'])){
+                  $out = stripslashes($pos_5['comments']);
                   $comments = preg_split('/\s+/', $out);
                   $count = 0;
                   $line = "";
@@ -1418,9 +1696,9 @@ elseif(isset($_SESSION['success'])){
              ?>
           </div>
         </div>
-
-
-        <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
+      </div>
+      
+      <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
           <div class="col-sm-6">
             <div class="row">
               <div class="col-sm-4" >
@@ -1457,20 +1735,20 @@ elseif(isset($_SESSION['success'])){
           <div class="col-sm-6">
           </div>
         </div>
-
-
+        
+        
         <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-           <!--  pos_2 -->
-          <div class="row" style="border-bottom:1px solid #000000;">
+        
+        <!--  pos_4 -->
+        <div class="row" style="border-bottom:1px solid #000000;">
             <div class="col-sm-6">
               <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; ">
                 <div class="col-sm-4" style="border-right: 1px solid #000000;">
                   <div class="row">
-                    <div class="col-sm-12" id="pos_2">
+                    <div class="col-sm-12" id="pos_4">
                       <?php
-                      if(isset($pos_2['username'])){
-                        $info = get_user_information($db, $pos_2['username']);
+                      if(isset($pos_4['username'])){
+                        $info = get_user_information($db, $pos_4['username']);
 
                         echo "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
@@ -1487,17 +1765,17 @@ elseif(isset($_SESSION['success'])){
                 </div>
                 <div class="col-sm-2" style="border-right: 1px solid #000000;">
                   <div class="row" style="text-align: center; ">
-                    <div class="col-sm-12" id="pos_2_date">
+                    <div class="col-sm-12" id="pos_4_date">
                       <?php
-                      if(isset($pos_2['username'])){
-                        if($pos_2['status'] == "PENDING"){
+                      if(isset($pos_4['username'])){
+                        if($pos_4['status'] == "PENDING"){
                           echo "<br>";
-                          echo "<strong>{$pos_2['status']}</strong>";
+                          echo "<strong>{$pos_4['status']}</strong>";
                           echo "<br>";
                           echo "<br>";
                         }
                         else{
-                          echo "{$pos_2['time']} {$pos_2['date']}<br><br>";
+                          echo "{$pos_4['time']} {$pos_4['date']}<br><br>";
                         }
                       }
                       else {
@@ -1513,16 +1791,16 @@ elseif(isset($_SESSION['success'])){
                   <div class="row" style="text-align: center; border-right: 1px solid #000000;">
                     <div class="col-sm-12">
                       <?php
-                      if(isset($pos_2['username'])){
-                        if(USER['user'] == $pos_2['username']){
-                          if($pos_2['status'] == "APPROVED"){
-                            echo "<br><strong>{$pos_2['status']}</strong><br><br>";
+                      if(isset($pos_4['username'])){
+                        if(USER['user'] == $pos_4['username']){
+                          if($pos_4['status'] == "APPROVED"){
+                            echo "<br><strong>{$pos_4['status']}</strong><br><br>";
                           }
                           else{
                             if(!$is_archived){
 
                             echo "<div class=\"input-group\">";
-                            echo "<span class=\"input-group-btn\"><button class=\"btn btn-success\" onclick=\"window.location.href='./approve.script.php'\" type=\"button\" style=\"margin-top: 6px\" >Approve</button></span>";
+                            echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-success\" type=\"submit\" name=\"approve\" type=\"button\" style=\"margin-top: 6px\" >Approve</button></form></span>";
                             echo "</div>";
                             echo "<br>";
                           }
@@ -1532,8 +1810,8 @@ elseif(isset($_SESSION['success'])){
                           }
                         }
                         else{
-                          if($pos_2['status'] == "APPROVED"){
-                            echo "<br><strong>{$pos_2['status']}</strong><br><br>";
+                          if($pos_4['status'] == "APPROVED"){
+                            echo "<br><strong>{$pos_4['status']}</strong><br><br>";
                           }
                           else{
                             echo "<br><br><br>";
@@ -1553,16 +1831,16 @@ elseif(isset($_SESSION['success'])){
                   <div class="row" style="text-align: center;">
                     <div class="col-sm-12">
                       <?php
-                      if(isset($pos_2['username'])){
-                        if(USER['user'] == $pos_2['username']){
-                          if($pos_2['status'] == "DENIED"){
-                            echo "<br><strong>{$pos_2['status']}</strong><br><br>";
+                      if(isset($pos_4['username'])){
+                        if(USER['user'] == $pos_4['username']){
+                          if($pos_4['status'] == "DISAPPROVED"){
+                            echo "<br><strong>{$pos_4['status']}</strong><br><br>";
                           }
                           else{
                             if(!$is_archived){
 
                             echo "<div class=\"input-group\">";
-                            echo "<span class=\"input-group-btn\"><button class=\"btn btn-danger\" onclick=\"window.location.href='./deny.script.php'\" type=\"button\" style=\"margin-top: 6px\">Deny</button></span>";
+                          echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-danger\" name=\"disapprove\" type=\"submit\" style=\"margin-top: 6px\">Deny</button></form></span>";
                             echo "</div>";
                             echo "<br>";
                           }
@@ -1574,8 +1852,8 @@ elseif(isset($_SESSION['success'])){
 
                         }
                         else{
-                          if($pos_2['status'] == "DENIED"){
-                            echo "<br><strong>{$pos_2['status']}</strong><br><br>";
+                          if($pos_4['status'] == "DISAPPROVED"){
+                            echo "<br><strong>{$pos_4['status']}</strong><br><br>";
                           }
                           else{
 
@@ -1593,28 +1871,28 @@ elseif(isset($_SESSION['success'])){
             </div>
             <div class="col-sm-6" style="border-right: 1px solid #000000; ">
               <?php
-              if(isset($pos_2['username'])){
-                if(USER['user'] == $pos_2['username'] && !$is_archived){
-                  echo "<form action=\"comment.script.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
+              if(isset($pos_4['username'])){
+                if(USER['user'] == $pos_4['username'] && !$is_archived){
+                  echo "<form action=\"viewchit.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
                   echo "<div class=\"input-group\">";
 
 
-                  echo "<input name=\"comments\" maxlength=\"200\" class=\"form-control\" type=\"text\" value=\"{$pos_2['comments']}\">";
+                  echo "<input name=\"comments\" maxlength=\"200\" class=\"form-control\" type=\"text\" value=\"{$pos_4['comments']}\">";
 
                   echo "<span class=\"input-group-btn\">";
 
                   echo "<button class=\"btn btn-primary\" type=\"submit\" >Save Comments</button>";
-                  echo "</form>";
 
-                  echo "<button class=\"btn btn-default\" type=\"button\" onclick=\"window.location.href='./pending.script.php'\">Revert to Pending</button>";
+                  echo "<button class=\"btn btn-default\" type=\"submit\" name=\"pending\">Revert to Pending</button>";
+                  echo "</form>";
 
                   echo "</span>";
                   echo "</div>";
                   echo "<br>";
                 }
                 else{
-                  if(isset($pos_2['comments']) && !empty($pos_2['comments'])){
-                    $out = stripslashes($pos_2['comments']);
+                  if(isset($pos_4['comments']) && !empty($pos_4['comments'])){
+                    $out = stripslashes($pos_4['comments']);
                     $comments = preg_split('/\s+/', $out);
                     $count = 0;
                     $line = "";
@@ -1649,20 +1927,20 @@ elseif(isset($_SESSION['success'])){
                ?>
             </div>
           </div>
-
-
+          
+          
           <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-             <!--  pos_1 -->
-            <div class="row" style="border-bottom:1px solid #000000;">
+          
+          <!--  pos_3 -->
+          <div class="row" style="border-bottom:1px solid #000000;">
               <div class="col-sm-6">
                 <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; ">
                   <div class="col-sm-4" style="border-right: 1px solid #000000;">
                     <div class="row">
-                      <div class="col-sm-12" id="pos_1">
+                      <div class="col-sm-12" id="pos_3">
                         <?php
-                        if(isset($pos_1['username'])){
-                          $info = get_user_information($db, $pos_1['username']);
+                        if(isset($pos_3['username'])){
+                          $info = get_user_information($db, $pos_3['username']);
 
                           echo "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
@@ -1679,17 +1957,17 @@ elseif(isset($_SESSION['success'])){
                   </div>
                   <div class="col-sm-2" style="border-right: 1px solid #000000;">
                     <div class="row" style="text-align: center; ">
-                      <div class="col-sm-12" id="pos_1_date">
+                      <div class="col-sm-12" id="pos_3_date">
                         <?php
-                        if(isset($pos_1['username'])){
-                          if($pos_1['status'] == "PENDING"){
+                        if(isset($pos_3['username'])){
+                          if($pos_3['status'] == "PENDING"){
                             echo "<br>";
-                            echo "<strong>{$pos_1['status']}</strong>";
+                            echo "<strong>{$pos_3['status']}</strong>";
                             echo "<br>";
                             echo "<br>";
                           }
                           else{
-                            echo "{$pos_1['time']} {$pos_1['date']}<br><br>";
+                            echo "{$pos_3['time']} {$pos_3['date']}<br><br>";
                           }
                         }
                         else {
@@ -1705,16 +1983,16 @@ elseif(isset($_SESSION['success'])){
                     <div class="row" style="text-align: center; border-right: 1px solid #000000;">
                       <div class="col-sm-12">
                         <?php
-                        if(isset($pos_1['username'])){
-                          if(USER['user'] == $pos_1['username']){
-                            if($pos_1['status'] == "APPROVED"){
-                              echo "<br><strong>{$pos_1['status']}</strong><br><br>";
+                        if(isset($pos_3['username'])){
+                          if(USER['user'] == $pos_3['username']){
+                            if($pos_3['status'] == "APPROVED"){
+                              echo "<br><strong>{$pos_3['status']}</strong><br><br>";
                             }
                             else{
                               if(!$is_archived){
 
                               echo "<div class=\"input-group\">";
-                              echo "<span class=\"input-group-btn\"><button class=\"btn btn-success\" onclick=\"window.location.href='./approve.script.php'\" type=\"button\" style=\"margin-top: 6px\" >Approve</button></span>";
+                              echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-success\" type=\"submit\" name=\"approve\" type=\"button\" style=\"margin-top: 6px\" >Approve</button></form></span>";
                               echo "</div>";
                               echo "<br>";
                             }
@@ -1724,8 +2002,8 @@ elseif(isset($_SESSION['success'])){
                           }
                           }
                           else{
-                            if($pos_1['status'] == "APPROVED"){
-                              echo "<br><strong>{$pos_1['status']}</strong><br><br>";
+                            if($pos_3['status'] == "APPROVED"){
+                              echo "<br><strong>{$pos_3['status']}</strong><br><br>";
                             }
                             else{
                               echo "<br><br><br>";
@@ -1745,16 +2023,16 @@ elseif(isset($_SESSION['success'])){
                     <div class="row" style="text-align: center;">
                       <div class="col-sm-12">
                         <?php
-                        if(isset($pos_1['username'])){
-                          if(USER['user'] == $pos_1['username']){
-                            if($pos_1['status'] == "DENIED"){
-                              echo "<br><strong>{$pos_1['status']}</strong><br><br>";
+                        if(isset($pos_3['username'])){
+                          if(USER['user'] == $pos_3['username']){
+                            if($pos_3['status'] == "DISAPPROVED"){
+                              echo "<br><strong>{$pos_3['status']}</strong><br><br>";
                             }
                             else{
                               if(!$is_archived){
 
                               echo "<div class=\"input-group\">";
-                              echo "<span class=\"input-group-btn\"><button class=\"btn btn-danger\" onclick=\"window.location.href='./deny.script.php'\" type=\"button\" style=\"margin-top: 6px\">Deny</button></span>";
+                            echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-danger\" name=\"disapprove\" type=\"submit\" style=\"margin-top: 6px\">Deny</button></form></span>";
                               echo "</div>";
                               echo "<br>";
                             }
@@ -1765,8 +2043,8 @@ elseif(isset($_SESSION['success'])){
 
                           }
                           else{
-                            if($pos_1['status'] == "DENIED"){
-                              echo "<br><strong>{$pos_1['status']}</strong><br><br>";
+                            if($pos_3['status'] == "DISAPPROVED"){
+                              echo "<br><strong>{$pos_3['status']}</strong><br><br>";
                             }
                             else{
 
@@ -1784,28 +2062,28 @@ elseif(isset($_SESSION['success'])){
               </div>
               <div class="col-sm-6" style="border-right: 1px solid #000000; ">
                 <?php
-                if(isset($pos_1['username'])){
-                  if(USER['user'] == $pos_1['username'] && !$is_archived){
-                    echo "<form action=\"comment.script.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
+                if(isset($pos_3['username'])){
+                  if(USER['user'] == $pos_3['username'] && !$is_archived){
+                    echo "<form action=\"viewchit.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
                     echo "<div class=\"input-group\">";
 
 
-                    echo "<input name=\"comments\" maxlength=\"200\" class=\"form-control\" type=\"text\" value=\"{$pos_1['comments']}\">";
+                    echo "<input name=\"comments\" maxlength=\"200\" class=\"form-control\" type=\"text\" value=\"{$pos_3['comments']}\">";
 
                     echo "<span class=\"input-group-btn\">";
 
                     echo "<button class=\"btn btn-primary\" type=\"submit\" >Save Comments</button>";
-                    echo "</form>";
 
-                    echo "<button class=\"btn btn-default\" type=\"button\" onclick=\"window.location.href='./pending.script.php'\">Revert to Pending</button>";
+                    echo "<button class=\"btn btn-default\" type=\"submit\" name=\"pending\">Revert to Pending</button>";
+                    echo "</form>";
 
                     echo "</span>";
                     echo "</div>";
                     echo "<br>";
                   }
                   else{
-                    if(isset($pos_1['comments']) && !empty($pos_1['comments'])){
-                      $out = stripslashes($pos_1['comments']);
+                    if(isset($pos_3['comments']) && !empty($pos_3['comments'])){
+                      $out = stripslashes($pos_3['comments']);
                       $comments = preg_split('/\s+/', $out);
                       $count = 0;
                       $line = "";
@@ -1840,20 +2118,20 @@ elseif(isset($_SESSION['success'])){
                  ?>
               </div>
             </div>
-
-
+            
+            
             <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-               <!--  pos_0 -->
-              <div class="row" style="border-bottom:1px solid #000000;">
+            
+            <!--  pos_2 -->
+            <div class="row" style="border-bottom:1px solid #000000;">
                 <div class="col-sm-6">
                   <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; ">
                     <div class="col-sm-4" style="border-right: 1px solid #000000;">
                       <div class="row">
-                        <div class="col-sm-12" id="pos_0">
+                        <div class="col-sm-12" id="pos_2">
                           <?php
-                          if(isset($pos_0['username'])){
-                            $info = get_user_information($db, $pos_0['username']);
+                          if(isset($pos_2['username'])){
+                            $info = get_user_information($db, $pos_2['username']);
 
                             echo "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
@@ -1870,17 +2148,17 @@ elseif(isset($_SESSION['success'])){
                     </div>
                     <div class="col-sm-2" style="border-right: 1px solid #000000;">
                       <div class="row" style="text-align: center; ">
-                        <div class="col-sm-12" id="pos_0_date">
+                        <div class="col-sm-12" id="pos_2_date">
                           <?php
-                          if(isset($pos_0['username'])){
-                            if($pos_0['status'] == "PENDING"){
+                          if(isset($pos_2['username'])){
+                            if($pos_2['status'] == "PENDING"){
                               echo "<br>";
-                              echo "<strong>{$pos_0['status']}</strong>";
+                              echo "<strong>{$pos_2['status']}</strong>";
                               echo "<br>";
                               echo "<br>";
                             }
                             else{
-                              echo "{$pos_0['time']} {$pos_0['date']}<br><br>";
+                              echo "{$pos_2['time']} {$pos_2['date']}<br><br>";
                             }
                           }
                           else {
@@ -1896,16 +2174,16 @@ elseif(isset($_SESSION['success'])){
                       <div class="row" style="text-align: center; border-right: 1px solid #000000;">
                         <div class="col-sm-12">
                           <?php
-                          if(isset($pos_0['username'])){
-                            if(USER['user'] == $pos_0['username']){
-                              if($pos_0['status'] == "APPROVED"){
-                                echo "<br><strong>{$pos_0['status']}</strong><br><br>";
+                          if(isset($pos_2['username'])){
+                            if(USER['user'] == $pos_2['username']){
+                              if($pos_2['status'] == "APPROVED"){
+                                echo "<br><strong>{$pos_2['status']}</strong><br><br>";
                               }
                               else{
                                 if(!$is_archived){
 
                                 echo "<div class=\"input-group\">";
-                                echo "<span class=\"input-group-btn\"><button class=\"btn btn-success\" onclick=\"window.location.href='./approve.script.php'\" type=\"button\" style=\"margin-top: 6px\" >Approve</button></span>";
+                                echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-success\" type=\"submit\" name=\"approve\" type=\"button\" style=\"margin-top: 6px\" >Approve</button></form></span>";
                                 echo "</div>";
                                 echo "<br>";
                               }
@@ -1916,8 +2194,8 @@ elseif(isset($_SESSION['success'])){
                               }
                             }
                             else{
-                              if($pos_0['status'] == "APPROVED"){
-                                echo "<br><strong>{$pos_0['status']}</strong><br><br>";
+                              if($pos_2['status'] == "APPROVED"){
+                                echo "<br><strong>{$pos_2['status']}</strong><br><br>";
                               }
                               else{
                                 echo "<br><br><br>";
@@ -1937,16 +2215,16 @@ elseif(isset($_SESSION['success'])){
                       <div class="row" style="text-align: center;">
                         <div class="col-sm-12">
                           <?php
-                          if(isset($pos_0['username'])){
-                            if(USER['user'] == $pos_0['username']){
-                              if($pos_0['status'] == "DENIED"){
-                                echo "<br><strong>{$pos_0['status']}</strong><br><br>";
+                          if(isset($pos_2['username'])){
+                            if(USER['user'] == $pos_2['username']){
+                              if($pos_2['status'] == "DISAPPROVED"){
+                                echo "<br><strong>{$pos_2['status']}</strong><br><br>";
                               }
                               else{
                                 if(!$is_archived){
 
                                 echo "<div class=\"input-group\">";
-                                echo "<span class=\"input-group-btn\"><button class=\"btn btn-danger\" onclick=\"window.location.href='./deny.script.php'\" type=\"button\" style=\"margin-top: 6px\">Deny</button></span>";
+                              echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-danger\" name=\"disapprove\" type=\"submit\" style=\"margin-top: 6px\">Deny</button></form></span>";
                                 echo "</div>";
                                 echo "<br>";
                               }
@@ -1957,8 +2235,8 @@ elseif(isset($_SESSION['success'])){
 
                             }
                             else{
-                              if($pos_0['status'] == "DENIED"){
-                                echo "<br><strong>{$pos_0['status']}</strong><br><br>";
+                              if($pos_2['status'] == "DISAPPROVED"){
+                                echo "<br><strong>{$pos_2['status']}</strong><br><br>";
                               }
                               else{
 
@@ -1976,28 +2254,28 @@ elseif(isset($_SESSION['success'])){
                 </div>
                 <div class="col-sm-6" style="border-right: 1px solid #000000; ">
                   <?php
-                  if(isset($pos_0['username'])){
-                    if(USER['user'] == $pos_0['username'] && !$is_archived){
-                      echo "<form action=\"comment.script.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
+                  if(isset($pos_2['username'])){
+                    if(USER['user'] == $pos_2['username'] && !$is_archived){
+                      echo "<form action=\"viewchit.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
                       echo "<div class=\"input-group\">";
 
 
-                      echo "<input name=\"comments\" maxlength=\"200\" class=\"form-control\" type=\"text\" value=\"{$pos_0['comments']}\">";
+                      echo "<input name=\"comments\" maxlength=\"200\" class=\"form-control\" type=\"text\" value=\"{$pos_2['comments']}\">";
 
                       echo "<span class=\"input-group-btn\">";
 
                       echo "<button class=\"btn btn-primary\" type=\"submit\" >Save Comments</button>";
-                      echo "</form>";
 
-                      echo "<button class=\"btn btn-default\" type=\"button\" onclick=\"window.location.href='./pending.script.php'\">Revert to Pending</button>";
+                      echo "<button class=\"btn btn-default\" type=\"submit\" name=\"pending\">Revert to Pending</button>";
+                      echo "</form>";
 
                       echo "</span>";
                       echo "</div>";
                       echo "<br>";
                     }
                     else{
-                      if(isset($pos_0['comments']) && !empty($pos_0['comments'])){
-                        $out = stripslashes($pos_0['comments']);
+                      if(isset($pos_2['comments']) && !empty($pos_2['comments'])){
+                        $out = stripslashes($pos_2['comments']);
                         $comments = preg_split('/\s+/', $out);
                         $count = 0;
                         $line = "";
@@ -2032,12 +2310,394 @@ elseif(isset($_SESSION['success'])){
                    ?>
                 </div>
               </div>
+              
+              <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+              
+              <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+                
+                <!--  pos_1 -->
+                <div class="row" style="border-bottom:1px solid #000000;">
+                    <div class="col-sm-6">
+                      <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; ">
+                        <div class="col-sm-4" style="border-right: 1px solid #000000;">
+                          <div class="row">
+                            <div class="col-sm-12" id="pos_1">
+                              <?php
+                              if(isset($pos_1['username'])){
+                                $info = get_user_information($db, $pos_1['username']);
+
+                                echo "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+                                if(strlen($info['billet']) < 22){
+                                  echo "<br><br>";
+                                }
+                              }
+                              else {
+                                echo "<br><br><br>";
+                              }
+                               ?>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-2" style="border-right: 1px solid #000000;">
+                          <div class="row" style="text-align: center; ">
+                            <div class="col-sm-12" id="pos_1_date">
+                              <?php
+                              if(isset($pos_1['username'])){
+                                if($pos_1['status'] == "PENDING"){
+                                  echo "<br>";
+                                  echo "<strong>{$pos_1['status']}</strong>";
+                                  echo "<br>";
+                                  echo "<br>";
+                                }
+                                else{
+                                  echo "{$pos_1['time']} {$pos_1['date']}<br><br>";
+                                }
+                              }
+                              else {
+                                echo "<br><br><br>";
+                              }
+
+                               ?>
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="col-sm-3" >
+                          <div class="row" style="text-align: center; border-right: 1px solid #000000;">
+                            <div class="col-sm-12">
+                              <?php
+                              if(isset($pos_1['username'])){
+                                if(USER['user'] == $pos_1['username']){
+                                  if($pos_1['status'] == "APPROVED"){
+                                    echo "<br><strong>{$pos_1['status']}</strong><br><br>";
+                                  }
+                                  else{
+                                    if(!$is_archived){
+
+                                    echo "<div class=\"input-group\">";
+                                    echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-success\" type=\"submit\" name=\"approve\" type=\"button\" style=\"margin-top: 6px\" >Approve</button></form></span>";
+                                    echo "</div>";
+                                    echo "<br>";
+                                  }
+
+                                  else{
+                                    echo "<br><br><br>";
+                                  }
+                                  }
+                                }
+                                else{
+                                  if($pos_1['status'] == "APPROVED"){
+                                    echo "<br><strong>{$pos_1['status']}</strong><br><br>";
+                                  }
+                                  else{
+                                    echo "<br><br><br>";
+                                  }
+                                }
+                              }
+                              else {
+                                echo "<br><br><br>";
+                              }
 
 
+                               ?>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="row" style="text-align: center;">
+                            <div class="col-sm-12">
+                              <?php
+                              if(isset($pos_1['username'])){
+                                if(USER['user'] == $pos_1['username']){
+                                  if($pos_1['status'] == "DISAPPROVED"){
+                                    echo "<br><strong>{$pos_1['status']}</strong><br><br>";
+                                  }
+                                  else{
+                                    if(!$is_archived){
+
+                                    echo "<div class=\"input-group\">";
+                                  echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-danger\" name=\"disapprove\" type=\"submit\" style=\"margin-top: 6px\">Deny</button></form></span>";
+                                    echo "</div>";
+                                    echo "<br>";
+                                  }
+                                  else{
+                                    echo "<br><br><br>";
+                                  }
+                                }
+
+                                }
+                                else{
+                                  if($pos_1['status'] == "DISAPPROVED"){
+                                    echo "<br><strong>{$pos_1['status']}</strong><br><br>";
+                                  }
+                                  else{
+
+                                  }
+                                }
+                              }
+                              else {
+                                echo "<br><br><br>";
+                              }
+                              ?>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6" style="border-right: 1px solid #000000; ">
+                      <?php
+                      if(isset($pos_1['username'])){
+                        if(USER['user'] == $pos_1['username'] && !$is_archived){
+                          echo "<form action=\"viewchit.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
+                          echo "<div class=\"input-group\">";
 
 
+                          echo "<input name=\"comments\" maxlength=\"200\" class=\"form-control\" type=\"text\" value=\"{$pos_1['comments']}\">";
 
-    <div class="row" style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;">
+                          echo "<span class=\"input-group-btn\">";
+
+                          echo "<button class=\"btn btn-primary\" type=\"submit\" >Save Comments</button>";
+
+                          echo "<button class=\"btn btn-default\" type=\"submit\" name=\"pending\">Revert to Pending</button>";
+                          echo "</form>";
+
+                          echo "</span>";
+                          echo "</div>";
+                          echo "<br>";
+                        }
+                        else{
+                          if(isset($pos_1['comments']) && !empty($pos_1['comments'])){
+                            $out = stripslashes($pos_1['comments']);
+                            $comments = preg_split('/\s+/', $out);
+                            $count = 0;
+                            $line = "";
+                            $lines = 0;
+                            foreach($comments as $word){
+                              if($count + strlen($word) < 70){
+                                $line .= $word . " ";
+                                $count += strlen($word);
+                                $count += 1;
+                              }
+                              else{
+                                echo "$line<br>";
+                                $line = $word . " ";
+                                $lines += 1;
+                                $count = strlen($word) + 1;
+                              }
+                            }
+
+                            if(!empty($line)){
+                              echo "$line<br>";
+                              $lines += 1;
+                            }
+
+                            $stop = 3 - $lines;
+                            for ($i = 0; $i < $stop ; $i++) {
+                              echo "<br>";
+                            }
+                          }
+                        }
+                      }
+
+                       ?>
+                    </div>
+                  </div>
+                  
+                  <!--  pos_0 -->
+                  <div class="row" style="border-bottom:1px solid #000000;">
+                      <div class="col-sm-6">
+                        <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; ">
+                          <div class="col-sm-4" style="border-right: 1px solid #000000;">
+                            <div class="row">
+                              <div class="col-sm-12" id="pos_0">
+                                <?php
+                                if(isset($pos_0['username'])){
+                                  $info = get_user_information($db, $pos_0['username']);
+
+                                  echo "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+                                  if(strlen($info['billet']) < 20){
+                                    echo "<br><br>";
+                                  }
+                                }
+                                else {
+                                  echo "<br><br><br>";
+                                }
+                                 ?>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-2" style="border-right: 1px solid #000000;">
+                            <div class="row" style="text-align: center; ">
+                              <div class="col-sm-12" id="pos_0_date">
+                                <?php
+                                if(isset($pos_0['username'])){
+                                  if($pos_0['status'] == "PENDING"){
+                                    echo "<br>";
+                                    echo "<strong>{$pos_0['status']}</strong>";
+                                    echo "<br>";
+                                    echo "<br>";
+                                  }
+                                  else{
+                                    echo "{$pos_0['time']} {$pos_0['date']}<br><br>";
+                                  }
+                                }
+                                else {
+                                  echo "<br><br><br>";
+                                }
+
+                                 ?>
+                              </div>
+
+                            </div>
+                          </div>
+                          <div class="col-sm-3" >
+                            <div class="row" style="text-align: center; border-right: 1px solid #000000;">
+                              <div class="col-sm-12">
+                                <?php
+                                if(isset($pos_0['username'])){
+                                  if(USER['user'] == $pos_0['username']){
+                                    if($pos_0['status'] == "APPROVED"){
+                                      echo "<br><strong>{$pos_0['status']}</strong><br><br>";
+                                    }
+                                    else{
+                                      if(!$is_archived){
+
+                                      echo "<div class=\"input-group\">";
+                                      echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-success\" type=\"submit\" name=\"approve\" type=\"button\" style=\"margin-top: 6px\" >Approve</button></form></span>";
+                                      echo "</div>";
+                                      echo "<br>";
+                                    }
+                                    else{
+                                      echo "<br><br><br>";
+                                    }
+                                  }
+                                  }
+                                  else{
+                                    if($pos_0['status'] == "APPROVED"){
+                                      echo "<br><strong>{$pos_0['status']}</strong><br><br>";
+                                    }
+                                    else{
+                                      echo "<br><br><br>";
+                                    }
+                                  }
+                                }
+                                else {
+                                  echo "<br><br><br>";
+                                }
+
+
+                                 ?>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-3">
+                            <div class="row" style="text-align: center;">
+                              <div class="col-sm-12">
+                                <?php
+                                if(isset($pos_0['username'])){
+                                  if(USER['user'] == $pos_0['username']){
+                                    if($pos_0['status'] == "DISAPPROVED"){
+                                      echo "<br><strong>{$pos_0['status']}</strong><br><br>";
+                                    }
+                                    else{
+                                      if(!$is_archived){
+
+                                      echo "<div class=\"input-group\">";
+                                    echo "<span class=\"input-group-btn\"><form method=\"post\" action=\"?\"><button class=\"btn btn-danger\" name=\"disapprove\" type=\"submit\" style=\"margin-top: 6px\">Deny</button></form></span>";
+                                      echo "</div>";
+                                      echo "<br>";
+                                    }
+                                    else{
+                                      echo "<br><br><br>";
+                                    }
+                                  }
+
+                                  }
+                                  else{
+                                    if($pos_0['status'] == "DISAPPROVED"){
+                                      echo "<br><strong>{$pos_0['status']}</strong><br><br>";
+                                    }
+                                    else{
+
+                                    }
+                                  }
+                                }
+                                else {
+                                  echo "<br><br><br>";
+                                }
+                                ?>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6" style="border-right: 1px solid #000000; ">
+                        <?php
+                        if(isset($pos_0['username'])){
+                          if(USER['user'] == $pos_0['username'] && !$is_archived){
+                            echo "<form action=\"viewchit.php\" method=\"post\" style=\"padding-bottom: 6px;\">";
+                            echo "<div class=\"input-group\">";
+
+
+                            echo "<input name=\"comments\" maxlength=\"200\" class=\"form-control\" type=\"text\" value=\"{$pos_0['comments']}\">";
+
+                            echo "<span class=\"input-group-btn\">";
+
+                            echo "<button class=\"btn btn-primary\" type=\"submit\" >Save Comments</button>";
+
+                            echo "<button class=\"btn btn-default\" type=\"submit\" name=\"pending\">Revert to Pending</button>";
+                            echo "</form>";
+
+                            echo "</span>";
+                            echo "</div>";
+                            echo "<br>";
+                          }
+                          else{
+                            if(isset($pos_0['comments']) && !empty($pos_0['comments'])){
+                              $out = stripslashes($pos_0['comments']);
+                              $comments = preg_split('/\s+/', $out);
+                              $count = 0;
+                              $line = "";
+                              $lines = 0;
+                              foreach($comments as $word){
+                                if($count + strlen($word) < 70){
+                                  $line .= $word . " ";
+                                  $count += strlen($word);
+                                  $count += 1;
+                                }
+                                else{
+                                  echo "$line<br>";
+                                  $line = $word . " ";
+                                  $lines += 1;
+                                  $count = strlen($word) + 1;
+                                }
+                              }
+
+                              if(!empty($line)){
+                                echo "$line<br>";
+                                $lines += 1;
+                              }
+
+                              $stop = 3 - $lines;
+                              for ($i = 0; $i < $stop ; $i++) {
+                                echo "<br>";
+                              }
+                            }
+                          }
+                        }
+
+                         ?>
+                      </div>
+                    </div>
+                    
+                          
+              
+              
+              
+              <div class="row" style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;">
+    
       <div class="col-sm-12">
         <strong>NDW-USNA-BBA-1050/09 (Rev. 4-92)</strong>
       </div>
@@ -2075,7 +2735,7 @@ elseif(isset($_SESSION['success'])){
       </div>
     </div>
     <div class="col-xs-4 text-center">
-      <form action="print.script.php" method="post">
+      <form action="viewchit.php" method="post">
         <input type="hidden" name="chit" value="<?php echo "{$_SESSION['chit']}"; ?>"/>
         <input type="submit" class="btn btn-default" name="viewbutn" value="Print Chit">
       </form>
@@ -2085,7 +2745,7 @@ elseif(isset($_SESSION['success'])){
 
         <?php
         if($is_archived){
-          echo "<form action=\"restore.script.php\" method=\"post\"><input type=\"hidden\" name=\"restore\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-primary\" name=\"restorewbutton\" value=\"Restore Chit\"></form>";
+          echo "<form action=\"?\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-primary\" name=\"restore\" value=\"Restore Chit\"></form>";
         }
         else{
           echo "<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#deleteModal\">Archive Chit</button>";
@@ -2121,7 +2781,7 @@ elseif(isset($_SESSION['success'])){
               <div class="next">
 
                 <form action="editchit.php" method="post">
-                  <input type="hidden" value="<?php echo "{$_SESSION['chit']}"; ?>" name="chit">
+                  <input type="hidden" value="<?php echo "{$_SESSION['chit']}"; ?>" name="archive">
                   <input type="submit" class="btn btn-primary" value="Edit Chit" />
                 </form>
 
@@ -2154,8 +2814,8 @@ elseif(isset($_SESSION['success'])){
 						</div>
 						<div class="col-xs-6 text-right">
 							<div class="next">
-                <form action="delete.script.php" method="post">
-                <input type="hidden" name="delete" value="<?php echo "{$chit['chitNumber']}"; ?>"/>
+                <form action="?" method="post">
+                <input type="hidden" name="archive" value="<?php echo "{$chit['chitNumber']}"; ?>"/>
                 <input type="submit" class="btn btn-danger" value="Archive">
               </form>
 							</div>

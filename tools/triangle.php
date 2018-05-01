@@ -33,37 +33,26 @@ require_once(WEB_PATH.'navbar.php');
 <script type="text/javascript">
 var myCanvas = $('#myCanvas');
 
+function init()
+{
+    canvas = document.getElementById("myCanvas");
+    canvas.width = document.body.clientWidth; //document.width is obsolete
+    canvas.height = document.body.clientHeight; //document.height is obsolete
+    canvasW = canvas.width;
+    canvasH = canvas.height;
+}
 
 
 $(document).ready(function(){
-	myCanvas.drawRect({
-		fillStyle: 'white',
-		strokeStyle: 'red',
-		strokeWidth: 4,
-		x: 0, y: 0,
-		fromCenter: false,
-		width: 640,
-		height: 480
-	});
 
-	myCanvas.drawLine({
-		strokeStyle: '#000',
-		strokeWidth: 1,
-		x1: 100, y1: 100,
-		x2: 200, y2: 100,
-		x3: 150, y3: 150,
-		x4: 100, y4: 100
-	});
+	init();
 
-	myCanvas.drawLine({
-		strokeStyle: '#000',
-		strokeWidth: 5,
-		x1: 500, y1: 100,
-		x2: 600, y2: 100,
-		x3: 550, y3: 150,
-		x4: 500, y4: 100
+	myCanvas.drawPolygon({
+		draggable: true,
+		fillStyle: '#000',
+		x: document.body.clientWidth / 2, y: document.body.clientHeight / 3,
+		radius: 20, sides: 3
 	});
-
 
 });
 </script>

@@ -84,8 +84,8 @@ elseif (!empty($subarchivedchits)){
 
 
           $chitstatus = "PENDING";
-          if($chit['coc_0_status'] == "DENIED" || $chit['coc_1_status'] == "DENIED" || $chit['coc_2_status'] == "DENIED" || $chit['coc_3_status'] == "DENIED" || $chit['coc_4_status'] == "DENIED" || $chit['coc_5_status'] == "DENIED" || $chit['coc_6_status'] == "DENIED"){
-            $chitstatus = "DENIED";
+          if($chit['coc_0_status'] == "DISAPPROVED" || $chit['coc_1_status'] == "DISAPPROVED" || $chit['coc_2_status'] == "DISAPPROVED" || $chit['coc_3_status'] == "DISAPPROVED" || $chit['coc_4_status'] == "DISAPPROVED" || $chit['coc_5_status'] == "DISAPPROVED" || $chit['coc_6_status'] == "DISAPPROVED"){
+            $chitstatus = "DISAPPROVED";
           }
 
 
@@ -112,8 +112,8 @@ elseif (!empty($subarchivedchits)){
           elseif($chitstatus == "APPROVED"){
             echo "<td><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-success\" disabled>Approved</button></td>";
           }
-          elseif($chitstatus == "DENIED"){
-            echo "<td><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>Denied</button></td>";
+          elseif($chitstatus == "DISAPPROVED"){
+            echo "<td><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>DISAPPROVED</button></td>";
           }
 
 
@@ -146,8 +146,8 @@ elseif (!empty($subarchivedchits)){
           elseif($mystatus == "APPROVED"){
             echo "<td><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-success\" disabled>Approved</button></td>";
           }
-          elseif($mystatus == "DENIED"){
-            echo "<td><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>Denied</button></td>";
+          elseif($mystatus == "DISAPPROVED"){
+            echo "<td><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>DISAPPROVED</button></td>";
           }
 
 

@@ -28,6 +28,12 @@
   echo "</pre>";
 
   echo "<pre>";
+  echo "\$_SESSION:";
+  print_r($_SESSION);
+  echo "</pre>";
+
+
+  echo "<pre>";
   echo "\$_REQUEST:";
   print_r($_REQUEST);
   echo "</pre>";

@@ -29,15 +29,16 @@
     $pos_0 = null;
     $pos_1 = null;
     $pos_2 = null;
+    $pos_3 = null;
+    $pos_4 = null;
 
     $user_info = get_user_information($db, $_REQUEST['to']);
 
     if($_REQUEST['to'] == $midshipmaninfo['coc_0']){
 
-        if(!empty($midshipmaninfo['coc_0'])){
+      if(!empty($midshipmaninfo['coc_0'])){
         $info = get_user_information($db, $midshipmaninfo['coc_0']);
         $pos_0 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
       }
 
       if(!empty($midshipmaninfo['coc_1'])){
@@ -51,7 +52,17 @@
         $pos_2 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
       }
+      
+      if(!empty($midshipmaninfo['coc_3'])){
+        $info = get_user_information($db, $midshipmaninfo['coc_3']);
+        $pos_3 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+      }
+      
+      if(!empty($midshipmaninfo['coc_4'])){
+        $info = get_user_information($db, $midshipmaninfo['coc_4']);
+        $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
+      }
 
     }
     elseif($_REQUEST['to'] == $midshipmaninfo['coc_1']){
@@ -68,39 +79,77 @@
         $pos_2 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
       }
+      
+      if(!empty($midshipmaninfo['coc_3'])){
+        $info = get_user_information($db, $midshipmaninfo['coc_3']);
+        $pos_3 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+      }
+      
+      if(!empty($midshipmaninfo['coc_4'])){
+        $info = get_user_information($db, $midshipmaninfo['coc_4']);
+        $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+      }
+
 
     }
     elseif($_REQUEST['to'] == $midshipmaninfo['coc_2']){
 
       $pos_0 = "<br><br><br>";
       $pos_1 = "<br><br><br>";
-
-
+      
       if(!empty($midshipmaninfo['coc_2'])){
         $info = get_user_information($db, $midshipmaninfo['coc_2']);
         $pos_2 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
       }
+      
+      if(!empty($midshipmaninfo['coc_3'])){
+        $info = get_user_information($db, $midshipmaninfo['coc_3']);
+        $pos_3 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+      }
+      
+      if(!empty($midshipmaninfo['coc_4'])){
+        $info = get_user_information($db, $midshipmaninfo['coc_4']);
+        $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+      }
+
 
     }
+    elseif($_REQUEST['to'] == $midshipmaninfo['coc_3']){
 
+      $pos_0 = "<br><br><br>";
+      $pos_1 = "<br><br><br>";
+      $pos_2 = "<br><br><br>";
 
+              
+      if(!empty($midshipmaninfo['coc_3'])){
+        $info = get_user_information($db, $midshipmaninfo['coc_3']);
+        $pos_3 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+      }
+      
+      if(!empty($midshipmaninfo['coc_4'])){
+        $info = get_user_information($db, $midshipmaninfo['coc_4']);
+        $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
 
-    if(!empty($midshipmaninfo['coc_3'])){
-      $info = get_user_information($db, $midshipmaninfo['coc_3']);
-      $pos_3 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+      }
+
     }
-    else{
+    elseif($_REQUEST['to'] == $midshipmaninfo['coc_4']){
+      $pos_0 = "<br><br><br>";
+      $pos_1 = "<br><br><br>";
+      $pos_2 = "<br><br><br>";
       $pos_3 = "<br><br><br>";
+      
+      if(!empty($midshipmaninfo['coc_4'])){
+        $info = get_user_information($db, $midshipmaninfo['coc_4']);
+        $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+      }
+
+
     }
 
-    if(!empty($midshipmaninfo['coc_4'])){
-      $info = get_user_information($db, $midshipmaninfo['coc_4']);
-      $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-    }
-    else{
-      $pos_4 = "<br><br><br>";
-    }
 
     if(!empty($midshipmaninfo['coc_5'])){
       $info = get_user_information($db, $midshipmaninfo['coc_5']);
@@ -109,64 +158,75 @@
     else{
       $pos_5 = "<br><br><br>";
     }
-
+ 
     if(!empty($midshipmaninfo['coc_6'])){
       $info = get_user_information($db, $midshipmaninfo['coc_6']);
       $pos_6 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
-      $info = get_user_information($db, $midshipmaninfo['coc_5']);
-      $pos_5 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
-      $info = get_user_information($db, $midshipmaninfo['coc_4']);
-      $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
-      $info = get_user_information($db, $midshipmaninfo['coc_3']);
-      $pos_3 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
-    }
-    elseif(!empty($midshipmaninfo['coc_5'])){
-      $pos_3 = "<br><br><br>";
-
-      $info = get_user_information($db, $midshipmaninfo['coc_5']);
-      $pos_6 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
-      $info = get_user_information($db, $midshipmaninfo['coc_4']);
-      $pos_5 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
-      $info = get_user_information($db, $midshipmaninfo['coc_3']);
-      $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
-    }
-    elseif(!empty($midshipmaninfo['coc_4'])){
-      $pos_3 = "<br><br><br>";
-      $pos_4 = "<br><br><br>";
-
-      $info = get_user_information($db, $midshipmaninfo['coc_4']);
-      $pos_6 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
-      $info = get_user_information($db, $midshipmaninfo['coc_3']);
-      $pos_5 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
-    }
-
-    elseif(!empty($midshipmaninfo['coc_3'])){
-      $pos_3 = "<br><br><br>";
-      $pos_4 = "<br><br><br>";
-      $pos_5 = "<br><br><br>";
-
-      $info = get_user_information($db, $midshipmaninfo['coc_3']);
-      $pos_6 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
     }
     else{
-      $pos_3 = "<br><br><br>";
-      $pos_4 = "<br><br><br>";
-      $pos_5 = "<br><br><br>";
       $pos_6 = "<br><br><br>";
     }
 
+    if(!empty($midshipmaninfo['coc_7'])){
+      $info = get_user_information($db, $midshipmaninfo['coc_7']);
+      $pos_7 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+    }
+    else{
+      $pos_7 = "<br><br><br>";
+    }
 
-    echo $pos_0 . ";" . $pos_1 . ";" . $pos_2 . ";" . $pos_3 . ";" . $pos_4 . ";". $pos_5 . ";". $pos_6 ;
-    header("location: viewchit.php");
+    if(!empty($midshipmaninfo['coc_8'])){
+      $info = get_user_information($db, $midshipmaninfo['coc_8']);
+      $pos_8 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+    }
+    else{
+      $pos_8 = "<br><br><br>";
+    }
+
+
+    // elseif(!empty($midshipmaninfo['coc_5'])){
+    //   $pos_3 = "<br><br><br>";
+    // 
+    //   $info = get_user_information($db, $midshipmaninfo['coc_5']);
+    //   $pos_6 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+    // 
+    //   $info = get_user_information($db, $midshipmaninfo['coc_4']);
+    //   $pos_5 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+    // 
+    //   $info = get_user_information($db, $midshipmaninfo['coc_3']);
+    //   $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+    // 
+    // }
+    // elseif(!empty($midshipmaninfo['coc_4'])){
+    //   $pos_3 = "<br><br><br>";
+    //   $pos_4 = "<br><br><br>";
+    // 
+    //   $info = get_user_information($db, $midshipmaninfo['coc_4']);
+    //   $pos_6 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+    // 
+    //   $info = get_user_information($db, $midshipmaninfo['coc_3']);
+    //   $pos_5 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+    // 
+    // }
+    // 
+    // elseif(!empty($midshipmaninfo['coc_3'])){
+    //   $pos_3 = "<br><br><br>";
+    //   $pos_4 = "<br><br><br>";
+    //   $pos_5 = "<br><br><br>";
+    // 
+    //   $info = get_user_information($db, $midshipmaninfo['coc_3']);
+    //   $pos_6 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+    // }
+    // else{
+    //   $pos_3 = "<br><br><br>";
+    //   $pos_4 = "<br><br><br>";
+    //   $pos_5 = "<br><br><br>";
+    //   $pos_6 = "<br><br><br>";
+    // }
+
+
+    echo $pos_0 . ";" . $pos_1 . ";" . $pos_2 . ";" . $pos_3 . ";" . $pos_4 . ";". $pos_5 . ";". $pos_6 . ";" . $pos_7 . ";" . $pos_8 ;
+    // header("location: makechit.php");
     die;
   }
   
@@ -313,7 +373,9 @@ function routeTo(){
       document.getElementById("pos_4").innerHTML = coc[4];
       document.getElementById("pos_5").innerHTML = coc[5];
       document.getElementById("pos_6").innerHTML = coc[6];
-      
+      document.getElementById("pos_7").innerHTML = coc[7];
+      document.getElementById("pos_8").innerHTML = coc[8];
+      // console.log(coc);
     }
   };
   
@@ -388,43 +450,41 @@ $_SESSION['submitted']=0;
 
           <div class="col-sm-11">
             <select id="route_to" onchange="routeTo();" class="form-control" name="TO_USERNAME" >
+              <?php if(isset($midshipmaninfo['coc_4'])  && !is_midshipman($db, $midshipmaninfo['coc_4'])){
+                $option_info = get_user_information($db, $midshipmaninfo['coc_4']);
+                echo "<option value=\"{$midshipmaninfo['coc_4']}\">";
+                echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
+              }?>
+
+              <?php if(isset($midshipmaninfo['coc_3'])  && !is_midshipman($db, $midshipmaninfo['coc_3'])){
+                $option_info = get_user_information($db, $midshipmaninfo['coc_3']);
+                echo "<option value=\"{$midshipmaninfo['coc_3']}\">";
+                echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
+              }?>
+
+              <?php if(isset($midshipmaninfo['coc_2']) && !is_midshipman($db, $midshipmaninfo['coc_2'])){
+                $option_info = get_user_information($db, $midshipmaninfo['coc_2']);
+                echo "<option value=\"{$midshipmaninfo['coc_2']}\">";
+                echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
+              }?>
+
+              <?php if(isset($midshipmaninfo['coc_1'])  && !is_midshipman($db, $midshipmaninfo['coc_1'])){
+                $option_info = get_user_information($db, $midshipmaninfo['coc_1']);
+                echo "<option value=\"{$midshipmaninfo['coc_1']}\">";
+                echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
+              }?>
+              
               <?php
-              //TODO change is_midshipman to is_routable()
               if(isset($midshipmaninfo['coc_0']) && !is_midshipman($db, $midshipmaninfo['coc_0'])){
-              $option_info = get_user_information($db, $midshipmaninfo['coc_0']);
-              echo "<option value=\"{$midshipmaninfo['coc_0']}\">";
-              echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']} </option>";
-            }?>
-          <?php if(isset($midshipmaninfo['coc_1'])  && !is_midshipman($db, $midshipmaninfo['coc_1'])){
-              $option_info = get_user_information($db, $midshipmaninfo['coc_1']);
-              echo "<option value=\"{$midshipmaninfo['coc_1']}\">";
-              echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-            }?>
-          <?php if(isset($midshipmaninfo['coc_2']) && !is_midshipman($db, $midshipmaninfo['coc_2'])){
-              $option_info = get_user_information($db, $midshipmaninfo['coc_2']);
-              echo "<option value=\"{$midshipmaninfo['coc_2']}\">";
-              echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-            }?>
-          <?php if(isset($midshipmaninfo['coc_3']) && !is_midshipman($db, $midshipmaninfo['coc_3'])){
-              $option_info = get_user_information($db, $midshipmaninfo['coc_3']);
-              echo "<option value=\"{$midshipmaninfo['coc_3']}>\"";
-              echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-            }?>
-          <?php if(isset($midshipmaninfo['coc_4'])  && !is_midshipman($db, $midshipmaninfo['coc_4'])){
-              $option_info = get_user_information($db, $midshipmaninfo['coc_4']);
-              echo "<option value=\"{$midshipmaninfo['coc_4']}\">";
-              echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-            }?>
-          <?php if(isset($midshipmaninfo['coc_5'])  && !is_midshipman($db, $midshipmaninfo['coc_5'])){
-              $option_info = get_user_information($db, $midshipmaninfo['coc_5']);
-              echo "<option value=\"{$midshipmaninfo['coc_5']}\">";
-              echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-            }?>
-            <?php if(isset($midshipmaninfo['coc_6'])  && !is_midshipman($db, $midshipmaninfo['coc_6'])){
-              $option_info = get_user_information($db, $midshipmaninfo['coc_6']);
-              echo "<option value=\"{$midshipmaninfo['coc_6']}\">";
-              echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-            }?>
+                $option_info = get_user_information($db, $midshipmaninfo['coc_0']);
+                echo "<option value=\"{$midshipmaninfo['coc_0']}\">";
+                echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']} </option>";
+              }?>
+            
+
+            
+              
+              
             </select>
           </div>
           <div class="col-sm-2">
@@ -926,7 +986,7 @@ $_SESSION['submitted']=0;
       <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
         <div class="col-sm-4">
           <div class="row">
-            <div class="col-sm-12" id="pos_6">
+            <div class="col-sm-12" id="pos_8">
             </div>
           </div>
         </div>
@@ -969,7 +1029,7 @@ $_SESSION['submitted']=0;
       <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
         <div class="col-sm-4">
           <div class="row">
-            <div class="col-sm-12" id="pos_5">
+            <div class="col-sm-12" id="pos_7">
 
             </div>
           </div>
@@ -1019,7 +1079,7 @@ $_SESSION['submitted']=0;
       <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
         <div class="col-sm-4">
           <div class="row">
-            <div class="col-sm-12" id="pos_4">
+            <div class="col-sm-12" id="pos_6">
             </div>
           </div>
         </div>
@@ -1067,7 +1127,7 @@ $_SESSION['submitted']=0;
       <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
         <div class="col-sm-4">
           <div class="row" >
-            <div class="col-sm-12" id="pos_3">
+            <div class="col-sm-12" id="pos_5">
 
             </div>
           </div>
@@ -1150,20 +1210,21 @@ $_SESSION['submitted']=0;
       <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
         <div class="col-sm-4">
           <div class="row" >
-            <div class="col-sm-12" id="pos_2">
+            <div class="col-sm-12" id="pos_4">
+
 
             </div>
           </div>
         </div>
         <div class="col-sm-2">
           <div class="row" style="text-align: center; border-left: 1px solid #000000;">
+            <div class="col-sm-12">
+              <br>
+            </div>
 
-            <div class="col-sm-12">
-              <br>
-            </div>
-            <div class="col-sm-12">
-              <br>
-            </div>
+              <div class="col-sm-12">
+                <br>
+              </div>
             <div class="col-sm-12">
               <br>
             </div>
@@ -1198,8 +1259,8 @@ $_SESSION['submitted']=0;
       </div>
       <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
         <div class="col-sm-4">
-          <div class="row" >
-            <div class="col-sm-12" id="pos_1">
+          <div class="row">
+            <div class="col-sm-12" id="pos_3">
 
 
             </div>
@@ -1211,16 +1272,115 @@ $_SESSION['submitted']=0;
               <br>
             </div>
 
-              <div class="col-sm-12">
-                <br>
-              </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
             <div class="col-sm-12">
               <br>
             </div>
           </div>
         </div>
         <div class="col-sm-3">
-          <div class="row" style="text-align: center;border-left: 1px solid #000000; border-right: 1px solid #000000;">
+          <div class="row" style="text-align: center; border-left: 1px solid #000000; border-right: 1px solid #000000;">
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="row" style="text-align: center;">
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="col-sm-12" id="pos_2">
+
+
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="row" style="text-align: center; border-left: 1px solid #000000;">
+            <div class="col-sm-12">
+              <br>
+            </div>
+
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="row" style="text-align: center; border-left: 1px solid #000000; border-right: 1px solid #000000;">
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="row" style="text-align: center;">
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="col-sm-12" id="pos_1">
+
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="row" style="text-align: center; border-left: 1px solid #000000;">
+            <div class="col-sm-12">
+              <br>
+            </div>
+
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="row" style="text-align: center; border-left: 1px solid #000000; border-right: 1px solid #000000;">
             <div class="col-sm-12">
               <br>
             </div>
@@ -1315,12 +1475,22 @@ $_SESSION['submitted']=0;
           <br>
           <br>
           <br>
+          
+          <br>
+          <br>
+          <br>
+          
           <br>
           <br>
           <br>
           <br>
           <br>
           <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          
           <br>
           <br>
           <br>

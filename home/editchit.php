@@ -1,154 +1,42 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>eChits</title>
-    <link rel="icon" href="./imgs/icon.ico"/>
-	  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="includes/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link type="text/css" rel="stylesheet" href="style.css" /> -->
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="includes/bootstrap/js/bootstrap.min.js"></script>
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <!-- Bootstrap Js CDN -->
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-    <!-- This CSS is how we mimic the appearance of the chit -->
-
-    <script type="text/javascript">
-    function redirect(location){
-      window.location = location;
-    }
-    </script>
-
-
-        <script type="text/javascript">
-        function idleTimer() {
-          var t;
-          //window.onload = resetTimer;
-          window.onmousemove = resetTimer; // catches mouse movements
-          window.onmousedown = resetTimer; // catches mouse movements
-          window.onclick = resetTimer;     // catches mouse clicks
-          window.onscroll = resetTimer;    // catches scrolling
-          window.onkeypress = resetTimer;  //catches keyboard actions
-
-          function logout() {
-            window.location.href = './logout.php';  //Adapt to actual logout script
-          }
-
-          function reload() {
-            window.location = self.location.href;  //Reloads the current page
-          }
-
-          function resetTimer() {
-            clearTimeout(t);
-            t= setTimeout(reload, 600000);  // time is in milliseconds (1000 is 1 second)
-            t = setTimeout(logout, 1200000);  // time is in milliseconds (1000 is 1 second)
-          }
-        }
-        idleTimer();
-        </script>
-
-    <script type="text/javascript">
-    function routeTo(){
-      var to_username = document.getElementById("route_to").value;
-
-      var xhttp = new XMLHttpRequest();
-
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          var coc = this.responseText.split(";")
-
-          document.getElementById("pos_0").innerHTML = coc[0];
-          document.getElementById("pos_1").innerHTML = coc[1];
-          document.getElementById("pos_2").innerHTML = coc[2];
-          document.getElementById("pos_3").innerHTML = coc[3];
-          document.getElementById("pos_4").innerHTML = coc[4];
-          document.getElementById("pos_5").innerHTML = coc[5];
-          document.getElementById("pos_6").innerHTML = coc[6];
-
-        }
-      };
-
-      xhttp.open("GET", "./getcoc.script.php?to=" + to_username, true);
-      xhttp.send();
-
-    }
-    </script>
-
-    <style>
-    .box {
-      padding: 0;
-      border: 1px solid #000000 !important;
-      margin: 0;
-    }
-
-    .courier{
-      font-family: "Courier New", Courier, monospace;
-    }
-
-    </style>
-  </head>
-  <body>
 <?php
-session_start();
-require_once('./includes/nav.inc.php');
-require_once('./includes/func.inc.php');
-require_once("./includes/nimitz.inc.php");
-require_once("./includes/error.inc.php");
-nav();
-// session_destroy();
-// $_POST = array();
-// $_REQUEST = array();
-// die;
 
-$debug = false;
-// $debug = true;
+  ###############################################################
+  #              Security and Navbar Configuration              #
+  ###############################################################
+  $MODULE_DEF = array('name'       => 'Make Chit',
+                      'version'    => 1.0,
+                      'display'    => 'Make Chit',
+                      'tab'        => '',
+                      'position'   => 1,
+                      'student'    => true,
+                      'instructor' => true,
+                      'guest'      => false,
+                      'access'     => array());
+  ###############################################################
 
-if (!isset($_SESSION['username'])) {
-  header("Location: ./login.php");
-}
+  # Load in Configuration Parameters
+  require_once("../etc/config.inc.php");
 
+  # Load in template, if not already loaded
+  require_once(LIBRARY_PATH.'template.php');
 
-
-if(!isset($_SESSION['visit'])){
-  $_SESSION['visit'] = true;
-}
-else{
-  $_SESSION['visit'] = false;
-}
-
-
-$_SESSION['submitted']=0;
+  if(!isset($_SESSION['chit'])){
+    header("Location: home.php");
+    die;
+  }
 
 
-?>
-<div class="container">
-
-
-  <div id="banner">
-
-  </div>
-
-<?php
-if($debug){
-  echo "<pre>";
-  print_r($_POST);
-  echo "</pre>";
-}
-
-$chit = get_chit_information($_SESSION['chit']);
-$midshipmaninfo = get_midshipman_information($chit['creator']);
-$ownerinfo = get_user_information($chit['creator']);
-
-if($_SESSION['username'] != $chit['creator']){
-  header("Location: ./viewchit.php");
-}
-
+  $_SESSION['submitted']=0;
+  
+  
+  $chit = get_chit_information($db, $_SESSION['chit']);
+  $midshipmaninfo = get_midshipman_information($db, $chit['creator']);
+  $ownerinfo = get_user_information($db, $chit['creator']);
+  
+  if(USER['user'] != $chit['creator']){
+    header("Location: ./viewchit.php");
+  }
+  
 
 $chit['description'] = stripslashes($chit['description']);
 $chit['reference'] = stripslashes($chit['reference']);
@@ -193,6 +81,8 @@ if(
         $coc_4 = $midshipmaninfo['coc_4'];
         $coc_5 = $midshipmaninfo['coc_5'];
         $coc_6 = $midshipmaninfo['coc_6'];
+        $coc_7 = $midshipmaninfo['coc_7'];
+        $coc_8 = $midshipmaninfo['coc_8'];
       }
       elseif($_POST['TO_USERNAME'] == $midshipmaninfo['coc_1']){
         $coc_0 = null;
@@ -202,6 +92,8 @@ if(
         $coc_4 = $midshipmaninfo['coc_4'];
         $coc_5 = $midshipmaninfo['coc_5'];
         $coc_6 = $midshipmaninfo['coc_6'];
+        $coc_7 = $midshipmaninfo['coc_7'];
+        $coc_8 = $midshipmaninfo['coc_8'];
       }
       elseif($_POST['TO_USERNAME'] == $midshipmaninfo['coc_2']){
         $coc_0 = null;
@@ -211,7 +103,32 @@ if(
         $coc_4 = $midshipmaninfo['coc_4'];
         $coc_5 = $midshipmaninfo['coc_5'];
         $coc_6 = $midshipmaninfo['coc_6'];
+        $coc_7 = $midshipmaninfo['coc_7'];
+        $coc_8 = $midshipmaninfo['coc_8'];
       }
+      elseif($_POST['TO_USERNAME'] == $midshipmaninfo['coc_3']){
+        $coc_0 = null;
+        $coc_1 = null;
+        $coc_2 = null;
+        $coc_3 = $midshipmaninfo['coc_3'];
+        $coc_4 = $midshipmaninfo['coc_4'];
+        $coc_5 = $midshipmaninfo['coc_5'];
+        $coc_6 = $midshipmaninfo['coc_6'];
+        $coc_7 = $midshipmaninfo['coc_7'];
+        $coc_8 = $midshipmaninfo['coc_8'];
+      }
+      elseif($_POST['TO_USERNAME'] == $midshipmaninfo['coc_4']){
+        $coc_0 = null;
+        $coc_1 = null;
+        $coc_2 = null;
+        $coc_3 = null;
+        $coc_4 = $midshipmaninfo['coc_4'];
+        $coc_5 = $midshipmaninfo['coc_5'];
+        $coc_6 = $midshipmaninfo['coc_6'];
+        $coc_7 = $midshipmaninfo['coc_7'];
+        $coc_8 = $midshipmaninfo['coc_8'];
+      }
+      
 
       if(isset($_POST['REQUEST_OTHER'])){
         $requestOther = addslashes($_POST['REQUEST_OTHER']);
@@ -240,10 +157,10 @@ if(
         }
       }
 
-      update_chit($chitnumber, $chit['creator'], $_POST['SHORT_DESCRIPTION'], $_POST['REFERENCE'], $_POST['REQUEST_TYPE'], $requestOther, $addr_1, $_POST['ADDRESS_2'], $_POST['ADDRESS_CITY'], $_POST['ADDRESS_STATE'], $_POST['ADDRESS_ZIP'], $_POST['REMARKS'], $date, $_POST['BEGIN_DATE'], $_POST['BEGIN_TIME'], $_POST['END_DATE'], $_POST['END_TIME'], $_POST['ORM'], $_POST['DOCS'], $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6);
+      update_chit($db, $chitnumber, $chit['creator'], $_POST['SHORT_DESCRIPTION'], $_POST['REFERENCE'], $_POST['REQUEST_TYPE'], $requestOther, $addr_1, $_POST['ADDRESS_2'], $_POST['ADDRESS_CITY'], $_POST['ADDRESS_STATE'], $_POST['ADDRESS_ZIP'], $_POST['REMARKS'], $date, $_POST['BEGIN_DATE'], $_POST['BEGIN_TIME'], $_POST['END_DATE'], $_POST['END_TIME'], $_POST['ORM'], $_POST['DOCS'], $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6, $coc_7, $coc_8);
 
-
-      echo "<script type='text/javascript'>redirect('viewchit.php')</script>";
+      
+      header("Location: viewchit.php");
 
 
     }
@@ -263,7 +180,68 @@ if(
 
     ?>
 
+    <script type="text/javascript">
+      function routeTo(){
+        var to_username = document.getElementById("route_to").value;
 
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var coc = this.responseText.split(";")
+
+            document.getElementById("pos_0").innerHTML = coc[0];
+            document.getElementById("pos_1").innerHTML = coc[1];
+            document.getElementById("pos_2").innerHTML = coc[2];
+            document.getElementById("pos_3").innerHTML = coc[3];
+            document.getElementById("pos_4").innerHTML = coc[4];
+            document.getElementById("pos_5").innerHTML = coc[5];
+            document.getElementById("pos_6").innerHTML = coc[6];
+            document.getElementById("pos_7").innerHTML = coc[7];
+            document.getElementById("pos_8").innerHTML = coc[8];
+
+          }
+        };
+
+        xhttp.open("GET", "./makechit.php?to=" + to_username, true);
+        xhttp.send();
+
+      }
+      </script>
+
+      <style>
+      .box {
+        padding: 0;
+        border: 1px solid #000000 !important;
+        margin: 0;
+      }
+
+      .courier{
+        font-family: "Courier New", Courier, monospace;
+      }
+
+      </style>
+    </head>
+
+    <div class="container">
+      
+
+      <div id="banner">
+        
+      </div>
+
+
+
+
+
+
+<?php 
+
+# Load in The NavBar
+require_once(WEB_PATH.'navbar.php');
+
+
+?>
 
   <form  class="courier" role="form" action="?" method="post">
 
@@ -292,52 +270,63 @@ if(
 
         <div class="col-sm-11">
           <select id="route_to" onchange="routeTo();" class="form-control" name="TO_USERNAME" >
+            <?php 
+            
+            
+            if(isset($midshipmaninfo['coc_3'])  && !is_midshipman($db, $midshipmaninfo['coc_4'])){
+              $option_info = get_user_information($db, $midshipmaninfo['coc_4']);
+              echo "<option value=\"{$midshipmaninfo['coc_4']}\" ";
+              if(!isset($chit['coc_0_username']) && !isset($chit['coc_1_username'])  && !isset($chit['coc_2_username']) && !isset($chit['coc_3_username']) && isset($chit['coc_4_username']) && $chit['coc_4_username'] == $midshipmaninfo['coc_4']){
+                echo "selected=\"selected\"";
+              }
+              echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
+            }
+            ?>
+            
+            <?php if(isset($midshipmaninfo['coc_4'])  && !is_midshipman($db, $midshipmaninfo['coc_3'])){
+              $option_info = get_user_information($db, $midshipmaninfo['coc_3']);
+              echo "<option value=\"{$midshipmaninfo['coc_3']}\" ";
+              if(!isset($chit['coc_0_username']) && !isset($chit['coc_1_username'])  && !isset($chit['coc_2_username']) && isset($chit['coc_3_username']) && $chit['coc_3_username'] == $midshipmaninfo['coc_3']){
+                echo "selected=\"selected\"";
+              }
+              echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
+            }
+            ?>
+            
+            <?php 
+            if(isset($midshipmaninfo['coc_2']) && !is_midshipman($db, $midshipmaninfo['coc_2'])){
+              $option_info = get_user_information($db, $midshipmaninfo['coc_2']);
+              echo "<option value=\"{$midshipmaninfo['coc_2']}\" ";
+              if(!isset($chit['coc_0_username']) && !isset($chit['coc_1_username']) && isset($chit['coc_2_username']) && $chit['coc_2_username'] == $midshipmaninfo['coc_2']){
+                echo "selected=\"selected\"";
+              }
+              echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
+            }
+            ?>
+            
+            <?php 
+            if(isset($midshipmaninfo['coc_1'])  && !is_midshipman($db, $midshipmaninfo['coc_1'])){
+              $option_info = get_user_information($db, $midshipmaninfo['coc_1']);
+              echo "<option value=\"{$midshipmaninfo['coc_1']}\" ";
+              if(!isset($chit['coc_0_username']) && isset($chit['coc_1_username']) && $chit['coc_1_username'] == $midshipmaninfo['coc_1']){
+                echo "selected=\"selected\"";
+              }
+              echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
+            }
+            ?>
+              
+        
             <?php
-            //TODO change is_midshipman to is_routable()
-            if(isset($midshipmaninfo['coc_0']) && !is_midshipman($midshipmaninfo['coc_0'])){
-            $option_info = get_user_information($midshipmaninfo['coc_0']);
-            echo "<option value=\"{$midshipmaninfo['coc_0']}\" ";
-            if(isset($chit['coc_0_username']) && $chit['coc_0_username'] == $midshipmaninfo['coc_0']){
-              echo "selected=\"selected\"";
+            if(isset($midshipmaninfo['coc_0']) && !is_midshipman($db, $midshipmaninfo['coc_0'])){
+              $option_info = get_user_information($db, $midshipmaninfo['coc_0']);
+              echo "<option value=\"{$midshipmaninfo['coc_0']}\" ";
+              if(isset($chit['coc_0_username']) && $chit['coc_0_username'] == $midshipmaninfo['coc_0']){
+                echo "selected=\"selected\"";
+              }
+              echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']} </option>";
             }
-            echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']} </option>";
-          }?>
-        <?php if(isset($midshipmaninfo['coc_1'])  && !is_midshipman($midshipmaninfo['coc_1'])){
-            $option_info = get_user_information($midshipmaninfo['coc_1']);
-            echo "<option value=\"{$midshipmaninfo['coc_1']}\" ";
-            if(!isset($chit['coc_0_username']) && isset($chit['coc_1_username']) && $chit['coc_1_username'] == $midshipmaninfo['coc_1']){
-              echo "selected=\"selected\"";
-            }
-            echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-          }?>
-        <?php if(isset($midshipmaninfo['coc_2']) && !is_midshipman($midshipmaninfo['coc_2'])){
-            $option_info = get_user_information($midshipmaninfo['coc_2']);
-            echo "<option value=\"{$midshipmaninfo['coc_2']}\" ";
-            if(!isset($chit['coc_0_username']) && !isset($chit['coc_1_username']) && isset($chit['coc_2_username']) && $chit['coc_2_username'] == $midshipmaninfo['coc_2']){
-              echo "selected=\"selected\"";
-            }
-            echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-          }?>
-        <?php if(isset($midshipmaninfo['coc_3']) && !is_midshipman($midshipmaninfo['coc_3'])){
-            $option_info = get_user_information($midshipmaninfo['coc_3']);
-            echo "<option value=\"{$midshipmaninfo['coc_3']}>\"";
-            echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-          }?>
-        <?php if(isset($midshipmaninfo['coc_4'])  && !is_midshipman($midshipmaninfo['coc_4'])){
-            $option_info = get_user_information($midshipmaninfo['coc_4']);
-            echo "<option value=\"{$midshipmaninfo['coc_4']}\" ";
-            echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-          }?>
-        <?php if(isset($midshipmaninfo['coc_5'])  && !is_midshipman($midshipmaninfo['coc_5'])){
-            $option_info = get_user_information($midshipmaninfo['coc_5']);
-            echo "<option value=\"{$midshipmaninfo['coc_5']}\" ";
-            echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-          }?>
-          <?php if(isset($midshipmaninfo['coc_6'])  && !is_midshipman($midshipmaninfo['coc_6'])){
-            $option_info = get_user_information($midshipmaninfo['coc_6']);
-            echo "<option value=\"{$midshipmaninfo['coc_6']}\" ";
-            echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
-          }?>
+            ?>
+    
           </select>
         </div>
         <div class="col-sm-2">
@@ -603,6 +592,7 @@ if(
           </div>
         </div>
 
+
 <div class="form-check">
   <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; border-top: 1px solid #000000;">
     <div class="col-sm-6">
@@ -835,7 +825,7 @@ if(
       <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
         <div class="col-sm-4">
           <div class="row">
-            <div class="col-sm-12" id="pos_6">
+            <div class="col-sm-12" id="pos_8">
             </div>
           </div>
         </div>
@@ -878,7 +868,7 @@ if(
       <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
         <div class="col-sm-4">
           <div class="row">
-            <div class="col-sm-12" id="pos_5">
+            <div class="col-sm-12" id="pos_7">
 
             </div>
           </div>
@@ -928,7 +918,7 @@ if(
       <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
         <div class="col-sm-4">
           <div class="row">
-            <div class="col-sm-12" id="pos_4">
+            <div class="col-sm-12" id="pos_6">
             </div>
           </div>
         </div>
@@ -976,7 +966,7 @@ if(
       <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
         <div class="col-sm-4">
           <div class="row" >
-            <div class="col-sm-12" id="pos_3">
+            <div class="col-sm-12" id="pos_5">
 
             </div>
           </div>
@@ -1059,7 +1049,7 @@ if(
       <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
         <div class="col-sm-4">
           <div class="row" >
-            <div class="col-sm-12" id="pos_2">
+            <div class="col-sm-12" id="pos_4">
 
             </div>
           </div>
@@ -1108,7 +1098,7 @@ if(
       <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
         <div class="col-sm-4">
           <div class="row" >
-            <div class="col-sm-12" id="pos_1">
+            <div class="col-sm-12" id="pos_3">
 
 
             </div>
@@ -1130,6 +1120,106 @@ if(
         </div>
         <div class="col-sm-3">
           <div class="row" style="text-align: center;border-left: 1px solid #000000; border-right: 1px solid #000000;">
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="row" style="text-align: center;">
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="col-sm-12" id="pos_2">
+
+
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="row" style="text-align: center; border-left: 1px solid #000000;">
+            <div class="col-sm-12">
+              <br>
+            </div>
+
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="row" style="text-align: center; border-left: 1px solid #000000; border-right: 1px solid #000000;">
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="row" style="text-align: center;">
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="col-sm-12" id="pos_1">
+
+
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="row" style="text-align: center; border-left: 1px solid #000000;">
+            <div class="col-sm-12">
+              <br>
+            </div>
+
+            <div class="col-sm-12">
+              <br>
+            </div>
+            <div class="col-sm-12">
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="row" style="text-align: center; border-left: 1px solid #000000; border-right: 1px solid #000000;">
             <div class="col-sm-12">
               <br>
             </div>
@@ -1217,6 +1307,14 @@ if(
           <br>
           <br>
           <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          
           <br>
           <br>
           <br>

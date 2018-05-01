@@ -101,11 +101,11 @@ elseif(is_midshipman($db, USER['user'])){
     echo "<td>{$chit['description']}</td>";
 
     $chitstatus = "PENDING";
-    if($chit['coc_0_status'] == "DENIED" || $chit['coc_1_status'] == "DENIED" || $chit['coc_2_status'] == "DENIED" || $chit['coc_3_status'] == "DENIED" || $chit['coc_4_status'] == "DENIED" || $chit['coc_5_status'] == "DENIED" || $chit['coc_6_status'] == "DENIED"){
-      $chitstatus = "DENIED";
+    if($chit['coc_0_status'] == "DISAPPROVED" || $chit['coc_1_status'] == "DISAPPROVED" || $chit['coc_2_status'] == "DISAPPROVED" || $chit['coc_3_status'] == "DISAPPROVED" || $chit['coc_4_status'] == "DISAPPROVED" || $chit['coc_5_status'] == "DISAPPROVED" || $chit['coc_6_status'] == "DISAPPROVED"){
+      $chitstatus = "DISAPPROVED";
     }
 
-    if($chitstatus != "DENIED"){
+    if($chitstatus != "DISAPPROVED"){
       if(!empty($chit['coc_0_username'])){
         $chitstatus = $chit['coc_0_status'];
       }
@@ -123,8 +123,8 @@ elseif(is_midshipman($db, USER['user'])){
     elseif($chitstatus == "APPROVED"){
       echo "<td><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-success\" disabled>Approved</button></td>";
     }
-    elseif($chitstatus == "DENIED"){
-      echo "<td><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>Denied</button></td>";
+    elseif($chitstatus == "DISAPPROVED"){
+      echo "<td><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>DISAPPROVED</button></td>";
     }
 
 
@@ -140,7 +140,7 @@ elseif(is_midshipman($db, USER['user'])){
 
         echo "<form style=\"float: right;\" action=\"print.script.php\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-default\" name=\"viewbutton\" value=\"Print Chit\"></form>";
     }
-    elseif ($chitstatus == "DENIED") {
+    elseif ($chitstatus == "DISAPPROVED") {
 
       echo "<form  style=\"float: right;\" action=\"delete.script.php\" method=\"post\">
       <input type=\"hidden\" name=\"delete\" value=\"{$chit['chitNumber']}\"/>

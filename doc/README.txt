@@ -1,11 +1,9 @@
-Milestone 3:
-Add Features.
+Milestone 4:
+Add Advanced Features.
 Status: In progress.  
 
-I have run into many more converting issues than expected. I've spent many more hours converting than originally anticipated, and that's been the main bottle neck. I'm chipping away at it, but by the end, eChits will be ready to hand off to any developer familiar with the framework. 
+I am not yet complete with the final project, but I intend to continue work on it until the final presentation. 
 
-Some of the main things I accomplished this milestone were forcing the authentication and profile registration, which required putting extra code in the navbar. 
-
-/tools/demo.php works. I did the revealable and hide-able 100% solution as well. 
+/tools/board.php works. I did the 100% soluton and made it prettier with the date and time, user and class info, for the poster. I think it looks pretty good. 
 
 I will be able to get everything done, it's just taking longer than expected. 

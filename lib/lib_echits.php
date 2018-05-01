@@ -81,14 +81,14 @@ function register_leader($db, $username, $first, $last, $billet, $rank, $service
   $query = "call createLeader(?,?,?,?,?,?,?)";
   $stmt = build_query($db, $query, array($username, $first, $last, $billet, $rank, $service, $level));
   $stmt->close();
-  
+
   if($level == "MID"){
     $query = "call designateMID(?)";
     $stmt = build_query($db, $query, array($username));
     $stmt->close();
   }
-  
-  
+
+
 }
 
 
@@ -117,7 +117,7 @@ function is_user($db, $username){
 
   $query = "call viewLeader(?)";
   $stmt = build_query($db, $query, array($username));
-  
+
   $results = stmt_to_assoc_array($stmt);
 
   $stmt->close();
@@ -127,7 +127,7 @@ function is_user($db, $username){
   else {
     return false;
   }
-  
+
 }
 
 function get_next_chit_number($db){
@@ -170,14 +170,14 @@ function coc_complete($db, $username){
   if(empty($results)){
     return false;
   }
-  
-  if(empty($results[0]['coc_0']) && empty($results[0]['coc_1']) && empty($results[0]['coc_2']) && empty($results[0]['coc_3']) && empty($results[0]['coc_4']) && empty($results[0]['coc_5']) && empty($results[0]['coc_6'])){
+
+  if(empty($results[0]['coc_0']) && empty($results[0]['coc_1']) && empty($results[0]['coc_2']) && empty($results[0]['coc_3']) && empty($results[0]['coc_4']) && empty($results[0]['coc_5']) && empty($results[0]['coc_6']) && empty($results[0]['coc_7']) && empty($results[0]['coc_8'])){
     return false;
   }
   else{
     return true;
   }
-  
+
 }
 
 
@@ -185,8 +185,6 @@ function coc_complete($db, $username){
 function get_chit_information($db, $number){
   $query = "call viewChit(?)";
   $stmt = build_query($db, $query, array($number));
-
-  $stmt->bind_result($results['chitNumber'], $results['creator'], $results['description'], $results['reference'], $results['requestType'], $results['requestOther'], $results['addr_careOf'], $results['addr_street'], $results['addr_city'], $results['addr_state'], $results['addr_zip'], $results['archiveactive'], $results['remarks'], $results['createdDate'], $results['startDate'], $results['startTime'], $results['endDate'], $results['endTime'], $results['ormURL'], $results['supportingDocsURL'], $results['coc_0_username'], $results['coc_0_status'], $results['coc_0_comments'], $results['coc_0_date'], $results['coc_0_time'], $results['coc_1_username'], $results['coc_1_status'], $results['coc_1_comments'], $results['coc_1_date'], $results['coc_1_time'], $results['coc_2_username'], $results['coc_2_status'], $results['coc_2_comments'], $results['coc_2_date'], $results['coc_2_time'], $results['coc_3_username'], $results['coc_3_status'], $results['coc_3_comments'], $results['coc_3_date'], $results['coc_3_time'], $results['coc_4_username'], $results['coc_4_status'], $results['coc_4_comments'], $results['coc_4_date'], $results['coc_4_time'], $results['coc_5_username'], $results['coc_5_status'], $results['coc_5_comments'], $results['coc_5_date'], $results['coc_5_time'], $results['coc_6_username'], $results['coc_6_status'], $results['coc_6_comments'], $results['coc_6_date'], $results['coc_6_time']);
 
   $results = stmt_to_assoc_array($stmt);
 
@@ -248,7 +246,7 @@ function in_midshipman_table($db, $username){
 }
 
 // TESTME
-function update_midshipman($db, $username, $company, $year, $room, $SQPR, $CQPR, $phone, $aptitude, $conduct, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6){
+function update_midshipman($db, $username, $company, $year, $room, $SQPR, $CQPR, $phone, $aptitude, $conduct, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6, $coc_7, $coc_8){
 
   $username = "'".$username."'";
   $company = "'".$company."'";
@@ -309,6 +307,21 @@ function update_midshipman($db, $username, $company, $year, $room, $SQPR, $CQPR,
   else{
     $coc_6 = "'".$coc_6."'";
   }
+  
+  if(empty($coc_7)){
+    $coc_7 = "NULL";
+  }
+  else{
+    $coc_7 = "'".$coc_7."'";
+  }
+  
+  if(empty($coc_8)){
+    $coc_8 = "NULL";
+  }
+  else{
+    $coc_8 = "'".$coc_8."'";
+  }
+  
 
   $query = "call updateMidshipman(" .
   $username . "," .
@@ -326,7 +339,9 @@ function update_midshipman($db, $username, $company, $year, $room, $SQPR, $CQPR,
   $coc_3 . "," .
   $coc_4 . "," .
   $coc_5 . "," .
-  $coc_6 . ")";
+  $coc_6 . "," .
+  $coc_7 . "," .
+  $coc_8 . ")";
 
   $stmt = build_query($db, $query, array());
 
@@ -335,7 +350,7 @@ function update_midshipman($db, $username, $company, $year, $room, $SQPR, $CQPR,
 }
 
 // TESTME
-function create_midshipman($db, $username, $company, $year, $room, $phone, $SQPR, $CQPR, $aptitude, $conduct, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6){
+function create_midshipman($db, $username, $company, $year, $room, $phone, $SQPR, $CQPR, $aptitude, $conduct, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6, $coc_7, $coc_8){
   $username = "'".$username."'";
   $company = "'".$company."'";
   $year = "'".$year."'";
@@ -395,6 +410,22 @@ function create_midshipman($db, $username, $company, $year, $room, $phone, $SQPR
   else{
     $coc_6 = "'".$coc_6."'";
   }
+  
+  
+  if(empty($coc_7)){
+    $coc_7 = "NULL";
+  }
+  else{
+    $coc_7 = "'".$coc_7."'";
+  }
+  
+  if(empty($coc_8)){
+    $coc_8 = "NULL";
+  }
+  else{
+    $coc_8 = "'".$coc_8."'";
+  }
+  
 
   $query = "call createMidshipman(" .
   $username . "," .
@@ -412,7 +443,9 @@ function create_midshipman($db, $username, $company, $year, $room, $phone, $SQPR
   $coc_3 . "," .
   $coc_4 . "," .
   $coc_5 . "," .
-  $coc_6 . ")";
+  $coc_6 . "," .
+  $coc_7 . "," .
+  $coc_8 . ")";
 
   $stmt = build_query($db, $query, array());
 
@@ -420,7 +453,7 @@ function create_midshipman($db, $username, $company, $year, $room, $phone, $SQPR
   $stmt->close();
 }
 
-function create_chit_x($db, $chitnumber, $creator, $shortdescription, $reference, $requestType, $requestOther, $addr_careOf, $addr_street, $addr_city, $addr_state, $addr_zip, $remarks, $createDate, $startDate, $startTime, $endDate, $endTime, $orm, $supportingdocs, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6){
+function create_chit_x($db, $chitnumber, $creator, $shortdescription, $reference, $requestType, $requestOther, $addr_careOf, $addr_street, $addr_city, $addr_state, $addr_zip, $remarks, $createDate, $startDate, $startTime, $endDate, $endTime, $orm, $supportingdocs, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6, $coc_7, $coc_8){
 
   if(empty($coc_0)){
     $coc_0 = 'NULL';
@@ -521,23 +554,54 @@ function create_chit_x($db, $chitnumber, $creator, $shortdescription, $reference
     $coc_6_date = 'NULL';
     $coc_6_time = 'NULL';
   }
+  
+  if(empty($coc_7)){
+    $coc_7 = 'NULL';
+    $coc_7_status = 'NULL';
+    $coc_7_comments = 'NULL';
+    $coc_7_date = 'NULL';
+    $coc_7_time = 'NULL';
+  }
+  else{
+    $coc_7_status = "PENDING";
+    $coc_7_comments = 'NULL';
+    $coc_7_date = 'NULL';
+    $coc_7_time = 'NULL';
+  }
+  
+  if(empty($coc_8)){
+    $coc_8 = 'NULL';
+    $coc_8_status = 'NULL';
+    $coc_8_comments = 'NULL';
+    $coc_8_date = 'NULL';
+    $coc_8_time = 'NULL';
+  }
+  else{
+    $coc_8_status = "PENDING";
+    $coc_8_comments = 'NULL';
+    $coc_8_date = 'NULL';
+    $coc_8_time = 'NULL';
+  }
+  
+  
+  
 
-  $query = "call createChit(?,?,?,?,?,?,?,?,?,?,?,0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  $query = "call createChit(?,?,?,?,?,?,?,?,?,?,?,0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-  $stmt = build_query($db, $query, array($chitnumber, $creator, $shortdescription, $reference, $requestType, $requestOther, $addr_careOf, $addr_street, $addr_city, $addr_state, $addr_zip, $remarks, $createDate, $startDate, $startTime, $endDate, $endTime, $orm, $supportingdocs, $coc_0, $coc_0_status, $coc_0_comments, $coc_0_date, $coc_0_time, $coc_1, $coc_1_status, $coc_1_comments, $coc_1_date, $coc_1_time, $coc_2, $coc_2_status, $coc_2_comments, $coc_2_date, $coc_2_time, $coc_3, $coc_3_status, $coc_3_comments, $coc_3_date, $coc_3_time, $coc_4, $coc_4_status, $coc_4_comments, $coc_4_date, $coc_4_time, $coc_5, $coc_5_status, $coc_5_comments, $coc_5_date, $coc_5_time, $coc_6, $coc_6_status, $coc_6_comments, $coc_6_date, $coc_6_time));
+  $stmt = build_query($db, $query, array($chitnumber, $creator, $shortdescription, $reference, $requestType, $requestOther, $addr_careOf, $addr_street, $addr_city, $addr_state, $addr_zip, $remarks, $createDate, $startDate, $startTime, $endDate, $endTime, $orm, $supportingdocs, $coc_0, $coc_0_status, $coc_0_comments, $coc_0_date, $coc_0_time, $coc_1, $coc_1_status, $coc_1_comments, $coc_1_date, $coc_1_time, $coc_2, $coc_2_status, $coc_2_comments, $coc_2_date, $coc_2_time, $coc_3, $coc_3_status, $coc_3_comments, $coc_3_date, $coc_3_time, $coc_4, $coc_4_status, $coc_4_comments, $coc_4_date, $coc_4_time, $coc_5, $coc_5_status, $coc_5_comments, $coc_5_date, $coc_5_time, $coc_6, $coc_6_status, $coc_6_comments, $coc_6_date, $coc_6_time, $coc_7, $coc_7_status, $coc_7_comments, $coc_7_date, $coc_7_time, $coc_8, $coc_8_status, $coc_8_comments, $coc_8_date, $coc_8_time));
 
 
   $stmt->close();
 }
 
-function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, $requestType, $requestOther, $addr_careOf, $addr_street, $addr_city, $addr_state, $addr_zip, $remarks, $createdDate, $startDate, $startTime, $endDate, $endTime, $orm, $supportingdocs, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6){
-  
+function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, $requestType, $requestOther, $addr_careOf, $addr_street, $addr_city, $addr_state, $addr_zip, $remarks, $createdDate, $startDate, $startTime, $endDate, $endTime, $orm, $supportingdocs, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6, $coc_7, $coc_8){
+
 
   $creator = "'".$creator."'";
   $shortdescription = "'".$shortdescription."'";
   $reference = "'".$reference."'";
   $requestType = "'".$requestType."'";
-  
+
 
   if(!empty($requestOther)){
     $requestOther = "'".$requestOther."'";
@@ -686,6 +750,41 @@ function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, 
     $coc_6_date = 'NULL';
     $coc_6_time = 'NULL';
   }
+  
+
+  if(empty($coc_7)){
+    $coc_7 = 'NULL';
+    $coc_7_status = 'NULL';
+    $coc_7_comments = 'NULL';
+    $coc_7_date = 'NULL';
+    $coc_7_time = 'NULL';
+  }
+  else{
+    $coc_7 = "'".$coc_7."'";
+    $coc_7_status = "'PENDING'";
+    $coc_7_comments = 'NULL';
+    $coc_7_date = 'NULL';
+    $coc_7_time = 'NULL';
+  }
+  
+
+  if(empty($coc_8)){
+    $coc_8 = 'NULL';
+    $coc_8_status = 'NULL';
+    $coc_8_comments = 'NULL';
+    $coc_8_date = 'NULL';
+    $coc_8_time = 'NULL';
+  }
+  else{
+    $coc_8 = "'".$coc_8."'";
+    $coc_8_status = "'PENDING'";
+    $coc_8_comments = 'NULL';
+    $coc_8_date = 'NULL';
+    $coc_8_time = 'NULL';
+  }
+  
+
+
 
   $query = "call createChit(" .
   $chitnumber . "," .
@@ -750,7 +849,21 @@ function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, 
   $coc_6_status . "," .
   $coc_6_comments . "," .
   $coc_6_date . "," .
-  $coc_6_time  . ")";
+  $coc_6_time . "," .
+
+  $coc_7 . "," .
+  $coc_7_status . "," .
+  $coc_7_comments . "," .
+  $coc_7_date . "," .
+  $coc_7_time . "," .
+
+
+  $coc_8 . "," .
+  $coc_8_status . "," .
+  $coc_8_comments . "," .
+  $coc_8_date . "," .
+  $coc_8_time  . ")";
+
 
    // echo "$query";
 
@@ -761,29 +874,319 @@ function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, 
 }
 
 
+function update_chit($db, $chitnumber, $creator, $shortdescription, $reference, $requestType, $requestOther, $addr_careOf, $addr_street, $addr_city, $addr_state, $addr_zip, $remarks, $createdDate, $startDate, $startTime, $endDate, $endTime, $orm, $supportingdocs, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6, $coc_7, $coc_8){
+
+
+  $creator = "'".$creator."'";
+  $shortdescription = "'".$shortdescription."'";
+  $reference = "'".$reference."'";
+  $requestType = "'".$requestType."'";
+
+
+  if(!empty($requestOther)){
+    $requestOther = "'".$requestOther."'";
+  }
+  else{
+    $requestOther = 'NULL';
+  }
+
+  if(!empty($addr_careOf)){
+    $addr_careOf = "'".$addr_careOf."'";
+  }
+  else{
+    $addr_careOf = 'NULL';
+  }
+
+
+  if(!empty($orm)){
+    $orm = "'".$orm."'";
+  }
+  else{
+    $orm = 'NULL';
+  }
+
+
+  if(!empty($supportingdocs)){
+    $supportingdocs = "'".$supportingdocs."'";
+  }
+  else{
+    $supportingdocs = 'NULL';
+  }
+
+  $addr_street = "'".$addr_street."'";
+  $addr_city = "'".$addr_city."'";
+  $addr_state = "'".$addr_state."'";
+  $addr_zip = "'".$addr_zip."'";
+  $remarks = "'".$remarks."'";
+  $createdDate = "'".$createdDate."'";
+  $startDate = "'".$startDate."'";
+  $startTime = "'".$startTime."'";
+  $endDate = "'".$endDate."'";
+  $endTime = "'".$endTime."'";
+
+  if(empty($coc_0)){
+    $coc_0 = 'NULL';
+    $coc_0_status = 'NULL';
+    $coc_0_comments = 'NULL';
+    $coc_0_date = 'NULL';
+    $coc_0_time = 'NULL';
+  }
+  else{
+    $coc_0 = "'".$coc_0."'";
+    $coc_0_status = "'PENDING'";
+    $coc_0_comments = 'NULL';
+    $coc_0_date = 'NULL';
+    $coc_0_time = 'NULL';
+  }
+
+
+  if(empty($coc_1)){
+    $coc_1 = 'NULL';
+    $coc_1_status = 'NULL';
+    $coc_1_comments = 'NULL';
+    $coc_1_date = 'NULL';
+    $coc_1_time = 'NULL';
+  }
+  else{
+    $coc_1 = "'".$coc_1."'";
+    $coc_1_status = "'PENDING'";
+    $coc_1_comments = 'NULL';
+    $coc_1_date = 'NULL';
+    $coc_1_time = 'NULL';
+  }
+
+
+  if(empty($coc_2)){
+    $coc_2 = 'NULL';
+    $coc_2_status = 'NULL';
+    $coc_2_comments = 'NULL';
+    $coc_2_date = 'NULL';
+    $coc_2_time = 'NULL';
+  }
+  else{
+    $coc_2 = "'".$coc_2."'";
+    $coc_2_status = "'PENDING'";
+    $coc_2_comments = 'NULL';
+    $coc_2_date = 'NULL';
+    $coc_2_time = 'NULL';
+  }
+
+  if(empty($coc_3)){
+    $coc_3 = 'NULL';
+    $coc_3_status = 'NULL';
+    $coc_3_comments = 'NULL';
+    $coc_3_date = 'NULL';
+    $coc_3_time = 'NULL';
+  }
+  else{
+    $coc_3 = "'".$coc_3."'";
+    $coc_3_status = "'PENDING'";
+    $coc_3_comments = 'NULL';
+    $coc_3_date = 'NULL';
+    $coc_3_time = 'NULL';
+  }
+
+  if(empty($coc_4)){
+    $coc_4 = 'NULL';
+    $coc_4_status = 'NULL';
+    $coc_4_comments = 'NULL';
+    $coc_4_date = 'NULL';
+    $coc_4_time = 'NULL';
+  }
+  else{
+    $coc_4 = "'".$coc_4."'";
+    $coc_4_status = "'PENDING'";
+    $coc_4_comments = 'NULL';
+    $coc_4_date = 'NULL';
+    $coc_4_time = 'NULL';
+  }
+
+  if(empty($coc_5)){
+    $coc_5 = 'NULL';
+    $coc_5_status = 'NULL';
+    $coc_5_comments = 'NULL';
+    $coc_5_date = 'NULL';
+    $coc_5_time = 'NULL';
+  }
+  else{
+    $coc_5 = "'".$coc_5."'";
+    $coc_5_status = "'PENDING'";
+    $coc_5_comments = 'NULL';
+    $coc_5_date = 'NULL';
+    $coc_5_time = 'NULL';
+  }
+
+  if(empty($coc_6)){
+    $coc_6 = 'NULL';
+    $coc_6_status = 'NULL';
+    $coc_6_comments = 'NULL';
+    $coc_6_date = 'NULL';
+    $coc_6_time = 'NULL';
+  }
+  else{
+    $coc_6 = "'".$coc_6."'";
+    $coc_6_status = "'PENDING'";
+    $coc_6_comments = 'NULL';
+    $coc_6_date = 'NULL';
+    $coc_6_time = 'NULL';
+  }
+  
+
+  if(empty($coc_7)){
+    $coc_7 = 'NULL';
+    $coc_7_status = 'NULL';
+    $coc_7_comments = 'NULL';
+    $coc_7_date = 'NULL';
+    $coc_7_time = 'NULL';
+  }
+  else{
+    $coc_7 = "'".$coc_7."'";
+    $coc_7_status = "'PENDING'";
+    $coc_7_comments = 'NULL';
+    $coc_7_date = 'NULL';
+    $coc_7_time = 'NULL';
+  }
+  
+
+  if(empty($coc_8)){
+    $coc_8 = 'NULL';
+    $coc_8_status = 'NULL';
+    $coc_8_comments = 'NULL';
+    $coc_8_date = 'NULL';
+    $coc_8_time = 'NULL';
+  }
+  else{
+    $coc_8 = "'".$coc_8."'";
+    $coc_8_status = "'PENDING'";
+    $coc_8_comments = 'NULL';
+    $coc_8_date = 'NULL';
+    $coc_8_time = 'NULL';
+  }
+  
+
+
+
+  $query = "call updateChit(" .
+  $chitnumber . "," .
+  $creator . "," .
+  $shortdescription . "," .
+  $reference . "," .
+  $requestType . "," .
+  $requestOther . "," .
+  $addr_careOf . "," .
+  $addr_street . "," .
+  $addr_city . "," .
+  $addr_state . "," .
+  $addr_zip . "," .
+  "0" . "," .
+  $remarks . "," .
+  $createdDate . "," .
+  $startDate . "," .
+  $startTime . "," .
+  $endDate . "," .
+  $endTime . "," .
+
+  $orm . "," .
+  $supportingdocs . "," .
+
+  $coc_0 . "," .
+  $coc_0_status . "," .
+  $coc_0_comments . "," .
+  $coc_0_date . "," .
+  $coc_0_time . "," .
+
+  $coc_1 . "," .
+  $coc_1_status . "," .
+  $coc_1_comments . "," .
+  $coc_1_date . "," .
+  $coc_1_time . "," .
+
+  $coc_2 . "," .
+  $coc_2_status . "," .
+  $coc_2_comments . "," .
+  $coc_2_date . "," .
+  $coc_2_time . "," .
+
+  $coc_3 . "," .
+  $coc_3_status . "," .
+  $coc_3_comments . "," .
+  $coc_3_date . "," .
+  $coc_3_time . "," .
+
+  $coc_4 . "," .
+  $coc_4_status . "," .
+  $coc_4_comments . "," .
+  $coc_4_date . "," .
+  $coc_4_time . "," .
+
+  $coc_5 . "," .
+  $coc_5_status . "," .
+  $coc_5_comments . "," .
+  $coc_5_date . "," .
+  $coc_5_time . "," .
+
+  $coc_6 . "," .
+  $coc_6_status . "," .
+  $coc_6_comments . "," .
+  $coc_6_date . "," .
+  $coc_6_time . "," .
+
+  $coc_7 . "," .
+  $coc_7_status . "," .
+  $coc_7_comments . "," .
+  $coc_7_date . "," .
+  $coc_7_time . "," .
+
+
+  $coc_8 . "," .
+  $coc_8_status . "," .
+  $coc_8_comments . "," .
+  $coc_8_date . "," .
+  $coc_8_time  . ")";
+
+
+   // echo "$query";
+   
+   $stmt = build_query($db, $query, array());
+
+
+   $stmt->close();
+
+   return true;
+}
+
+
+
+
 function action($db, $chit, $who, $what, $today, $now){
   $query = "call ";
 
   if($who == "coc_0"){
-    $query .="action_coc0(";
+    $query .= "action_coc0(";
   }
   elseif($who == "coc_1"){
-    $query .="action_coc1(";
+    $query .= "action_coc1(";
   }
   elseif($who == "coc_2"){
-    $query .="action_coc2(";
+    $query .= "action_coc2(";
   }
   elseif($who == "coc_3"){
-    $query .="action_coc3(";
+    $query .= "action_coc3(";
   }
   elseif($who == "coc_4"){
-    $query .="action_coc4(";
+    $query .= "action_coc4(";
   }
   elseif($who == "coc_5"){
-    $query .="action_coc5(";
+    $query .= "action_coc5(";
   }
   elseif($who == "coc_6"){
-    $query .="action_coc6(";
+    $query .= "action_coc6(";
+  }
+  elseif($who == "coc_7"){
+    $query .= "action_coc7(";
+  }
+  elseif($who == "coc_8"){
+    $query .= "action_coc8(";
   }
 
   if($what == "PENDING"){
@@ -792,6 +1195,9 @@ function action($db, $chit, $who, $what, $today, $now){
   }
 
   $query .= "?,?,?,?)";
+  
+  echo "$query";
+  
 
   $stmt = build_query($db, $query, array($chit, $what, $today, $now));
 
@@ -822,6 +1228,12 @@ function comment($db, $chit, $who, $comment){
   }
   elseif($who == "coc_6"){
     $query .="comment_coc6(";
+  }
+  elseif($who == "coc_7"){
+    $query .="action_coc7(";
+  }
+  elseif($who == "coc_8"){
+    $query .="action_coc8(";
   }
 
   $query .= "?,?)";
@@ -981,6 +1393,31 @@ function get_active_chits($db){
 
 }
 
+function archive_chit($db, $chit){
+  $query="call deleteChit(?)";
+  $stmt = build_query($db, $query, array($chit));
+  $stmt->close();
+  return true;
+}
+
+function get_ranks($db){
+  $query="select * from Rates";
+  $stmt = build_query($db, $query, array());
+  
+  $results = stmt_to_assoc_array($stmt);
+  
+  $stmt->close();
+  
+  return $results;
+}
+
+function restore_chit($db, $chit){
+  $query="call restoreChit(?)";
+  $stmt = build_query($db, $query, array($chit));
+  $stmt->close();
+  return true;
+}
+
 
 function get_archived_chits($db)
 {
@@ -1021,9 +1458,9 @@ function get_admins($db){
   $results = stmt_to_assoc_array($stmt);
 
   $stmt->close();
-  
-  
-  
+
+
+
   return $results;
 }
 
@@ -1089,7 +1526,7 @@ function get_incomplete_mids($db){
 function blast_chits_company($db, $company){
   $query = "call gblastChitsCompany(?)";
   $stmt = build_query($db, $query, array($company));
-  
+
   $stmt->close();
   return true;
 }
@@ -1097,7 +1534,7 @@ function blast_chits_company($db, $company){
 function blast_chits($db){
   $query = "call blastChits";
   $stmt = build_query($db, $query, array());
-  
+
   $stmt->close();
   return true;
 }

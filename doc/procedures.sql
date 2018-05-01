@@ -41,9 +41,9 @@ CREATE PROCEDURE createMidshipman (
 )
 BEGIN
 	INSERT INTO Midshipman(alpha, company, classYear, room, SQPR, CQPR, phoneNumber, aptitudeGrade, conductGrade, coc_0, coc_1, coc_2, coc_3, coc_4, coc_5, coc_6)
-	VALUES (p_alpha, p_company, p_classYear, p_room, p_SQPR, p_CQPR, p_phoneNumber, p_aptitudeGrade, p_conductGrade,  p_coc_0, p_coc_1, p_coc_2, p_coc_3, p_coc_4, p_coc_5, p_coc_6)
+	VALUES (p_alpha, p_company, p_classYear, p_room, p_SQPR, p_CQPR, p_phoneNumber, p_aptitudeGrade, p_conductGrade,  p_coc_0, p_coc_1, p_coc_2, p_coc_3, p_coc_4, p_coc_5, p_coc_6, p_coc_7, p_coc_8)
     ON DUPLICATE KEY UPDATE
-    alpha = p_alpha, company = p_company, classYear = p_classYear, room = p_room, SQPR = p_SQPR, CQPR = p_CQPR, phoneNumber = p_phoneNumber, aptitudeGrade = p_aptitudeGrade, conductGrade = p_conductGrade, coc_0 = p_coc_0, coc_1 = p_coc_1, coc_2 = p_coc_2, coc_3 = p_coc_3, coc_4 = p_coc_4, coc_5 = p_coc_5, coc_6 = p_coc_6;
+    alpha = p_alpha, company = p_company, classYear = p_classYear, room = p_room, SQPR = p_SQPR, CQPR = p_CQPR, phoneNumber = p_phoneNumber, aptitudeGrade = p_aptitudeGrade, conductGrade = p_conductGrade, coc_0 = p_coc_0, coc_1 = p_coc_1, coc_2 = p_coc_2, coc_3 = p_coc_3, coc_4 = p_coc_4, coc_5 = p_coc_5, coc_6 = p_coc_6, coc_7 = p_coc_7, coc_8 = p_coc_8;
 END $$
 
 
@@ -64,11 +64,13 @@ CREATE PROCEDURE updateMidshipman (
   p_coc_3 varchar(10),
   p_coc_4 varchar(10),
   p_coc_5 varchar(10),
-  p_coc_6 varchar(10)
+  p_coc_6 varchar(10),
+  p_coc_7 varchar(10),
+  p_coc_8 varchar(10)
 )
 BEGIN
 	UPDATE Midshipman
-	SET company = p_company, classYear = p_classYear, room = p_room, SQPR = p_SQPR, CQPR = p_CQPR, phoneNumber = p_phoneNumber, aptitudeGrade = p_aptitudeGrade, conductGrade = p_conductGrade, coc_0 = p_coc_0, coc_1 = p_coc_1, coc_2 = p_coc_2, coc_3 = p_coc_3, coc_4 = p_coc_4, coc_5 = p_coc_5, coc_6 = p_coc_6
+	SET company = p_company, classYear = p_classYear, room = p_room, SQPR = p_SQPR, CQPR = p_CQPR, phoneNumber = p_phoneNumber, aptitudeGrade = p_aptitudeGrade, conductGrade = p_conductGrade, coc_0 = p_coc_0, coc_1 = p_coc_1, coc_2 = p_coc_2, coc_3 = p_coc_3, coc_4 = p_coc_4, coc_5 = p_coc_5, coc_6 = p_coc_6, coc_7 = p_coc_7, coc_8 = p_coc_8
 	WHERE alpha = p_alpha;
 END $$
 
@@ -192,11 +194,23 @@ CREATE PROCEDURE createChit (
     p_coc_6_status VARCHAR(8),
     p_coc_6_comments VARCHAR(200),
     p_coc_6_date VARCHAR(7),
-    p_coc_6_time VARCHAR(4)
+    p_coc_6_time VARCHAR(4),
+		 
+		p_coc_7_username varchar(10),
+		p_coc_7_status VARCHAR(8),
+		p_coc_7_comments VARCHAR(200),
+		p_coc_7_date VARCHAR(7),
+		p_coc_7_time VARCHAR(4),
+		
+		p_coc_8_username varchar(10),
+		p_coc_8_status VARCHAR(8),
+		p_coc_8_comments VARCHAR(200),
+		p_coc_8_date VARCHAR(7),
+		p_coc_8_time VARCHAR(4)
 )
 BEGIN
 	INSERT INTO Chit(chitNumber, creator, description, reference, requestType, requestOther, addr_careOf, addr_street, addr_city, addr_state, addr_zip, archiveactive, remarks, createdDate, startDate, startTime, endDate, endTime, ormURL, supportingDocsURL, coc_0_username, coc_0_status, coc_0_comments, coc_0_date, coc_0_time, coc_1_username, coc_1_status, coc_1_comments, coc_1_date, coc_1_time, coc_2_username, coc_2_status, coc_2_comments, coc_2_date, coc_2_time, coc_3_username, coc_3_status, coc_3_comments, coc_3_date, coc_3_time, coc_4_username,coc_4_status, coc_4_comments,coc_4_date, coc_4_time, coc_5_username, coc_5_status, coc_5_comments, coc_5_date, coc_5_time, coc_6_username, coc_6_status, coc_6_comments, coc_6_date, coc_6_time)
-    VALUES (p_chitNumber, p_creator, p_description, p_reference, p_requestType, p_requestOther, p_addr_careOf, p_addr_street, p_addr_city, p_addr_state, p_addr_zip, p_archiveactive, p_remarks, p_createdDate, p_startDate, p_startTime, p_endDate, p_endTime, p_ormURL, p_supportingDocsURL, p_coc_0_username, p_coc_0_status, p_coc_0_comments, p_coc_0_date, p_coc_0_time, p_coc_1_username, p_coc_1_status, p_coc_1_comments, p_coc_1_date, p_coc_1_time, p_coc_2_username, p_coc_2_status, p_coc_2_comments, p_coc_2_date, p_coc_2_time, p_coc_3_username, p_coc_3_status, p_coc_3_comments, p_coc_3_date, p_coc_3_time, p_coc_4_username, p_coc_4_status, p_coc_4_comments, p_coc_4_date, p_coc_4_time, p_coc_5_username, p_coc_5_status, p_coc_5_comments, p_coc_5_date, p_coc_5_time, p_coc_6_username, p_coc_6_status, p_coc_6_comments, p_coc_6_date, p_coc_6_time) ON DUPLICATE KEY UPDATE chitNumber = p_chitNumber, creator = p_creator, description = p_description, reference = p_reference, requestType = p_requestType, requestOther = p_requestOther, addr_careOf = p_addr_careOf, addr_street = p_addr_street, addr_city = p_addr_city, addr_state = p_addr_state, addr_zip = p_addr_zip, archiveactive = p_archiveactive, remarks = p_remarks, createdDate = p_createdDate, startDate = p_startDate, startTime = p_startTime, endDate = p_endDate, endTime = p_endTime, ormURL = p_ormURL, supportingDocsURL = p_supportingDocsURL, coc_0_username = p_coc_0_username, coc_0_status = p_coc_0_status, coc_0_comments = p_coc_0_comments, coc_0_date = p_coc_0_date, coc_0_time = p_coc_0_time, coc_1_username = p_coc_1_username, coc_1_status = p_coc_1_status, coc_1_comments = p_coc_1_comments, coc_1_date = p_coc_1_date, coc_1_time = p_coc_1_time, coc_2_username = p_coc_2_username, coc_2_status = p_coc_2_status, coc_2_comments = p_coc_2_comments, coc_2_date = p_coc_2_date, coc_2_time = p_coc_2_time, coc_3_username = p_coc_3_username, coc_3_status = p_coc_3_status, coc_3_comments = p_coc_3_comments, coc_3_date = p_coc_3_date, coc_3_time = p_coc_3_time, coc_4_username = p_coc_4_username, coc_4_status = p_coc_4_status, coc_4_comments = p_coc_4_comments, coc_4_date = p_coc_4_date, coc_4_time = p_coc_4_time, coc_5_username = p_coc_5_username, coc_5_status = p_coc_5_status, coc_5_comments = p_coc_5_comments, coc_5_date = p_coc_5_date, coc_5_time = p_coc_5_time, coc_6_username = p_coc_6_username, coc_6_status = p_coc_6_status, coc_6_comments = p_coc_6_comments, coc_6_date = p_coc_6_date, coc_6_time = p_coc_6_time;
+    VALUES (p_chitNumber, p_creator, p_description, p_reference, p_requestType, p_requestOther, p_addr_careOf, p_addr_street, p_addr_city, p_addr_state, p_addr_zip, p_archiveactive, p_remarks, p_createdDate, p_startDate, p_startTime, p_endDate, p_endTime, p_ormURL, p_supportingDocsURL, p_coc_0_username, p_coc_0_status, p_coc_0_comments, p_coc_0_date, p_coc_0_time, p_coc_1_username, p_coc_1_status, p_coc_1_comments, p_coc_1_date, p_coc_1_time, p_coc_2_username, p_coc_2_status, p_coc_2_comments, p_coc_2_date, p_coc_2_time, p_coc_3_username, p_coc_3_status, p_coc_3_comments, p_coc_3_date, p_coc_3_time, p_coc_4_username, p_coc_4_status, p_coc_4_comments, p_coc_4_date, p_coc_4_time, p_coc_5_username, p_coc_5_status, p_coc_5_comments, p_coc_5_date, p_coc_5_time, p_coc_6_username, p_coc_6_status, p_coc_6_comments, p_coc_6_date, p_coc_6_time) ON DUPLICATE KEY UPDATE chitNumber = p_chitNumber, creator = p_creator, description = p_description, reference = p_reference, requestType = p_requestType, requestOther = p_requestOther, addr_careOf = p_addr_careOf, addr_street = p_addr_street, addr_city = p_addr_city, addr_state = p_addr_state, addr_zip = p_addr_zip, archiveactive = p_archiveactive, remarks = p_remarks, createdDate = p_createdDate, startDate = p_startDate, startTime = p_startTime, endDate = p_endDate, endTime = p_endTime, ormURL = p_ormURL, supportingDocsURL = p_supportingDocsURL, coc_0_username = p_coc_0_username, coc_0_status = p_coc_0_status, coc_0_comments = p_coc_0_comments, coc_0_date = p_coc_0_date, coc_0_time = p_coc_0_time, coc_1_username = p_coc_1_username, coc_1_status = p_coc_1_status, coc_1_comments = p_coc_1_comments, coc_1_date = p_coc_1_date, coc_1_time = p_coc_1_time, coc_2_username = p_coc_2_username, coc_2_status = p_coc_2_status, coc_2_comments = p_coc_2_comments, coc_2_date = p_coc_2_date, coc_2_time = p_coc_2_time, coc_3_username = p_coc_3_username, coc_3_status = p_coc_3_status, coc_3_comments = p_coc_3_comments, coc_3_date = p_coc_3_date, coc_3_time = p_coc_3_time, coc_4_username = p_coc_4_username, coc_4_status = p_coc_4_status, coc_4_comments = p_coc_4_comments, coc_4_date = p_coc_4_date, coc_4_time = p_coc_4_time, coc_5_username = p_coc_5_username, coc_5_status = p_coc_5_status, coc_5_comments = p_coc_5_comments, coc_5_date = p_coc_5_date, coc_5_time = p_coc_5_time, coc_6_username = p_coc_6_username, coc_6_status = p_coc_6_status, coc_6_comments = p_coc_6_comments, coc_6_date = p_coc_6_date, coc_6_time = p_coc_6_time, coc_7_username = p_coc_7_username, coc_7_status = p_coc_7_status, coc_7_comments = p_coc_7_comments, coc_7_date = p_coc_7_date, coc_7_time = p_coc_7_time, coc_8_username = p_coc_8_username, coc_8_status = p_coc_8_status, coc_8_comments = p_coc_8_comments, coc_8_date = p_coc_8_date, coc_8_time = p_coc_8_time;
 END $$
 
 
@@ -263,7 +277,19 @@ CREATE PROCEDURE updateChit (
     p_coc_6_status VARCHAR(8),
     p_coc_6_comments VARCHAR(200),
     p_coc_6_date VARCHAR(7),
-    p_coc_6_time VARCHAR(4)
+    p_coc_6_time VARCHAR(4),
+		
+		p_coc_7_username varchar(10),
+		p_coc_7_status VARCHAR(8),
+		p_coc_7_comments VARCHAR(200),
+		p_coc_7_date VARCHAR(7),
+		p_coc_7_time VARCHAR(4),
+		
+		p_coc_8_username varchar(10),
+		p_coc_8_status VARCHAR(8),
+		p_coc_8_comments VARCHAR(200),
+		p_coc_8_date VARCHAR(7),
+		p_coc_8_time VARCHAR(4)
 )
 BEGIN
 	UPDATE Chit
@@ -320,7 +346,19 @@ BEGIN
     coc_6_status = p_coc_6_status,
     coc_6_comments = p_coc_6_comments,
     coc_6_date = p_coc_6_date,
-    coc_6_time = p_coc_6_time
+    coc_6_time = p_coc_6_time,
+		
+    coc_7_username = p_coc_7_username,
+    coc_7_status = p_coc_7_status,
+    coc_7_comments = p_coc_7_comments,
+    coc_7_date = p_coc_7_date,
+    coc_7_time = p_coc_7_time,
+		
+    coc_8_username = p_coc_8_username,
+    coc_8_status = p_coc_8_status,
+    coc_8_comments = p_coc_8_comments,
+    coc_8_date = p_coc_8_date,
+    coc_8_time = p_coc_8_time
     WHERE chitNumber = p_chitNumber;
 END $$
 
@@ -359,7 +397,7 @@ CREATE PROCEDURE cocComplete(
 	p_username varchar(10)
 )
 BEGIN
-	SELECT coc_0, coc_1, coc_2, coc_3, coc_4, coc_5, coc_6 FROM Midshipman WHERE alpha = p_username;
+	SELECT coc_0, coc_1, coc_2, coc_3, coc_4, coc_5, coc_6, coc_7, coc_8 FROM Midshipman WHERE alpha = p_username;
 END $$
 
 
@@ -410,7 +448,7 @@ DROP PROCEDURE IF EXISTS action_coc0$$
 CREATE PROCEDURE action_coc0(
 	p_chitNumber INT,
 
-    p_coc_0_status VARCHAR(8),
+    p_coc_0_status VARCHAR(20),
     p_coc_0_date VARCHAR(7),
     p_coc_0_time VARCHAR(4)
 )
@@ -427,7 +465,7 @@ DROP PROCEDURE IF EXISTS action_coc1$$
 CREATE PROCEDURE action_coc1(
 	p_chitNumber INT,
 
-    p_coc_1_status VARCHAR(8),
+    p_coc_1_status VARCHAR(20),
     p_coc_1_date VARCHAR(7),
     p_coc_1_time VARCHAR(4)
 )
@@ -444,7 +482,7 @@ DROP PROCEDURE IF EXISTS action_coc2$$
 CREATE PROCEDURE action_coc2(
 	p_chitNumber INT,
 
-    p_coc_2_status VARCHAR(8),
+    p_coc_2_status VARCHAR(20),
     p_coc_2_date VARCHAR(7),
     p_coc_2_time VARCHAR(4)
 )
@@ -462,7 +500,7 @@ DROP PROCEDURE IF EXISTS action_coc3$$
 CREATE PROCEDURE action_coc3(
 	p_chitNumber INT,
 
-    p_coc_3_status VARCHAR(8),
+    p_coc_3_status VARCHAR(20),
     p_coc_3_date VARCHAR(7),
     p_coc_3_time VARCHAR(4)
 )
@@ -479,7 +517,7 @@ DROP PROCEDURE IF EXISTS action_coc4 $$
 CREATE PROCEDURE action_coc4(
 	p_chitNumber INT,
 
-    p_coc_4_status VARCHAR(8),
+    p_coc_4_status VARCHAR(20),
     p_coc_4_date VARCHAR(7),
     p_coc_4_time VARCHAR(4)
 )
@@ -496,7 +534,7 @@ DROP PROCEDURE IF EXISTS action_coc5$$
 CREATE PROCEDURE action_coc5(
 	p_chitNumber INT,
 
-    p_coc_5_status VARCHAR(8),
+    p_coc_5_status VARCHAR(20),
     p_coc_5_date VARCHAR(7),
     p_coc_5_time VARCHAR(4)
 )
@@ -513,7 +551,7 @@ DROP PROCEDURE IF EXISTS action_coc6$$
 CREATE PROCEDURE action_coc6(
 	p_chitNumber INT,
 
-    p_coc_6_status VARCHAR(8),
+    p_coc_6_status VARCHAR(20),
     p_coc_6_date VARCHAR(7),
     p_coc_6_time VARCHAR(4)
 )
@@ -522,6 +560,40 @@ BEGIN
     SET coc_6_status = p_coc_6_status,
 		coc_6_date = p_coc_6_date,
         coc_6_time = p_coc_6_time
+	WHERE chitNumber = p_chitNumber;
+END $$
+
+
+DROP PROCEDURE IF EXISTS action_coc7$$
+CREATE PROCEDURE action_coc7(
+	p_chitNumber INT,
+
+    p_coc_7_status VARCHAR(20),
+    p_coc_7_date VARCHAR(7),
+    p_coc_7_time VARCHAR(4)
+)
+BEGIN
+	UPDATE Chit
+    SET coc_7_status = p_coc_7_status,
+		coc_7_date = p_coc_7_date,
+        coc_7_time = p_coc_7_time
+	WHERE chitNumber = p_chitNumber;
+END $$
+
+
+DROP PROCEDURE IF EXISTS action_coc8$$
+CREATE PROCEDURE action_coc8(
+	p_chitNumber INT,
+
+    p_coc_8_status VARCHAR(20),
+    p_coc_8_date VARCHAR(7),
+    p_coc_8_time VARCHAR(4)
+)
+BEGIN
+	UPDATE Chit
+    SET coc_8_status = p_coc_8_status,
+		coc_8_date = p_coc_8_date,
+        coc_8_time = p_coc_8_time
 	WHERE chitNumber = p_chitNumber;
 END $$
 
@@ -610,6 +682,30 @@ BEGIN
 	WHERE chitNumber = p_chitNumber;
 END $$
 
+DROP PROCEDURE IF EXISTS comment_coc7$$
+CREATE PROCEDURE comment_coc7(
+	p_chitNumber INT,
+    p_comments VARCHAR(200)
+)
+BEGIN
+	UPDATE Chit
+    SET coc_7_comments = p_comments
+	WHERE chitNumber = p_chitNumber;
+END $$
+
+
+DROP PROCEDURE IF EXISTS comment_coc8$$
+CREATE PROCEDURE comment_coc8(
+	p_chitNumber INT,
+    p_comments VARCHAR(200)
+)
+BEGIN
+	UPDATE Chit
+    SET coc_8_comments = p_comments
+	WHERE chitNumber = p_chitNumber;
+END $$
+
+
 
 DROP PROCEDURE IF EXISTS getUserChits$$
 CREATE PROCEDURE getUserChits(
@@ -637,7 +733,9 @@ BEGIN
     coc_3_username = p_coc or
     coc_4_username = p_coc or
     coc_5_username = p_coc or
-    coc_6_username = p_coc)
+		coc_6_username = p_coc or
+    coc_7_username = p_coc or
+    coc_8_username = p_coc)
     ORDER BY chitNumber DESC;
 END $$
 
@@ -668,7 +766,9 @@ BEGIN
     coc_3_username = p_coc or
     coc_4_username = p_coc or
     coc_5_username = p_coc or
-    coc_6_username = p_coc)
+		coc_6_username = p_coc or
+		coc_7_username = p_coc or
+		coc_8_username = p_coc)
     ORDER BY chitNumber DESC;
 END $$
 
@@ -1021,7 +1121,9 @@ BEGIN
     coc_3 = p_coc or
     coc_4 = p_coc or
     coc_5 = p_coc or
-    coc_6 = p_coc);
+		coc_6 = p_coc or
+    coc_7 = p_coc or
+    coc_8 = p_coc);
 END $$
 
 DELIMITER ;

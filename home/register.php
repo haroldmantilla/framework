@@ -116,7 +116,16 @@
         var html = "<select class='form-control' name='rank' id='rank' required><option value='Capt'>Capt</option><option value='Maj'>Maj</option><option value='LtCol'>LtCol</option><option value='Col'>Col</option></select>";
       }
       else if(serv.value == "USN" && lev.value == "SEL"){
-        var html = "<select class='form-control' name='rank' id='rank' required><option value='ATCS'>ATCS</option><option value='FCCS'>FCCS</option><option value='YNCS'>YNCS</option></select>";
+        var html = "<select class='form-control' name='rank' id='rank' required>";
+        
+        html = html + "<?php 
+        $ranks = get_ranks($db);
+        foreach ($ranks as $rank) {
+          echo "<option value='{$rank['rate']}'>{$rank['rate']}</option>";
+        } ?>" ;
+        
+        
+        html = html + "</select>";
       }
       else if (serv.value == "USMC" && lev.value == "SEL") {
         var html = "<select class='form-control' name='rank' id='rank' required><option value='SSgt'>SSgt</option><option value='GySgt'>GySgt</option></select>";

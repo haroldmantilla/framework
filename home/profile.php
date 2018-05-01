@@ -115,7 +115,15 @@ function redirect(location){
     }
     elseif($userinfo['level'] == "SEL" && $userinfo['service'] == "USN" ){
       echo "<select class='form-control' name='rank' id='rank' required>";
-      echo "<option value='ATCS'"; if($userinfo['rank'] == "ATCS"){echo "selected";} echo ">ATCS</option><option value='FCCS'"; if($userinfo['rank'] == "FCCS"){echo "selected";} echo ">FCCS</option><option value='YNCS'"; if($userinfo['rank'] == "YNCS"){echo "selected";} echo ">YNCS</option>";
+      
+      $ranks = get_ranks($db);
+      
+      foreach ($ranks as $key => $rank) {
+        echo "<option value='{$rank['rate']}'"; if($userinfo['rank'] == "{$rank['rate']}"){echo "selected";} 
+        echo ">{$rank['rate']}</option>";
+      }
+      
+      
       echo "</select>";
     }
     elseif($userinfo['level'] == "SEL" && $userinfo['service'] == "USMC" ){
@@ -169,7 +177,7 @@ function redirect(location){
     
     
     if($userinfo['level'] != "MID"){
-      $subordinates = get_subordinates(USER['user']);
+      $subordinates = get_subordinates($db, USER['user']);
       
       if(isset($subordinates) && !empty($subordinates)){
         echo "<div class=\"row\">";
