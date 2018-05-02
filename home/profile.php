@@ -247,6 +247,8 @@ function redirect(location){
           $_POST['coc_4'] = null;
           $_POST['coc_5'] = null;
           $_POST['coc_6'] = null;
+          $_POST['coc_7'] = null;
+          $_POST['coc_8'] = null;
         }
 
         if(in_array(USER['user'], array($_POST['coc_0'], $_POST['coc_1'], $_POST['coc_2'], $_POST['coc_3'], $_POST['coc_4'], $_POST['coc_5'], $_POST['coc_6']))){
@@ -259,11 +261,11 @@ function redirect(location){
         }
         else{
           if($is_midshipman){
-            update_midshipman($db, USER['user'],$_POST['company'], $_POST['year'], $_POST['room'], $_POST['SQPR'], $_POST['CQPR'], $_POST['phonenumber'], $_POST['aptitudegrade'], $_POST['conductgrade'], $_POST['coc_0'], $_POST['coc_1'], $_POST['coc_2'], $_POST['coc_3'], $_POST['coc_4'], $_POST['coc_5'], $_POST['coc_6']);
+            update_midshipman($db, USER['user'],$_POST['company'], $_POST['year'], $_POST['room'], $_POST['SQPR'], $_POST['CQPR'], $_POST['phonenumber'], $_POST['aptitudegrade'], $_POST['conductgrade'], $_POST['coc_0'], $_POST['coc_1'], $_POST['coc_2'], $_POST['coc_3'], $_POST['coc_4'], $_POST['coc_5'], $_POST['coc_6'], $_POST['coc_7'], $_POST['coc_8']);
             unset($_POST['changemidshipmaninfo']);
           }
           else{
-            create_midshipman($db, USER['user'],$_POST['company'], $_POST['year'], $_POST['room'], $_POST['phonenumber'], $_POST['SQPR'], $_POST['CQPR'], $_POST['aptitudegrade'], $_POST['conductgrade'], $_POST['coc_0'], $_POST['coc_1'], $_POST['coc_2'], $_POST['coc_3'], $_POST['coc_4'], $_POST['coc_5'], $_POST['coc_6']);
+            create_midshipman($db, USER['user'],$_POST['company'], $_POST['year'], $_POST['room'], $_POST['phonenumber'], $_POST['SQPR'], $_POST['CQPR'], $_POST['aptitudegrade'], $_POST['conductgrade'], $_POST['coc_0'], $_POST['coc_1'], $_POST['coc_2'], $_POST['coc_3'], $_POST['coc_4'], $_POST['coc_5'], $_POST['coc_6'], $_POST['coc_7'], $_POST['coc_8']);
             unset($_POST['changemidshipmaninfo']);
           }
         }
@@ -389,7 +391,7 @@ function redirect(location){
           //coc_0
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Battalion Officer:</p>";
+          echo "<p>Commandant:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_0\">";
@@ -412,7 +414,7 @@ function redirect(location){
           //coc_1
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Company Officer:</p>";
+          echo "<p>Deputy Commandant:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_1\">";
@@ -436,12 +438,12 @@ function redirect(location){
           //coc_2
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Senior Enlisted:</p>";
+          echo "<p>Battalion Officer:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_2\">";
           echo "<option value=\"\"></option>";
-          foreach($coc_options_SELs as $user){
+          foreach($coc_options_officers as $user){
             echo "<option value=\"{$user['username']}\"";
 
             if($midshipmaninfo['coc_2'] == $user['username']){
@@ -460,12 +462,12 @@ function redirect(location){
           //coc_3
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Highest MIDN CoC:</p>";
+          echo "<p>Company Officer:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_3\">";
           echo "<option value=\"\"></option>";
-          foreach($coc_options_midn as $user){
+          foreach($coc_options_officers as $user){
             echo "<option value=\"{$user['username']}\"";
 
             if($midshipmaninfo['coc_3'] == $user['username']){
@@ -484,11 +486,12 @@ function redirect(location){
           //coc_4
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
+          echo "<p>Senior Enlised:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_4\">";
           echo "<option value=\"\"></option>";
-          foreach($coc_options_midn as $user){
+          foreach($coc_options_SELs as $user){
             echo "<option value=\"{$user['username']}\"";
 
             if($midshipmaninfo['coc_4'] == $user['username']){
@@ -507,6 +510,7 @@ function redirect(location){
           //coc_5
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
+          echo "<p>Company Commander:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_5\">";
@@ -530,6 +534,7 @@ function redirect(location){
           //coc_6
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
+          echo "<p>Company XO:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_6\">";
@@ -548,6 +553,53 @@ function redirect(location){
           echo "</div>";
           echo "<div class=\"col-sm-3\">";
           echo "<p>*If you are not a squad member, feel free to leave positions blank</p>";
+          echo "</div>";
+          echo "</div>"; //closes row
+          
+          
+          //coc_7
+          echo "<div class=\"row\">";
+          echo "<div class=\"col-sm-3 text-right\">";
+          echo "<p>Platoon Commander:</p>";
+          echo "</div>";
+          echo "<div class=\"col-sm-6\">";
+          echo "<select class=\"form-control\" name=\"coc_7\">";
+          echo "<option value=\"\"></option>";
+          foreach($coc_options_midn as $user){
+            echo "<option value=\"{$user['username']}\"";
+
+            if($midshipmaninfo['coc_7'] == $user['username']){
+              echo "selected";
+            }
+
+            echo ">{$user['rank']} {$user['lastName']}</option>";
+          }
+          echo "</select>";
+          echo "</div>";
+          echo "<div class=\"col-sm-3\">";
+          echo "</div>";
+          echo "</div>"; //closes row
+          
+          //coc_8
+          echo "<div class=\"row\">";
+          echo "<div class=\"col-sm-3 text-right\">";
+          echo "<p>Squad Leader:</p>";
+          echo "</div>";
+          echo "<div class=\"col-sm-6\">";
+          echo "<select class=\"form-control\" name=\"coc_8\">";
+          echo "<option value=\"\"></option>";
+          foreach($coc_options_midn as $user){
+            echo "<option value=\"{$user['username']}\"";
+
+            if($midshipmaninfo['coc_8'] == $user['username']){
+              echo "selected";
+            }
+
+            echo ">{$user['rank']} {$user['lastName']}</option>";
+          }
+          echo "</select>";
+          echo "</div>";
+          echo "<div class=\"col-sm-3\">";
           echo "</div>";
           echo "</div>"; //closes row
 
@@ -761,6 +813,52 @@ function redirect(location){
           echo "</div>";
           echo "</div>"; //closes row
         }
+
+        if(isset($midshipmaninfo['coc_7']) && !empty($midshipmaninfo['coc_7'])){
+          $coc_7_info = get_user_information($db, $midshipmaninfo['coc_7']);
+          echo "<div class=\"row\">";
+          echo "<div class=\"col-sm-3 text-right\">";
+          echo "<p></p>";
+          echo "</div>";
+          echo "<div class=\"col-sm-3\">";
+          echo "<p>";
+          echo "{$coc_7_info['billet']}";
+          echo "</p>";
+          echo "</div>";
+          echo "<div class=\"col-sm-3\">";
+          echo "<p>";
+          echo "{$coc_7_info['rank']} {$coc_7_info['firstName']} {$coc_7_info['lastName']}, {$coc_7_info['service']}";
+          echo "</p>";
+          echo "</div>";
+          echo "<div class=\"col-sm-3\">";
+          echo "</div>";
+          echo "</div>"; //closes row
+        }
+
+
+        if(isset($midshipmaninfo['coc_8']) && !empty($midshipmaninfo['coc_8'])){
+          $coc_8_info = get_user_information($db, $midshipmaninfo['coc_8']);
+          echo "<div class=\"row\">";
+          echo "<div class=\"col-sm-3 text-right\">";
+          echo "<p></p>";
+          echo "</div>";
+          echo "<div class=\"col-sm-3\">";
+          echo "<p>";
+          echo "{$coc_8_info['billet']}";
+          echo "</p>";
+          echo "</div>";
+          echo "<div class=\"col-sm-3\">";
+          echo "<p>";
+          echo "{$coc_8_info['rank']} {$coc_8_info['firstName']} {$coc_8_info['lastName']}, {$coc_8_info['service']}";
+          echo "</p>";
+          echo "</div>";
+          echo "<div class=\"col-sm-3\">";
+          echo "</div>";
+          echo "</div>"; //closes row
+        }
+
+
+
 
 
 

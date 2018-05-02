@@ -91,6 +91,47 @@ function register_leader($db, $username, $first, $last, $billet, $rank, $service
 
 }
 
+function designate_MISLO($db, $username){
+  $query = "insert into auth_access values (?,'admin','MISLO')";
+  $stmt = build_query($db, $query, array($username));
+  $stmt->close();
+  return true;
+}
+
+function designate_safety($db, $username){
+  $query = "insert into auth_access values (?,'admin','safety')";
+  $stmt = build_query($db, $query, array($username));
+  $stmt->close();
+  return true;
+}
+
+function designate_admin($db, $username){
+  $query = "insert into auth_access values (?,'admin','admin')";
+  $stmt = build_query($db, $query, array($username));
+  $stmt->close();
+  return true;
+}
+
+function remove_MISLO($db, $username){
+  $query = "DELETE FROM auth_access WHERE user=? AND access=? AND value=?";
+  $stmt = build_query($db, $query, array($username, "admin", "MISLO"));
+  $stmt->close();
+  return true;
+}
+
+function remove_safety($db, $username){
+  $query = "DELETE FROM auth_access WHERE user=? AND access=? AND value=?";
+  $stmt = build_query($db, $query, array($username, "admin", "safety"));
+  $stmt->close();
+  return true;
+}
+
+function remove_admin($db, $username){
+  $query = "DELETE FROM auth_access WHERE user=? AND access=? AND value=?";
+  $stmt = build_query($db, $query, array($username, "admin", "admin"));
+  $stmt->close();
+  return true;
+}
 
 function get_user_information($db, $username){
 
@@ -100,7 +141,13 @@ function get_user_information($db, $username){
   $results = stmt_to_assoc_array($stmt);
 
   $stmt->close();
-  return $results[0];
+  
+  if(!empty($results)){
+    return $results[0];
+  }
+  else {
+    return null;
+  }
 }
 
 // TESTME
@@ -137,11 +184,16 @@ function get_next_chit_number($db){
   $results = stmt_to_assoc_array($stmt);
 
   $stmt->close();
+  
+  // echo "<pre>";
+  // print_r($results);
+  // echo "<pre>";
+  // 
   if(!empty($results)){
-    return $results[0] + 1;
+    return $results[0]['chitNumber'] + 1;
   }
   else{
-    return false;
+    return 1;
   }
 }
 
@@ -453,147 +505,6 @@ function create_midshipman($db, $username, $company, $year, $room, $phone, $SQPR
   $stmt->close();
 }
 
-function create_chit_x($db, $chitnumber, $creator, $shortdescription, $reference, $requestType, $requestOther, $addr_careOf, $addr_street, $addr_city, $addr_state, $addr_zip, $remarks, $createDate, $startDate, $startTime, $endDate, $endTime, $orm, $supportingdocs, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6, $coc_7, $coc_8){
-
-  if(empty($coc_0)){
-    $coc_0 = 'NULL';
-    $coc_0_status = 'NULL';
-    $coc_0_comments = 'NULL';
-    $coc_0_date = 'NULL';
-    $coc_0_time = 'NULL';
-  }
-  else{
-    $coc_0_status = "PENDING";
-    $coc_0_comments = 'NULL';
-    $coc_0_date = 'NULL';
-    $coc_0_time = 'NULL';
-  }
-
-
-  if(empty($coc_1)){
-    $coc_1 = 'NULL';
-    $coc_1_status = 'NULL';
-    $coc_1_comments = 'NULL';
-    $coc_1_date = 'NULL';
-    $coc_1_time = 'NULL';
-  }
-  else{
-    $coc_1_status = "PENDING";
-    $coc_1_comments = 'NULL';
-    $coc_1_date = 'NULL';
-    $coc_1_time = 'NULL';
-  }
-
-
-  if(empty($coc_2)){
-    $coc_2 = 'NULL';
-    $coc_2_status = 'NULL';
-    $coc_2_comments = 'NULL';
-    $coc_2_date = 'NULL';
-    $coc_2_time = 'NULL';
-  }
-  else{
-    $coc_2_status = "PENDING";
-    $coc_2_comments = 'NULL';
-    $coc_2_date = 'NULL';
-    $coc_2_time = 'NULL';
-  }
-
-  if(empty($coc_3)){
-    $coc_3 = 'NULL';
-    $coc_3_status = 'NULL';
-    $coc_3_comments = 'NULL';
-    $coc_3_date = 'NULL';
-    $coc_3_time = 'NULL';
-  }
-  else{
-    $coc_3_status = "PENDING";
-    $coc_3_comments = 'NULL';
-    $coc_3_date = 'NULL';
-    $coc_3_time = 'NULL';
-  }
-
-  if(empty($coc_4)){
-    $coc_4 = 'NULL';
-    $coc_4_status = 'NULL';
-    $coc_4_comments = 'NULL';
-    $coc_4_date = 'NULL';
-    $coc_4_time = 'NULL';
-  }
-  else{
-    $coc_4_status = "PENDING";
-    $coc_4_comments = 'NULL';
-    $coc_4_date = 'NULL';
-    $coc_4_time = 'NULL';
-  }
-
-  if(empty($coc_5)){
-    $coc_5 = 'NULL';
-    $coc_5_status = 'NULL';
-    $coc_5_comments = 'NULL';
-    $coc_5_date = 'NULL';
-    $coc_5_time = 'NULL';
-  }
-  else{
-    $coc_5_status = "PENDING";
-    $coc_5_comments = 'NULL';
-    $coc_5_date = 'NULL';
-    $coc_5_time = 'NULL';
-  }
-
-  if(empty($coc_6)){
-    $coc_6 = 'NULL';
-    $coc_6_status = 'NULL';
-    $coc_6_comments = 'NULL';
-    $coc_6_date = 'NULL';
-    $coc_6_time = 'NULL';
-  }
-  else{
-    $coc_6_status = "PENDING";
-    $coc_6_comments = 'NULL';
-    $coc_6_date = 'NULL';
-    $coc_6_time = 'NULL';
-  }
-  
-  if(empty($coc_7)){
-    $coc_7 = 'NULL';
-    $coc_7_status = 'NULL';
-    $coc_7_comments = 'NULL';
-    $coc_7_date = 'NULL';
-    $coc_7_time = 'NULL';
-  }
-  else{
-    $coc_7_status = "PENDING";
-    $coc_7_comments = 'NULL';
-    $coc_7_date = 'NULL';
-    $coc_7_time = 'NULL';
-  }
-  
-  if(empty($coc_8)){
-    $coc_8 = 'NULL';
-    $coc_8_status = 'NULL';
-    $coc_8_comments = 'NULL';
-    $coc_8_date = 'NULL';
-    $coc_8_time = 'NULL';
-  }
-  else{
-    $coc_8_status = "PENDING";
-    $coc_8_comments = 'NULL';
-    $coc_8_date = 'NULL';
-    $coc_8_time = 'NULL';
-  }
-  
-  
-  
-
-  $query = "call createChit(?,?,?,?,?,?,?,?,?,?,?,0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
-  $stmt = build_query($db, $query, array($chitnumber, $creator, $shortdescription, $reference, $requestType, $requestOther, $addr_careOf, $addr_street, $addr_city, $addr_state, $addr_zip, $remarks, $createDate, $startDate, $startTime, $endDate, $endTime, $orm, $supportingdocs, $coc_0, $coc_0_status, $coc_0_comments, $coc_0_date, $coc_0_time, $coc_1, $coc_1_status, $coc_1_comments, $coc_1_date, $coc_1_time, $coc_2, $coc_2_status, $coc_2_comments, $coc_2_date, $coc_2_time, $coc_3, $coc_3_status, $coc_3_comments, $coc_3_date, $coc_3_time, $coc_4, $coc_4_status, $coc_4_comments, $coc_4_date, $coc_4_time, $coc_5, $coc_5_status, $coc_5_comments, $coc_5_date, $coc_5_time, $coc_6, $coc_6_status, $coc_6_comments, $coc_6_date, $coc_6_time, $coc_7, $coc_7_status, $coc_7_comments, $coc_7_date, $coc_7_time, $coc_8, $coc_8_status, $coc_8_comments, $coc_8_date, $coc_8_time));
-
-
-  $stmt->close();
-}
-
 function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, $requestType, $requestOther, $addr_careOf, $addr_street, $addr_city, $addr_state, $addr_zip, $remarks, $createdDate, $startDate, $startTime, $endDate, $endTime, $orm, $supportingdocs, $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6, $coc_7, $coc_8){
 
 
@@ -866,9 +777,9 @@ function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, 
 
 
    // echo "$query";
-
-
-   $data = query($db, $query);
+   
+   $stmt = build_query($db, $query, array());
+   $stmt->close();
 
    return true;
 }
@@ -1400,6 +1311,14 @@ function archive_chit($db, $chit){
   return true;
 }
 
+function delete_chit($db, $chit){
+  $query="call permanentlyDeleteChit(?)";
+  $stmt = build_query($db, $query, array($chit));
+  $stmt->close();
+  return true;
+}
+
+
 function get_ranks($db){
   $query="select * from Rates";
   $stmt = build_query($db, $query, array());
@@ -1491,6 +1410,31 @@ function get_safeties($db){
 
   $stmt->close();
   return $results;
+}
+
+function delete_user($db, $username){
+  $query = "call removeAdmin(?)";
+  $stmt = build_query($db, $query, array($username));
+  $stmt->close();
+  
+  $query = "call removeMISLO(?)";
+  $stmt = build_query($db, $query, array($username));
+  $stmt->close();
+  
+  $query = "call removeSafety(?)";
+  $stmt = build_query($db, $query, array($username));
+  $stmt->close();
+  
+  $query = "call deleteUser(?)";
+  $stmt = build_query($db, $query, array($username));
+  $stmt->close();
+  
+  
+  
+  
+  
+  
+  return true;
 }
 
 

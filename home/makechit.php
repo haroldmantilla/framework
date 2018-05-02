@@ -283,6 +283,8 @@
           $coc_4 = $midshipmaninfo['coc_4'];
           $coc_5 = $midshipmaninfo['coc_5'];
           $coc_6 = $midshipmaninfo['coc_6'];
+          $coc_7 = $midshipmaninfo['coc_7'];
+          $coc_8 = $midshipmaninfo['coc_8'];
         }
         elseif($_POST['TO_USERNAME'] == $midshipmaninfo['coc_1']){
           $coc_0 = null;
@@ -292,6 +294,8 @@
           $coc_4 = $midshipmaninfo['coc_4'];
           $coc_5 = $midshipmaninfo['coc_5'];
           $coc_6 = $midshipmaninfo['coc_6'];
+          $coc_7 = $midshipmaninfo['coc_7'];
+          $coc_8 = $midshipmaninfo['coc_8'];
         }
         elseif($_POST['TO_USERNAME'] == $midshipmaninfo['coc_2']){
           $coc_0 = null;
@@ -301,6 +305,30 @@
           $coc_4 = $midshipmaninfo['coc_4'];
           $coc_5 = $midshipmaninfo['coc_5'];
           $coc_6 = $midshipmaninfo['coc_6'];
+          $coc_7 = $midshipmaninfo['coc_7'];
+          $coc_8 = $midshipmaninfo['coc_8'];
+        }
+        elseif($_POST['TO_USERNAME'] == $midshipmaninfo['coc_3']){
+          $coc_0 = null;
+          $coc_1 = null;
+          $coc_2 = null;
+          $coc_3 = $midshipmaninfo['coc_3'];
+          $coc_4 = $midshipmaninfo['coc_4'];
+          $coc_5 = $midshipmaninfo['coc_5'];
+          $coc_6 = $midshipmaninfo['coc_6'];
+          $coc_7 = $midshipmaninfo['coc_7'];
+          $coc_8 = $midshipmaninfo['coc_8'];
+        }
+        elseif($_POST['TO_USERNAME'] == $midshipmaninfo['coc_4']){
+          $coc_0 = null;
+          $coc_1 = null;
+          $coc_2 = null;
+          $coc_3 = null;
+          $coc_4 = $midshipmaninfo['coc_4'];
+          $coc_5 = $midshipmaninfo['coc_5'];
+          $coc_6 = $midshipmaninfo['coc_6'];
+          $coc_7 = $midshipmaninfo['coc_7'];
+          $coc_8 = $midshipmaninfo['coc_8'];
         }
 
         if(isset($_POST['REQUEST_OTHER'])){
@@ -318,16 +346,17 @@
           $addr_1 = null;
         }
 
-        create_chit($db, $chitnumber, USER['user'], $_POST['SHORT_DESCRIPTION'], $_POST['REFERENCE'], $_POST['REQUEST_TYPE'], $requestOther, $addr_1, $_POST['ADDRESS_2'], $_POST['ADDRESS_CITY'], $_POST['ADDRESS_STATE'], $_POST['ADDRESS_ZIP'], $_POST['REMARKS'], $today, $_POST['BEGIN_DATE'], $_POST['BEGIN_TIME'], $_POST['END_DATE'], $_POST['END_TIME'], $_POST['ORM'], $_POST['DOCS'], $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6);
+        create_chit($db, $chitnumber, USER['user'], $_POST['SHORT_DESCRIPTION'], $_POST['REFERENCE'], $_POST['REQUEST_TYPE'], $requestOther, $addr_1, $_POST['ADDRESS_2'], $_POST['ADDRESS_CITY'], $_POST['ADDRESS_STATE'], $_POST['ADDRESS_ZIP'], $_POST['REMARKS'], $today, $_POST['BEGIN_DATE'], $_POST['BEGIN_TIME'], $_POST['END_DATE'], $_POST['END_TIME'], $_POST['ORM'], $_POST['DOCS'], $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6, $coc_7, $coc_8);
 
         $afterchitnumber = get_next_chit_number($db);
         if($afterchitnumber > $chitnumber){
-          $_SESSION['success'] = "Chit has been made!";
+          $_SESSION['success'] = "Chit has been submitted!";
           $_SESSION['chit'] = $chitnumber;
-          echo "<script type='text/javascript'>redirect('viewchit.php')</script>";
+          // echo "<script type='text/javascript'>redirect('viewchit.php')</script>";
+          header("Location: viewchit.php");
         }
         else{
-          $_SESSION['error'] = "Error creating chit!";
+          $_SESSION['error'] = "Error creating chit! Contact the web administrator.";
         }
 
 

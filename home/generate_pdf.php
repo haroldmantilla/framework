@@ -1,19 +1,39 @@
 <?php
 
-session_start();
+// session_start();
+
+$MODULE_DEF = array('name'       => 'Generate PDF',
+                    'version'    => 1.0,
+                    'display'    => '',
+                    'tab'        => '',
+                    'position'   => 0,
+                    'student'    => true,
+                    'instructor' => true,
+                    'guest'      => false,
+                    'access'     => array());
+
+# Load in Configuration Parameters
+
+require_once("../etc/config.inc.php");
+
+# Load in template, if not already loaded
+require_once(LIBRARY_PATH.'template.php');
+
 
 use setasign\Fpdi\Fpdi;
 use setasign\Fpdi\PdfReader;
 
-require_once('./includes/fpdf181/fpdf.php');
-require_once('./includes/fpdi/src/autoload.php');
-require_once('./includes/func.inc.php');
+$req1 = WEB_PATH . "fpdf181/fpdf.php";
+$req2 = WEB_PATH . "fpdi/src/autoload.php";
+
+require_once($req1);
+require_once($req2);
 
 if(isset($_SESSION['chit'])){
 
-  $chit = get_chit_information($_SESSION['chit']);
-  $midshipmaninfo = get_midshipman_information($chit['creator']);
-  $ownerinfo = get_user_information($chit['creator']);
+  $chit = get_chit_information($db, $_SESSION['chit']);
+  $midshipmaninfo = get_midshipman_information($db, $chit['creator']);
+  $ownerinfo = get_user_information($db, $chit['creator']);
 
 
   $chit['description'] = stripslashes($chit['description']);
@@ -56,16 +76,16 @@ $template_pdf->SetTextColor(0,0,0);
 $template_pdf->SetXY(8, 32);
 
 if(isset($chit['coc_0_username'])){
-  $coc_0 = get_user_information($chit['coc_0_username']);
+  $coc_0 = get_user_information($db, $chit['coc_0_username']);
   $to = "{$coc_0['rank']} {$coc_0['firstName']} {$coc_0['lastName']}, {$coc_0['service']}   {$coc_0['billet']}";
 
 }
 elseif(isset($chit['coc_1_username'])){
-  $coc_1 = get_user_information($chit['coc_1_username']);
+  $coc_1 = get_user_information($db, $chit['coc_1_username']);
   $to = "{$coc_1['rank']} {$coc_1['firstName']} {$coc_1['lastName']}, {$coc_1['service']}   {$coc_1['billet']}";
 }
 elseif(isset($chit['coc_2_username'])){
-  $coc_2 = get_user_information($chit['coc_2_username']);
+  $coc_2 = get_user_information($db, $chit['coc_2_username']);
   $to = "{$coc_2['rank']} {$coc_2['firstName']} {$coc_2['lastName']}, {$coc_2['service']}   {$coc_2['billet']}";
 
 }
@@ -225,6 +245,12 @@ $coc_5 = array("username"=>$chit['coc_5_username'], "status"=>$chit['coc_5_statu
 
 $coc_6 = array("username"=>$chit['coc_6_username'], "status"=>$chit['coc_6_status'], "comments"=> $chit['coc_6_comments'], "date"=> $chit['coc_6_date'], "time"=> $chit['coc_6_time']);
 
+$coc_7 = array("username"=>$chit['coc_7_username'], "status"=>$chit['coc_7_status'], "comments"=> $chit['coc_7_comments'], "date"=> $chit['coc_7_date'], "time"=> $chit['coc_7_time']);
+
+$coc_8 = array("username"=>$chit['coc_8_username'], "status"=>$chit['coc_8_status'], "comments"=> $chit['coc_8_comments'], "date"=> $chit['coc_8_date'], "time"=> $chit['coc_8_time']);
+
+$pos_8 = null;
+$pos_7 = null;
 $pos_6 = null;
 $pos_5 = null;
 $pos_4 = null;
@@ -233,36 +259,49 @@ $pos_2 = null;
 $pos_1 = null;
 $pos_0 = null;
 
-if(isset($chit['coc_6_username'])){
+if(isset($chit['coc_8_username'])){
+  $pos_8 = $coc_8;
+  $pos_7 = $coc_7;
   $pos_6 = $coc_6;
   $pos_5 = $coc_5;
-  $pos_4 = $coc_4;
-  $pos_3 = $coc_3;
+}
+elseif(isset($chit['coc_7_username'])){
+  $pos_8 = $coc_7;
+  $pos_7 = $coc_6;
+  $pos_6 = $coc_5;
+}
+elseif(isset($chit['coc_6_username'])){
+  $pos_8 = $coc_6;
+  $pos_7 = $coc_5;
 }
 elseif(isset($chit['coc_5_username'])){
-  $pos_6 = $coc_5;
-  $pos_5 = $coc_4;
-  $pos_4 = $coc_3;
-}
-elseif(isset($chit['coc_4_username'])){
-  $pos_6 = $coc_4;
-  $pos_5 = $coc_3;
-}
-elseif(isset($chit['coc_3_username'])){
-  $pos_6 = $coc_3;
+  $pos_8 = $coc_5;
 }
 
 if(isset($chit['coc_0_username'])){
   $pos_0 = $coc_0;
   $pos_1 = $coc_1;
   $pos_2 = $coc_2;
+  $pos_3 = $coc_3;
+  $pos_4 = $coc_4;
 }
 elseif(isset($chit['coc_1_username'])){
   $pos_1 = $coc_1;
   $pos_2 = $coc_2;
+  $pos_3 = $coc_3;
+  $pos_4 = $coc_4;
 }
 elseif(isset($chit['coc_2_username'])){
   $pos_2 = $coc_2;
+  $pos_3 = $coc_3;
+  $pos_4 = $coc_4;
+}
+elseif(isset($chit['coc_3_username'])){
+  $pos_3 = $coc_3;
+  $pos_4 = $coc_4;
+}
+elseif(isset($chit['coc_4_username'])){
+  $pos_4 = $coc_4;
 }
 
 if(isset($pos_0['comments']) && !empty($pos_0['comments'])){
@@ -290,11 +329,155 @@ if(isset($pos_6['comments']) && !empty($pos_6['comments'])){
 
 $template_pdf->SetFontSize(6);
 
-//6
-if(isset($pos_6['username'])){
+//8
+if(isset($pos_8['username'])){
   $y = 165;
 
-  $info = get_user_information($pos_6['username']);
+  $info = get_user_information($db, $pos_8['username']);
+  $name = "{$info['rank']} {$info['lastName']}";
+  $billet = "{$info['billet']}";
+
+  $template_pdf->SetXY(8,$y);
+  $template_pdf->Write(0, "".$name);
+  $template_pdf->SetXY(8,$y+3);
+  $template_pdf->Write(0, "".$billet);
+
+  if($pos_8['status'] == "PENDING" && $printpending == true){
+    $template_pdf->SetXY(44,$y+3);
+    $template_pdf->Write(0, "".$pos_8['status']);
+  }
+  else{
+    if($pos_8['status'] == "APPROVED"){
+      $template_pdf->SetXY(63,$y+3);
+      $template_pdf->Write(0, "".$pos_8['status']);
+    }
+    elseif($pos_8['status'] == "DENIED"){
+      $template_pdf->SetXY(89,$y+3);
+      $template_pdf->Write(0, "".$pos_8['status']);
+
+    }
+
+    $time = $pos_8['time'];
+    $date = $pos_8['date'];
+
+    $template_pdf->SetXY(44,$y);
+    $template_pdf->Write(0, "".$time);
+
+    $template_pdf->SetXY(42,$y+3);
+    $template_pdf->Write(0, "".$date);
+
+  }
+
+  if(isset($pos_8['comments'])){
+
+    $comments = preg_split('/\h+/', $pos_8['comments']);
+    $x = 105;
+    $count = 0;
+    $line = "";
+    foreach ($comments as $word) {
+
+      if($count + strlen($word) < 70){
+        $line .= $word . " ";
+        $count += strlen($word);
+        $count += 1;
+      }
+      else{
+        $template_pdf->SetXY($x, $y);
+        $template_pdf->Write(0, "".$line);
+        $y += 2;
+        $line = $word . " ";
+        $count = strlen($word);
+      }
+    }
+
+    if(!empty($line)){
+      $template_pdf->SetXY($x, $y);
+      $template_pdf->Write(0, "".$line);
+      $y += 2;
+    }
+
+  }
+
+}
+
+//7
+
+if(isset($pos_7['username'])){
+  $y = 174;
+
+  $info = get_user_information($db, $pos_7['username']);
+  $name = "{$info['rank']} {$info['lastName']}";
+  $billet = "{$info['billet']}";
+
+  $template_pdf->SetXY(8,$y);
+  $template_pdf->Write(0, "".$name);
+  $template_pdf->SetXY(8,$y+3);
+  $template_pdf->Write(0, "".$billet);
+
+  if($pos_7['status'] == "PENDING" && $printpending == true){
+    $template_pdf->SetXY(44,$y+3);
+    $template_pdf->Write(0, "".$pos_7['status']);
+  }
+  else{
+    if($pos_7['status'] == "APPROVED"){
+      $template_pdf->SetXY(63,$y+3);
+      $template_pdf->Write(0, "".$pos_7['status']);
+    }
+    elseif($pos_7['status'] == "DENIED"){
+      $template_pdf->SetXY(89,$y+3);
+      $template_pdf->Write(0, "".$pos_7['status']);
+
+    }
+
+    $time = $pos_7['time'];
+    $date = $pos_7['date'];
+
+    $template_pdf->SetXY(44,$y);
+    $template_pdf->Write(0, "".$time);
+
+    $template_pdf->SetXY(42,$y+3);
+    $template_pdf->Write(0, "".$date);
+
+  }
+
+  if(isset($pos_7['comments'])){
+
+    $comments = preg_split('/\h+/', $pos_7['comments']);
+    $x = 105;
+    $count = 0;
+    $line = "";
+    foreach ($comments as $word) {
+      if($count + strlen($word) < 70){
+        $line .= $word . " ";
+        $count += strlen($word);
+        $count += 1;
+      }
+      else{
+        $template_pdf->SetXY($x, $y);
+        $template_pdf->Write(0, "".$line);
+        $y += 2;
+        $line = $word . " ";
+        $count = strlen($word);
+      }
+    }
+
+    if(!empty($line)){
+      $template_pdf->SetXY($x, $y);
+      $template_pdf->Write(0, "".$line);
+      $y += 2;
+    }
+
+  }
+
+}
+
+
+//6
+
+if(isset($pos_6['username'])){
+  $y = 182;
+
+  $info = get_user_information($db, $pos_6['username']);
   $name = "{$info['rank']} {$info['lastName']}";
   $billet = "{$info['billet']}";
 
@@ -336,7 +519,6 @@ if(isset($pos_6['username'])){
     $count = 0;
     $line = "";
     foreach ($comments as $word) {
-
       if($count + strlen($word) < 70){
         $line .= $word . " ";
         $count += strlen($word);
@@ -361,12 +543,12 @@ if(isset($pos_6['username'])){
 
 }
 
+
 //5
-
 if(isset($pos_5['username'])){
-  $y = 174;
+  $y = 189;
 
-  $info = get_user_information($pos_5['username']);
+  $info = get_user_information($db, $pos_5['username']);
   $name = "{$info['rank']} {$info['lastName']}";
   $billet = "{$info['billet']}";
 
@@ -434,11 +616,10 @@ if(isset($pos_5['username'])){
 
 
 //4
-
 if(isset($pos_4['username'])){
-  $y = 182;
+  $y = 201;
 
-  $info = get_user_information($pos_4['username']);
+  $info = get_user_information($db, $pos_4['username']);
   $name = "{$info['rank']} {$info['lastName']}";
   $billet = "{$info['billet']}";
 
@@ -507,9 +688,9 @@ if(isset($pos_4['username'])){
 
 //3
 if(isset($pos_3['username'])){
-  $y = 189;
+  $y = 209;
 
-  $info = get_user_information($pos_3['username']);
+  $info = get_user_information($db, $pos_3['username']);
   $name = "{$info['rank']} {$info['lastName']}";
   $billet = "{$info['billet']}";
 
@@ -578,9 +759,9 @@ if(isset($pos_3['username'])){
 
 //2
 if(isset($pos_2['username'])){
-  $y = 201;
+  $y = 217;
 
-  $info = get_user_information($pos_2['username']);
+  $info = get_user_information($db, $pos_2['username']);
   $name = "{$info['rank']} {$info['lastName']}";
   $billet = "{$info['billet']}";
 
@@ -646,12 +827,11 @@ if(isset($pos_2['username'])){
 
 }
 
-
 //1
 if(isset($pos_1['username'])){
-  $y = 209;
+  $y = 223;
 
-  $info = get_user_information($pos_1['username']);
+  $info = get_user_information($db, $pos_1['username']);
   $name = "{$info['rank']} {$info['lastName']}";
   $billet = "{$info['billet']}";
 
@@ -717,12 +897,11 @@ if(isset($pos_1['username'])){
 
 }
 
-
-//0
+//1
 if(isset($pos_0['username'])){
-  $y = 217;
+  $y = 230;
 
-  $info = get_user_information($pos_0['username']);
+  $info = get_user_information($db, $pos_0['username']);
   $name = "{$info['rank']} {$info['lastName']}";
   $billet = "{$info['billet']}";
 
@@ -787,7 +966,6 @@ if(isset($pos_0['username'])){
   }
 
 }
-
 
 
 

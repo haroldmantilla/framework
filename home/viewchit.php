@@ -863,48 +863,46 @@ elseif(isset($_SESSION['success'])){
     $pos_7 = $coc_7;
     $pos_6 = $coc_6;
     $pos_5 = $coc_5;
-    $pos_4 = $coc_4;
-    $pos_3 = $coc_3;
   }
   elseif(isset($chit['coc_7_username'])){
-    $pos_7 = $coc_7;
-    $pos_6 = $coc_6;
-    $pos_5 = $coc_5;
-    $pos_4 = $coc_4;
-    $pos_3 = $coc_3;
+    $pos_8 = $coc_7;
+    $pos_7 = $coc_6;
+    $pos_6 = $coc_5;
   }
   elseif(isset($chit['coc_6_username'])){
-    $pos_6 = $coc_6;
-    $pos_5 = $coc_5;
-    $pos_4 = $coc_4;
-    $pos_3 = $coc_3;
+    $pos_8 = $coc_6;
+    $pos_7 = $coc_5;
   }
   elseif(isset($chit['coc_5_username'])){
-    $pos_6 = $coc_5;
-    $pos_5 = $coc_4;
-    $pos_4 = $coc_3;
-  }
-  elseif(isset($chit['coc_4_username'])){
-    $pos_6 = $coc_4;
-    $pos_5 = $coc_3;
-  }
-  elseif(isset($chit['coc_3_username'])){
-    $pos_6 = $coc_3;
+    $pos_8 = $coc_5;
   }
 
   if(isset($chit['coc_0_username'])){
     $pos_0 = $coc_0;
     $pos_1 = $coc_1;
     $pos_2 = $coc_2;
+    $pos_3 = $coc_3;
+    $pos_4 = $coc_4;
   }
   elseif(isset($chit['coc_1_username'])){
     $pos_1 = $coc_1;
     $pos_2 = $coc_2;
+    $pos_3 = $coc_3;
+    $pos_4 = $coc_4;
   }
   elseif(isset($chit['coc_2_username'])){
     $pos_2 = $coc_2;
+    $pos_3 = $coc_3;
+    $pos_4 = $coc_4;
   }
-
+  elseif(isset($chit['coc_3_username'])){
+    $pos_3 = $coc_3;
+    $pos_4 = $coc_4;
+  }
+  elseif(isset($chit['coc_4_username'])){
+    $pos_4 = $coc_4;
+  }
+  
   if(isset($pos_0['comments']) && !empty($pos_0['comments'])){
     $pos_0['comments'] = stripslashes($pos_0['comments']);
   }
@@ -2737,7 +2735,7 @@ elseif(isset($_SESSION['success'])){
     <div class="col-xs-4 text-center">
       <form action="viewchit.php" method="post">
         <input type="hidden" name="chit" value="<?php echo "{$_SESSION['chit']}"; ?>"/>
-        <input type="submit" class="btn btn-default" name="viewbutn" value="Print Chit">
+        <input type="submit" class="btn btn-default" name="print" value="Print Chit">
       </form>
     </div>
     <div class="col-xs-4 text-right">

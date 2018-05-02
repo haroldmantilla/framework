@@ -33,33 +33,34 @@
       <center><img src="<?php echo WEB_PATH; ?>images/usna.jpg" width=140></center>
     </div>
     <div class="col-md-8">
-      <div class='jumbotron'>
-        <h4>Welcome to the Default Template</h4>
-        <font face='Arial' size=3>
-          This template is available as a simple starting point for web
-          based projects, providing database, API access, and web functionality.
-        </font>
+      <!-- <div class='jumbotron'> -->
+        <h4 class="text-center">Welcome to eChits!</h4>
+        
         <?php
         if (USER['user'] == 'guest' || USER['user'] == 'no-one' || USER['user'] == '') {
           echo "<br><br>";
           echo "Please use the menus above to logon to the system.";
-        } elseif (STUDENT) {
-          echo "<br><br>";
-          echo "Welcome Student";
-        } elseif (INSTRUCTOR) {
-          echo "<br><br>";
-          echo "Welcome Faculty";
-        }
-        if (ADMIN) {
-          echo "<br><br>";
-          echo "Welcome Administrator";
-        }
+        } 
+
         ?>
       </div>
-    </div>
+    <!-- </div> -->
     <div class="col-md-2">
       <br>
-      <center><img src="<?php echo WEB_PATH; ?>images/cs.jpg" width=140></center>
+      <center><img src="<?php echo WEB_PATH; ?>images/navycrest.png" width=140></center>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
+  
+
+
 </div>
+</body>
+</html>

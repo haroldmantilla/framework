@@ -37,10 +37,13 @@ CREATE PROCEDURE createMidshipman (
     p_coc_3 varchar(10),
     p_coc_4 varchar(10),
     p_coc_5 varchar(10),
-    p_coc_6 varchar(10)
+    p_coc_6 varchar(10),
+		p_coc_7 varchar(10),
+    p_coc_8 varchar(10)
+		
 )
 BEGIN
-	INSERT INTO Midshipman(alpha, company, classYear, room, SQPR, CQPR, phoneNumber, aptitudeGrade, conductGrade, coc_0, coc_1, coc_2, coc_3, coc_4, coc_5, coc_6)
+	INSERT INTO Midshipman(alpha, company, classYear, room, SQPR, CQPR, phoneNumber, aptitudeGrade, conductGrade, coc_0, coc_1, coc_2, coc_3, coc_4, coc_5, coc_6, coc_7, coc_8)
 	VALUES (p_alpha, p_company, p_classYear, p_room, p_SQPR, p_CQPR, p_phoneNumber, p_aptitudeGrade, p_conductGrade,  p_coc_0, p_coc_1, p_coc_2, p_coc_3, p_coc_4, p_coc_5, p_coc_6, p_coc_7, p_coc_8)
     ON DUPLICATE KEY UPDATE
     alpha = p_alpha, company = p_company, classYear = p_classYear, room = p_room, SQPR = p_SQPR, CQPR = p_CQPR, phoneNumber = p_phoneNumber, aptitudeGrade = p_aptitudeGrade, conductGrade = p_conductGrade, coc_0 = p_coc_0, coc_1 = p_coc_1, coc_2 = p_coc_2, coc_3 = p_coc_3, coc_4 = p_coc_4, coc_5 = p_coc_5, coc_6 = p_coc_6, coc_7 = p_coc_7, coc_8 = p_coc_8;
@@ -830,7 +833,7 @@ END $$
 DROP PROCEDURE IF EXISTS getAdmins$$
 CREATE PROCEDURE getAdmins()
 BEGIN
-	SELECT DISTINCT auth_access.user, auth_access.access, auth_access.value, Leader.* from auth_access, Leader where auth_access.user = Leader.username and auth_access.access = "admin" GROUP BY (auth_access.user);
+	SELECT DISTINCT auth_access.user, auth_access.access, auth_access.value, Leader.* from auth_access, Leader where auth_access.user = Leader.username and auth_access.value = "admin" GROUP BY (auth_access.user);
 END $$
 
 
@@ -845,13 +848,13 @@ END $$
 DROP PROCEDURE IF EXISTS getMISLOs$$
 CREATE PROCEDURE getMISLOs()
 BEGIN
-	SELECT DISTINCT auth_access.user, auth_access.access, auth_access.value, Leader.* from auth_access, Leader where auth_access.user = Leader.username and auth_access.access = "MISLO" GROUP BY (auth_access.user);
+	SELECT DISTINCT auth_access.user, auth_access.access, auth_access.value, Leader.* from auth_access, Leader where auth_access.user = Leader.username and auth_access.value = "MISLO" GROUP BY (auth_access.user);
 END $$
 
 DROP PROCEDURE IF EXISTS getSafeties$$
 CREATE PROCEDURE getSafeties()
 BEGIN
-	SELECT DISTINCT auth_access.user, auth_access.access, auth_access.value, Leader.* from auth_access, Leader where auth_access.user = Leader.username and auth_access.access = "safety" GROUP BY (auth_access.user);
+	SELECT DISTINCT auth_access.user, auth_access.access, auth_access.value, Leader.* from auth_access, Leader where auth_access.user = Leader.username and auth_access.value = "safety" GROUP BY (auth_access.user);
 END $$
 
 
@@ -1024,6 +1027,11 @@ CREATE PROCEDURE deleteUser(
 )
 BEGIN
     DELETE FROM Leader WHERE username = p_username;
+		
+		DELETE FROM auth_session WHERE user = p_username;
+		
+		DELETE FROM auth_user WHERE user = p_username;
+		
 END $$
 
 

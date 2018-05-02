@@ -71,7 +71,11 @@ CREATE TABLE Midshipman(
     ON DELETE SET NULL ON UPDATE RESTRICT,
     foreign key f7(coc_5) references Leader(username)
     ON DELETE SET NULL ON UPDATE RESTRICT,
-    foreign key f8(coc_6) references Leader(username)
+		foreign key f8(coc_6) references Leader(username)
+		ON DELETE SET NULL ON UPDATE RESTRICT,
+    foreign key f9(coc_7) references Leader(username)
+    ON DELETE SET NULL ON UPDATE RESTRICT,
+    foreign key f10(coc_8) references Leader(username)
     ON DELETE SET NULL ON UPDATE RESTRICT
 );
 

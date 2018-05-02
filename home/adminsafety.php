@@ -20,6 +20,41 @@
   # Load in template, if not already loaded
   require_once(LIBRARY_PATH.'template.php');
 
+
+  if (isset($_REQUEST['restore'])) {
+    
+    $chit = $_REQUEST['chit'];
+
+    restore_chit($db, $chit);
+
+    //redirect
+    $_SESSION['success'] = "Chit successfully restored!";
+    header("Location: {$_SERVER['HTTP_REFERER']}");
+
+
+    die;
+  }
+  elseif (isset($_REQUEST['view'])) {
+    
+    $chit = $_REQUEST['chit'];
+    $_SESSION['chit'] = $chit;
+    
+    //redirect
+    header("Location: viewchit.php");
+
+
+    die;
+  }
+  elseif (isset($_REQUEST['archive'])) {
+    $chit = $_REQUEST['archive'];
+    
+    archive_chit($db, $chit);
+    
+    unset($_SESSION['chit']);
+        
+    header("Location: {$_SERVER['HTTP_REFERER']}");
+  }  
+
   # Load in The NavBar
   # Note: You too will have automated NavBar generation
   #       support in your future templates...
@@ -153,12 +188,13 @@ $archivedchits = get_archived_orm_chits_company($db, $company);
       echo "<td>";
 
 
-      echo "<form style=\"float: right;\" action=\"delete.script.php\" method=\"post\">
-        <input type=\"hidden\" name=\"delete\" value=\"{$chit['chitNumber']}\"/>
+      echo "<form style=\"float: right;\" action=\"?\" method=\"post\">
+        <input type=\"hidden\" name=\"archive\" value=\"{$chit['chitNumber']}\"/>
         <input type=\"submit\" class=\"btn btn-danger\" value=\"Archive\">
         </form>";
+        
+        echo "<form style=\"float: right; \" action=\"viewchit.php\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-default\" name=\"viewbutton\" value=\"View Chit\"></form>";
 
-        echo "<form style=\"float: right;\" action=\"view.script.php\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-default\" name=\"viewbutton\" value=\"View Chit\"></form>";
       echo "<td>";
 
       echo "</td>";
@@ -252,12 +288,11 @@ $archivedchits = get_archived_orm_chits_company($db, $company);
 
 
       echo "<td>";
+      
+      echo "<form style=\"float: right;\" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-primary\" name=\"restore\" value=\"Restore Chit\"></form>";
+      
+      echo "<form style=\"float: right; \" action=\"viewchit.php\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-default\" name=\"viewbutton\" value=\"View Chit\"></form>";
 
-      echo "<form style=\"float: right;\" action=\"permanentlydelete.script.php\" method=\"post\"><input type=\"hidden\" name=\"delete\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-danger\" name=\"restorewbutton\" value=\"Delete Forever\"></form>";
-
-      echo "<form style=\"float: right;\" action=\"restore.script.php\" method=\"post\"><input type=\"hidden\" name=\"restore\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-primary\" name=\"restorewbutton\" value=\"Restore Chit\"></form>";
-
-      echo "<form style=\"float: right;\" action=\"view.script.php\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-default\" name=\"viewbutton\" value=\"View Chit\"></form>";
 
 
 

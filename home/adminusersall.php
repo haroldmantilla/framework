@@ -20,6 +20,30 @@
   # Load in template, if not already loaded
   require_once(LIBRARY_PATH.'template.php');
 
+  if (isset($_REQUEST['deleteuser'])) {
+    delete_user($db, $_REQUEST['username']);
+  }
+  elseif (isset($_REQUEST['designatemislo'])) {
+    designate_MISLO($db, $_POST['username']);
+  }
+  elseif (isset($_REQUEST['designatesafety'])) {
+    designate_safety($db, $_REQUEST['username']);
+  }
+  elseif (isset($_REQUEST['designateadmin'])) {
+    designate_admin($db, $_REQUEST['username']);
+  }  
+  elseif (isset($_REQUEST['removemislo'])) {
+    remove_MISLO($db, $_POST['username']);
+  }
+  elseif (isset($_REQUEST['removesafety'])) {
+    remove_safety($db, $_REQUEST['username']);
+  }
+  elseif (isset($_REQUEST['removeadmin'])) {
+    remove_admin($db, $_REQUEST['username']);
+  }
+  
+
+
   # Load in The NavBar
   # Note: You too will have automated NavBar generation
   #       support in your future templates...
@@ -141,13 +165,7 @@ $incompletemids = get_incomplete_mids($db);
       echo "<td>";
 
 
-      echo "
-      <form style=\"float: right;\" action=\"changepass.script.php\" method=\"post\">
-      <input type=\"hidden\" name=\"nametochange\" id=\"nametochange\" value=\"{$user['username']}\">
-      <input type=\"submit\"  class=\"btn btn-dark\" value=\"Reset Password\"></form>";
-
-
-      echo "<form style=\"float: right; \" action=\"removeadmin.script.php\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"removeadmin\" value=\"Remove Administrator\"></form>";
+      echo "<form style=\"float: right; \" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"removeadmin\" value=\"Remove Administrator\"></form>";
       echo "</td>";
       echo "</tr>";
     }
@@ -231,15 +249,9 @@ $incompletemids = get_incomplete_mids($db);
       echo "<td>";
 
 
-      echo "
-      <form style=\"float: right;\" action=\"changepass.script.php\" method=\"post\">
-      <input type=\"hidden\" name=\"nametochange\" id=\"nametochange\" value=\"{$user['username']}\">
-      <input type=\"submit\"  class=\"btn btn-dark\" value=\"Reset Password\"></form>";
+      echo "<form style=\"float: right; \" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"removemislo\" value=\"Remove MISLO\"></form>";
 
-
-      echo "<form style=\"float: right; \" action=\"removeMISLO.script.php\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"removeadmin\" value=\"Remove MISLO\"></form>";
-
-      echo "<form style=\"float: right; \" action=\"designateadmin.script.php\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"designateadmin\" value=\"Designate Admin\"></form>";
+      echo "<form style=\"float: right; \" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"designateadmin\" value=\"Designate Admin\"></form>";
 
 
       echo "</td>";
@@ -299,7 +311,7 @@ $incompletemids = get_incomplete_mids($db);
     //rows go here
     echo "<table class='table table-hover'>";
     echo "<thead>";
-    echo "<tr><th>Username</th><th>Name</th><th>Company</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
+    echo "<tr><th>Username</th><th>Name</th><th class=\"text-right\">Actions</th></tr></thead>";
 
     foreach ($safeties as $user){
 
@@ -321,18 +333,11 @@ $incompletemids = get_incomplete_mids($db);
       echo "<tr>";
       echo "<td>{$user['username']}</td>";
       echo "<td>{$user['rank']} {$user['firstName']} {$user['lastName']}, {$user['service']} </td>";
-      echo "<td>{$user['level']}</td>";
 
       echo "<td>";
 
 
-      echo "
-      <form style=\"float: right;\" action=\"changepass.script.php\" method=\"post\">
-      <input type=\"hidden\" name=\"nametochange\" id=\"nametochange\" value=\"{$user['username']}\">
-      <input type=\"submit\"  class=\"btn btn-dark\" value=\"Reset Password\"></form>";
-
-
-      echo "<form style=\"float: right; \" action=\"removesafety.script.php\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"removesafety\" value=\"Remove Safety Officer\"></form>";
+      echo "<form style=\"float: right; \" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"removesafety\" value=\"Remove Safety Officer\"></form>";
       echo "</td>";
       echo "</tr>";
     }
@@ -421,17 +426,12 @@ $incompletemids = get_incomplete_mids($db);
 
 
       echo "
-      <form style=\"float: right;\" action=\"deleteuser.script.php\" method=\"post\">
-      <input type=\"hidden\" name=\"usertodelete\" id=\"usertodelete\" value=\"{$user['username']}\">
+      <form style=\"float: right;\" action=\"?\" method=\"post\">
+      <input type=\"hidden\" name=\"username\" id=\"username\" value=\"{$user['username']}\">
       <input type=\"submit\"  class=\"btn btn-danger\" value=\"Delete User\"></form>";
 
-      echo "
-      <form style=\"float: right;\" action=\"changepass.script.php\" method=\"post\">
-      <input type=\"hidden\" name=\"nametochange\" id=\"nametochange\" value=\"{$user['username']}\">
-      <input type=\"submit\"  class=\"btn btn-dark\" value=\"Reset Password\"></form>";
-
-
-      echo "<form style=\"float: right; \" action=\"designateadmin.script.php\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"designateadmin\" value=\"Designate Administrator\"></form>";
+    
+      echo "<form style=\"float: right; \" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"designateadmin\" value=\"Designate Administrator\"></form>";
       echo "</td>";
       echo "</tr>";
     }
@@ -541,19 +541,14 @@ $incompletemids = get_incomplete_mids($db);
       echo "<td>";
 
       echo "
-      <form style=\"float: right;\" action=\"deleteuser.script.php\" method=\"post\">
-      <input type=\"hidden\" name=\"usertodelete\" id=\"usertodelete\" value=\"{$user['username']}\">
-      <input type=\"submit\"  class=\"btn btn-danger\" value=\"Delete User\"></form>";
+      <form style=\"float: right;\" action=\"?\" method=\"post\">
+      <input type=\"hidden\" name=\"username\" id=\"username\" value=\"{$user['username']}\">
+      <input type=\"submit\" name=\"deleteuser\" class=\"btn btn-danger\" value=\"Delete User\"></form>";
 
-      echo "
-      <form style=\"float: right;\" action=\"changepass.script.php\" method=\"post\">
-      <input type=\"hidden\" name=\"nametochange\" id=\"nametochange\" value=\"{$user['username']}\">
-      <input type=\"submit\"  class=\"btn btn-dark\" value=\"Reset Password\"></form>";
-
-      echo "<form style=\"float: right; \" action=\"designateMISLO.script.php\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"designateMISLO\" value=\"Designate MISLO\"></form>";
+      echo "<form style=\"float: right; \" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"designatemislo\" value=\"Designate MISLO\"></form>";
 
 
-      echo "<form style=\"float: right; \" action=\"designatesafety.script.php\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"designatesafety\" value=\"Designate Safety Officer\"></form>";
+      echo "<form style=\"float: right; \" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"designatesafety\" value=\"Designate Safety Officer\"></form>";
 
       echo "</td>";
       echo "</tr>";
@@ -643,14 +638,9 @@ $incompletemids = get_incomplete_mids($db);
       echo "<td>";
 
       echo "
-      <form style=\"float: right;\" action=\"deleteuser.script.php\" method=\"post\">
-      <input type=\"hidden\" name=\"usertodelete\" id=\"usertodelete\" value=\"{$user['username']}\">
-      <input type=\"submit\"  class=\"btn btn-danger\" value=\"Delete User\"></form>";
-
-      echo "
-      <form style=\"float: right;\" action=\"changepass.script.php\" method=\"post\">
-      <input type=\"hidden\" name=\"nametochange\" id=\"nametochange\" value=\"{$user['username']}\">
-      <input type=\"submit\"  class=\"btn btn-dark\" value=\"Reset Password\"></form>";
+      <form style=\"float: right;\" action=\"?\" method=\"post\">
+      <input type=\"hidden\" name=\"username\" id=\"username\" value=\"{$user['username']}\">
+      <input type=\"submit\"  name=\"deleteuser\" class=\"btn btn-danger\" value=\"Delete User\"></form>";
 
 
       echo "</td>";

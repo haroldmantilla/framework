@@ -20,6 +20,11 @@
   # Load in template, if not already loaded
   require_once(LIBRARY_PATH.'template.php');
 
+  
+  if (isset($_REQUEST['deleteuser'])) {
+    delete_user($db, $_REQUEST['username']);
+  }
+
   # Load in The NavBar
   # Note: You too will have automated NavBar generation
   #       support in your future templates...
@@ -139,21 +144,12 @@ $completemids = get_company($db, $company);
       echo "<td>{$user['level']}</td>";
 
       echo "<td>";
-
+      
       echo "
-      <form style=\"float: right;\" action=\"deleteuser.script.php\" method=\"post\">
-      <input type=\"hidden\" name=\"usertodelete\" id=\"usertodelete\" value=\"{$user['username']}\">
-      <input type=\"submit\"  class=\"btn btn-danger\" value=\"Delete User\"></form>";
+      <form style=\"float: right;\" action=\"?\" method=\"post\">
+      <input type=\"hidden\" name=\"username\" id=\"username\" value=\"{$user['username']}\">
+      <input type=\"submit\" name=\"deleteuser\" class=\"btn btn-danger\" value=\"Delete User\"></form>";
 
-      echo "
-      <form style=\"float: right;\" action=\"changepass.script.php\" method=\"post\">
-      <input type=\"hidden\" name=\"nametochange\" id=\"nametochange\" value=\"{$user['username']}\">
-      <input type=\"submit\"  class=\"btn btn-dark\" value=\"Reset Password\"></form>";
-
-      echo "<form style=\"float: right; \" action=\"designateMISLO.script.php\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"designateMISLO\" value=\"Designate MISLO\"></form>";
-
-
-      echo "<form style=\"float: right; \" action=\"designatesafety.script.php\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"designatesafety\" value=\"Designate Safety Officer\"></form>";
 
       echo "</td>";
       echo "</tr>";
