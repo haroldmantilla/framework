@@ -333,41 +333,41 @@ echo "</div>";
 echo "</div>";
 
 
-echo "
-		<!-- Blast Chits Modal -->
-		<div id=\"blastModal\" class=\"modal fade\" role=\"dialog\">
-			<div class=\"modal-dialog\">
-
-				<!-- Modal content-->
-				<div class=\"modal-content\">
-					<div class=\"modal-header text-center\">
-						<button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>
-						<h4 class=\"modal-title\">Are you sure you want to delete all chits FOR ALL COMPANIES?</h4>
-            <h5 class=\"modal-title\">This action cannot be undone.</h5>
-					</div>
-					<div class=\"modal-footer\">
-
-						<div class=\"col-xs-6 text-left\">
-							<div class=\"previous\">
-								<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cancel</button>
-							</div>
-						</div>
-						<div class=\"col-xs-6 text-right\">
-							<div class=\"next\">
-                <form action=\"blast.script.php\" method=\"post\">
-                <input type=\"hidden\" name=\"delete\" value=\"blast\">
-                <input type=\"submit\" class=\"btn btn-danger\" value=\"Delete All Chits\">
-              </form>
-							</div>
-						</div>
-
-
-					</div>
-				</div>
-
-			</div>
-		</div>
-";
+// echo "
+// 		<!-- Blast Chits Modal -->
+// 		<div id=\"blastModal\" class=\"modal fade\" role=\"dialog\">
+// 			<div class=\"modal-dialog\">
+// 
+// 				<!-- Modal content-->
+// 				<div class=\"modal-content\">
+// 					<div class=\"modal-header text-center\">
+// 						<button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>
+// 						<h4 class=\"modal-title\">Are you sure you want to delete all chits FOR ALL COMPANIES?</h4>
+//             <h5 class=\"modal-title\">This action cannot be undone.</h5>
+// 					</div>
+// 					<div class=\"modal-footer\">
+// 
+// 						<div class=\"col-xs-6 text-left\">
+// 							<div class=\"previous\">
+// 								<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cancel</button>
+// 							</div>
+// 						</div>
+// 						<div class=\"col-xs-6 text-right\">
+// 							<div class=\"next\">
+//                 <form action=\"blast.script.php\" method=\"post\">
+//                 <input type=\"hidden\" name=\"delete\" value=\"blast\">
+//                 <input type=\"submit\" class=\"btn btn-danger\" value=\"Delete All Chits\">
+//               </form>
+// 							</div>
+// 						</div>
+// 
+// 
+// 					</div>
+// 				</div>
+// 
+// 			</div>
+// 		</div>
+// ";
 ?>
 
 </div>

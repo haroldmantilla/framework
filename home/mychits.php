@@ -20,6 +20,22 @@
   # Load in template, if not already loaded
   require_once(LIBRARY_PATH.'template.php');
 
+  if (isset($_REQUEST['archive'])) {
+    $chit = $_REQUEST['archive'];
+
+    archive_chit($db, $chit);
+
+    unset($_SESSION['chit']);
+
+    header("Location: {$_SERVER['HTTP_REFERER']}");
+  }
+  elseif (isset($_REQUEST['print'])) {
+    
+    header("Location: generate_pdf.php");
+    die;
+  }
+
+
   # Load in The NavBar
   # Note: You too will have automated NavBar generation
   #       support in your future templates...
@@ -133,17 +149,18 @@ elseif(is_midshipman($db, USER['user'])){
 
 
     if($chitstatus == "APPROVED"){
-      echo "<form style=\"float: right;\" action=\"delete.script.php\" method=\"post\">
-        <input type=\"hidden\" name=\"delete\" value=\"{$chit['chitNumber']}\"/>
-        <input type=\"submit\" class=\"btn btn-danger\" value=\"Archive\">
-        </form>";
+      echo "<form style=\"float: right;\" action=\"?\" method=\"post\">
+      <input type=\"hidden\" name=\"archive\" value=\"{$chit['chitNumber']}\"/>
+      <input type=\"submit\" class=\"btn btn-danger\" value=\"Archive\">
+      </form>";
 
-        echo "<form style=\"float: right;\" action=\"print.script.php\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-default\" name=\"viewbutton\" value=\"Print Chit\"></form>";
+        echo "<form style=\"float: right;\" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\"/><input type=\"submit\" class=\"btn btn-default\" name=\"print\" value=\"Print Chit\">
+        </form>";
     }
     elseif ($chitstatus == "DISAPPROVED") {
 
-      echo "<form  style=\"float: right;\" action=\"delete.script.php\" method=\"post\">
-      <input type=\"hidden\" name=\"delete\" value=\"{$chit['chitNumber']}\"/>
+      echo "<form style=\"float: right;\" action=\"?\" method=\"post\">
+      <input type=\"hidden\" name=\"archive\" value=\"{$chit['chitNumber']}\"/>
       <input type=\"submit\" class=\"btn btn-danger\" value=\"Archive\">
       </form>";
     }

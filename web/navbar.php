@@ -141,6 +141,18 @@
     $NAVBAR[] = array('type'=>'url', 'title'=>'Make Chit', 'ltext'=>" Make Chit", 'url'=>'makechit.php');
   }
   
+  $query = "SELECT * FROM  auth_access where user=? AND access = 'level' AND value = 'MID'";
+  $stmt = build_query($db, $query, array(USER['user']));
+  $results = stmt_to_assoc_array($stmt);
+  $stmt->close();
+  
+  if(empty($results)){
+    if(preg_match('/m[0-9][0-9][0-9][0-9][0-9][0-9]/', USER['user'])){
+      $query = "INSERT INTO auth_access values (?, 'level', 'MID')";
+      $stmt = build_query($db, $query, array(USER['user']));
+      $stmt->close();
+    }
+  }
   
   
   
