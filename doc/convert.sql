@@ -44,11 +44,3 @@ ALTER TABLE `Chit` ADD coc_8_status varchar(20) AFTER coc_8_username;
 ALTER TABLE `Chit` ADD coc_8_comments varchar(200) AFTER coc_8_status;
 ALTER TABLE `Chit` ADD coc_8_date varchar(7) AFTER coc_8_comments;
 ALTER TABLE `Chit` ADD coc_8_time varchar(4) AFTER coc_8_date;
-
-INSERT INTO auth_access values
-('m194020', 'level', 'MID'),
-('m194020', 'admin', 'admin'),
-('m194020', 'admin', 'MISLO'),
-('m194020', 'admin', 'safety'),
-('m194020', 'site', 'become'),
-('m194020', 'admin', 'become');

@@ -23,30 +23,30 @@ END $$
 DROP PROCEDURE IF EXISTS createMidshipman$$
 CREATE PROCEDURE createMidshipman (
 	p_alpha varchar(10),
-    p_company INT,
-    p_classYear INT,
-    p_room INT,
-    p_SQPR DOUBLE,
-    p_CQPR DOUBLE,
-    p_phoneNumber varchar(14),
-    p_aptitudeGrade CHAR(1),
-    p_conductGrade CHAR(1),
-    p_coc_0 varchar(10),
-    p_coc_1 varchar(10),
-    p_coc_2 varchar(10),
-    p_coc_3 varchar(10),
-    p_coc_4 varchar(10),
-    p_coc_5 varchar(10),
-    p_coc_6 varchar(10),
-		p_coc_7 varchar(10),
-    p_coc_8 varchar(10)
-		
+	p_company INT,
+	p_classYear INT,
+	p_room INT,
+	p_SQPR DOUBLE,
+	p_CQPR DOUBLE,
+	p_phoneNumber varchar(14),
+	p_aptitudeGrade CHAR(1),
+	p_conductGrade CHAR(1),
+	p_coc_0 varchar(10),
+	p_coc_1 varchar(10),
+	p_coc_2 varchar(10),
+	p_coc_3 varchar(10),
+	p_coc_4 varchar(10),
+	p_coc_5 varchar(10),
+	p_coc_6 varchar(10),
+	p_coc_7 varchar(10),
+	p_coc_8 varchar(10)
+	
 )
 BEGIN
-	INSERT INTO Midshipman(alpha, company, classYear, room, SQPR, CQPR, phoneNumber, aptitudeGrade, conductGrade, coc_0, coc_1, coc_2, coc_3, coc_4, coc_5, coc_6, coc_7, coc_8)
-	VALUES (p_alpha, p_company, p_classYear, p_room, p_SQPR, p_CQPR, p_phoneNumber, p_aptitudeGrade, p_conductGrade,  p_coc_0, p_coc_1, p_coc_2, p_coc_3, p_coc_4, p_coc_5, p_coc_6, p_coc_7, p_coc_8)
-    ON DUPLICATE KEY UPDATE
-    alpha = p_alpha, company = p_company, classYear = p_classYear, room = p_room, SQPR = p_SQPR, CQPR = p_CQPR, phoneNumber = p_phoneNumber, aptitudeGrade = p_aptitudeGrade, conductGrade = p_conductGrade, coc_0 = p_coc_0, coc_1 = p_coc_1, coc_2 = p_coc_2, coc_3 = p_coc_3, coc_4 = p_coc_4, coc_5 = p_coc_5, coc_6 = p_coc_6, coc_7 = p_coc_7, coc_8 = p_coc_8;
+INSERT INTO Midshipman(alpha, company, classYear, room, SQPR, CQPR, phoneNumber, aptitudeGrade, conductGrade, coc_0, coc_1, coc_2, coc_3, coc_4, coc_5, coc_6, coc_7, coc_8)
+VALUES (p_alpha, p_company, p_classYear, p_room, p_SQPR, p_CQPR, p_phoneNumber, p_aptitudeGrade, p_conductGrade,  p_coc_0, p_coc_1, p_coc_2, p_coc_3, p_coc_4, p_coc_5, p_coc_6, p_coc_7, p_coc_8)
+ON DUPLICATE KEY UPDATE
+alpha = p_alpha, company = p_company, classYear = p_classYear, room = p_room, SQPR = p_SQPR, CQPR = p_CQPR, phoneNumber = p_phoneNumber, aptitudeGrade = p_aptitudeGrade, conductGrade = p_conductGrade, coc_0 = p_coc_0, coc_1 = p_coc_1, coc_2 = p_coc_2, coc_3 = p_coc_3, coc_4 = p_coc_4, coc_5 = p_coc_5, coc_6 = p_coc_6, coc_7 = p_coc_7, coc_8 = p_coc_8;
 END $$
 
 
