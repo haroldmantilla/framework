@@ -9,7 +9,7 @@
 
   # Location of the web and CSS files
   define('WEB_PATH', '../web/');
-  
+
   define('HOME_PATH', '../home/');
 
 
@@ -48,9 +48,9 @@
   # API queries or similar functions.
   define('DATABASE_MYSQL',
           array('default'=>array('host'=>'midn.cs.usna.edu',
-                                 'user'=>'echits',
-                                 'password'=>'TrustNoOne11',
-                                 'name'=>'project-echits')));
+                                 'user'=>'m194020',
+                                 'password'=>'Aiptek123',
+                                 'name'=>'m194020')));
 
   ################################################################
   # DANGER # DANGER # DANGER # DANGER # DANGER # DANGER # DANGER #
