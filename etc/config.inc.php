@@ -48,9 +48,9 @@
   # API queries or similar functions.
   define('DATABASE_MYSQL',
           array('default'=>array('host'=>'midn.cs.usna.edu',
-                                 'user'=>'m194020',
-                                 'password'=>'Aiptek123',
-                                 'name'=>'m194020')));
+                                 'user'=>'echits',
+                                 'password'=>'TrustNoOne11',
+                                 'name'=>'project-echits')));
 
   ################################################################
   # DANGER # DANGER # DANGER # DANGER # DANGER # DANGER # DANGER #
