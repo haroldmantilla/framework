@@ -1,12 +1,11 @@
 DROP TABLE IF EXISTS `Rates`;
 CREATE TABLE Rates(
-	rate VARCHAR(10) primary key 
+	rate VARCHAR(10) primary key
 );
 
-INSERT INTO Rates (rate) values ('ABC'), ('ACC'), ('ADC'), ('AEC'), ('AGC'), ('AMC'), ('AOC'), ('ASC'), ('ATC'), ('AWC'), ('AZC'), ('PRC'), ('BUC'), ('CEC'), ('CMC'), ('EAC'), ('EOC'), ('SWC'), ('UTC'), ('HMC'), ('BMC'), ('CSC'), ('CTIC'), ('CTMC'), ('CTNC'), ('CTRC'), ('CTTC'), ('EODC'), ('ETC'), ('FCC'), ('FTC'), ('GMC'),  
-('ISC'), ('ITC'), ('LNC'), ('LSC'), ('MAC'), ('MCC'), ('MNC'), ('MTC'), ('MUC'), ('NCC'), ('OSC'), ('PSC'), ('QMC'), ('RPC'), ('SBC'), ('SHC'), ('SOC'), ('STC'), ('YNC'), ('DCC'), ('EMC'), ('ENC'), ('GSC'), ('HTC'), ('ICC'), ('MMC'), ('MRC'), ('NDC'), ('ABCS'), ('ACCS'), ('ADCS'), ('AECS'), ('AGCS'),
-('AMCS'), ('AOCS'), ('ASCS'), ('ATCS'), ('AWCS'), ('AZCS'), ('PRCS'), ('BUCS'), ('CECS'), ('CMCS'), ('EACS'), ('EOCS'), ('SWCS'), ('UTCS'), ('HMCS'), ('BMCS'), ('CSCS'), ('CTICS'), ('CTMCS'), ('CTNCS'), ('CTRCS'), ('CTTCS'), ('EODCS'), ('ETCS'), ('FCCS'), ('FTCS'), ('GMCS'), ('ISCS'), ('ITCS'), ('LNCS'), ('LSCS'), ('MACS'), ('MCCS'),
-('MNCS'), ('MTCS'), ('MUCS'), ('NCCS'), ('OSCS'), ('PSCS'), ('QMCS'), ('RPCS'), ('SBCS'), ('SHCS'), ('SOCS'), ('STCS'), ('YNCS'), ('DCCS'), ('EMCS'), ('ENCS'), ('GSCS'), ('HTCS'), ('ICCS'), ('MMCS'), ('MRCS'), ('NDCS'); 
+INSERT INTO Rates (rate) values ('CMC'), ('ABCM'), ('ACCM'), ('ADCM'), ('AECM'), ('AGCM'),
+('AMCM'), ('AOCM'), ('ASCM'), ('ATCM'), ('AWCM'), ('AZCM'), ('PRCM'), ('BUCM'), ('CECM'), ('CMCM'), ('EACM'), ('EOCM'), ('SWCM'), ('UTCM'), ('HMCM'), ('BMCM'), ('CMCM'), ('CTICM'), ('CTMCM'), ('CTNCM'), ('CTRCM'), ('CTTCM'), ('EODCM'), ('ETCM'), ('FCCM'), ('FTCM'), ('GMCM'), ('ISCM'), ('ITCM'), ('LNCM'), ('LSCM'), ('MACM'), ('MCCM'),
+('MNCM'), ('MTCM'), ('MUCM'), ('NCCM'), ('OSCM'), ('PSCM'), ('QMCM'), ('RPCM'), ('SBCM'), ('SHCM'), ('SOCM'), ('STCM'), ('YNCM'), ('DCCM'), ('EMCM'), ('ENCM'), ('GSCM'), ('HTCM'), ('ICCM'), ('MMCM'), ('MRCM'), ('NDCM');
 
 
 ALTER TABLE `Leader` DROP COLUMN salt;
