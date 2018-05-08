@@ -407,32 +407,32 @@ function redirect(location){
 
 
           //coc_0
-          // echo "<div class=\"row\">";
-          // echo "<div class=\"col-sm-3 text-right\">";
-          // echo "<p>Commandant:</p>";
-          // echo "</div>";
-          // echo "<div class=\"col-sm-6\">";
-          // echo "<select class=\"form-control\" name=\"coc_0\">";
-          // echo "<option value=\"\"></option>";
-          // foreach($coc_options_officers as $user){
-          //   echo "<option value=\"{$user['username']}\"";
-		  //
-          //   if($midshipmaninfo['coc_0'] == $user['username']){
-          //     echo "selected";
-          //   }
-		  //
-          //   echo ">{$user['rank']} {$user['lastName']}</option>";
-          // }
-          // echo "</select>";
-          // echo "</div>";
-          // echo "<div class=\"col-sm-3\">";
-          // echo "</div>";
-          // echo "</div>"; //closes row
+          echo "<div class=\"row\">";
+          echo "<div class=\"col-sm-3 text-right\">";
+          echo "<p>NASP OIC:</p>";
+          echo "</div>";
+          echo "<div class=\"col-sm-6\">";
+          echo "<select class=\"form-control\" name=\"coc_0\">";
+          echo "<option value=\"\"></option>";
+          foreach($coc_options_officers as $user){
+            echo "<option value=\"{$user['username']}\"";
+
+            if($midshipmaninfo['coc_0'] == $user['username']){
+              echo "selected";
+            }
+
+            echo ">{$user['rank']} {$user['lastName']}</option>";
+          }
+          echo "</select>";
+          echo "</div>";
+          echo "<div class=\"col-sm-3\">";
+          echo "</div>";
+          echo "</div>"; //closes row
 
           //coc_1
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>NASP OIC</p>";
+          echo "<p>NASP AOIC</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_1\">";
@@ -456,7 +456,7 @@ function redirect(location){
           //coc_2
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>NASP Deputy OIC:</p>";
+          echo "<p>NASP XO:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_2\">";
@@ -480,7 +480,7 @@ function redirect(location){
           //coc_3
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>NASP Wing Officer:</p>";
+          echo "<p>NASP Wing CO:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_3\">";
@@ -504,7 +504,7 @@ function redirect(location){
           //coc_4
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>NASP Senior Enlised:</p>";
+          echo "<p>NASP Senior Enlisted:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_4\">";
@@ -528,7 +528,7 @@ function redirect(location){
           //coc_5
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Summer School CC:</p>";
+          echo "<p>Summer School CC/Program Mid in Charge:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_5\">";
