@@ -391,6 +391,9 @@ function redirect(location){
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-12 text-center\">";
           echo "<br><br><br><p><u>Chain of Command</u></p>";
+
+          echo "<p>*If any of these CoC options do not apply to you (STEM does not have a Wing XO) <br>leave them blank</p>";
+
           echo "</div>";
           echo "</div>"; //closes row
 
@@ -409,7 +412,7 @@ function redirect(location){
           //coc_0
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>NASP OIC:</p>";
+          echo "<p>Summer Program OIC/NASP OIC:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_0\">";
@@ -432,7 +435,7 @@ function redirect(location){
           //coc_1
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>NASP AOIC</p>";
+          echo "<p>Summer Program AOIC/NASP AOIC</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_1\">";
@@ -504,7 +507,7 @@ function redirect(location){
           //coc_4
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>NASP Senior Enlisted:</p>";
+          echo "<p>Summer Program/NASP Senior Enlisted:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_4\">";
@@ -528,7 +531,7 @@ function redirect(location){
           //coc_5
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Summer School CC/Program Mid in Charge:</p>";
+          echo "<p>Summer Program CO/Mid in Charge:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_5\">";
@@ -552,7 +555,7 @@ function redirect(location){
           //coc_6
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Summer School XO:</p>";
+          echo "<p>Summer Program XO:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_6\">";
@@ -569,16 +572,14 @@ function redirect(location){
           }
           echo "</select>";
           echo "</div>";
-          echo "<div class=\"col-sm-3\">";
-          echo "<p>*If you are not a squad member, feel free to leave positions blank</p>";
-          echo "</div>";
+
           echo "</div>"; //closes row
 
 
           //coc_7
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Summer School PC:</p>";
+          echo "<p>Summer Program PC:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_7\">";
@@ -601,7 +602,7 @@ function redirect(location){
           //coc_8
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Summer School Squad Leader:</p>";
+          echo "<p>Summer Program Squad Leader:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_8\">";
