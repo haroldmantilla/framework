@@ -410,7 +410,7 @@ p_company INT
 )
 BEGIN
 SELECT DISTINCT
-l.username, l.lastName, l.firstName, l.rank, m.alpha, m.company
+l.username, l.lastName, l.firstName, l.rank, m.alpha
     FROM Leader as l, Midshipman as m
     where
     (m.alpha = l.username and
