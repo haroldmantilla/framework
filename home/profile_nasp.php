@@ -42,7 +42,7 @@ function redirect(location){
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-      <?php 
+      <?php
       if(isset($_SESSION['error'])) {
         echo "<div class=\"alert alert-danger\">".$_SESSION['error']."</div>";
         unset($_SESSION['error']);
@@ -51,32 +51,32 @@ function redirect(location){
 
 		</div>
 	</div>
-  
+
   <?php
   $debug = false;
   // $debug = true;
-  
+
   //edit basic info
   if(isset($_POST['changes']) && $_POST['changes'] == "Submit Changes" && isset($_POST['rank']) && !empty($_POST['rank']) && isset($_POST['firstname']) && !empty($_POST['firstname']) && isset($_POST['lastname']) && !empty($_POST['lastname']) && isset($_POST['billet']) && !empty($_POST['billet'])){
-    
+
     update_basic_leader_info($db, USER['user'], $_POST['rank'], $_POST['firstname'], $_POST['lastname'], $_POST['billet']);
-    
-    
-    
+
+
+
   }
-  
+
   $userinfo = get_user_information($db, USER['user']);
-  
+
   // echo "<pre>";
   // print_r($userinfo);
   // echo "</pre>";
-  
+
   if(isset($_POST['editbasic'])){
     echo "<div class=\"row\">";
     echo "<div class=\"col-sm-10\">";
     echo "<div class=\"well\">";
     echo "<form action=\"?\" method=\"post\">";
-    
+
     if($userinfo['level'] == "MID"){
       echo "<select class='form-control' name='rank' id='rank' required>";
       echo "
@@ -115,15 +115,15 @@ function redirect(location){
     }
     elseif($userinfo['level'] == "SEL" && $userinfo['service'] == "USN" ){
       echo "<select class='form-control' name='rank' id='rank' required>";
-      
+
       $ranks = get_ranks($db);
-      
+
       foreach ($ranks as $key => $rank) {
-        echo "<option value='{$rank['rate']}'"; if($userinfo['rank'] == "{$rank['rate']}"){echo "selected";} 
+        echo "<option value='{$rank['rate']}'"; if($userinfo['rank'] == "{$rank['rate']}"){echo "selected";}
         echo ">{$rank['rate']}</option>";
       }
-      
-      
+
+
       echo "</select>";
     }
     elseif($userinfo['level'] == "SEL" && $userinfo['service'] == "USMC" ){
@@ -134,25 +134,25 @@ function redirect(location){
       ";
       echo "</select>";
     }
-    
-    
+
+
     echo "<input type=\"text\" class=\"form-control\" name=\"firstname\" maxlength=\"20\" value=\"{$userinfo['firstName']}\" placeholder=\"First Name\"required>";
-    
+
     echo "<input type=\"text\" class=\"form-control\" name=\"lastname\" maxlength=\"20\" value=\"{$userinfo['lastName']}\" placeholder=\"Last Name\"required>";
-    
+
     echo "<input type=\"text\" class=\"form-control\" name=\"billet\" maxlength=\"40\" value=\"{$userinfo['billet']}\" placeholder=\"Billet\" required>";
-    
+
     echo "</div>";
     echo "</div>";
-    
+
     echo "<div class=\"col-sm-2 btn-toolbar text-center\">";
-    
+
     echo "<input type=\"submit\" class=\"btn btn-default \" name=\"changes\" value=\"Submit Changes\">";
-    echo "<button class=\"btn btn-danger btn-space\" onclick=\"redirect('./profile.php')\">Cancel</button>";
+    echo "<button class=\"btn btn-danger btn-space\" onclick=\"redirect('./profile_nasp.php')\">Cancel</button>";
     echo "</form>";
     echo "</div>";
     echo "</div>";
-    
+
   }
   else{
     echo "<div class=\"row\">";
@@ -160,10 +160,10 @@ function redirect(location){
     echo "<div class=\"well\">";
     echo "<h5>{$userinfo['rank']} {$userinfo['firstName']} {$userinfo['lastName']}, {$userinfo['service']}</h5>";
     echo "<h5>{$userinfo['billet']}</h5>";
-    
+
     echo "</div>";
     echo "</div>";
-    
+
     echo "<div class=\"col-sm-2\">";
     echo "<form action=\"?\" method=\"post\">";
     echo "<input type=\"submit\" class=\"btn btn-secondary\" name=\"editbasic\" value=\"Edit Basic Information\">";
@@ -174,11 +174,11 @@ function redirect(location){
       echo "<div class=\"alert alert-success\">".$_SESSION['success']."</div>";
       unset($_SESSION['success']);
     }
-    
-    
+
+
     if($userinfo['level'] != "MID"){
       $subordinates = get_subordinates($db, USER['user']);
-      
+
       if(isset($subordinates) && !empty($subordinates)){
         echo "<div class=\"row\">";
         echo "<div class=\"col-sm-10\">";
@@ -239,17 +239,34 @@ function redirect(location){
 
       if(isset($_POST['changemidshipmaninfo']) && $_POST['changemidshipmaninfo'] == "Submit Changes" && isset($_POST['company']) &&  isset($_POST['year']) &&  isset($_POST['room']) &&  isset($_POST['phonenumber']) &&  isset($_POST['SQPR']) &&  isset($_POST['CQPR']) &&  isset($_POST['aptitudegrade']) &&  isset($_POST['conductgrade']) ){
 
-        if(!isset($_POST['coc_0'])){
-          $_POST['coc_0'] = null;
-          $_POST['coc_1'] = null;
-          $_POST['coc_2'] = null;
-          $_POST['coc_3'] = null;
-          $_POST['coc_4'] = null;
-          $_POST['coc_5'] = null;
-          $_POST['coc_6'] = null;
-          $_POST['coc_7'] = null;
-          $_POST['coc_8'] = null;
-        }
+		  if(!isset($_POST['coc_0'])){
+			  $_POST['coc_0'] = null;
+		  }
+		  if(!isset($_POST['coc_1'])){
+			  $_POST['coc_1']= null;
+		  }
+		  if(!isset($_POST['coc_2'])){
+			  $_POST['coc_2'] = null;
+		  }
+		  if(!isset($_POST['coc_3'])){
+			  $_POST['coc_3'] = null;
+		  }
+		  if(!isset($_POST['coc_4'])){
+			  $_POST['coc_4']  = null;
+		  }
+		  if(!isset($_POST['coc_5'])){
+			  $_POST['coc_5']  = null;
+		  }
+		  if(!isset($_POST['coc_6'])){
+			  $_POST['coc_6'] = null;
+		  }
+		  if(!isset($_POST['coc_7'])){
+			  $_POST['coc_7'] = null;
+		  }
+		  if(!isset($_POST['coc_8'])){
+			  $_POST['coc_8'] = null;
+		  }
+
 
         if(in_array(USER['user'], array($_POST['coc_0'], $_POST['coc_1'], $_POST['coc_2'], $_POST['coc_3'], $_POST['coc_4'], $_POST['coc_5'], $_POST['coc_6']))){
           $_SESSION['error'] = "You cannot be in your own Chain of Command!";
@@ -283,6 +300,7 @@ function redirect(location){
         echo "<div class=\"row\">";
         echo "<div class=\"col-sm-3\">";
         echo "<select class=\"form-control\" name=\"company\" required>";
+		echo "<option value=\"0\""; if($midshipmaninfo['company'] == 0){echo "selected";} echo ">0</option>";
         echo "<option value=\"1\""; if($midshipmaninfo['company'] == 1){echo "selected";} echo ">1</option>";
         echo "<option value=\"2\""; if($midshipmaninfo['company'] == 2){echo "selected";} echo ">2</option>";
         echo "<option value=\"3\""; if($midshipmaninfo['company'] == 3){echo "selected";} echo ">3</option>";
@@ -378,7 +396,7 @@ function redirect(location){
 
 
           $coc_options_midn = get_potential_coc_midn($db, $midshipmaninfo['company']);
-          
+
           $coc_options_officers = get_potential_coc_officers($db);
           $coc_options_SELs = get_potential_coc_SELs($db);
 
@@ -391,7 +409,7 @@ function redirect(location){
           //coc_0
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Commandant:</p>";
+          echo "<p>NASP OIC:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_0\">";
@@ -414,7 +432,7 @@ function redirect(location){
           //coc_1
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Deputy Commandant:</p>";
+          echo "<p>NASP AOIC</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_1\">";
@@ -438,7 +456,7 @@ function redirect(location){
           //coc_2
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Battalion Officer:</p>";
+          echo "<p>NASP XO:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_2\">";
@@ -462,7 +480,7 @@ function redirect(location){
           //coc_3
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Company Officer:</p>";
+          echo "<p>NASP Wing CO:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_3\">";
@@ -486,7 +504,7 @@ function redirect(location){
           //coc_4
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Senior Enlised:</p>";
+          echo "<p>NASP Senior Enlisted:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_4\">";
@@ -510,7 +528,7 @@ function redirect(location){
           //coc_5
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Company Commander:</p>";
+          echo "<p>Summer School CC/Program Mid in Charge:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_5\">";
@@ -534,7 +552,7 @@ function redirect(location){
           //coc_6
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Company XO:</p>";
+          echo "<p>Summer School XO:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_6\">";
@@ -555,12 +573,12 @@ function redirect(location){
           echo "<p>*If you are not a squad member, feel free to leave positions blank</p>";
           echo "</div>";
           echo "</div>"; //closes row
-          
-          
+
+
           //coc_7
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Platoon Commander:</p>";
+          echo "<p>Summer School PC:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_7\">";
@@ -579,11 +597,11 @@ function redirect(location){
           echo "<div class=\"col-sm-3\">";
           echo "</div>";
           echo "</div>"; //closes row
-          
+
           //coc_8
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Squad Leader:</p>";
+          echo "<p>Summer School Squad Leader:</p>";
           echo "</div>";
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_8\">";
@@ -611,7 +629,7 @@ function redirect(location){
           echo "<div class=\"col-sm-2\">";
 
           echo "<input type=\"submit\" class=\"btn btn-default \" name=\"changemidshipmaninfo\" value=\"Submit Changes\">";
-          echo "<button class=\"btn btn-danger btn-space\" onclick=\"redirect('./profile.php')\">Cancel</button>";
+          echo "<button class=\"btn btn-danger btn-space\" onclick=\"redirect('./profile_nasp.php')\">Cancel</button>";
           echo "</form>";
           echo "</div>";
           echo "</div>";
@@ -669,7 +687,7 @@ function redirect(location){
         echo "</div>";
         echo "</div>"; //closes row
 
-  
+
         if(isset($midshipmaninfo['coc_0']) && !empty($midshipmaninfo['coc_0'])){
           $coc_0_info = get_user_information($db, $midshipmaninfo['coc_0']);
           echo "<div class=\"row\">";
@@ -884,7 +902,7 @@ function redirect(location){
         }
 
         $subordinates = get_subordinates($db, USER['user']);
-        
+
         if(isset($subordinates) && !empty($subordinates)){
           echo "<div class=\"row\">";
           echo "<div class=\"col-sm-10\">";

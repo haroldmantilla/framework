@@ -23,30 +23,30 @@ END $$
 DROP PROCEDURE IF EXISTS createMidshipman$$
 CREATE PROCEDURE createMidshipman (
 	p_alpha varchar(10),
-    p_company INT,
-    p_classYear INT,
-    p_room INT,
-    p_SQPR DOUBLE,
-    p_CQPR DOUBLE,
-    p_phoneNumber varchar(14),
-    p_aptitudeGrade CHAR(1),
-    p_conductGrade CHAR(1),
-    p_coc_0 varchar(10),
-    p_coc_1 varchar(10),
-    p_coc_2 varchar(10),
-    p_coc_3 varchar(10),
-    p_coc_4 varchar(10),
-    p_coc_5 varchar(10),
-    p_coc_6 varchar(10),
-		p_coc_7 varchar(10),
-    p_coc_8 varchar(10)
-		
+	p_company INT,
+	p_classYear INT,
+	p_room INT,
+	p_SQPR DOUBLE,
+	p_CQPR DOUBLE,
+	p_phoneNumber varchar(14),
+	p_aptitudeGrade CHAR(1),
+	p_conductGrade CHAR(1),
+	p_coc_0 varchar(10),
+	p_coc_1 varchar(10),
+	p_coc_2 varchar(10),
+	p_coc_3 varchar(10),
+	p_coc_4 varchar(10),
+	p_coc_5 varchar(10),
+	p_coc_6 varchar(10),
+	p_coc_7 varchar(10),
+	p_coc_8 varchar(10)
+
 )
 BEGIN
-	INSERT INTO Midshipman(alpha, company, classYear, room, SQPR, CQPR, phoneNumber, aptitudeGrade, conductGrade, coc_0, coc_1, coc_2, coc_3, coc_4, coc_5, coc_6, coc_7, coc_8)
-	VALUES (p_alpha, p_company, p_classYear, p_room, p_SQPR, p_CQPR, p_phoneNumber, p_aptitudeGrade, p_conductGrade,  p_coc_0, p_coc_1, p_coc_2, p_coc_3, p_coc_4, p_coc_5, p_coc_6, p_coc_7, p_coc_8)
-    ON DUPLICATE KEY UPDATE
-    alpha = p_alpha, company = p_company, classYear = p_classYear, room = p_room, SQPR = p_SQPR, CQPR = p_CQPR, phoneNumber = p_phoneNumber, aptitudeGrade = p_aptitudeGrade, conductGrade = p_conductGrade, coc_0 = p_coc_0, coc_1 = p_coc_1, coc_2 = p_coc_2, coc_3 = p_coc_3, coc_4 = p_coc_4, coc_5 = p_coc_5, coc_6 = p_coc_6, coc_7 = p_coc_7, coc_8 = p_coc_8;
+INSERT INTO Midshipman(alpha, company, classYear, room, SQPR, CQPR, phoneNumber, aptitudeGrade, conductGrade, coc_0, coc_1, coc_2, coc_3, coc_4, coc_5, coc_6, coc_7, coc_8)
+VALUES (p_alpha, p_company, p_classYear, p_room, p_SQPR, p_CQPR, p_phoneNumber, p_aptitudeGrade, p_conductGrade,  p_coc_0, p_coc_1, p_coc_2, p_coc_3, p_coc_4, p_coc_5, p_coc_6, p_coc_7, p_coc_8)
+ON DUPLICATE KEY UPDATE
+alpha = p_alpha, company = p_company, classYear = p_classYear, room = p_room, SQPR = p_SQPR, CQPR = p_CQPR, phoneNumber = p_phoneNumber, aptitudeGrade = p_aptitudeGrade, conductGrade = p_conductGrade, coc_0 = p_coc_0, coc_1 = p_coc_1, coc_2 = p_coc_2, coc_3 = p_coc_3, coc_4 = p_coc_4, coc_5 = p_coc_5, coc_6 = p_coc_6, coc_7 = p_coc_7, coc_8 = p_coc_8;
 END $$
 
 
@@ -198,13 +198,13 @@ CREATE PROCEDURE createChit (
     p_coc_6_comments VARCHAR(200),
     p_coc_6_date VARCHAR(7),
     p_coc_6_time VARCHAR(4),
-		 
+
 		p_coc_7_username varchar(10),
 		p_coc_7_status VARCHAR(8),
 		p_coc_7_comments VARCHAR(200),
 		p_coc_7_date VARCHAR(7),
 		p_coc_7_time VARCHAR(4),
-		
+
 		p_coc_8_username varchar(10),
 		p_coc_8_status VARCHAR(8),
 		p_coc_8_comments VARCHAR(200),
@@ -281,13 +281,13 @@ CREATE PROCEDURE updateChit (
     p_coc_6_comments VARCHAR(200),
     p_coc_6_date VARCHAR(7),
     p_coc_6_time VARCHAR(4),
-		
+
 		p_coc_7_username varchar(10),
 		p_coc_7_status VARCHAR(8),
 		p_coc_7_comments VARCHAR(200),
 		p_coc_7_date VARCHAR(7),
 		p_coc_7_time VARCHAR(4),
-		
+
 		p_coc_8_username varchar(10),
 		p_coc_8_status VARCHAR(8),
 		p_coc_8_comments VARCHAR(200),
@@ -350,13 +350,13 @@ BEGIN
     coc_6_comments = p_coc_6_comments,
     coc_6_date = p_coc_6_date,
     coc_6_time = p_coc_6_time,
-		
+
     coc_7_username = p_coc_7_username,
     coc_7_status = p_coc_7_status,
     coc_7_comments = p_coc_7_comments,
     coc_7_date = p_coc_7_date,
     coc_7_time = p_coc_7_time,
-		
+
     coc_8_username = p_coc_8_username,
     coc_8_status = p_coc_8_status,
     coc_8_comments = p_coc_8_comments,
@@ -410,10 +410,10 @@ p_company INT
 )
 BEGIN
 SELECT DISTINCT
-l.username, l.lastName, l.firstName, l.rank, m.alpha, m.company
+l.username, l.lastName, l.firstName, l.rank, m.alpha
     FROM Leader as l, Midshipman as m
     where
-    (m.alpha = l.username and m.company = p_company and
+    (m.alpha = l.username and
     (l.rank = "MIDN 1/C" or
 	l.rank = "MIDN 2/C" or
     l.rank = "MIDN ENS" or
@@ -921,7 +921,7 @@ DROP PROCEDURE IF EXISTS designateSafety$$
 CREATE PROCEDURE designateSafety(
 	p_username varchar(10)
 )
-BEGIN  
+BEGIN
  INSERT INTO auth_access(user, access, value) values (p_username, 'admin', 'safety') ON DUPLICATE KEY UPDATE user = user, access = 'admin', value = 'safety';
 
 END $$
@@ -1027,11 +1027,11 @@ CREATE PROCEDURE deleteUser(
 )
 BEGIN
     DELETE FROM Leader WHERE username = p_username;
-		
+
 		DELETE FROM auth_session WHERE user = p_username;
-		
+
 		DELETE FROM auth_user WHERE user = p_username;
-		
+
 END $$
 
 
