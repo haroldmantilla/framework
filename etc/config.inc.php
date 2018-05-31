@@ -50,7 +50,7 @@
           array('default'=>array('host'=>'midn.cs.usna.edu',
                                  'user'=>'echits',
                                  'password'=>'TrustNoOne11',
-                                 'name'=>'project-echits')));
+                                 'name'=>'project-echits-summer')));
 
   ################################################################
   # DANGER # DANGER # DANGER # DANGER # DANGER # DANGER # DANGER #
