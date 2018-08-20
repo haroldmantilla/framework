@@ -123,16 +123,16 @@
     exit;
   }
 
-  if(is_midshipman($db, USER['user']) && !in_midshipman_table($db, USER['user']) && basename($_SERVER['PHP_SELF']) != "profile_acyear.php"){
+  if(is_midshipman($db, USER['user']) && !in_midshipman_table($db, USER['user']) && basename($_SERVER['PHP_SELF']) != "profile_nasp.php"){
     $_SESSION['error'] = "You must complete your profile to use eChits.";
-    $url = "Location: profile_acyear.php";
+    $url = "Location: profile_nasp.php";
 	  header($url);
     exit;
   }
 
-  if(in_midshipman_table($db, USER['user']) && !coc_complete($db, USER['user']) && basename($_SERVER['PHP_SELF']) != "profile_acyear.php"){
+  if(in_midshipman_table($db, USER['user']) && !coc_complete($db, USER['user']) && basename($_SERVER['PHP_SELF']) != "profile_nasp.php"){
     $_SESSION['error'] = "You have not designated your Chain of Command yet! Click the 'Edit Midshipman Information' button to proceed.";
-    $url = "Location: profile_acyear.php";
+    $url = "Location: profile_nasp.php";
 	  header($url);
     die;
   }
