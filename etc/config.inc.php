@@ -47,7 +47,7 @@
   # NOTE: Recommend creating a 'low' level account, if using
   # API queries or similar functions.
   define('DATABASE_MYSQL',
-          array('default'=>array('host'=>'midn.cs.usna.edu',
+          array('default'=>array('host'=>'localhost',
                                  'user'=>'echits',
                                  'password'=>'TrustNoOne11',
                                  'name'=>'echits')));
