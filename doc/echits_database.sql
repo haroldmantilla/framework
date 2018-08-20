@@ -1,4 +1,4 @@
-USE m183990_IT452;
+USE echits;
 
 DROP TABLE IF EXISTS `Midshipman`;
 DROP TABLE IF EXISTS `Chit`;
@@ -27,13 +27,13 @@ CREATE TABLE Board(
 
 DROP TABLE IF EXISTS `Rates`;
 CREATE TABLE Rates(
-	rate VARCHAR(10) primary key 
+	rate VARCHAR(10) primary key
 );
 
-INSERT INTO Rates (rate) values ('ABC'), ('ACC'), ('ADC'), ('AEC'), ('AGC'), ('AMC'), ('AOC'), ('ASC'), ('ATC'), ('AWC'), ('AZC'), ('PRC'), ('BUC'), ('CEC'), ('CMC'), ('EAC'), ('EOC'), ('SWC'), ('UTC'), ('HMC'), ('BMC'), ('CSC'), ('CTIC'), ('CTMC'), ('CTNC'), ('CTRC'), ('CTTC'), ('EODC'), ('ETC'), ('FCC'), ('FTC'), ('GMC'),  
+INSERT INTO Rates (rate) values ('ABC'), ('ACC'), ('ADC'), ('AEC'), ('AGC'), ('AMC'), ('AOC'), ('ASC'), ('ATC'), ('AWC'), ('AZC'), ('PRC'), ('BUC'), ('CEC'), ('CMC'), ('EAC'), ('EOC'), ('SWC'), ('UTC'), ('HMC'), ('BMC'), ('CSC'), ('CTIC'), ('CTMC'), ('CTNC'), ('CTRC'), ('CTTC'), ('EODC'), ('ETC'), ('FCC'), ('FTC'), ('GMC'),
 ('ISC'), ('ITC'), ('LNC'), ('LSC'), ('MAC'), ('MCC'), ('MNC'), ('MTC'), ('MUC'), ('NCC'), ('OSC'), ('PSC'), ('QMC'), ('RPC'), ('SBC'), ('SHC'), ('SOC'), ('STC'), ('YNC'), ('DCC'), ('EMC'), ('ENC'), ('GSC'), ('HTC'), ('ICC'), ('MMC'), ('MRC'), ('NDC'), ('ABCS'), ('ACCS'), ('ADCS'), ('AECS'), ('AGCS'),
 ('AMCS'), ('AOCS'), ('ASCS'), ('ATCS'), ('AWCS'), ('AZCS'), ('PRCS'), ('BUCS'), ('CECS'), ('CMCS'), ('EACS'), ('EOCS'), ('SWCS'), ('UTCS'), ('HMCS'), ('BMCS'), ('CSCS'), ('CTICS'), ('CTMCS'), ('CTNCS'), ('CTRCS'), ('CTTCS'), ('EODCS'), ('ETCS'), ('FCCS'), ('FTCS'), ('GMCS'), ('ISCS'), ('ITCS'), ('LNCS'), ('LSCS'), ('MACS'), ('MCCS'),
-('MNCS'), ('MTCS'), ('MUCS'), ('NCCS'), ('OSCS'), ('PSCS'), ('QMCS'), ('RPCS'), ('SBCS'), ('SHCS'), ('SOCS'), ('STCS'), ('YNCS'), ('DCCS'), ('EMCS'), ('ENCS'), ('GSCS'), ('HTCS'), ('ICCS'), ('MMCS'), ('MRCS'), ('NDCS'); 
+('MNCS'), ('MTCS'), ('MUCS'), ('NCCS'), ('OSCS'), ('PSCS'), ('QMCS'), ('RPCS'), ('SBCS'), ('SHCS'), ('SOCS'), ('STCS'), ('YNCS'), ('DCCS'), ('EMCS'), ('ENCS'), ('GSCS'), ('HTCS'), ('ICCS'), ('MMCS'), ('MRCS'), ('NDCS');
 
 
 DROP TABLE IF EXISTS `Midshipman`;
@@ -102,63 +102,63 @@ CREATE TABLE Chit(
 	endTime VARCHAR(4),
 	ormURL VARCHAR(200),
 	supportingDocsURL VARCHAR(200),
-	
+
 	coc_0_username VARCHAR(10) NULL,
 	coc_0_status VARCHAR(20),
 	coc_0_comments VARCHAR(200),
 	coc_0_date VARCHAR(7),
 	coc_0_time VARCHAR(4),
-	
+
 	coc_1_username VARCHAR(10) NULL,
 	coc_1_status VARCHAR(20),
 	coc_1_comments VARCHAR(200),
 	coc_1_date VARCHAR(7),
 	coc_1_time VARCHAR(4),
-	
+
 	coc_2_username VARCHAR(10) NULL,
 	coc_2_status VARCHAR(20),
 	coc_2_comments VARCHAR(200),
 	coc_2_date VARCHAR(7),
 	coc_2_time VARCHAR(4),
-	
+
 	coc_3_username VARCHAR(10) NULL,
 	coc_3_status VARCHAR(20),
 	coc_3_comments VARCHAR(200),
 	coc_3_date VARCHAR(7),
 	coc_3_time VARCHAR(4),
-	
+
 	coc_4_username VARCHAR(10) NULL,
 	coc_4_status VARCHAR(20),
 	coc_4_comments VARCHAR(200),
 	coc_4_date VARCHAR(7),
 	coc_4_time VARCHAR(4),
-	
+
 	coc_5_username VARCHAR(10) NULL,
 	coc_5_status VARCHAR(20),
 	coc_5_comments VARCHAR(200),
 	coc_5_date VARCHAR(7),
 	coc_5_time VARCHAR(4),
-	
+
 	coc_6_username VARCHAR(10) NULL,
 	coc_6_status VARCHAR(20),
 	coc_6_comments VARCHAR(200),
 	coc_6_date VARCHAR(7),
 	coc_6_time VARCHAR(4),
-	
-	
+
+
 	coc_7_username VARCHAR(10) NULL,
 	coc_7_status VARCHAR(20),
 	coc_7_comments VARCHAR(200),
 	coc_7_date VARCHAR(7),
 	coc_7_time VARCHAR(4),
-	
-	
+
+
 	coc_8_username VARCHAR(10) NULL,
 	coc_8_status VARCHAR(20),
 	coc_8_comments VARCHAR(200),
 	coc_8_date VARCHAR(7),
 	coc_8_time VARCHAR(4),
-	
+
 	PRIMARY KEY (chitNumber),
 	FOREIGN KEY f1(creator) REFERENCES Leader(username)
 	ON DELETE CASCADE ON UPDATE RESTRICT,
