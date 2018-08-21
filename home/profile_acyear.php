@@ -6,7 +6,7 @@
   $MODULE_DEF = array('name'       => 'My Profile',
                       'version'    => 1.0,
                       'display'    => '',
-                      'tab'        => '',
+                      'tab'        => 'user',
                       'position'   => 0,
                       'student'    => true,
                       'instructor' => true,

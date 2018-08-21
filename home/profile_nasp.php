@@ -3,10 +3,10 @@
   ###############################################################
   #              Security and Navbar Configuration              #
   ###############################################################
-  $MODULE_DEF = array('name'       => 'My Profile1',
+  $MODULE_DEF = array('name'       => 'Contact Admin',
                       'version'    => 1.0,
                       'display'    => 'My Profile',
-                      'tab'        => 'user',
+                      'tab'        => '',
                       'position'   => 0,
                       'student'    => true,
                       'instructor' => true,
