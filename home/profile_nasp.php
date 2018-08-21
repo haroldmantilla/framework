@@ -3,7 +3,7 @@
   ###############################################################
   #              Security and Navbar Configuration              #
   ###############################################################
-  $MODULE_DEF = array('name'       => 'My Profile',
+  $MODULE_DEF = array('name'       => 'My Profile1',
                       'version'    => 1.0,
                       'display'    => 'My Profile',
                       'tab'        => 'user',
