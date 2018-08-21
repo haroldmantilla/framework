@@ -386,54 +386,58 @@ function redirect(location){
           // print_r($coc_options_midn);
           // print_r($coc_options_officers);
           // echo "</pre>";
+/////////////////////////////////////////////////////////////////////////////////////
 
+///20AUG2018 -- HAROLD MANTILLA
+// EDITED OUT COMMANDANT AND DEPT DANT OPTIONS
 
-          //coc_0
-          echo "<div class=\"row\">";
-          echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Commandant:</p>";
-          echo "</div>";
-          echo "<div class=\"col-sm-6\">";
-          echo "<select class=\"form-control\" name=\"coc_0\">";
-          echo "<option value=\"\"></option>";
-          foreach($coc_options_officers as $user){
-            echo "<option value=\"{$user['username']}\"";
+          // //coc_0
+          // echo "<div class=\"row\">";
+          // echo "<div class=\"col-sm-3 text-right\">";
+          // echo "<p>Commandant:</p>";
+          // echo "</div>";
+          // echo "<div class=\"col-sm-6\">";
+          // echo "<select class=\"form-control\" name=\"coc_0\">";
+          // echo "<option value=\"\"></option>";
+          // foreach($coc_options_officers as $user){
+          //   echo "<option value=\"{$user['username']}\"";
+          //
+          //   if($midshipmaninfo['coc_0'] == $user['username']){
+          //     echo "selected";
+          //   }
+          //
+          //   echo ">{$user['rank']} {$user['lastName']}</option>";
+          // }
+          // echo "</select>";
+          // echo "</div>";
+          // echo "<div class=\"col-sm-3\">";
+          // echo "</div>";
+          // echo "</div>"; //closes row
+          //
+          // //coc_1
+          // echo "<div class=\"row\">";
+          // echo "<div class=\"col-sm-3 text-right\">";
+          // echo "<p>Deputy Commandant:</p>";
+          // echo "</div>";
+          // echo "<div class=\"col-sm-6\">";
+          // echo "<select class=\"form-control\" name=\"coc_1\">";
+          // echo "<option value=\"\"></option>";
+          // foreach($coc_options_officers as $user){
+          //   echo "<option value=\"{$user['username']}\"";
+          //
+          //   if($midshipmaninfo['coc_1'] == $user['username']){
+          //     echo "selected";
+          //   }
+          //
+          //   echo ">{$user['rank']} {$user['lastName']}</option>";
+          // }
+          // echo "</select>";
+          // echo "</div>";
+          // echo "<div class=\"col-sm-3\">";
+          // echo "</div>";
+          // echo "</div>"; //closes row
 
-            if($midshipmaninfo['coc_0'] == $user['username']){
-              echo "selected";
-            }
-
-            echo ">{$user['rank']} {$user['lastName']}</option>";
-          }
-          echo "</select>";
-          echo "</div>";
-          echo "<div class=\"col-sm-3\">";
-          echo "</div>";
-          echo "</div>"; //closes row
-
-          //coc_1
-          echo "<div class=\"row\">";
-          echo "<div class=\"col-sm-3 text-right\">";
-          echo "<p>Deputy Commandant:</p>";
-          echo "</div>";
-          echo "<div class=\"col-sm-6\">";
-          echo "<select class=\"form-control\" name=\"coc_1\">";
-          echo "<option value=\"\"></option>";
-          foreach($coc_options_officers as $user){
-            echo "<option value=\"{$user['username']}\"";
-
-            if($midshipmaninfo['coc_1'] == $user['username']){
-              echo "selected";
-            }
-
-            echo ">{$user['rank']} {$user['lastName']}</option>";
-          }
-          echo "</select>";
-          echo "</div>";
-          echo "<div class=\"col-sm-3\">";
-          echo "</div>";
-          echo "</div>"; //closes row
-
+////////////////////////////////////////////////////////////////////////////////
 
           //coc_2
           echo "<div class=\"row\">";
