@@ -26,8 +26,8 @@
 
   # Academy Authentication Configuration
   define('AUTH_SERVER',     'https://intranet.usna.edu/CS/AUTH/');
-  define('AUTH_MESSAGE',    'Please log on');
-  define('AUTH_TITLE',      'Template');
+  define('AUTH_MESSAGE',    'eChits Academy Authentication');
+  define('AUTH_TITLE',      'eChits');
   define('AUTH_IDENTIFIER', '4aac57d5-6a73-4c03-9feb-254a34e743ca');
   define('AUTH_SECRET',     '6a90cb17-8156-4a6e-91d1-7ce091eeaee5');
   define('AUTH_TOKEN_TIME', 100);
