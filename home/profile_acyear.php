@@ -239,7 +239,7 @@ function redirect(location){
 
       if(isset($_POST['changemidshipmaninfo']) && $_POST['changemidshipmaninfo'] == "Submit Changes" && isset($_POST['company']) &&  isset($_POST['year']) &&  isset($_POST['room']) &&  isset($_POST['phonenumber']) &&  isset($_POST['SQPR']) &&  isset($_POST['CQPR']) &&  isset($_POST['aptitudegrade']) &&  isset($_POST['conductgrade']) ){
 //20AUG2018 MADE IT WORK WITHOUT DANT/DEPDANT
-        if(!isset($_POST['coc_2'])){
+        if(!isset($_POST['coc_0'])){
           $_POST['coc_0'] = null;
           $_POST['coc_1'] = null;
           $_POST['coc_2'] = null;
