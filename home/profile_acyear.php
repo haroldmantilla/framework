@@ -239,17 +239,17 @@ function redirect(location){
 
       if(isset($_POST['changemidshipmaninfo']) && $_POST['changemidshipmaninfo'] == "Submit Changes" && isset($_POST['company']) &&  isset($_POST['year']) &&  isset($_POST['room']) &&  isset($_POST['phonenumber']) &&  isset($_POST['SQPR']) &&  isset($_POST['CQPR']) &&  isset($_POST['aptitudegrade']) &&  isset($_POST['conductgrade']) ){
 //20AUG2018 MADE IT WORK WITHOUT DANT/DEPDANT
-        if(!isset($_POST['coc_0'])){
-          $_POST['coc_0'] = null;
-          $_POST['coc_1'] = null;
-          $_POST['coc_2'] = null;
-          $_POST['coc_3'] = null;
-          $_POST['coc_4'] = null;
-          $_POST['coc_5'] = null;
-          $_POST['coc_6'] = null;
-          $_POST['coc_7'] = null;
-          $_POST['coc_8'] = null;
-        }
+        // if(!isset($_POST['coc_0'])){
+        //   $_POST['coc_0'] = null;
+        //   $_POST['coc_1'] = null;
+        //   $_POST['coc_2'] = null;
+        //   $_POST['coc_3'] = null;
+        //   $_POST['coc_4'] = null;
+        //   $_POST['coc_5'] = null;
+        //   $_POST['coc_6'] = null;
+        //   $_POST['coc_7'] = null;
+        //   $_POST['coc_8'] = null;
+        // }
 
         if(in_array(USER['user'], array($_POST['coc_0'], $_POST['coc_1'], $_POST['coc_2'], $_POST['coc_3'], $_POST['coc_4'], $_POST['coc_5'], $_POST['coc_6']))){
           $_SESSION['error'] = "You cannot be in your own Chain of Command!";
