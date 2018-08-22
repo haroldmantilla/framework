@@ -131,6 +131,7 @@ function redirect(location){
       echo "
       <option value='SSgt'"; if($userinfo['rank'] == "SSgt"){echo "selected";} echo ">SSgt</option>
       <option value='GySgt'"; if($userinfo['rank'] == "GySgt"){echo "selected";} echo ">GySgt</option>
+      <option value='MSgt'"; if($userinfo['rank'] == "MSgt"){echo "selected";} echo ">MSgt</option>
       ";
       echo "</select>";
     }
