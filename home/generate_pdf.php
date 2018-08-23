@@ -89,8 +89,16 @@ elseif(isset($chit['coc_2_username'])){
   $to = "{$coc_2['rank']} {$coc_2['firstName']} {$coc_2['lastName']}, {$coc_2['service']}   {$coc_2['billet']}";
 
 }
+elseif(isset($chit['coc_3_username'])){
+  $coc_3 = get_user_information($db, $chit['coc_3_username']);
+  $to = "{$coc_3['rank']} {$coc_3['firstName']} {$coc_3['lastName']}, {$coc_3['service']}   {$coc_3['billet']}";
+
+}
 $template_pdf->Write(0, "".$to);
 
+// $template_pdf->SetXY(30, 32);
+// $from =  "{$ownerinfo['rank']} {$ownerinfo['firstName']} {$ownerinfo['lastName']}, {$ownerinfo['service']}";
+// $template_pdf->Write(0, "".$from);
 
 $template_pdf->SetXY(105, 32);
 $from =  "{$ownerinfo['rank']} {$ownerinfo['firstName']} {$ownerinfo['lastName']}, {$ownerinfo['service']}";
