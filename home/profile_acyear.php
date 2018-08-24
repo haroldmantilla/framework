@@ -55,21 +55,21 @@ function redirect(location){
   <?php
   $debug = false;
   // $debug = true;
-
   //edit basic info
+
+  //check if they have submitted information to post and that all necessary fields have been entered
   if(isset($_POST['changes']) && $_POST['changes'] == "Submit Changes" && isset($_POST['rank']) && !empty($_POST['rank']) && isset($_POST['firstname']) && !empty($_POST['firstname']) && isset($_POST['lastname']) && !empty($_POST['lastname']) && isset($_POST['billet']) && !empty($_POST['billet'])){
-
+  //update user's informaton in database if information has been submitted
     update_basic_leader_info($db, USER['user'], $_POST['rank'], $_POST['firstname'], $_POST['lastname'], $_POST['billet']);
-
-
-
   }
-
+  //grab user information from DB
   $userinfo = get_user_information($db, USER['user']);
 
+  //--DEBUGGING--//
   // echo "<pre>";
   // print_r($userinfo);
   // echo "</pre>";
+  //--DEBUGGING--//
 
   if(isset($_POST['editbasic'])){
     echo "<div class=\"row\">";
