@@ -20,20 +20,22 @@
   # Load in template, if not already loaded
   require_once(LIBRARY_PATH.'template.php');
 
+echo print_r($_SESSION['chit']);
+
 
   if(isset($_REQUEST['chit'])){
     $_SESSION['chit'] = $_REQUEST['chit'];
   }
-  
+
   if(!isset($_SESSION['chit'])){
     // sleep(5);
     header("Location: home.php");
     die;
   }
-  
-  
+
+
   if(isset($_REQUEST['approve'])){
-    
+
     $chit = get_chit_information($db, $_SESSION['chit']);
     $who = USER['user'];
 
@@ -80,7 +82,7 @@
     die;
   }
   elseif (isset($_REQUEST['disapprove'])) {
-    
+
     $chit = get_chit_information($db, $_SESSION['chit']);
     $who = USER['user'];
 
@@ -125,7 +127,7 @@
     die;
   }
   elseif (isset($_REQUEST['pending'])) {
-    
+
     $chit = get_chit_information($db, $_SESSION['chit']);
     $who = USER['user'];
 
@@ -170,7 +172,7 @@
     die;
   }
   elseif (isset($_REQUEST['comments'])) {
-    
+
     $chit = get_chit_information($db, $_SESSION['chit']);
     $who = USER['user'];
 
@@ -201,7 +203,7 @@
     elseif($chit['coc_8_username'] == USER['user']){
       $who = "coc_8";
     }
-    
+
     $chit = $_SESSION['chit'];
     $comments = addslashes($_POST['comments']);
 
@@ -212,12 +214,12 @@
     die;
   }
   elseif (isset($_REQUEST['print'])) {
-    
+
     header("Location: generate_pdf.php");
     die;
   }
   elseif (isset($_REQUEST['archive'])) {
-    
+
     $chit = $_REQUEST['archive'];
 
     archive_chit($db, $chit);
@@ -232,11 +234,11 @@
     }
 
     header("Location: {$_SERVER['HTTP_REFERER']}");
-    
+
     die;
   }
   elseif (isset($_REQUEST['restore'])) {
-    
+
     $chit = $_REQUEST['chit'];
 
     restore_chit($db, $chit);
@@ -249,7 +251,7 @@
     die;
   }
 
-  
+
   # Load in The NavBar
   require_once(WEB_PATH.'navbar.php');
 
@@ -840,14 +842,14 @@ elseif(isset($_SESSION['success'])){
 
   $coc_6 = array("username"=>$chit['coc_6_username'], "status"=>$chit['coc_6_status'], "comments"=> $chit['coc_6_comments'], "date"=> $chit['coc_6_date'], "time"=> $chit['coc_6_time']);
 
-  
+
   $coc_7 = array("username"=>$chit['coc_7_username'], "status"=>$chit['coc_7_status'], "comments"=> $chit['coc_7_comments'], "date"=> $chit['coc_7_date'], "time"=> $chit['coc_7_time']);
-  
-    
+
+
   $coc_8 = array("username"=>$chit['coc_8_username'], "status"=>$chit['coc_8_status'], "comments"=> $chit['coc_8_comments'], "date"=> $chit['coc_8_date'], "time"=> $chit['coc_8_time']);
 
 
-  
+
   $pos_8 = null;
   $pos_7 = null;
   $pos_6 = null;
@@ -902,7 +904,7 @@ elseif(isset($_SESSION['success'])){
   elseif(isset($chit['coc_4_username'])){
     $pos_4 = $coc_4;
   }
-  
+
   if(isset($pos_0['comments']) && !empty($pos_0['comments'])){
     $pos_0['comments'] = stripslashes($pos_0['comments']);
   }
@@ -926,7 +928,7 @@ elseif(isset($_SESSION['success'])){
   }
   if(isset($pos_7['comments']) && !empty($pos_7['comments'])){
     $pos_7['comments'] = stripslashes($pos_7['comments']);
-  }  
+  }
   if(isset($pos_8['comments']) && !empty($pos_8['comments'])){
     $pos_8['comments'] = stripslashes($pos_8['comments']);
   }
@@ -1121,12 +1123,12 @@ elseif(isset($_SESSION['success'])){
       ?>
     </div>
   </div>
-  
-  
-  
+
+
+
   <div class="row" style="border-bottom:1px solid #000000;">
     <div class="col-sm-6">
-      
+
       <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
       <!--  pos_7 -->
       <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; ">
@@ -1314,11 +1316,11 @@ elseif(isset($_SESSION['success'])){
             ?>
          </div>
        </div>
-       
-       
-       
+
+
+
        <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-       
+
        <!--  pos_6 -->
        <div class="row" style="border-bottom:1px solid #000000;">
         <div class="col-sm-6">
@@ -1505,7 +1507,7 @@ elseif(isset($_SESSION['success'])){
 
            ?>
         </div></div>
-      
+
         <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
         <!--  pos_5 -->
         <div class="row" style="border-bottom:1px solid #000000;">
@@ -1695,7 +1697,7 @@ elseif(isset($_SESSION['success'])){
           </div>
         </div>
       </div>
-      
+
       <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
           <div class="col-sm-6">
             <div class="row">
@@ -1733,10 +1735,10 @@ elseif(isset($_SESSION['success'])){
           <div class="col-sm-6">
           </div>
         </div>
-        
-        
+
+
         <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-        
+
         <!--  pos_4 -->
         <div class="row" style="border-bottom:1px solid #000000;">
             <div class="col-sm-6">
@@ -1925,10 +1927,10 @@ elseif(isset($_SESSION['success'])){
                ?>
             </div>
           </div>
-          
-          
+
+
           <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-          
+
           <!--  pos_3 -->
           <div class="row" style="border-bottom:1px solid #000000;">
               <div class="col-sm-6">
@@ -2116,10 +2118,10 @@ elseif(isset($_SESSION['success'])){
                  ?>
               </div>
             </div>
-            
-            
+
+
             <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-            
+
             <!--  pos_2 -->
             <div class="row" style="border-bottom:1px solid #000000;">
                 <div class="col-sm-6">
@@ -2308,11 +2310,11 @@ elseif(isset($_SESSION['success'])){
                    ?>
                 </div>
               </div>
-              
+
               <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-              
+
               <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-                
+
                 <!--  pos_1 -->
                 <div class="row" style="border-bottom:1px solid #000000;">
                     <div class="col-sm-6">
@@ -2501,7 +2503,7 @@ elseif(isset($_SESSION['success'])){
                        ?>
                     </div>
                   </div>
-                  
+
                   <!--  pos_0 -->
                   <div class="row" style="border-bottom:1px solid #000000;">
                       <div class="col-sm-6">
@@ -2689,13 +2691,13 @@ elseif(isset($_SESSION['success'])){
                          ?>
                       </div>
                     </div>
-                    
-                          
-              
-              
-              
+
+
+
+
+
               <div class="row" style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;">
-    
+
       <div class="col-sm-12">
         <strong>NDW-USNA-BBA-1050/09 (Rev. 4-92)</strong>
       </div>
