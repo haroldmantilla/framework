@@ -1,4 +1,4 @@
 
 <?php
 session_start();
-echo "{$_SESSION['chit']}"; ?>
+echo print_r($_SESSION['chit']); ?>
