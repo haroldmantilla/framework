@@ -21,14 +21,14 @@
   require_once(LIBRARY_PATH.'template.php');
 
 
-foreach ($_SESSION['chit'] as $key => $value) {
-    echo $value . "<br />";
-}
 
   if(isset($_REQUEST['chit'])){
     $_SESSION['chit'] = $_REQUEST['chit'];
   }
 
+  foreach ($_SESSION['chit'] as $key => $value) {
+    echo $value . "<br />";
+  }
   if(!isset($_SESSION['chit'])){
     // sleep(5);
     header("Location: home.php");
