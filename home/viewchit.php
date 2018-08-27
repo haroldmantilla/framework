@@ -20,8 +20,10 @@
   # Load in template, if not already loaded
   require_once(LIBRARY_PATH.'template.php');
 
-echo print_r($_SESSION['chit']);
 
+foreach ($_SESSION['chit'] as $key => $value) {
+    echo $value . "<br />";
+}
 
   if(isset($_REQUEST['chit'])){
     $_SESSION['chit'] = $_REQUEST['chit'];
