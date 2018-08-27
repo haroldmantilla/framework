@@ -1,1 +1,4 @@
-<?php echo "{$_SESSION['chit']}"; ?>
+
+<?php
+session_start();
+echo "{$_SESSION['chit']}"; ?>
