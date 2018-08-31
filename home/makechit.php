@@ -258,9 +258,7 @@
 
 
         $midshipmaninfo = get_midshipman_information($db, USER['user']);
-        echo "<pre>";
-        print_r($midshipmaninfo);
-        echo "</pre>";
+
         $userinfo = get_user_information($db, USER['user']);
 
 
@@ -900,7 +898,11 @@ $_SESSION['submitted']=0;
   </div>
   <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; border-top: 1px solid #000000; border-bottom:1px solid #000000;">
     <div class="col-md-12">
-      <textarea class="form-control" maxlength="1950" rows="10" name="REMARKS"><?php if(isset($_POST['REMARKS'])){echo "{$_POST['REMARKS']}";}?></textarea>
+      <textarea class="form-control" maxlength="1950" rows="10" name="REMARKS"><?php
+      echo "<pre>";
+      print_r($midshipmaninfo);
+      echo "</pre>";
+      if(isset($_POST['REMARKS'])){echo "{$_POST['REMARKS']}";}?></textarea>
     </div>
   </div>
   <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000;">
