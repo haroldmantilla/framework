@@ -31,14 +31,14 @@
 
 // make chit array from the chit stored in the database
   $chit = get_chit_information($db, $_SESSION['chit']);
-// grab
+// grab chit creator info from the creator of the chit
   $midshipmaninfo = get_midshipman_information($db, $chit['creator']);
+//not sure what this second one is
   $ownerinfo = get_user_information($db, $chit['creator']);
 
   if(USER['user'] != $chit['creator']){
     header("Location: ./viewchit.php");
   }
-
 
 $chit['description'] = stripslashes($chit['description']);
 $chit['reference'] = stripslashes($chit['reference']);
