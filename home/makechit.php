@@ -376,6 +376,7 @@
         if($afterchitnumber > $chitnumber){
           $_SESSION['success'] = "Chit has been submitted!";
           $_SESSION['chit'] = $chitnumber;
+          //WOULD NOT SAVE PC OR SQL FOR SOME REASON UNTIL I ADDED THIS BOTTOM LINE
           update_chit($db, $chitnumber, USER['user'], $_POST['SHORT_DESCRIPTION'], $_POST['REFERENCE'], $_POST['REQUEST_TYPE'], $requestOther, $addr_1, $_POST['ADDRESS_2'], $_POST['ADDRESS_CITY'], $_POST['ADDRESS_STATE'], $_POST['ADDRESS_ZIP'], $_POST['REMARKS'], $date, $_POST['BEGIN_DATE'], $_POST['BEGIN_TIME'], $_POST['END_DATE'], $_POST['END_TIME'], $_POST['ORM'], $_POST['DOCS'], $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6, $coc_7, $coc_8);
           // echo "<script type='text/javascript'>redirect('viewchit.php')</script>";
           header("Location: viewchit.php");
@@ -900,9 +901,9 @@ $_SESSION['submitted']=0;
   <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; border-top: 1px solid #000000; border-bottom:1px solid #000000;">
     <div class="col-md-12">
       <textarea class="form-control" maxlength="1950" rows="10" name="REMARKS"><?php
-      echo "<pre>";
-      print_r($midshipmaninfo);
-      echo "</pre>";
+      // echo "<pre>";
+      // print_r($midshipmaninfo);
+      // echo "</pre>";
       if(isset($_POST['REMARKS'])){echo "{$_POST['REMARKS']}";}?></textarea>
     </div>
   </div>
