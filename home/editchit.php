@@ -273,8 +273,6 @@ require_once(WEB_PATH.'navbar.php');
         <div class="col-sm-11">
           <select id="route_to" onchange="routeTo();" class="form-control" name="TO_USERNAME" >
             <?php
-
-
             if(isset($midshipmaninfo['coc_3'])  && !is_midshipman($db, $midshipmaninfo['coc_4'])){
               $option_info = get_user_information($db, $midshipmaninfo['coc_4']);
               echo "<option value=\"{$midshipmaninfo['coc_4']}\" ";
@@ -316,7 +314,6 @@ require_once(WEB_PATH.'navbar.php');
               echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
             }
             ?>
-
 
             <?php
             if(isset($midshipmaninfo['coc_0']) && !is_midshipman($db, $midshipmaninfo['coc_0'])){
