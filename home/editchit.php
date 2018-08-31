@@ -20,23 +20,25 @@
   # Load in template, if not already loaded
   require_once(LIBRARY_PATH.'template.php');
 
+// if chit doesn't exist send the user back home
   if(!isset($_SESSION['chit'])){
     header("Location: home.php");
     die;
   }
 
-
+// chit has not been submitted
   $_SESSION['submitted']=0;
-  
-  
+
+// make chit array from the chit stored in the database
   $chit = get_chit_information($db, $_SESSION['chit']);
+// grab chit creator info from the creator of the chit
   $midshipmaninfo = get_midshipman_information($db, $chit['creator']);
+//not sure what this second one is
   $ownerinfo = get_user_information($db, $chit['creator']);
-  
+
   if(USER['user'] != $chit['creator']){
     header("Location: ./viewchit.php");
   }
-  
 
 $chit['description'] = stripslashes($chit['description']);
 $chit['reference'] = stripslashes($chit['reference']);
@@ -128,7 +130,7 @@ if(
         $coc_7 = $midshipmaninfo['coc_7'];
         $coc_8 = $midshipmaninfo['coc_8'];
       }
-      
+
 
       if(isset($_POST['REQUEST_OTHER'])){
         $requestOther = addslashes($_POST['REQUEST_OTHER']);
@@ -159,7 +161,7 @@ if(
 
       update_chit($db, $chitnumber, $chit['creator'], $_POST['SHORT_DESCRIPTION'], $_POST['REFERENCE'], $_POST['REQUEST_TYPE'], $requestOther, $addr_1, $_POST['ADDRESS_2'], $_POST['ADDRESS_CITY'], $_POST['ADDRESS_STATE'], $_POST['ADDRESS_ZIP'], $_POST['REMARKS'], $date, $_POST['BEGIN_DATE'], $_POST['BEGIN_TIME'], $_POST['END_DATE'], $_POST['END_TIME'], $_POST['ORM'], $_POST['DOCS'], $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6, $coc_7, $coc_8);
 
-      
+
       header("Location: viewchit.php");
 
 
@@ -224,10 +226,10 @@ if(
     </head>
 
     <div class="container">
-      
+
 
       <div id="banner">
-        
+
       </div>
 
 
@@ -235,7 +237,7 @@ if(
 
 
 
-<?php 
+<?php
 
 # Load in The NavBar
 require_once(WEB_PATH.'navbar.php');
@@ -270,9 +272,7 @@ require_once(WEB_PATH.'navbar.php');
 
         <div class="col-sm-11">
           <select id="route_to" onchange="routeTo();" class="form-control" name="TO_USERNAME" >
-            <?php 
-            
-            
+            <?php
             if(isset($midshipmaninfo['coc_3'])  && !is_midshipman($db, $midshipmaninfo['coc_4'])){
               $option_info = get_user_information($db, $midshipmaninfo['coc_4']);
               echo "<option value=\"{$midshipmaninfo['coc_4']}\" ";
@@ -282,7 +282,7 @@ require_once(WEB_PATH.'navbar.php');
               echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
             }
             ?>
-            
+
             <?php if(isset($midshipmaninfo['coc_4'])  && !is_midshipman($db, $midshipmaninfo['coc_3'])){
               $option_info = get_user_information($db, $midshipmaninfo['coc_3']);
               echo "<option value=\"{$midshipmaninfo['coc_3']}\" ";
@@ -292,8 +292,8 @@ require_once(WEB_PATH.'navbar.php');
               echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
             }
             ?>
-            
-            <?php 
+
+            <?php
             if(isset($midshipmaninfo['coc_2']) && !is_midshipman($db, $midshipmaninfo['coc_2'])){
               $option_info = get_user_information($db, $midshipmaninfo['coc_2']);
               echo "<option value=\"{$midshipmaninfo['coc_2']}\" ";
@@ -303,8 +303,8 @@ require_once(WEB_PATH.'navbar.php');
               echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
             }
             ?>
-            
-            <?php 
+
+            <?php
             if(isset($midshipmaninfo['coc_1'])  && !is_midshipman($db, $midshipmaninfo['coc_1'])){
               $option_info = get_user_information($db, $midshipmaninfo['coc_1']);
               echo "<option value=\"{$midshipmaninfo['coc_1']}\" ";
@@ -314,8 +314,7 @@ require_once(WEB_PATH.'navbar.php');
               echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
             }
             ?>
-              
-        
+
             <?php
             if(isset($midshipmaninfo['coc_0']) && !is_midshipman($db, $midshipmaninfo['coc_0'])){
               $option_info = get_user_information($db, $midshipmaninfo['coc_0']);
@@ -326,7 +325,7 @@ require_once(WEB_PATH.'navbar.php');
               echo ">{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']} </option>";
             }
             ?>
-    
+
           </select>
         </div>
         <div class="col-sm-2">
@@ -1314,7 +1313,7 @@ require_once(WEB_PATH.'navbar.php');
           <br>
           <br>
           <br>
-          
+
           <br>
           <br>
           <br>
