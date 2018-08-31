@@ -21,199 +21,215 @@
   require_once(LIBRARY_PATH.'template.php');
 
 
+/******************************************************************************
+*******************************************************************************
+*******       COMMENTED BY HAROLD MANTILLA 31AUG2018               ************
+*******************************************************************************
+*******************************************************************************/
 
+
+//Setting options for dropdown menu to choose who to route the chit to
   if(isset($_REQUEST['to'])){
+    //grab midshipman info from the DB using the username
     $midshipmaninfo = get_midshipman_information($db, USER['user']);
 
     $response = "";
-    $pos_0 = null;
-    $pos_1 = null;
-    $pos_2 = null;
-    $pos_3 = null;
-    $pos_4 = null;
+    $pos_0 = null; // dant
+    $pos_1 = null; //depdant
+    $pos_2 = null; //batt-o
+    $pos_3 = null; //CO
+    $pos_4 = null; //SEL
 
+    //grab CoC iformation from DB and set user info using result (so seeing who the chit is being routed to)
     $user_info = get_user_information($db, $_REQUEST['to']);
 
-    if($_REQUEST['to'] == $midshipmaninfo['coc_0']){
+//**************************IF ROUTING TO DANT***************************************************************//
+    if($_REQUEST['to'] == $midshipmaninfo['coc_0']){                            //if the chit is being routed to the dant
 
-      if(!empty($midshipmaninfo['coc_0'])){
-        $info = get_user_information($db, $midshipmaninfo['coc_0']);
-        $pos_0 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+      if(!empty($midshipmaninfo['coc_0'])){                                     // if this position in the CoC is set (always dant)
+        $info = get_user_information($db, $midshipmaninfo['coc_0']);            // grab dant from DB
+        $pos_0 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";    // variable set pos_0 to dant (or whoever was grabbed from DB in pos_0)
       }
 
-      if(!empty($midshipmaninfo['coc_1'])){
-        $info = get_user_information($db, $midshipmaninfo['coc_1']);
-        $pos_1 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
+      if(!empty($midshipmaninfo['coc_1'])){                                     // if this posiiton in CoC is set (always depdant)
+        $info = get_user_information($db, $midshipmaninfo['coc_1']);            // grab depdant from DB
+        $pos_1 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";    // set variable pos 1 to depdant (or whoever was theoretically grabbed from DB in pos_1)
       }
 
-      if(!empty($midshipmaninfo['coc_2'])){
-        $info = get_user_information($db, $midshipmaninfo['coc_2']);
-        $pos_2 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
-      }
-      
-      if(!empty($midshipmaninfo['coc_3'])){
-        $info = get_user_information($db, $midshipmaninfo['coc_3']);
-        $pos_3 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-      }
-      
-      if(!empty($midshipmaninfo['coc_4'])){
-        $info = get_user_information($db, $midshipmaninfo['coc_4']);
-        $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
+      if(!empty($midshipmaninfo['coc_2'])){                                     // if this position is set (a batt-o)
+        $info = get_user_information($db, $midshipmaninfo['coc_2']);            // grab batt-o from DB
+        $pos_2 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";    // set variable pos_2 to batt-o
       }
 
+      if(!empty($midshipmaninfo['coc_3'])){                                     // if this position is set (a CO)
+        $info = get_user_information($db, $midshipmaninfo['coc_3']);            // grab CO from DB
+        $pos_3 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";    // set variable pos_3 to user's DB CO
+      }
+
+      if(!empty($midshipmaninfo['coc_4'])){                                     // if this position isset (SEL)
+        $info = get_user_information($db, $midshipmaninfo['coc_4']);            // grab SEL from DB
+        $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";    // set variable pos_4 to SEL
+      }
+    }                                                                           //end if dant
+//**************************END ROUTING TO DANT***************************************************************//
+
+
+
+//**************************IF ROUTING TO DEPDANT***************************************************************//
+    elseif($_REQUEST['to'] == $midshipmaninfo['coc_1']){                        //if request is to depdant
+      $pos_0 = "<br><br><br>";                                                  //make dant space on chit empty
+
+      if(!empty($midshipmaninfo['coc_1'])){                                     // if coc_1 isset
+        $info = get_user_information($db, $midshipmaninfo['coc_1']);            // grab user's coc_1 (depdant) from DB
+        $pos_1 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";    // set variable pos_1 to depdant
+      }
+
+      if(!empty($midshipmaninfo['coc_2'])){                                     // if coc_2 isset
+        $info = get_user_information($db, $midshipmaninfo['coc_2']);            // grab user's coc_2 from DB
+        $pos_2 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";    // set variable pos_2 to user's batt-o
+      }
+
+      if(!empty($midshipmaninfo['coc_3'])){                                     // if coc_3 isset
+        $info = get_user_information($db, $midshipmaninfo['coc_3']);            // grab user's coc_3 from DB
+        $pos_3 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";    // set variable pos_3 to user's DB coc_3 (usually CO)
+      }
+
+      if(!empty($midshipmaninfo['coc_4'])){                                     // if coc_4 isset
+        $info = get_user_information($db, $midshipmaninfo['coc_4']);            // grab user's coc_4 from DB
+        $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";    // set variable pos_4 to user's DB CoC_4 (SEL)
+      }
     }
-    elseif($_REQUEST['to'] == $midshipmaninfo['coc_1']){
-      $pos_0 = "<br><br><br>";
-
-      if(!empty($midshipmaninfo['coc_1'])){
-        $info = get_user_information($db, $midshipmaninfo['coc_1']);
-        $pos_1 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
-      }
-
-      if(!empty($midshipmaninfo['coc_2'])){
-        $info = get_user_information($db, $midshipmaninfo['coc_2']);
-        $pos_2 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
-      }
-      
-      if(!empty($midshipmaninfo['coc_3'])){
-        $info = get_user_information($db, $midshipmaninfo['coc_3']);
-        $pos_3 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-      }
-      
-      if(!empty($midshipmaninfo['coc_4'])){
-        $info = get_user_information($db, $midshipmaninfo['coc_4']);
-        $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
-      }
+//**************************END ROUTING TO DEPDANT***************************************************************//
 
 
-    }
+//**************************IF ROUTING TO BATT-O***************************************************************//
     elseif($_REQUEST['to'] == $midshipmaninfo['coc_2']){
 
-      $pos_0 = "<br><br><br>";
-      $pos_1 = "<br><br><br>";
-      
-      if(!empty($midshipmaninfo['coc_2'])){
-        $info = get_user_information($db, $midshipmaninfo['coc_2']);
-        $pos_2 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+      $pos_0 = "<br><br><br>";                                                  // make dant space on chit empty
+      $pos_1 = "<br><br><br>";                                                  // make depdant space on chit empty
 
-      }
-      
-      if(!empty($midshipmaninfo['coc_3'])){
-        $info = get_user_information($db, $midshipmaninfo['coc_3']);
-        $pos_3 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-      }
-      
-      if(!empty($midshipmaninfo['coc_4'])){
-        $info = get_user_information($db, $midshipmaninfo['coc_4']);
-        $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-
+      if(!empty($midshipmaninfo['coc_2'])){                                     // if coc_2 isset
+        $info = get_user_information($db, $midshipmaninfo['coc_2']);            // grab user's coc_2 from DB (batt-0)
+        $pos_2 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";    // set variable pos_2 to user's DB coc_2 (batt-o)
       }
 
+      if(!empty($midshipmaninfo['coc_3'])){                                     // if coc_3 isset
+        $info = get_user_information($db, $midshipmaninfo['coc_3']);            // grab user's coc_3 from DB
+        $pos_3 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";    // set variable pos_3 to user's DB coc_3 (usually CO)
+      }
 
+      if(!empty($midshipmaninfo['coc_4'])){                                     // if coc_4 isset
+        $info = get_user_information($db, $midshipmaninfo['coc_4']);            // grab user's coc_4 from DB
+        $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";    // set variable pos_4 to user's DB CoC_4 (SEL)
+      }
     }
-    elseif($_REQUEST['to'] == $midshipmaninfo['coc_3']){
+//**************************END ROUTING TO BATT-O***************************************************************//
 
-      $pos_0 = "<br><br><br>";
-      $pos_1 = "<br><br><br>";
-      $pos_2 = "<br><br><br>";
 
-              
-      if(!empty($midshipmaninfo['coc_3'])){
-        $info = get_user_information($db, $midshipmaninfo['coc_3']);
-        $pos_3 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-      }
-      
-      if(!empty($midshipmaninfo['coc_4'])){
-        $info = get_user_information($db, $midshipmaninfo['coc_4']);
-        $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+//**************************IF ROUTING TO CO***************************************************************//
+    elseif($_REQUEST['to'] == $midshipmaninfo['coc_3']){                        // if being sent to CO
 
+      $pos_0 = "<br><br><br>";                                                  // set dant space on chit to empty
+      $pos_1 = "<br><br><br>";                                                  // set depdant space on chit to empty
+      $pos_2 = "<br><br><br>";                                                  // set batt-o space on chit to empty
+
+
+      if(!empty($midshipmaninfo['coc_3'])){                                     // if coc_3 isset
+        $info = get_user_information($db, $midshipmaninfo['coc_3']);            // grab user's coc_3 from DB
+        $pos_3 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";    // set variable pos_3 to user's DB coc_3 (usually CO)
       }
 
+      if(!empty($midshipmaninfo['coc_4'])){                                     // if coc_4 isset
+        $info = get_user_information($db, $midshipmaninfo['coc_4']);            // grab user's coc_4 from DB
+        $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";    // set variable pso_4 to user's DB CoC_4 (SEL)
+      }
     }
+//**************************END ROUTING TO CO***************************************************************//
+
+
+
+//**************************IF ROUTING TO SEL***************************************************************//
     elseif($_REQUEST['to'] == $midshipmaninfo['coc_4']){
-      $pos_0 = "<br><br><br>";
-      $pos_1 = "<br><br><br>";
-      $pos_2 = "<br><br><br>";
-      $pos_3 = "<br><br><br>";
-      
-      if(!empty($midshipmaninfo['coc_4'])){
-        $info = get_user_information($db, $midshipmaninfo['coc_4']);
-        $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
+
+      $pos_0 = "<br><br><br>";                                                  // set dant space in chit empty
+      $pos_1 = "<br><br><br>";                                                  // set depdant space in chit empty
+      $pos_2 = "<br><br><br>";                                                  // set BATT-O space in chit empty
+      $pos_3 = "<br><br><br>";                                                  // set CO dant space in chit empty
+
+      if(!empty($midshipmaninfo['coc_4'])){                                     // if coc_4 isset
+        $info = get_user_information($db, $midshipmaninfo['coc_4']);            // grab user's coc_4 from DB
+        $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";    // set variable pos_4 to user's DB coc 4
       }
-
-
     }
+//**************************END ROUTING TO SEL***************************************************************//
 
+// at this point, you assume that the chit will not route to anyone lower than SEL, which is fair
+// Now, you are setting the rest of the CoC in the chit
 
-    if(!empty($midshipmaninfo['coc_5'])){
-      $info = get_user_information($db, $midshipmaninfo['coc_5']);
-      $pos_5 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-    }
-    else{
-      $pos_5 = "<br><br><br>";
-    }
- 
-    if(!empty($midshipmaninfo['coc_6'])){
-      $info = get_user_information($db, $midshipmaninfo['coc_6']);
-      $pos_6 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-    }
-    else{
-      $pos_6 = "<br><br><br>";
+    if(!empty($midshipmaninfo['coc_5'])){                                       // if CC is not empty
+      $info = get_user_information($db, $midshipmaninfo['coc_5']);              // grab CC from DB
+      $pos_5 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";      // set pos_5 to CC
+    }                                                                           // end if
+    else{                                                                       // else if CC is empty
+      $pos_5 = "<br><br><br>";                                                  // fill in CC spot with a blank
     }
 
-    if(!empty($midshipmaninfo['coc_7'])){
-      $info = get_user_information($db, $midshipmaninfo['coc_7']);
-      $pos_7 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-    }
-    else{
-      $pos_7 = "<br><br><br>";
-    }
-
-    if(!empty($midshipmaninfo['coc_8'])){
-      $info = get_user_information($db, $midshipmaninfo['coc_8']);
-      $pos_8 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-    }
-    else{
-      $pos_8 = "<br><br><br>";
+    if(!empty($midshipmaninfo['coc_6'])){                                       // if XO is not empty
+      $info = get_user_information($db, $midshipmaninfo['coc_6']);              // grab XO from DB
+      $pos_6 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";      // set pos_6 to XC
+    }                                                                           // end if not empty
+    else{                                                                       // else if XO is empty
+      $pos_6 = "<br><br><br>";                                                  // fill in XO spot as blank
     }
 
+    if(!empty($midshipmaninfo['coc_7'])){                                       // if PC is not empty
+      $info = get_user_information($db, $midshipmaninfo['coc_7']);              // grab PC from DB
+      $pos_7 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";      // set pos_7 to PC
+    }                                                                           // end if not empty
+    else{                                                                       // else if PC empty
+      $pos_7 = "<br><br><br>";                                                  // fill in PC spot as blank
+    }
+
+    if(!empty($midshipmaninfo['coc_8'])){                                       // if SL is not empty
+      $info = get_user_information($db, $midshipmaninfo['coc_8']);              // grab SL from DB
+      $pos_8 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";      // set pos_8 to SL
+    }                                                                           // end if not empty
+    else{                                                                       // else if SL empty
+      $pos_8 = "<br><br><br>";                                                  // fill in SL spot as blank
+    }
+
+// ************* Not sure what this old code is, commented out by Scott Mayer previous to v1.2  ******//
 
     // elseif(!empty($midshipmaninfo['coc_5'])){
     //   $pos_3 = "<br><br><br>";
-    // 
+    //
     //   $info = get_user_information($db, $midshipmaninfo['coc_5']);
     //   $pos_6 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-    // 
+    //
     //   $info = get_user_information($db, $midshipmaninfo['coc_4']);
     //   $pos_5 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-    // 
+    //
     //   $info = get_user_information($db, $midshipmaninfo['coc_3']);
     //   $pos_4 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-    // 
+    //
     // }
     // elseif(!empty($midshipmaninfo['coc_4'])){
     //   $pos_3 = "<br><br><br>";
     //   $pos_4 = "<br><br><br>";
-    // 
+    //
     //   $info = get_user_information($db, $midshipmaninfo['coc_4']);
     //   $pos_6 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-    // 
+    //
     //   $info = get_user_information($db, $midshipmaninfo['coc_3']);
     //   $pos_5 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
-    // 
+    //
     // }
-    // 
+    //
     // elseif(!empty($midshipmaninfo['coc_3'])){
     //   $pos_3 = "<br><br><br>";
     //   $pos_4 = "<br><br><br>";
     //   $pos_5 = "<br><br><br>";
-    // 
+    //
     //   $info = get_user_information($db, $midshipmaninfo['coc_3']);
     //   $pos_6 = "{$info['rank']} {$info['lastName']}<br>{$info['billet']}";
     // }
@@ -224,17 +240,27 @@
     //   $pos_6 = "<br><br><br>";
     // }
 
+// ************* Not sure what this old code is, commented out by Scott Mayer previous to v1.2  ******//
+
 
     echo $pos_0 . ";" . $pos_1 . ";" . $pos_2 . ";" . $pos_3 . ";" . $pos_4 . ";". $pos_5 . ";". $pos_6 . ";" . $pos_7 . ";" . $pos_8 ;
     // header("location: makechit.php");
     die;
+    //kill if statement
   }
-  
-  //if post is set, write to database, redirect to viewchit
+
+//*****************************************************************************************//
+//************** this is where you start filling in the chit itself **********************//
+//*****************************************************************************************//
+
+//if post is set, write to database, redirect to viewchit
   if(isset($_POST['SHORT_DESCRIPTION']) && isset($_POST['TO_USERNAME']) && isset($_POST['REFERENCE']) && isset($_POST['REQUEST_TYPE']) && isset($_POST['ADDRESS_CITY']) && isset($_POST['ADDRESS_2']) && isset($_POST['ADDRESS_STATE']) && isset($_POST['ADDRESS_ZIP']) && isset($_POST['REMARKS']) && isset($_POST['BEGIN_DATE']) && isset($_POST['BEGIN_TIME']) && isset($_POST['END_DATE']) && isset($_POST['END_TIME'])){
 
 
         $midshipmaninfo = get_midshipman_information($db, USER['user']);
+        echo "<pre>";
+        print_r($midshipmaninfo);
+        echo "</pre>";
         $userinfo = get_user_information($db, USER['user']);
 
 
@@ -360,18 +386,18 @@
         }
 
 
-      }
-      elseif(isset($_POST['SHORT_DESCRIPTION']) && isset($_POST['TO_USERNAME']) && isset($_POST['REFERENCE']) && isset($_POST['ADDRESS_CITY']) && isset($_POST['ADDRESS_2']) && isset($_POST['ADDRESS_STATE']) && isset($_POST['ADDRESS_ZIP']) && isset($_POST['REMARKS']) && isset($_POST['BEGIN_DATE']) && isset($_POST['BEGIN_TIME']) && isset($_POST['END_DATE']) && isset($_POST['END_TIME'])){
-        $_SESSION['error'] = "Select a request type!";
-      }
+    }
+    elseif(isset($_POST['SHORT_DESCRIPTION']) && isset($_POST['TO_USERNAME']) && isset($_POST['REFERENCE']) && isset($_POST['ADDRESS_CITY']) && isset($_POST['ADDRESS_2']) && isset($_POST['ADDRESS_STATE']) && isset($_POST['ADDRESS_ZIP']) && isset($_POST['REMARKS']) && isset($_POST['BEGIN_DATE']) && isset($_POST['BEGIN_TIME']) && isset($_POST['END_DATE']) && isset($_POST['END_TIME'])){
+      $_SESSION['error'] = "Select a request type!";
+    }
 
 
-    
-  
+
+
   # Load in The NavBar
   require_once(WEB_PATH.'navbar.php');
-  
-  
+
+
   $midshipmaninfo = get_midshipman_information($db, USER['user']);
   $userinfo = get_user_information($db, USER['user']);
 
@@ -388,13 +414,13 @@ function redirect(location){
 <script type="text/javascript">
 function routeTo(){
   var to_username = document.getElementById("route_to").value;
-  
+
   var xhttp = new XMLHttpRequest();
-  
+
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var coc = this.responseText.split(";")
-      
+
       document.getElementById("pos_0").innerHTML = coc[0];
       document.getElementById("pos_1").innerHTML = coc[1];
       document.getElementById("pos_2").innerHTML = coc[2];
@@ -407,10 +433,10 @@ function routeTo(){
       // console.log(coc);
     }
   };
-  
+
   xhttp.open("GET", "./makechit.php?to=" + to_username, true);
   xhttp.send();
-  
+
 }
 </script>
 
@@ -502,18 +528,18 @@ $_SESSION['submitted']=0;
                 echo "<option value=\"{$midshipmaninfo['coc_1']}\">";
                 echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']}</option>";
               }?>
-              
+
               <?php
               if(isset($midshipmaninfo['coc_0']) && !is_midshipman($db, $midshipmaninfo['coc_0'])){
                 $option_info = get_user_information($db, $midshipmaninfo['coc_0']);
                 echo "<option value=\"{$midshipmaninfo['coc_0']}\">";
                 echo "{$option_info['rank']} {$option_info['firstName']} {$option_info['lastName']}, {$option_info['service']} </option>";
               }?>
-            
 
-            
-              
-              
+
+
+
+
             </select>
           </div>
           <div class="col-sm-2">
@@ -1504,22 +1530,22 @@ $_SESSION['submitted']=0;
           <br>
           <br>
           <br>
-          
+
           <br>
           <br>
           <br>
-          
-          <br>
-          <br>
-          <br>
-          <br>
+
           <br>
           <br>
           <br>
           <br>
           <br>
           <br>
-          
+          <br>
+          <br>
+          <br>
+          <br>
+
           <br>
           <br>
           <br>
