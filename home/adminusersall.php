@@ -31,7 +31,7 @@
   }
   elseif (isset($_REQUEST['designateadmin'])) {
     designate_admin($db, $_REQUEST['username']);
-  }  
+  }
   elseif (isset($_REQUEST['removemislo'])) {
     remove_MISLO($db, $_POST['username']);
   }
@@ -41,7 +41,7 @@
   elseif (isset($_REQUEST['removeadmin'])) {
     remove_admin($db, $_REQUEST['username']);
   }
-  
+
 
 
   # Load in The NavBar
@@ -398,7 +398,7 @@ $incompletemids = get_incomplete_mids($db);
     //rows go here
     echo "<table class='table table-hover'>";
     echo "<thead>";
-    echo "<tr><th>Username</th><th>Name</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
+    echo "<tr><th>Username</th><th>Name</th><th>Level</th><th>Billet</th><th class=\"text-right\">Actions</th></tr></thead>";
 
     foreach ($staff as $user){
 
@@ -409,8 +409,10 @@ $incompletemids = get_incomplete_mids($db);
         $unamepos = stripos($user['username'], $_POST['FILTER']);
         $rankpos = stripos($user['rank'], $_POST['FILTER']);
         $levelpos = stripos($user['level'], $_POST['FILTER']);
+        $billetpos = stripos($user['billet'], $_POST['FILTER']);
 
-        if($namepos === false && $unamepos === false && $firstpos === false && $rankpos === false && $levelpos === false) {
+
+        if($namepos === false && $unamepos === false && $firstpos === false && $rankpos === false && $levelpos === false && $billetpos === false) {
           continue;
         }
 
@@ -421,6 +423,8 @@ $incompletemids = get_incomplete_mids($db);
       echo "<td>{$user['username']}</td>";
       echo "<td>{$user['rank']} {$user['firstName']} {$user['lastName']}, {$user['service']} </td>";
       echo "<td>{$user['level']}</td>";
+      echo "<td>{$user['billet']}</td>";
+
 
       echo "<td>";
 
@@ -430,7 +434,7 @@ $incompletemids = get_incomplete_mids($db);
       <input type=\"hidden\" name=\"username\" id=\"username\" value=\"{$user['username']}\">
       <input type=\"submit\"  class=\"btn btn-danger\" value=\"Delete User\"></form>";
 
-    
+
       echo "<form style=\"float: right; \" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"username\" value=\"{$user['username']}\" /><input type=\"submit\"  class=\"btn btn-default\" name=\"designateadmin\" value=\"Designate Administrator\"></form>";
       echo "</td>";
       echo "</tr>";
