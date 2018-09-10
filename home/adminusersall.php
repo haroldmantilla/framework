@@ -20,11 +20,11 @@
   # Load in template, if not already loaded
   require_once(LIBRARY_PATH.'template.php');
 
-  if (isset($_REQUEST['deleteuser'])) {
-    delete_user($db, $_REQUEST['username']);
+  if (isset($_REQUEST['deleteuser'])) {                                         //check if someone wants to delete a user
+    delete_user($db, $_REQUEST['username']);                                    //delete the user
   }
-  elseif (isset($_REQUEST['designatemislo'])) {
-    designate_MISLO($db, $_POST['username']);
+  elseif (isset($_REQUEST['designatemislo'])) {                                 //check if someone wants to designate MISLO
+    designate_MISLO($db, $_POST['username']);                                   //designate MISLO
   }
   elseif (isset($_REQUEST['designatesafety'])) {
     designate_safety($db, $_REQUEST['username']);
@@ -57,7 +57,7 @@
 
 $debug = false;
 
-$company = get_company_number($db, USER['user']);
+$company = get_company_number($db, USER['user']);                               //get user's company
 
 
 ?>
@@ -89,14 +89,15 @@ $company = get_company_number($db, USER['user']);
 <?php
 
 
-$admins = get_admins($db);
-$MISLOs = get_MISLOs($db);
-$safeties = get_safeties($db);
-$staff = get_staff($db);
-$completemids = get_complete_mids($db);
-$incompletemids = get_incomplete_mids($db);
+$admins = get_admins($db);                                                      // get list of admins
+$MISLOs = get_MISLOs($db);                                                      // get list of mislos
+$safeties = get_safeties($db);                                                  // get list of safeties
+$staff = get_staff($db);                                                        // get officers
+$completemids = get_complete_mids($db);                                         // get mids that have all info updated
+$incompletemids = get_incomplete_mids($db);                                     // get mids that do not have all info updated
 
 
+//************************** FILTER AND DISPLAY ADMINS ***********************//
   if(!empty($admins)){
 
     echo "<div class='row'>";
@@ -182,7 +183,7 @@ $incompletemids = get_incomplete_mids($db);
     echo "</div>"; // row
   }
 
-
+//************************** FILTER AND DISPLAY MISLOs ***********************//
   if(!empty($MISLOs)){
 
     echo "<div class='row'>";
@@ -270,6 +271,7 @@ $incompletemids = get_incomplete_mids($db);
     echo "</div>"; // row
   }
 
+//************************** FILTER AND DISPLAY SAFETIES *********************//
   if(!empty($safeties)){
 
     echo "<div class='row'>";
@@ -355,6 +357,7 @@ $incompletemids = get_incomplete_mids($db);
     echo "</div>"; // row
   }
 
+//************************** FILTER AND DISPLAY STAFF ************************//
   if(!empty($staff)){
 
     echo "<div class='row'>";
@@ -453,6 +456,7 @@ $incompletemids = get_incomplete_mids($db);
     echo "</div>"; // row
   }
 
+//************************** FILTER AND DISPLAY COMPLETE MIDS ****************//
   if(!empty($completemids)){
 
     echo "<div class='row'>";
@@ -571,6 +575,7 @@ $incompletemids = get_incomplete_mids($db);
     echo "</div>"; // row
   }
 
+//************************** FILTER AND DISPLAY INCOMPLETE MIDS ****************//
   if(!empty($incompletemids)){
 
     echo "<div class='row'>";
@@ -665,7 +670,6 @@ $incompletemids = get_incomplete_mids($db);
 
 
   echo "</div>"; //panel-group
-
 
   echo "</div>"; //container-fluid
 
