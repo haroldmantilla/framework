@@ -211,14 +211,6 @@
     $chit = $_SESSION['chit'];
     $comments = addslashes($_POST['comments']);
 
-    echo "<script type='text/javascript'> alert(".json_encode($chit).") </script>";
-    echo "<script type='text/javascript'> alert(".json_encode($comments).") </script>";
-    ?>
-    <script>
-      alert("test");
-    </script>
-    <?php
-
     //error_log("test error");
 
     comment($db, $chit, $who, $comments);
