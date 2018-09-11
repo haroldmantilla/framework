@@ -213,14 +213,11 @@
 
     echo "<script type='text/javascript'> alert(".json_encode($chit).") </script>";
     echo "<script type='text/javascript'> alert(".json_encode($comments).") </script>";
-    // ?>
-    // <script>
-    // alert(<?php
-    // print_r($comments);
-    // print_r($chit);
-    // ?>)
-    // </script>
-    // <?php
+    ?>
+    <script>
+      alert("test");
+    </script>
+    <?php
 
     comment($db, $chit, $who, $comments);
     //redirect
