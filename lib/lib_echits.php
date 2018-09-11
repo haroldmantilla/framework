@@ -1148,7 +1148,7 @@ function comment($db, $chit, $who, $comment){
   }
 
   $query .= "?,?)";
-  $comment = "test";
+  
   $fixer = array($chit, $comment);
 //  $stmt = build_query($db, $query, array($chit, $comment));
   $stmt = build_query($db, $query, $fixer);
