@@ -1141,10 +1141,10 @@ function comment($db, $chit, $who, $comment){
     $query .="comment_coc6(";
   }
   elseif($who == "coc_7"){
-    $query .="action_coc7(";
+    $query .="comment_coc7(";
   }
   elseif($who == "coc_8"){
-    $query .="action_coc8(";
+    $query .="comment_coc8(";
   }
 
   $query .= "?,?)";
