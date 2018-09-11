@@ -141,7 +141,7 @@ function get_user_information($db, $username){
   $results = stmt_to_assoc_array($stmt);
 
   $stmt->close();
-  
+
   if(!empty($results)){
     return $results[0];
   }
@@ -184,11 +184,11 @@ function get_next_chit_number($db){
   $results = stmt_to_assoc_array($stmt);
 
   $stmt->close();
-  
+
   // echo "<pre>";
   // print_r($results);
   // echo "<pre>";
-  // 
+  //
   if(!empty($results)){
     return $results[0]['chitNumber'] + 1;
   }
@@ -359,21 +359,21 @@ function update_midshipman($db, $username, $company, $year, $room, $SQPR, $CQPR,
   else{
     $coc_6 = "'".$coc_6."'";
   }
-  
+
   if(empty($coc_7)){
     $coc_7 = "NULL";
   }
   else{
     $coc_7 = "'".$coc_7."'";
   }
-  
+
   if(empty($coc_8)){
     $coc_8 = "NULL";
   }
   else{
     $coc_8 = "'".$coc_8."'";
   }
-  
+
 
   $query = "call updateMidshipman(" .
   $username . "," .
@@ -462,22 +462,22 @@ function create_midshipman($db, $username, $company, $year, $room, $phone, $SQPR
   else{
     $coc_6 = "'".$coc_6."'";
   }
-  
-  
+
+
   if(empty($coc_7)){
     $coc_7 = "NULL";
   }
   else{
     $coc_7 = "'".$coc_7."'";
   }
-  
+
   if(empty($coc_8)){
     $coc_8 = "NULL";
   }
   else{
     $coc_8 = "'".$coc_8."'";
   }
-  
+
 
   $query = "call createMidshipman(" .
   $username . "," .
@@ -661,7 +661,7 @@ function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, 
     $coc_6_date = 'NULL';
     $coc_6_time = 'NULL';
   }
-  
+
 
   if(empty($coc_7)){
     $coc_7 = 'NULL';
@@ -677,7 +677,7 @@ function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, 
     $coc_7_date = 'NULL';
     $coc_7_time = 'NULL';
   }
-  
+
 
   if(empty($coc_8)){
     $coc_8 = 'NULL';
@@ -693,7 +693,7 @@ function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, 
     $coc_8_date = 'NULL';
     $coc_8_time = 'NULL';
   }
-  
+
 
 
 
@@ -777,7 +777,7 @@ function create_chit($db, $chitnumber, $creator, $shortdescription, $reference, 
 
 
    // echo "$query";
-   
+
    $stmt = build_query($db, $query, array());
    $stmt->close();
 
@@ -941,7 +941,7 @@ function update_chit($db, $chitnumber, $creator, $shortdescription, $reference, 
     $coc_6_date = 'NULL';
     $coc_6_time = 'NULL';
   }
-  
+
 
   if(empty($coc_7)){
     $coc_7 = 'NULL';
@@ -957,7 +957,7 @@ function update_chit($db, $chitnumber, $creator, $shortdescription, $reference, 
     $coc_7_date = 'NULL';
     $coc_7_time = 'NULL';
   }
-  
+
 
   if(empty($coc_8)){
     $coc_8 = 'NULL';
@@ -973,7 +973,7 @@ function update_chit($db, $chitnumber, $creator, $shortdescription, $reference, 
     $coc_8_date = 'NULL';
     $coc_8_time = 'NULL';
   }
-  
+
 
 
 
@@ -1057,7 +1057,7 @@ function update_chit($db, $chitnumber, $creator, $shortdescription, $reference, 
 
 
    // echo "$query";
-   
+
    $stmt = build_query($db, $query, array());
 
 
@@ -1106,9 +1106,9 @@ function action($db, $chit, $who, $what, $today, $now){
   }
 
   $query .= "?,?,?,?)";
-  
+
   echo "$query";
-  
+
 
   $stmt = build_query($db, $query, array($chit, $what, $today, $now));
 
@@ -1148,8 +1148,9 @@ function comment($db, $chit, $who, $comment){
   }
 
   $query .= "?,?)";
-
-  $stmt = build_query($db, $query, array($chit, $comment));
+  $fixer = array($chit, $comment);
+//  $stmt = build_query($db, $query, array($chit, $comment));
+  $stmt = build_query($db, $query, $fixer);
 
   $stmt->close();
 }
@@ -1322,11 +1323,11 @@ function delete_chit($db, $chit){
 function get_ranks($db){
   $query="select * from Rates";
   $stmt = build_query($db, $query, array());
-  
+
   $results = stmt_to_assoc_array($stmt);
-  
+
   $stmt->close();
-  
+
   return $results;
 }
 
@@ -1416,24 +1417,24 @@ function delete_user($db, $username){
   $query = "call removeAdmin(?)";
   $stmt = build_query($db, $query, array($username));
   $stmt->close();
-  
+
   $query = "call removeMISLO(?)";
   $stmt = build_query($db, $query, array($username));
   $stmt->close();
-  
+
   $query = "call removeSafety(?)";
   $stmt = build_query($db, $query, array($username));
   $stmt->close();
-  
+
   $query = "call deleteUser(?)";
   $stmt = build_query($db, $query, array($username));
   $stmt->close();
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
   return true;
 }
 
