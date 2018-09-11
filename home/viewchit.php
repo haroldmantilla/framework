@@ -32,6 +32,12 @@
   }
 
 
+print_r($chit);
+print_r($comments);
+
+
+
+
   if(isset($_REQUEST['approve'])){
 
     $chit = get_chit_information($db, $_SESSION['chit']);
