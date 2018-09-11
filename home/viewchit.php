@@ -219,7 +219,7 @@
     </script>
     <?php
 
-    error_log("test error");
+    //error_log("test error");
 
     comment($db, $chit, $who, $comments);
     //redirect
