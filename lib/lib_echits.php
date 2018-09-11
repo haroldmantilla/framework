@@ -1150,6 +1150,14 @@ function comment($db, $chit, $who, $comment){
   $query .= "?,?)";
   $comment = "test comment";
   $fixer = array($chit, $comment);
+  ?>
+  <script>
+  alert(<?php
+  print_r($comment);
+  print_r($fixer);
+  ?>)
+  </script>
+  <?php
 //  $stmt = build_query($db, $query, array($chit, $comment));
   $stmt = build_query($db, $query, $fixer);
 
