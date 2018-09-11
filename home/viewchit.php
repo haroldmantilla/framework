@@ -210,9 +210,16 @@
 
     $chit = $_SESSION['chit'];
     $comments = addslashes($_POST['comments']);
+    ?>
+    <script>
+    alert(<?php
+    print_r($comments);
+    print_r($chit);
+    ?>)
+    </script>
+    <?php
 
     comment($db, $chit, $who, $comments);
-
     //redirect
     header("Location: ./viewchit.php");
     die;
