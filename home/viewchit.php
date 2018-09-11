@@ -219,6 +219,8 @@
     </script>
     <?php
 
+    error_log("test error");
+
     comment($db, $chit, $who, $comments);
     //redirect
     header("Location: ./viewchit.php");
