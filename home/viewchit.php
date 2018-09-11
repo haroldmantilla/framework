@@ -210,14 +210,17 @@
 
     $chit = $_SESSION['chit'];
     $comments = addslashes($_POST['comments']);
-    ?>
-    <script>
-    alert(<?php
-    print_r($comments);
-    print_r($chit);
-    ?>)
-    </script>
-    <?php
+
+    echo "<script type='text/javascript'> alert(".json_encode($chit).") </script>";
+    echo "<script type='text/javascript'> alert(".json_encode($comments).") </script>";
+    // ?>
+    // <script>
+    // alert(<?php
+    // print_r($comments);
+    // print_r($chit);
+    // ?>)
+    // </script>
+    // <?php
 
     comment($db, $chit, $who, $comments);
     //redirect
