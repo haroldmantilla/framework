@@ -136,7 +136,7 @@ function redirect(location){
       echo "</select>";
     }
 
-
+//test
     echo "<input type=\"text\" class=\"form-control\" name=\"firstname\" maxlength=\"20\" value=\"{$userinfo['firstName']}\" placeholder=\"First Name\"required>";
 
     echo "<input type=\"text\" class=\"form-control\" name=\"lastname\" maxlength=\"20\" value=\"{$userinfo['lastName']}\" placeholder=\"Last Name\"required>";
