@@ -140,7 +140,6 @@ elseif (!empty($subarchivedchits)){
 
 
           $mystatus = "PENDING";
-
           if(USER['user'] == $chit['coc_0_username']){
             $mystatus = $chit['coc_0_status'];
           }
@@ -162,22 +161,17 @@ elseif (!empty($subarchivedchits)){
           elseif(USER['user'] == $chit['coc_6_username']){
             $mystatus = $chit['coc_6_status'];
           }
-          elseif(USER['user'] == $chit['coc_7_username']){
-            $mystatus = $chit['coc_7_status'];
-          }
-          elseif(USER['user'] == $chit['coc_8_username']){
-            $mystatus = $chit['coc_8_status'];
-          }
 
-
-          if($mystatus == "APPROVED"){
-            echo "<td><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-success\" disabled>Approved</button></td>";
+          if($mystatus == "PENDING"){
+            echo "<td class=\"min\"><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-secondary\" disabled>Pending</button></td>";
+          }
+          elseif($mystatus == "APPROVED"){
+            echo "<td class=\"min\"><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-success\" disabled>Approved</button></td>";
           }
           elseif($mystatus == "DISAPPROVED"){
-            echo "<td><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>DISAPPROVED</button></td>";
-          } elseif ($mystatus =! "APPROVED" && $mystatus != "DISAPPROVED" || $mystatus == NULL){
-            echo "<td><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-secondary\" disabled>Pending</button></td>";
+            echo "<td class=\"min\"><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>DISAPPROVED</button></td>";
           }
+
 
 
 

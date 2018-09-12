@@ -126,9 +126,9 @@ elseif(is_midshipman($db, USER['user'])){
        $chit['coc_6_status'] == "DISAPPROVED" ||
        $chit['coc_7_status'] == "DISAPPROVED" ||
        $chit['coc_8_status'] == "DISAPPROVED" ){
-      $chitstatus = "DENIED";
+      $chitstatus = "DISAPPROVED";
     }
-    elseif($chitstatus != "DENIED"){
+    elseif($chitstatus != "DISAPPROVED"){
       if(!empty($chit['coc_0_username'])){ //dant
         $chitstatus = $chit['coc_0_status'];
       }
