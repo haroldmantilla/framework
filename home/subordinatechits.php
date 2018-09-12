@@ -359,28 +359,35 @@ if (!empty($subchits)){
 
 
 
-        $chitstatus = "PENDING";
-        if($chit['coc_0_status'] == "DISAPPROVED" || $chit['coc_1_status'] == "DISAPPROVED" || $chit['coc_2_status'] == "DISAPPROVED" || $chit['coc_3_status'] == "DISAPPROVED" || $chit['coc_4_status'] == "DISAPPROVED" || $chit['coc_5_status'] == "DISAPPROVED" || $chit['coc_6_status'] == "DISAPPROVED"){
-          $chitstatus = "DISAPPROVED";
+      $chitstatus = "PENDING";
+      if($chit['coc_0_status'] == "DISAPPROVED" ||
+         $chit['coc_1_status'] == "DISAPPROVED" ||
+         $chit['coc_2_status'] == "DISAPPROVED" ||
+         $chit['coc_3_status'] == "DISAPPROVED" ||
+         $chit['coc_4_status'] == "DISAPPROVED" ||
+         $chit['coc_5_status'] == "DISAPPROVED" ||
+         $chit['coc_6_status'] == "DISAPPROVED" ||
+         $chit['coc_7_status'] == "DISAPPROVED" ||
+         $chit['coc_8_status'] == "DISAPPROVED" ){
+        $chitstatus = "DENIED";
+      }
+      elseif($chitstatus != "DENIED"){
+        if(!empty($chit['coc_0_username'])){ //dant
+          $chitstatus = $chit['coc_0_status'];
         }
-
-
-        if(!empty($chit['coc_0_username'])){
-          if($chit['coc_0_status'] != "PENDING"){
-            $chitstatus = $chit['coc_0_status'];
-          }
+        elseif(!empty($chit['coc_1_username'])){ //depdant
+          $chitstatus = $chit['coc_1_status'];
         }
-        elseif(!empty($chit['coc_1_username'])){
-          if($chit['coc_1_status'] != "PENDING"){
-            $chitstatus = $chit['coc_1_status'];
-          }
+        elseif(!empty($chit['coc_2_username'])){ //batt-o
+          $chitstatus = $chit['coc_2_status'];
         }
-        elseif(!empty($chit['coc_2_username'])){
-          if($chit['coc_1_status'] != "PENDING"){
-            $chitstatus = $chit['coc_2_status'];
-          }
+        elseif(!empty($chit['coc_3_username'])){ // co
+          $chitstatus = $chit['coc_3_status'];
         }
-
+        elseif(!empty($chit['coc_4_username'])){ //sel
+          $chitstatus = $chit['coc_4_status'];
+        }
+      }
 
         if($chitstatus == "PENDING"){
           echo "<td><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-secondary\" disabled>Pending</button></td>";
