@@ -283,6 +283,7 @@ function redirect(location){
         echo "<form action=\"?\" method=\"post\">";
         echo "<div class=\"row\">";
         echo "<div class=\"col-sm-3\">";
+        echo "Company";
         echo "<select class=\"form-control\" name=\"company\" required>";
         echo "<option value=\"1\""; if($midshipmaninfo['company'] == 1){echo "selected";} echo ">1</option>";
         echo "<option value=\"2\""; if($midshipmaninfo['company'] == 2){echo "selected";} echo ">2</option>";
