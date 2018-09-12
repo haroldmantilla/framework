@@ -21,7 +21,7 @@
   require_once(LIBRARY_PATH.'template.php');
 
   if (isset($_REQUEST['restore'])) {
-    
+
     $chit = $_REQUEST['chit'];
 
     restore_chit($db, $chit);
@@ -34,10 +34,10 @@
     die;
   }
   elseif (isset($_REQUEST['view'])) {
-    
+
     $chit = $_REQUEST['chit'];
     $_SESSION['chit'] = $chit;
-    
+
     //redirect
     header("Location: viewchit.php");
 
@@ -46,33 +46,33 @@
   }
   elseif (isset($_REQUEST['archive'])) {
     $chit = $_REQUEST['archive'];
-    
+
     archive_chit($db, $chit);
-    
+
     unset($_SESSION['chit']);
-        
+
     header("Location: {$_SERVER['HTTP_REFERER']}");
-  }  
+  }
   elseif (isset($_REQUEST['delete'])) {
     $chit = $_REQUEST['delete'];
-    
+
     delete_chit($db, $chit);
-    
+
     unset($_SESSION['chit']);
-    
+
     header("Location: {$_SERVER['HTTP_REFERER']}");
   }
   elseif(isset($_REQUEST['deleteall']) && !empty($_REQUEST['deleteall'])){
     blast_chits($db);
   }
-  
+
   # Load in The NavBar
   # Note: You too will have automated NavBar generation
   #       support in your future templates...
   require_once(WEB_PATH.'navbar.php');
-  
 
-  
+
+
 ?>
  <div class="container-fluid">
    <div class="row">
@@ -168,20 +168,34 @@ $archivedchits = get_archived_chits($db);
       echo "<td>{$chit['company']}</td>";
       echo "<td>{$chit['description']}</td>";
 
+
       $chitstatus = "PENDING";
-      if($chit['coc_0_status'] == "DENIED" || $chit['coc_1_status'] == "DENIED" || $chit['coc_2_status'] == "DENIED" || $chit['coc_3_status'] == "DENIED" || $chit['coc_4_status'] == "DENIED" || $chit['coc_5_status'] == "DENIED" || $chit['coc_6_status'] == "DENIED"){
+      if($chit['coc_0_status'] == "DENIED" ||
+         $chit['coc_1_status'] == "DENIED" ||
+         $chit['coc_2_status'] == "DENIED" ||
+         $chit['coc_3_status'] == "DENIED" ||
+         $chit['coc_4_status'] == "DENIED" ||
+         $chit['coc_5_status'] == "DENIED" ||
+         $chit['coc_6_status'] == "DENIED" ||
+         $chit['coc_7_status'] == "DENIED" ||
+         $chit['coc_8_status'] == "DENIED" ){
         $chitstatus = "DENIED";
       }
-
-      if($chitstatus != "DENIED"){
-        if(!empty($chit['coc_0_username'])){
+      elseif($chitstatus != "DENIED"){
+        if(!empty($chit['coc_0_username'])){ //dant
           $chitstatus = $chit['coc_0_status'];
         }
-        elseif(!empty($chit['coc_1_username'])){
+        elseif(!empty($chit['coc_1_username'])){ //depdant
           $chitstatus = $chit['coc_1_status'];
         }
-        elseif(!empty($chit['coc_2_username'])){
+        elseif(!empty($chit['coc_2_username'])){ //batt-o
           $chitstatus = $chit['coc_2_status'];
+        }
+        elseif(!empty($chit['coc_3_username'])){ // co
+          $chitstatus = $chit['coc_3_status'];
+        }
+        elseif(!empty($chit['coc_3_username'])){ //sel
+          $chitstatus = $chit['coc_3_status'];
         }
       }
 
