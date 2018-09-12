@@ -170,15 +170,15 @@ $archivedchits = get_archived_chits($db);
 
 
       $chitstatus = "PENDING";
-      if($chit['coc_0_status'] == "DENIED" ||
-         $chit['coc_1_status'] == "DENIED" ||
-         $chit['coc_2_status'] == "DENIED" ||
-         $chit['coc_3_status'] == "DENIED" ||
-         $chit['coc_4_status'] == "DENIED" ||
-         $chit['coc_5_status'] == "DENIED" ||
-         $chit['coc_6_status'] == "DENIED" ||
-         $chit['coc_7_status'] == "DENIED" ||
-         $chit['coc_8_status'] == "DENIED" ){
+      if($chit['coc_0_status'] == "DISAPPROVED" ||
+         $chit['coc_1_status'] == "DISAPPROVED" ||
+         $chit['coc_2_status'] == "DISAPPROVED" ||
+         $chit['coc_3_status'] == "DISAPPROVED" ||
+         $chit['coc_4_status'] == "DISAPPROVED" ||
+         $chit['coc_5_status'] == "DISAPPROVED" ||
+         $chit['coc_6_status'] == "DISAPPROVED" ||
+         $chit['coc_7_status'] == "DISAPPROVED" ||
+         $chit['coc_8_status'] == "DISAPPROVED" ){
         $chitstatus = "DENIED";
       }
       elseif($chitstatus != "DENIED"){
