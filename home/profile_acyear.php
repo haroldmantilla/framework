@@ -55,21 +55,21 @@ function redirect(location){
   <?php
   $debug = false;
   // $debug = true;
-  //edit basic info
 
-  //check if they have submitted information to post and that all necessary fields have been entered
+  //edit basic info
   if(isset($_POST['changes']) && $_POST['changes'] == "Submit Changes" && isset($_POST['rank']) && !empty($_POST['rank']) && isset($_POST['firstname']) && !empty($_POST['firstname']) && isset($_POST['lastname']) && !empty($_POST['lastname']) && isset($_POST['billet']) && !empty($_POST['billet'])){
-  //update user's informaton in database if information has been submitted
+
     update_basic_leader_info($db, USER['user'], $_POST['rank'], $_POST['firstname'], $_POST['lastname'], $_POST['billet']);
+
+
+
   }
-  //grab user information from DB
+
   $userinfo = get_user_information($db, USER['user']);
 
-  //--DEBUGGING--//
   // echo "<pre>";
   // print_r($userinfo);
   // echo "</pre>";
-  //--DEBUGGING--//
 
   if(isset($_POST['editbasic'])){
     echo "<div class=\"row\">";
@@ -283,6 +283,7 @@ function redirect(location){
         echo "<form action=\"?\" method=\"post\">";
         echo "<div class=\"row\">";
         echo "<div class=\"col-sm-3\">";
+        echo "<center>Company</center>";
         echo "<select class=\"form-control\" name=\"company\" required>";
         echo "<option value=\"1\""; if($midshipmaninfo['company'] == 1){echo "selected";} echo ">1</option>";
         echo "<option value=\"2\""; if($midshipmaninfo['company'] == 2){echo "selected";} echo ">2</option>";
@@ -317,24 +318,30 @@ function redirect(location){
         echo "</select>";
         echo "</div>";
         echo "<div class=\"col-sm-3\">";
+        echo "<center>Class Year</center>"; //Class year text input
         echo "<input type=\"text\" class=\"form-control\"maxlength=\"4\" name=\"year\" placeholder=\"Year\" value=\"{$midshipmaninfo['classYear']}\"  required>";
         echo "</div>";
         echo "<div class=\"col-sm-3\">";
+        echo "<center>Room</center>"; //Room number text input
         echo "<input type=\"text\" class=\"form-control\"maxlength=\"4\" name=\"room\" placeholder=\"Room\" value=\"{$midshipmaninfo['room']}\"  required>";
         echo "</div>";
         echo "<div class=\"col-sm-3\">";
+        echo "<center>Phone Number</center>"; //Phone number text input
         echo "<input type=\"text\" class=\"form-control\"maxlength=\"14\" name=\"phonenumber\" placeholder=\"Phone Number\" value=\"{$midshipmaninfo['phoneNumber']}\"  required>";
         echo "</div>";
         echo "</div>"; //closes row
 
         echo "<div class=\"row btn-space\">";
         echo "<div class=\"col-sm-3\">";
+        echo "<center>SQPR</center>"; // SQPR text input
         echo "<input type=\"text\" class=\"form-control\" maxlength=\"4\" name=\"SQPR\" placeholder=\"SQPR\" value=\"{$midshipmaninfo['SQPR']}\" required>";
         echo "</div>";
         echo "<div class=\"col-sm-3\">";
+        echo "<center>CQPR</center>"; //CQPR text input
         echo "<input type=\"text\" class=\"form-control\" maxlength=\"4\" name=\"CQPR\" placeholder=\"CQPR\" value=\"{$midshipmaninfo['CQPR']}\" required>";
         echo "</div>";
         echo "<div class=\"col-sm-3\">";
+        echo "<center>Aptitude Grade</center>"; // aptitude selection
         echo "<select class=\"form-control\" name=\"aptitudegrade\" required>";
         echo "<option value=\"A\""; if($midshipmaninfo['aptitudeGrade'] == 'A'){echo "selected";} echo ">A</option>";
         echo "<option value=\"B\""; if($midshipmaninfo['aptitudeGrade'] == 'B'){echo "selected";} echo ">B</option>";
@@ -345,7 +352,7 @@ function redirect(location){
 
         echo "</div>";
         echo "<div class=\"col-sm-3\">";
-
+        echo "<center>Conduct Grade</center>"; // Conduct grade selection
         echo "<select class=\"form-control\" name=\"conductgrade\" required>";
         echo "<option value=\"A\""; if($midshipmaninfo['conductGrade'] == 'A'){echo "selected";} echo ">A</option>";
         echo "<option value=\"B\""; if($midshipmaninfo['conductGrade'] == 'B'){echo "selected";} echo ">B</option>";
@@ -622,7 +629,7 @@ function redirect(location){
           echo "<div class=\"col-sm-2\">";
 
           echo "<input type=\"submit\" class=\"btn btn-default \" name=\"changemidshipmaninfo\" value=\"Submit Changes\">";
-          echo "<button class=\"btn btn-danger btn-space\" onclick=\"redirect('./profile.php')\">Cancel</button>";
+          echo "<button class=\"btn btn-danger btn-space\" onclick=\"redirect('./profile_acyear.php')\">Cancel</button>";
           echo "</form>";
           echo "</div>";
           echo "</div>";
