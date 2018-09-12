@@ -162,17 +162,16 @@ elseif (!empty($subarchivedchits)){
             $mystatus = $chit['coc_6_status'];
           }
 
-          if($mystatus == "PENDING"){
-            echo "<td><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-secondary\" disabled>Pending</button></td>";
-          }
-          elseif($mystatus == "APPROVED"){
+
+          if($mystatus == "APPROVED"){
             echo "<td><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-success\" disabled>Approved</button></td>";
           }
           elseif($mystatus == "DISAPPROVED"){
             echo "<td><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>DISAPPROVED</button></td>";
+          } else {
+            echo "<td><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-secondary\" disabled>Pending</button></td>";
           }
 
-          echo "<td class=\"min\"><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-secondary\" disabled>Pending</button></td>";
 
 
 
