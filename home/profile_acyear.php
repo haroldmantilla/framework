@@ -318,25 +318,30 @@ function redirect(location){
         echo "</select>";
         echo "</div>";
         echo "<div class=\"col-sm-3\">";
-        echo "<center>Class Year</center>";
+        echo "<center>Class Year</center>"; //Class year text input
         echo "<input type=\"text\" class=\"form-control\"maxlength=\"4\" name=\"year\" placeholder=\"Year\" value=\"{$midshipmaninfo['classYear']}\"  required>";
         echo "</div>";
         echo "<div class=\"col-sm-3\">";
+        echo "<center>Room</center>"; //Room number text input
         echo "<input type=\"text\" class=\"form-control\"maxlength=\"4\" name=\"room\" placeholder=\"Room\" value=\"{$midshipmaninfo['room']}\"  required>";
         echo "</div>";
         echo "<div class=\"col-sm-3\">";
+        echo "<center>Phone Number</center>"; //Phone number text input
         echo "<input type=\"text\" class=\"form-control\"maxlength=\"14\" name=\"phonenumber\" placeholder=\"Phone Number\" value=\"{$midshipmaninfo['phoneNumber']}\"  required>";
         echo "</div>";
         echo "</div>"; //closes row
 
         echo "<div class=\"row btn-space\">";
         echo "<div class=\"col-sm-3\">";
+        echo "<center>SQPR</center>"; // SQPR text input
         echo "<input type=\"text\" class=\"form-control\" maxlength=\"4\" name=\"SQPR\" placeholder=\"SQPR\" value=\"{$midshipmaninfo['SQPR']}\" required>";
         echo "</div>";
         echo "<div class=\"col-sm-3\">";
+        echo "<center>CQPR</center>"; //CQPR text input
         echo "<input type=\"text\" class=\"form-control\" maxlength=\"4\" name=\"CQPR\" placeholder=\"CQPR\" value=\"{$midshipmaninfo['CQPR']}\" required>";
         echo "</div>";
         echo "<div class=\"col-sm-3\">";
+        echo "<center>Aptitude Grade</center>"; // aptitude selection
         echo "<select class=\"form-control\" name=\"aptitudegrade\" required>";
         echo "<option value=\"A\""; if($midshipmaninfo['aptitudeGrade'] == 'A'){echo "selected";} echo ">A</option>";
         echo "<option value=\"B\""; if($midshipmaninfo['aptitudeGrade'] == 'B'){echo "selected";} echo ">B</option>";
@@ -347,7 +352,7 @@ function redirect(location){
 
         echo "</div>";
         echo "<div class=\"col-sm-3\">";
-
+        echo "<center>Conduct Grade</center>"; // Conduct grade selection
         echo "<select class=\"form-control\" name=\"conductgrade\" required>";
         echo "<option value=\"A\""; if($midshipmaninfo['conductGrade'] == 'A'){echo "selected";} echo ">A</option>";
         echo "<option value=\"B\""; if($midshipmaninfo['conductGrade'] == 'B'){echo "selected";} echo ">B</option>";
