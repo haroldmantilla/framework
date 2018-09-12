@@ -179,12 +179,32 @@ elseif (!empty($subarchivedchits)){
       		echo "<td>";
 
 
-          echo "<form style=\"float: right;\" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-primary\" name=\"restore\" value=\"Restore Chit\"></form>";
-
-          echo "<form style=\"float: right; \" action=\"viewchit.php\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-default\" name=\"viewbutton\" value=\"View Chit\"></form>";
+          if($chitstatus == "APPROVED"){
 
 
-          echo "</td>";
+  			echo "<form style=\"float: right;\" action=\"?\" method=\"post\">
+  			<input type=\"hidden\" name=\"archive\" value=\"{$chit['chitNumber']}\"/>
+        <input type=\"submit\" class=\"btn btn-danger\" value=\"Archive\">
+        </form>";
+
+        echo "<form style=\"float: right;\" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\"/><input type=\"submit\" class=\"btn btn-default\" name=\"print\" value=\"Print Chit\">
+        </form>";
+          }
+          elseif ($chitstatus == "DISAPPROVED") {
+
+
+  			echo "<form style=\"float: right;\" action=\"?\" method=\"post\">
+    		          <input type=\"hidden\" name=\"archive\" value=\"{$chit['chitNumber']}\"/>
+    		          <input type=\"submit\" class=\"btn btn-danger\" value=\"Archive\">
+  				  </form>";
+
+          }
+
+
+          echo "<form style=\"float: right; \" action=\"viewchit.php\" id=\"viewform\" method=\"post\">";
+          echo "<input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" />";
+          echo "<button type=\"submit\" class=\"btn btn-default\" name=\"viewbutton\" for=\"viewform\" value=\"View Chit\">View Chit</button>";
+          echo "</form>";
           echo "</tr>";
   	}
 
