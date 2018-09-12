@@ -318,6 +318,7 @@ function redirect(location){
         echo "</select>";
         echo "</div>";
         echo "<div class=\"col-sm-3\">";
+        echo "<center>Class Year</center>";
         echo "<input type=\"text\" class=\"form-control\"maxlength=\"4\" name=\"year\" placeholder=\"Year\" value=\"{$midshipmaninfo['classYear']}\"  required>";
         echo "</div>";
         echo "<div class=\"col-sm-3\">";
