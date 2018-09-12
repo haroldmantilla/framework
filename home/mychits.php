@@ -30,7 +30,7 @@
     header("Location: {$_SERVER['HTTP_REFERER']}");
   }
   elseif (isset($_REQUEST['print'])) {
-    
+
     header("Location: generate_pdf.php");
     die;
   }
@@ -43,7 +43,7 @@
 
 ?>
 <div class="container-fluid">
-  
+
 <?php
 // session_destroy();
 // $_POST = array();
@@ -65,7 +65,7 @@ if(!in_midshipman_table($db, USER['user'])){
   echo "<div class='col-md-8 text-center'>";
   echo "<h2>Welcome to eChits!</h2>";
   echo "<h4>Complete your profile to make chits!</h4>";
-  echo "<button type=button class='btn btn-default' onclick=\"window.location.href='./profile.php'\">Edit Profile</button>";
+  echo "<button type=button class='btn btn-default' onclick=\"window.location.href='./profile_acyear.php'\">Edit Profile</button>";
   echo "</div>";
   echo "<div class='col-md-2'>";
   echo "</div>";
