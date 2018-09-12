@@ -149,7 +149,7 @@ function redirect(location){
     echo "<div class=\"col-sm-2 btn-toolbar text-center\">";
 
     echo "<input type=\"submit\" class=\"btn btn-default \" name=\"changes\" value=\"Submit Changes\">";
-    echo "<button class=\"btn btn-danger btn-space\" onclick=\"redirect('./profile.php')\">Cancel</button>";
+    echo "<button class=\"btn btn-danger btn-space\" onclick=\"redirect('./profile_acyear.php')\">Cancel</button>";
     echo "</form>";
     echo "</div>";
     echo "</div>";
