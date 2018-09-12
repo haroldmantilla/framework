@@ -193,9 +193,10 @@ $archivedchits = get_archived_chits($db);
         }
         elseif(!empty($chit['coc_3_username'])){ // co
           $chitstatus = $chit['coc_3_status'];
+          die;
         }
-        elseif(!empty($chit['coc_3_username'])){ //sel
-          $chitstatus = $chit['coc_3_status'];
+        elseif(!empty($chit['coc_4_username'])){ //sel
+          $chitstatus = $chit['coc_4_status'];
         }
       }
 
@@ -309,9 +310,10 @@ $archivedchits = get_archived_chits($db);
         }
         elseif(!empty($chit['coc_3_username'])){ // co
           $chitstatus = $chit['coc_3_status'];
+          die;
         }
-        elseif(!empty($chit['coc_3_username'])){ //sel
-          $chitstatus = $chit['coc_3_status'];
+        elseif(!empty($chit['coc_4_username'])){ //sel
+          $chitstatus = $chit['coc_4_status'];
         }
       }
 
