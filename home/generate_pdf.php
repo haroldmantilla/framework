@@ -75,23 +75,28 @@ $template_pdf->SetTextColor(0,0,0);
 
 $template_pdf->SetXY(8, 32);
 
-if(isset($chit['coc_0_username'])){
+if(isset($chit['coc_0_username'])){ //dant
   $coc_0 = get_user_information($db, $chit['coc_0_username']);
   $to = "{$coc_0['rank']} {$coc_0['firstName']} {$coc_0['lastName']}, {$coc_0['service']}   {$coc_0['billet']}";
 
 }
-elseif(isset($chit['coc_1_username'])){
+elseif(isset($chit['coc_1_username'])){ //depdant
   $coc_1 = get_user_information($db, $chit['coc_1_username']);
   $to = "{$coc_1['rank']} {$coc_1['firstName']} {$coc_1['lastName']}, {$coc_1['service']}   {$coc_1['billet']}";
 }
-elseif(isset($chit['coc_2_username'])){
+elseif(isset($chit['coc_2_username'])){ // batt o
   $coc_2 = get_user_information($db, $chit['coc_2_username']);
   $to = "{$coc_2['rank']} {$coc_2['firstName']} {$coc_2['lastName']}, {$coc_2['service']}   {$coc_2['billet']}";
 
 }
-elseif(isset($chit['coc_3_username'])){
+elseif(isset($chit['coc_3_username'])){ //co
   $coc_3 = get_user_information($db, $chit['coc_3_username']);
   $to = "{$coc_3['rank']} {$coc_3['firstName']} {$coc_3['lastName']}, {$coc_3['service']}   {$coc_3['billet']}";
+
+}
+elseif(isset($chit['coc_4_username'])){ //sel
+  $coc_4 = get_user_information($db, $chit['coc_4_username']);
+  $to = "{$coc_4['rank']} {$coc_4['firstName']} {$coc_4['lastName']}, {$coc_4['service']}   {$coc_4['billet']}";
 
 }
 $template_pdf->Write(0, "".$to);
