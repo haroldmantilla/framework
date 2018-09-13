@@ -54,7 +54,7 @@ isset($_POST['message'])){
 }
 
 if(isset($_POST['sent']) && $_POST['sent']){
-  echo "<h1>sent<h1>";
+  echo "<div class='alert alert-success' data-dismiss='alert' aria-label='close'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <strong>Sent.</strong> Sent!</div> ";
 }
 ?>
 
