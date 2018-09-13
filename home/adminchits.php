@@ -351,7 +351,7 @@ $archivedchits = get_archived_chits($db);
       elseif($chitstatus == "APPROVED"){
         echo "<td><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-success\" disabled>Approved</button></td>";
       }
-      elseif($chitstatus == "DENIED"){
+      elseif($chitstatus == "DISAPPROVED"){
         echo "<td><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>Denied</button></td>";
       }
 
