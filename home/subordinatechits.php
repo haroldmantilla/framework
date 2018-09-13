@@ -207,15 +207,20 @@ if (!empty($readychits)){
         $chitstatus = "DISAPPROVED";
       }
 
-      $count = 0;
-      if(!empty($chit['coc_'.$count.'_username'])){ // if dant has selected an option
-        $chitstatus = $chit['coc_0_status'];
-      } elseif(empty($chit['coc_'.$count.'_username'])) { // elseif dant is null, continue
 
-        while(empty($chit['coc_'.$count.'_username'])){   //continue until we find the top person in coc
+      if(!empty($chit['coc_0_username'])){ // if dant has selected an option
+        $chitstatus = $chit['coc_0_status'];
+      } elseif(empty($chit['coc_0_username'])) { // elseif dant is null, continue
+
+        $count = 0;
+        $aggregate = "coc_".$count."_username";
+        $coc_email = get_user_information($db, $chit[]);
+        while(empty($chit[''.$aggregate.''])){   //continue until we find the top person in coc
           $count++;
-          if(!empty($chit['coc_'.$count.'_username'])){
-            $chitstatus = $chit['coc_'.$count.'_status']; //select the status of the top person in coc
+          $aggregate = "coc_".$count."_username";
+          if(!empty($chit[''.$aggregate.''])){
+            $aggregate = "coc_".$count."_status";
+            $chitstatus = $chit[''.$aggregate.'']; //select the status of the top person in coc
             break;
           }
         }
