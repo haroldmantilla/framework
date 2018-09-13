@@ -124,7 +124,7 @@
      //{$chit['creator']} this is who it should send to eventually
     $subject = "Your chit has been disapproved."; // SUBJECT OF THE EMAIL
 
-    $txt = "Disapproved by $aggregate {$coc_email['rank']} {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
+    $txt = "Disapproved by {$coc_email['rank']} {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
           \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
 
     $headers = "From: eChits@noreply.edu" . "\r\n"; // IT WILL SEND FROM THIS ADDRESS
