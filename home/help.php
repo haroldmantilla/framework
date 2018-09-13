@@ -40,6 +40,18 @@ if(isset($_POST["sent"]) && $_POST["sent"]){
 }
 
 ?>
+<?php
+function emailwrapper()
+{
+  if(isset($_POST["fullname"]) && isset($_POST["email"]) && isset($_FORM["message"])){
+    $txt = "From: {$_POST["fullname"]}
+    Email: {$_POST["email"]}
+    Message: {$_POST["message"]}";
+    $_POST["sent"] = sendemail("m194020@usna.edu","eChits Contact Email",$txt,"From: eChits@noreply.edu \r\n");
+  }
+}
+
+?>
 
 
 <div class = "container">
@@ -91,18 +103,6 @@ if(isset($_POST["sent"]) && $_POST["sent"]){
     </div>
   </section>
 
-  <?php
-  function emailwrapper()
-  {
-    if(isset($_POST["fullname"]) && isset($_POST["email"]) && isset($_FORM["message"])){
-      $txt = "From: {$_POST["fullname"]}
-              Email: {$_POST["email"]}
-              Message: {$_POST["message"]}";
-      $_POST["sent"] = sendemail("m194020@usna.edu","eChits Contact Email",$txt,"From: eChits@noreply.edu" . "\r\n");
-    }
-  }
-
-  ?>
   <!-- <script>
 
 
