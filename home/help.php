@@ -51,42 +51,21 @@ isset($_POST['message'])){
 
  $_POST['sent'] = mail($to,$subject,$txt,$headers);
 
+ if($_POST['sent']){
+   echo "<div class = \"container\">
+   <div class = \"row\">
+   <div class = \"col-md-2\">";
+   echo "<div class='alert alert-success' data-dismiss='alert' aria-label='close'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <strong>Sent.</strong> Sent!</div> ";
+   echo "</div></div</div>";
+ }
+
 }
 
 //if(isset($_POST['sent']) && $_POST['sent']){
 
 ?>
-<div id="whoModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h2 class="modal-title text-center">Who should I route my chit to?</h2>
-      </div>
-      <div class="modal-body">
-        test
-      </div>
-      <div class="modal-footer">
-
-        <div class="col-xs-8 text-left">
-          <div class="previous">
-            ** Not currently supported by eChits
-          </div>
-        </div>
-        <div class="col-xs-4 text-right">
-          <div class="next">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
 
 
-      </div>
-    </div>
-
-  </div>
-</div>
 
 <?php
 
@@ -141,8 +120,8 @@ isset($_POST['message'])){
               <div class="clearfix"></div>
               <div class="col-lg-12 text-center">
                 <div id="success"></div>
-                <button type="button" class="btn btn-default" onclick="submit()"data-toggle="modal" data-target="#whoModal">test</button>
-                <button id="sendMessageButton" type="submit">fomrSubmit</button>
+
+                <button id="sendMessageButton" class="btn btn-default" type="submit">fomrSubmit</button>
 
 
               </div>
