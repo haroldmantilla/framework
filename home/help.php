@@ -35,12 +35,13 @@
   //
   // sendemail($to,$subject,$txt,$headers);
 
-if(isset($_POST["sent"]) && $_POST["sent"]){
+if(isset($_POST['sent']) && $_POST['sent']){
   echo "<h1>sent<h1>";
 }
 
 ?>
 <?php
+if(isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['message'])){
 function emailwrapper()
 {
 
@@ -51,7 +52,7 @@ function emailwrapper()
   $headers = "From: eChits@noreply.edu" . "\r\n" .
   "CC: m194020@usna.edu";
   sendemail($to,$subject,$txt,$headers);
-  if(isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['message'])){
+
     // $to = "m194020@usna.edu";
     // $subject = "A chit is ready for your approval!";
     // $txt = "Log in at midn.cs.usna.edu/project-echits to review the chit.
@@ -60,7 +61,7 @@ function emailwrapper()
     // "CC: m194020@usna.edu";
     // sendemail($to,$subject,$txt,$headers);
 
-    
+
     // $txt = "From: {$_POST["fullname"]}
     // Email: {$_POST["email"]}
     // Message: {$_POST["message"]}";
@@ -111,7 +112,7 @@ function emailwrapper()
               <div class="clearfix"></div>
               <div class="col-lg-12 text-center">
                 <div id="success"></div>
-                <button id="sendMessageButton" onclick="emailwrapper()" class="btn btn-xl" type="submit">Submit</button>
+                <button id="sendMessageButton" onclick="redirect(/help.php)" class="btn btn-xl" type="submit">Submit</button>
               </div>
             </div>
           </form>
@@ -120,16 +121,12 @@ function emailwrapper()
     </div>
   </section>
 
-  <!-- <script>
+  <script type="text/javascript">
+  function redirect(location){
+  	window.location = location;
+  }
 
-
-function emailwrapper() {
-    var fullname = document.getElementById("contactForm").fullname;
-    var email = document.getElementById("contactForm").email;
-    var message = document.getElementById("contactForm").message;
-
-}
-</script> -->
+  </script>
 
 Website Administrator is Harold Mantilla. If you run into any issues please contact me at:
 <br>
