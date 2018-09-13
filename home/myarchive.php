@@ -21,7 +21,7 @@
   require_once(LIBRARY_PATH.'template.php');
 
   if (isset($_REQUEST['restore'])) {
-    
+
     $chit = $_REQUEST['chit'];
 
     restore_chit($db, $chit);
@@ -41,7 +41,7 @@
 
 ?>
 <div class="container-fluid">
-  
+
 <?php
 
 $debug = false;
@@ -87,19 +87,32 @@ elseif (!empty($myarchivedchits)){
       echo "<td>{$chit['description']}</td>";
 
       $chitstatus = "PENDING";
-      if($chit['coc_0_status'] == "DISAPPROVED" || $chit['coc_1_status'] == "DISAPPROVED" || $chit['coc_2_status'] == "DISAPPROVED" || $chit['coc_3_status'] == "DISAPPROVED" || $chit['coc_4_status'] == "DISAPPROVED" || $chit['coc_5_status'] == "DISAPPROVED" || $chit['coc_6_status'] == "DISAPPROVED"){
+      if($chit['coc_0_status'] == "DISAPPROVED" ||
+         $chit['coc_1_status'] == "DISAPPROVED" ||
+         $chit['coc_2_status'] == "DISAPPROVED" ||
+         $chit['coc_3_status'] == "DISAPPROVED" ||
+         $chit['coc_4_status'] == "DISAPPROVED" ||
+         $chit['coc_5_status'] == "DISAPPROVED" ||
+         $chit['coc_6_status'] == "DISAPPROVED" ||
+         $chit['coc_7_status'] == "DISAPPROVED" ||
+         $chit['coc_8_status'] == "DISAPPROVED" ){
         $chitstatus = "DISAPPROVED";
       }
-
-      if($chitstatus != "DISAPPROVED"){
-        if(!empty($chit['coc_0_username'])){
+      elseif($chitstatus != "DISAPPROVED"){
+        if(!empty($chit['coc_0_username'])){ //dant
           $chitstatus = $chit['coc_0_status'];
         }
-        elseif(!empty($chit['coc_1_username'])){
+        elseif(!empty($chit['coc_1_username'])){ //depdant
           $chitstatus = $chit['coc_1_status'];
         }
-        elseif(!empty($chit['coc_2_username'])){
+        elseif(!empty($chit['coc_2_username'])){ //batt-o
           $chitstatus = $chit['coc_2_status'];
+        }
+        elseif(!empty($chit['coc_3_username'])){ // co
+          $chitstatus = $chit['coc_3_status'];
+        }
+        elseif(!empty($chit['coc_4_username'])){ //sel
+          $chitstatus = $chit['coc_4_status'];
         }
       }
 
@@ -115,9 +128,9 @@ elseif (!empty($myarchivedchits)){
 
 
   		echo "<td>";
-      
+
       echo "<form style=\"float: right;\" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-primary\" name=\"restore\" value=\"Restore Chit\"></form>";
-      
+
       echo "<form style=\"float: right; \" action=\"viewchit.php\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-default\" name=\"viewbutton\" value=\"View Chit\"></form>";
 
 
