@@ -53,7 +53,7 @@ isset($_POST['message'])){
 
 }
 
-if(isset($_POST['sent']) && $_POST['sent']){
+//if(isset($_POST['sent']) && $_POST['sent']){
 
 ?>
 <div id="whoModal" class="modal fade" role="dialog">
@@ -177,7 +177,7 @@ if(isset($_POST['sent']) && $_POST['sent']){
 <?php
 
   //echo "<div class='alert alert-success' data-dismiss='alert' aria-label='close'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <strong>Sent.</strong> Sent!</div> ";
-}
+//}
 ?>
 
 
