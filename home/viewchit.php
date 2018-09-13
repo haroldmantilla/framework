@@ -43,19 +43,19 @@
     $chit = get_chit_information($db, $_SESSION['chit']);
     $who = USER['user'];
 
-    if($chit['coc_0_username'] == USER['user']){
+    if($chit['coc_0_username'] == USER['user']){ //dant
       $who = "coc_0";
     }
-    elseif($chit['coc_1_username'] == USER['user']){
+    elseif($chit['coc_1_username'] == USER['user']){ //depdant
       $who = "coc_1";
     }
-    elseif($chit['coc_2_username'] == USER['user']){
+    elseif($chit['coc_2_username'] == USER['user']){ //batt o
       $who = "coc_2";
     }
-    elseif($chit['coc_3_username'] == USER['user']){
+    elseif($chit['coc_3_username'] == USER['user']){ //co
       $who = "coc_3";
     }
-    elseif($chit['coc_4_username'] == USER['user']){
+    elseif($chit['coc_4_username'] == USER['user']){ //sel
       $who = "coc_4";
     }
     elseif($chit['coc_5_username'] == USER['user']){
@@ -96,13 +96,23 @@
     elseif($chit['coc_1_username'] == USER['user']){
       $who = "coc_1";
     }
-    elseif($chit['coc_2_username'] == USER['user']){
+    elseif($chit['coc_2_username'] == USER['user']){ // batt o
       $who = "coc_2";
     }
-    elseif($chit['coc_3_username'] == USER['user']){
+    elseif($chit['coc_3_username'] == USER['user']){ // co
       $who = "coc_3";
+       $to = "m194020@usna.edu";
+       $subject = "Your chit has been disapproved.";
+       $txt = "
+       Disapproved by ".$who."@usna.edu.
+       Log in at midn.cs.usna.edu/project-echits to review the chit. \n
+       ";
+      $headers = "From: eChits@noreply.edu" . "\r\n" .
+      // "CC: m194020@usna.edu";
+      //
+    sendemail($to,$subject,$txt,$headers);
     }
-    elseif($chit['coc_4_username'] == USER['user']){
+    elseif($chit['coc_4_username'] == USER['user']){ // sel
       $who = "coc_4";
     }
     elseif($chit['coc_5_username'] == USER['user']){
