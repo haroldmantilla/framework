@@ -51,13 +51,7 @@ isset($_POST['message'])){
 
  $_POST['sent'] = mail($to,$subject,$txt,$headers);
 
- if($_POST['sent']){
-   echo "<div class = \"container\">
-   <div class = \"row\">
-   <div class = \"col-md-2\">";
-   echo "<div class='alert alert-success' data-dismiss='alert' aria-label='close'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <strong>Sent.</strong> Sent!</div> ";
-   echo "</div></div</div>";
- }
+
 
 }
 
@@ -122,8 +116,15 @@ isset($_POST['message'])){
                 <div id="success"></div>
 
                 <button id="sendMessageButton" class="btn btn-default" type="submit">fomrSubmit</button>
-
-
+                <?php
+                if($_POST['sent'] && isset($_POST['sent'])){
+                  echo "<div class = \"container\">
+                  <div class = \"row\">
+                  <div class = \"col-md-2\">";
+                  echo "<div class='alert alert-success' data-dismiss='alert' aria-label='close'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <strong>Sent.</strong> Sent!</div> ";
+                  echo "</div></div</div>";
+                }
+                ?>
               </div>
             </div>
           </form>
