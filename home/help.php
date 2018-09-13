@@ -104,11 +104,16 @@ m194020@usna.edu
 if(isset($_POST['fullname']) &&
 isset($_POST['email']) &&
 isset($_POST['message'])){
+  $to = "m194020@usna.edu";
+  $subject = "eChits Contact Email";
 
+  $headers = "From: eChits@noreply.edu" . "\r\n";
   $txt = "From: {$_POST["fullname"]}
   Email: {$_POST["email"]}
   Message: {$_POST["message"]}";
-  mail("m194020@usna.edu","eChits Contact Email",$txt,"From: eChits@noreply.edu \r\n");
+
+  mail($to,$subject,$txt,$headers);
+
 
 }
 
