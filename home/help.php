@@ -30,6 +30,43 @@
 
 ?>
 
+<?php
+
+// $to = "m194020@usna.edu";
+// $subject = "A chit is ready for your approval!";
+// $txt = "Log in at midn.cs.usna.edu/project-echits to review the chit.
+// I am the better CS/IT major and platoon sam can eat my dust";
+// $headers = "From: eChits@noreply.edu" . "\r\n" .
+// "CC: m194020@usna.edu";
+
+//sendemail($to,$subject,$txt,$headers);
+
+if(isset($_POST['fullname']) &&
+isset($_POST['email']) &&
+isset($_POST['message'])){
+
+
+
+
+  $to = "m194020@usna.edu";
+  $subject = "eChits Contact Email";
+  $txt = "test";
+  $headers = "From: eChits@noreply.edu \r\n";
+
+  // $txt = "From: {$_POST["fullname"]}
+  // Email: {$_POST["email"]}
+  // Message: {$_POST["message"]}";
+
+  mail($to,$subject,$txt,$headers);
+  // $_POST['sent'] = mail($to,$subject,$txt,$headers);
+
+}
+
+if(isset($_POST['sent']) && $_POST['sent']){
+  echo "<h1>sent<h1>";
+}
+?>
+
 
 
 
@@ -97,43 +134,6 @@ m194020@usna.edu
 
 </div>
 </div>
-
-<?php
-
-$to = "m194020@usna.edu";
-$subject = "A chit is ready for your approval!";
-$txt = "Log in at midn.cs.usna.edu/project-echits to review the chit.
-I am the better CS/IT major and platoon sam can eat my dust";
-$headers = "From: eChits@noreply.edu" . "\r\n" .
-"CC: m194020@usna.edu";
-
-sendemail($to,$subject,$txt,$headers);
-
-if(isset($_POST['fullname']) &&
-isset($_POST['email']) &&
-isset($_POST['message'])){
-
-
-
-
-  $to = "m194020@usna.edu";
-  $subject = "eChits Contact Email";
-  $txt = "test";
-  $headers = "From: eChits@noreply.edu \r\n";
-
-  // $txt = "From: {$_POST["fullname"]}
-  // Email: {$_POST["email"]}
-  // Message: {$_POST["message"]}";
-
-  mail($to,$subject,$txt,$headers);
-  // $_POST['sent'] = mail($to,$subject,$txt,$headers);
-
-}
-
-if(isset($_POST['sent']) && $_POST['sent']){
-  echo "<h1>sent<h1>";
-}
-?>
 <!--
 <script>
 function sanitize(){                          //SANITIZE URL INPUT, IF QUERY DISPLAYED IN URL, GET RID OF IT
