@@ -43,7 +43,7 @@ if(isset($_POST["sent"]) && $_POST["sent"]){
 <?php
 function emailwrapper()
 {
-  if(isset($_POST["fullname"]) && isset($_POST["email"]) && isset($_FORM["message"])){
+  if(isset($_POST["fullname"]) && isset($_POST["email"]) && isset($_POST["message"])){
     $txt = "From: {$_POST["fullname"]}
     Email: {$_POST["email"]}
     Message: {$_POST["message"]}";
