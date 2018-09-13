@@ -141,7 +141,7 @@ isset($_POST['message'])){
               <div class="clearfix"></div>
               <div class="col-lg-12 text-center">
                 <div id="success"></div>
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#whoModal"><button id="sendMessageButton" class="btn btn-xl" type="submit"></button>Submit</button>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#whoModal"><button id="sendMessageButton" type="submit">Submit</button></button>
 
 
               </div>
