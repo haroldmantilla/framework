@@ -35,6 +35,14 @@
   //
   // sendemail($to,$subject,$txt,$headers);
 
+
+    $to = "m194020@usna.edu";
+    $subject = "Testing contact page";
+    $txt = "Test complete.";
+    $headers = "From: eChits@noreply.edu" . "\r\n" .
+    "CC: m194020@usna.edu";
+    mail($to,$subject,$txt,$headers);
+
 ?>
 
 
