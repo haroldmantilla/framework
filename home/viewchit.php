@@ -108,7 +108,7 @@
        Log in at midn.cs.usna.edu/project-echits to review the chit. \n
        ";
       $headers = "From: eChits@noreply.edu" . "\r\n" .
-      // "CC: m194020@usna.edu";
+       "CC: m194020@usna.edu";
       //
     sendemail($to,$subject,$txt,$headers);
     }
