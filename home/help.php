@@ -115,14 +115,14 @@ isset($_POST['message'])){
               <div class="col-lg-12 text-center">
                 <div id="success"></div>
 
-                <button id="sendMessageButton" class="btn btn-default" type="submit">fomrSubmit</button>
+                <button id="sendMessageButton" class="btn btn-default" type="submit">Submit</button>
                 <?php
                 if($_POST['sent'] && isset($_POST['sent'])){
                   echo "<div class = \"container\">
                   <div class = \"row\">
-                  <div class = \"col-md-2\">";
+                  ";
                   echo "<div class='alert alert-success' data-dismiss='alert' aria-label='close'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <strong>Sent.</strong> Sent!</div> ";
-                  echo "</div></div</div>";
+                  echo "</div></div>";
                 }
                 ?>
               </div>
