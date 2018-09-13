@@ -208,19 +208,19 @@ if (!empty($readychits)){
         //   $chitstatus = $chit['coc_1_status'];
         //   goto this;
         // }
-        if(!empty($chit['coc_2_username'])){ //batt-o
-          $chitstatus = $chit['coc_2_status'];
-          goto this;
-        }
-        elseif(empty($chit['coc_2_username']) && !empty($chit['coc_3_username'])){ // co
-          $chitstatus = $chit['coc_3_status'];
-          goto this;
-        }
-        elseif(empty($chit['coc_2_username']) && empty($chit['coc_3_username'])&&!empty($chit['coc_4_username'])){ //sel
-          $chitstatus = $chit['coc_4_status'];
-          goto this;
-        }
-        this:
+        // if(!empty($chit['coc_2_username'])){ //batt-o
+        //   $chitstatus = $chit['coc_2_status'];
+        //
+        // }
+        // elseif(empty($chit['coc_2_username']) && !empty($chit['coc_3_username'])){ // co
+        //   $chitstatus = $chit['coc_3_status'];
+        //
+        // }
+        // elseif(empty($chit['coc_2_username']) && empty($chit['coc_3_username'])&&!empty($chit['coc_4_username'])){ //sel
+        //   $chitstatus = $chit['coc_4_status'];
+        //
+        // }
+
         // only the last person in the coc has authority to disapprove it
 
 
