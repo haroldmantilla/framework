@@ -116,59 +116,35 @@ elseif(is_midshipman($db, USER['user'])){
     echo "<td>{$chit['startDate']}</td>";
     echo "<td>{$chit['description']}</td>";
 
-
-//--------------------------------------------------------------
     $chitstatus = "PENDING";
-
-    if($chit['coc_0_status'] == "DISAPPROVED" || // this is if anyone from CO and up disapproves the chit, it is disapproved
-       $chit['coc_1_status'] == "DISAPPROVED" || // it can be overriden by the next thing in case the CO marks it disapproved but the Batt-O overrides
+    if($chit['coc_0_status'] == "DISAPPROVED" ||
+       $chit['coc_1_status'] == "DISAPPROVED" ||
        $chit['coc_2_status'] == "DISAPPROVED" ||
-       $chit['coc_3_status'] == "DISAPPROVED"){
+       $chit['coc_3_status'] == "DISAPPROVED" ||
+       $chit['coc_4_status'] == "DISAPPROVED" ||
+       $chit['coc_5_status'] == "DISAPPROVED" ||
+       $chit['coc_6_status'] == "DISAPPROVED" ||
+       $chit['coc_7_status'] == "DISAPPROVED" ||
+       $chit['coc_8_status'] == "DISAPPROVED" ){
       $chitstatus = "DISAPPROVED";
     }
-
-    if(!empty($chit['coc_0_username'])){ // if dant has selected an option
-      $chitstatus = $chit['coc_0_status'];
-    } elseif(empty($chit['coc_0_username'])) { // elseif dant is null, continue
-
-      $count = 0;
-      $aggregate = "coc_".$count."_username";
-      $coc_email = get_user_information($db, $chit[]);
-      while(empty($chit[''.$aggregate.''])){   //continue until we find the top person in coc
-        $count++;
-        $aggregate = "coc_".$count."_username";
-        if(!empty($chit[''.$aggregate.''])){
-          $aggregate = "coc_".$count."_status";
-          $chitstatus = $chit[''.$aggregate.'']; //select the status of the top person in coc
-          break;
-        }
+    elseif($chitstatus != "DISAPPROVED"){
+      if(!empty($chit['coc_0_username'])){ //dant
+        $chitstatus = $chit['coc_0_status'];
+      }
+      elseif(!empty($chit['coc_1_username'])){ //depdant
+        $chitstatus = $chit['coc_1_status'];
+      }
+      elseif(!empty($chit['coc_2_username'])){ //batt-o
+        $chitstatus = $chit['coc_2_status'];
+      }
+      elseif(!empty($chit['coc_3_username'])){ // co
+        $chitstatus = $chit['coc_3_status'];
+      }
+      elseif(!empty($chit['coc_4_username'])){ //sel
+        $chitstatus = $chit['coc_4_status'];
       }
     }
-
-    if($chitstatus != "APPROVED" && $chitstatus != "DISAPPROVED"){
-      $chitstatus = "PENDING";
-    }
-    // elseif($chitstatus != "DISAPPROVED"){
-    //   while(empty($chit['coc_'.$count.'_username'])){
-    //     $count++;
-    //
-    //   }
-    //   if(!empty($chit['coc_0_username'])){ //dant
-    //     $chitstatus = $chit['coc_0_status'];
-    //   }
-    //   elseif(!empty($chit['coc_1_username'])){ //depdant
-    //     $chitstatus = $chit['coc_1_status'];
-    //   }
-    //   elseif(!empty($chit['coc_2_username'])){ //batt-o
-    //     $chitstatus = $chit['coc_2_status'];
-    //   }
-    //   elseif(!empty($chit['coc_3_username'])){ // co
-    //     $chitstatus = $chit['coc_3_status'];
-    //   }
-    //   elseif(!empty($chit['coc_4_username'])){ //sel
-    //     $chitstatus = $chit['coc_4_status'];
-    //   }
-    // }
 
     if($chitstatus == "PENDING"){
       echo "<td><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-secondary\" disabled>Pending</button></td>";
