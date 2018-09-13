@@ -227,7 +227,7 @@ if(isset($_POST['sent']) && $_POST['sent']){
               <div class="clearfix"></div>
               <div class="col-lg-12 text-center">
                 <div id="success"></div>
-                <button id="sendMessageButton" class="btn btn-xl" type="submit">Submit</button>
+                <button id="sendMessageButton" class="btn btn-xl" data-toggle="modal" data-target="#whoModal" type="submit">Submit</button>
               </div>
             </div>
           </form>
