@@ -470,14 +470,14 @@ if (!empty($subchits)){
 
         if($chitstatus == "APPROVED"){
 
+          echo "<form style=\"float: right;\" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\"/><input type=\"submit\" class=\"btn btn-default\" name=\"print\" value=\"Print Chit\">
+          </form>";
 
 			echo "<form style=\"float: right;\" action=\"?\" method=\"post\">
       <input type=\"hidden\" name=\"archive\" value=\"{$chit['chitNumber']}\"/>
       <input type=\"submit\" class=\"btn btn-danger\" value=\"Archive\">
       </form>";
 
-      echo "<form style=\"float: right;\" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\"/><input type=\"submit\" class=\"btn btn-default\" name=\"print\" value=\"Print Chit\">
-      </form>";
     }
         elseif ($chitstatus == "DISAPPROVED") {
 
