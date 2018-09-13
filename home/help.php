@@ -26,17 +26,17 @@
   #       support in your future templates...
   require_once(WEB_PATH.'navbar.php');
 
+  // $to = "m194020@usna.edu";
+  // $subject = "A chit is ready for your approval!";
+  // $txt = "Log in at midn.cs.usna.edu/project-echits to review the chit.
+  // I am the better CS/IT major and platoon sam can eat my dust";
+  // $headers = "From: eChits@noreply.edu" . "\r\n" .
+  // "CC: m194020@usna.edu";
+  //
+  // sendemail($to,$subject,$txt,$headers);
 
 ?>
 
-// $to = "m194020@usna.edu";
-// $subject = "A chit is ready for your approval!";
-// $txt = "Log in at midn.cs.usna.edu/project-echits to review the chit.
-// I am the better CS/IT major and platoon sam can eat my dust";
-// $headers = "From: eChits@noreply.edu" . "\r\n" .
-// "CC: m194020@usna.edu";
-//
-// sendemail($to,$subject,$txt,$headers);
 
 <div class = "container">
 <div class = "row">
@@ -52,7 +52,7 @@
       <div class="row">
         <div class="col-lg-12 text-center">
           <h2 class="section-heading">Contact Us</h2>
-          <h3 class="section-subheading text-muted">We may or may not get to you.</h3>
+          <h5 class="section-subheading text-muted">Report bugs/feedback!</h5>
         </div>
       </div>
       <div class="row">
@@ -82,7 +82,7 @@
               <div class="clearfix"></div>
               <div class="col-lg-12 text-center">
                 <div id="success"></div>
-                <button id="sendMessageButton" class="btn btn-xl" type="submit">Send Message</button>
+                <button id="sendMessageButton" class="btn btn-xl" type="submit">Please explain your problem in depth so we can better address it.</button>
               </div>
             </div>
           </form>
