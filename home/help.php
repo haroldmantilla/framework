@@ -35,12 +35,26 @@
   //
   // sendemail($to,$subject,$txt,$headers);
 
+?>
+
+
+<script>
+function sanitize(){                          //SANITIZE URL INPUT, IF QUERY DISPLAYED IN URL, GET RID OF IT
+if(window.location.href.indexOf('?') != -1){  //IS QUERY IN URL?
+var myarr = document.location.href.split("?");//EXPLODE  URL BY "?"
+document.location.href = myarr[0];            //SET URL TO URL BEFORE QUERY
+}
+}
+
+window.onload = sanitize;
+</script>
+<?php
+
 if(isset($_POST['sent']) && $_POST['sent']){
   echo "<h1>sent<h1>";
 }
 
-?>
-<?php
+
 if(isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['message'])){
 function emailwrapper()
 {
@@ -70,6 +84,8 @@ function emailwrapper()
 }
 
 ?>
+
+
 
 
 <div class = "container">
@@ -112,7 +128,7 @@ function emailwrapper()
               <div class="clearfix"></div>
               <div class="col-lg-12 text-center">
                 <div id="success"></div>
-                <button id="sendMessageButton" onclick="redirect(/help.php)" class="btn btn-xl" type="submit">Submit</button>
+                <button id="sendMessageButton" class="btn btn-xl" type="submit">Submit</button>
               </div>
             </div>
           </form>
@@ -121,12 +137,7 @@ function emailwrapper()
     </div>
   </section>
 
-  <script type="text/javascript">
-  function redirect(location){
-  	window.location = location;
-  }
 
-  </script>
 
 Website Administrator is Harold Mantilla. If you run into any issues please contact me at:
 <br>
