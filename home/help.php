@@ -121,7 +121,7 @@ isset($_POST['message'])){
                   echo " <br><div class = \"container\">
                   <div class = \"row\">
                   ";
-                  echo "<div class='alert alert-success' data-dismiss='alert' aria-label='close'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <strong>Sent!</strong></div> ";
+                  echo "<br><div class='alert alert-success' data-dismiss='alert' aria-label='close'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <strong>Sent!</strong></div> ";
                   echo "</div></div>";
                 }
                 ?>
