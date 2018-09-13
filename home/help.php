@@ -117,7 +117,7 @@ isset($_POST['message'])){
 
                 <button id="sendMessageButton" class="btn btn-default" type="submit">Submit</button>
                 <?php
-                if($_POST['sent'] && isset($_POST['sent'])){
+                if(isset($_POST['sent']) && $_POST['sent']){
                   echo " <br><div class = \"container\">
                   <div class = \"row\">
                   ";
