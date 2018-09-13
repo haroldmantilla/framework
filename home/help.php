@@ -38,16 +38,6 @@
 ?>
 
 
-<script>
-function sanitize(){                          //SANITIZE URL INPUT, IF QUERY DISPLAYED IN URL, GET RID OF IT
-if(window.location.href.indexOf('?') != -1){  //IS QUERY IN URL?
-var myarr = document.location.href.split("?");//EXPLODE  URL BY "?"
-document.location.href = myarr[0];            //SET URL TO URL BEFORE QUERY
-}
-}
-
-window.onload = sanitize;
-</script>
 <?php
 
 if(isset($_POST['sent']) && $_POST['sent']){
@@ -85,6 +75,16 @@ function emailwrapper()
 
 ?>
 
+<script>
+function sanitize(){                          //SANITIZE URL INPUT, IF QUERY DISPLAYED IN URL, GET RID OF IT
+  if(window.location.href.indexOf('?') != -1){  //IS QUERY IN URL?
+    var myarr = document.location.href.split("?");//EXPLODE  URL BY "?"
+    document.location.href = myarr[0];            //SET URL TO URL BEFORE QUERY
+  }
+}
+
+window.onload = sanitize;
+</script>
 
 
 
