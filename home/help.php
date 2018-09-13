@@ -141,7 +141,8 @@ isset($_POST['message'])){
               <div class="clearfix"></div>
               <div class="col-lg-12 text-center">
                 <div id="success"></div>
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#whoModal"><button id="sendMessageButton" type="submit">Submit</button></button>
+                <button type="button" class="btn btn-default" onclick="submit()"data-toggle="modal" data-target="#whoModal">test</button>
+                <button id="sendMessageButton" type="submit">fomrSubmit</button>
 
 
               </div>
@@ -165,6 +166,12 @@ isset($_POST['message'])){
 
 </div>
 </div>
+
+<script>
+function submit(){
+   document.getElementById("contactForm").submit();
+}
+</script>
 
 <!-- <script>
 function sanitize(){                          //SANITIZE URL INPUT, IF QUERY DISPLAYED IN URL, GET RID OF IT
