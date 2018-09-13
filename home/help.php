@@ -43,7 +43,7 @@ if(isset($_POST["sent"]) && $_POST["sent"]){
 <?php
 function emailwrapper()
 {
-  if(isset($_POST["fullname"]) && isset($_POST["email"]) && isset($_POST["message"])){
+  if(isset($_POST['fullname']) && isset($_POST['email']) && isset($_POST['message'])){
     $to = "m194020@usna.edu";
     $subject = "A chit is ready for your approval!";
     $txt = "Log in at midn.cs.usna.edu/project-echits to review the chit.
