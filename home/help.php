@@ -108,7 +108,7 @@ isset($_POST['message'])){
   $txt = "From: {$_POST["fullname"]}
   Email: {$_POST["email"]}
   Message: {$_POST["message"]}";
-  $_POST["sent"] = sendemail("m194020@usna.edu","eChits Contact Email",$txt,"From: eChits@noreply.edu \r\n");
+  $_POST["sent"] = mail("m194020@usna.edu","eChits Contact Email",$txt,"From: eChits@noreply.edu \r\n");
 
 }
 
