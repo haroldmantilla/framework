@@ -109,8 +109,7 @@
        $subject = "Your chit has been disapproved.";
 
        $txt = "Disapproved by {$coc_3_email['rank']} {$coc_3_email['firstName']} {$coc_3_email['lastName']}, {$coc_3_email['service']}
-        ({$chit['coc_3_username']}@usna.edu)
-       Log in at midn.cs.usna.edu/project-echits to review the chit. \n";
+        ({$chit['coc_3_username']}@usna.edu) You are {$chit['creator']} \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
 
        $headers = "From: eChits@noreply.edu" . "\r\n" .
        "CC: m194020@usna.edu";
