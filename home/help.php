@@ -141,7 +141,9 @@ isset($_POST['message'])){
               <div class="clearfix"></div>
               <div class="col-lg-12 text-center">
                 <div id="success"></div>
-                <button id="sendMessageButton" class="btn btn-xl" data-toggle="modal" data-target="#whoModal" >Submit</button>
+                <button id="sendMessageButton" class="btn btn-xl" type="submit">Submit</button>
+                <button style="float: right;" type="button" class="btn btn-default" data-toggle="modal" data-target="#whoModal">Who should I route my chit to?</button>
+
               </div>
             </div>
           </form>
