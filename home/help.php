@@ -27,7 +27,51 @@
   require_once(WEB_PATH.'navbar.php');
 
 
+
 ?>
+
+<?php
+
+
+if(isset($_POST['fullname']) &&
+isset($_POST['email']) &&
+isset($_POST['message'])){
+
+
+
+  //
+   $to = "m194020@usna.edu";
+   $subject = "eChits Contact Email";
+  // $txt = "test";
+   $headers = "From: eChits@noreply.edu \r\n";
+
+  $txt = "From: {$_POST["fullname"]}
+  Email: {$_POST["email"]}
+  Message: {$_POST["message"]}";
+
+ $_POST['sent'] = mail($to,$subject,$txt,$headers);
+
+
+
+}
+
+//if(isset($_POST['sent']) && $_POST['sent']){
+
+?>
+
+
+
+<?php
+
+  //echo "<div class='alert alert-success' data-dismiss='alert' aria-label='close'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <strong>Sent.</strong> Sent!</div> ";
+//}
+?>
+
+
+
+
+
+
 
 <div class = "container">
 <div class = "row">
@@ -35,9 +79,66 @@
 
 </div>
 <div class = "col-md-8">
-Website Administrator is Harold Mantilla. If you run into any issues please contact me at:
+
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class = "well">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading">Contact Website Administrator</h2>
+          <h6 class="section-subheading text-muted">Report bugs/feedback to Harold Mantilla</h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <form id="contactForm" method = "POST" name="sentMessage" novalidate>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input required="required" class="form-control" id="fullname" name="fullname" type="text" placeholder="Your Name *" required data-validation-required-message="Please enter your name.">
+                  <p class="help-block text-danger"></p>
+                </div>
+                <div class="form-group">
+                  <input required="required" class="form-control" id="email" name="email" type="email" placeholder="Your Email *" required data-validation-required-message="Please enter your email address.">
+                  <p class="help-block text-danger"></p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <textarea required="required" class="form-control" id="message" name = "message" placeholder="Please explain your problem in depth so we can better address it. *" required data-validation-required-message="Please enter a message."></textarea>
+                  <p class="help-block text-danger"></p>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="col-lg-12 text-center">
+                <div id="success"></div>
+
+                <button id="sendMessageButton" class="btn btn-default" type="submit">Submit</button>
+                <?php
+                if(isset($_POST['sent']) && $_POST['sent']){
+                  echo " <br><div class = \"container\">
+                  <div class = \"row\">
+                  ";
+                  echo "<br><div class='alert alert-success' data-dismiss='alert' aria-label='close'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <strong>Sent!</strong></div> ";
+                  echo "</div></div>";
+                }
+                ?>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+
+
+
 <br>
-m194020@usna.edu
+
 </div>
 <div class = "col-md-2">
 
@@ -45,3 +146,20 @@ m194020@usna.edu
 
 </div>
 </div>
+
+<script>
+function submit(){
+   document.getElementById("contactForm").submit();
+}
+</script>
+
+<!-- <script>
+function sanitize(){                          //SANITIZE URL INPUT, IF QUERY DISPLAYED IN URL, GET RID OF IT
+  if(window.location.href.indexOf('?') != -1){  //IS QUERY IN URL?
+    var myarr = document.location.href.split("?");//EXPLODE  URL BY "?"
+    document.location.href = myarr[0];            //SET URL TO URL BEFORE QUERY
+  }
+}
+
+window.onload = sanitize;
+</script> -->
