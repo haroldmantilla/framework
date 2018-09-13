@@ -65,7 +65,7 @@ if(!in_midshipman_table($db, USER['user'])){
   echo "<div class='col-md-8 text-center'>";
   echo "<h2>Welcome to eChits!</h2>";
   echo "<h4>Complete your profile to make chits!</h4>";
-  echo "<button type=button class='btn btn-default' onclick=\"window.location.href='./profile_acyear.php'\">Edit Profile</button>";
+  echo "<button type=button class='btn btn-default' onclick=\"window.location.href='./profile.php'\">Edit Profile</button>";
   echo "</div>";
   echo "<div class='col-md-2'>";
   echo "</div>";
@@ -117,19 +117,32 @@ elseif(is_midshipman($db, USER['user'])){
     echo "<td>{$chit['description']}</td>";
 
     $chitstatus = "PENDING";
-    if($chit['coc_0_status'] == "DISAPPROVED" || $chit['coc_1_status'] == "DISAPPROVED" || $chit['coc_2_status'] == "DISAPPROVED" || $chit['coc_3_status'] == "DISAPPROVED" || $chit['coc_4_status'] == "DISAPPROVED" || $chit['coc_5_status'] == "DISAPPROVED" || $chit['coc_6_status'] == "DISAPPROVED"){
+    if($chit['coc_0_status'] == "DISAPPROVED" ||
+       $chit['coc_1_status'] == "DISAPPROVED" ||
+       $chit['coc_2_status'] == "DISAPPROVED" ||
+       $chit['coc_3_status'] == "DISAPPROVED" ||
+       $chit['coc_4_status'] == "DISAPPROVED" ||
+       $chit['coc_5_status'] == "DISAPPROVED" ||
+       $chit['coc_6_status'] == "DISAPPROVED" ||
+       $chit['coc_7_status'] == "DISAPPROVED" ||
+       $chit['coc_8_status'] == "DISAPPROVED" ){
       $chitstatus = "DISAPPROVED";
     }
-
-    if($chitstatus != "DISAPPROVED"){
-      if(!empty($chit['coc_0_username'])){
+    elseif($chitstatus != "DISAPPROVED"){
+      if(!empty($chit['coc_0_username'])){ //dant
         $chitstatus = $chit['coc_0_status'];
       }
-      elseif(!empty($chit['coc_1_username'])){
+      elseif(!empty($chit['coc_1_username'])){ //depdant
         $chitstatus = $chit['coc_1_status'];
       }
-      elseif(!empty($chit['coc_2_username'])){
+      elseif(!empty($chit['coc_2_username'])){ //batt-o
         $chitstatus = $chit['coc_2_status'];
+      }
+      elseif(!empty($chit['coc_3_username'])){ // co
+        $chitstatus = $chit['coc_3_status'];
+      }
+      elseif(!empty($chit['coc_4_username'])){ //sel
+        $chitstatus = $chit['coc_4_status'];
       }
     }
 
