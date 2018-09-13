@@ -101,20 +101,21 @@
     }
     elseif($chit['coc_3_username'] == USER['user']){ // co
       $who = "coc_3";
-    //   $coc_3_email = get_user_information($db, $chit['coc_3_username']);
-    //
-    //    $to = "m194020@usna.edu";
-    //
-    //    $subject = "Your chit has been disapproved.";
-    //
-    //    $txt = "Disapproved by ". {$coc_3_email['rank']}." ".{$coc_3_email['firstName']}." ".{$coc_3_email['lastName']}.", ".{$coc_3_email['service']}.
-    //    ." (".$chit['coc_3_username']."@usna.edu).
-    //    Log in at midn.cs.usna.edu/project-echits to review the chit. \n";
-    //
-    //    $headers = "From: eChits@noreply.edu" . "\r\n" .
-    //    "CC: m194020@usna.edu";
-    //   //
-    // sendemail($to,$subject,$txt,$headers);
+
+      $coc_3_email = get_user_information($db, $chit['coc_3_username']);
+
+       $to = "m194020@usna.edu";
+
+       $subject = "Your chit has been disapproved.";
+
+       $txt = "Disapproved by {$coc_3_email['rank']} {$coc_3_email['firstName']} {$coc_3_email['lastName']}, {$coc_3_email['service']}
+        ({$chit['coc_3_username']}@usna.edu)
+       Log in at midn.cs.usna.edu/project-echits to review the chit. \n";
+
+       $headers = "From: eChits@noreply.edu" . "\r\n" .
+       "CC: m194020@usna.edu";
+      //
+    sendemail($to,$subject,$txt,$headers);
     }
     elseif($chit['coc_4_username'] == USER['user']){ // sel
       $who = "coc_4";
