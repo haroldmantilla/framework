@@ -33,16 +33,6 @@
 
 
 
-<script>
-function sanitize(){                          //SANITIZE URL INPUT, IF QUERY DISPLAYED IN URL, GET RID OF IT
-  if(window.location.href.indexOf('?') != -1){  //IS QUERY IN URL?
-    var myarr = document.location.href.split("?");//EXPLODE  URL BY "?"
-    document.location.href = myarr[0];            //SET URL TO URL BEFORE QUERY
-  }
-}
-
-window.onload = sanitize;
-</script>
 
 
 
@@ -110,9 +100,6 @@ m194020@usna.edu
 
 <?php
 
-if(isset($_POST['sent']) && $_POST['sent']){
-  echo "<h1>sent<h1>";
-}
 
 if(isset($_POST['fullname']) &&
 isset($_POST['email']) &&
@@ -125,4 +112,18 @@ isset($_POST['message'])){
 
 }
 
+if(isset($_POST['sent']) && $_POST['sent']){
+  echo "<h1>sent<h1>";
+}
 ?>
+
+<script>
+function sanitize(){                          //SANITIZE URL INPUT, IF QUERY DISPLAYED IN URL, GET RID OF IT
+  if(window.location.href.indexOf('?') != -1){  //IS QUERY IN URL?
+    var myarr = document.location.href.split("?");//EXPLODE  URL BY "?"
+    document.location.href = myarr[0];            //SET URL TO URL BEFORE QUERY
+  }
+}
+
+window.onload = sanitize;
+</script>
