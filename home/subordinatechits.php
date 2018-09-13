@@ -203,7 +203,7 @@ if (!empty($readychits)){
       if($chit['coc_0_status'] == "DISAPPROVED" || // this is if anyone from CO and up disapproves the chit, it is disapproved
       $chit['coc_1_status'] == "DISAPPROVED" || // it can be overriden by the next thing in case the CO marks it disapproved but the Batt-O overrides
       $chit['coc_2_status'] == "DISAPPROVED" ||
-      $chit['coc_3_status'] == "DISAPPROVED" ||){
+      $chit['coc_3_status'] == "DISAPPROVED" ){
         $chitstatus = "DISAPPROVED";
       }
 
