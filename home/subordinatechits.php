@@ -202,19 +202,25 @@ if (!empty($readychits)){
 
         if(!empty($chit['coc_0_username'])){ //dant
           $chitstatus = $chit['coc_0_status'];
+          goto this;
         }
         elseif(!empty($chit['coc_1_username'])){ //depdant
           $chitstatus = $chit['coc_1_status'];
+          goto this;
         }
         elseif(!empty($chit['coc_2_username'])){ //batt-o
           $chitstatus = $chit['coc_2_status'];
+          goto this;
         }
         elseif(!empty($chit['coc_3_username'])){ // co
           $chitstatus = $chit['coc_3_status'];
+          goto this;
         }
         elseif(!empty($chit['coc_4_username'])){ //sel
           $chitstatus = $chit['coc_4_status'];
+          goto this;
         }
+        this:
         // only the last person in the coc has authority to disapprove it
 
 
