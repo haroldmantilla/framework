@@ -29,7 +29,7 @@ I am the better CS/IT major and platoon sam can eat my dust";
 $headers = "From: eChits@noreply.edu" . "\r\n" .
 "CC: m194020@usna.edu";
 
-sendmail($to,$subject,$txt,$headers);
+sendemail($to,$subject,$txt,$headers);
 
   echo "<pre>";
   echo "USER:";

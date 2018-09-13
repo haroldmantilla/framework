@@ -1,7 +1,7 @@
 <?php
 
 
-function sendmail($to,$subject,$txt,$headers){
+function sendemail($to,$subject,$txt,$headers){
 mail($to,$subject,$txt,$headers);
 }
 
