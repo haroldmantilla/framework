@@ -44,10 +44,17 @@ if(isset($_POST["sent"]) && $_POST["sent"]){
 function emailwrapper()
 {
   if(isset($_POST["fullname"]) && isset($_POST["email"]) && isset($_POST["message"])){
-    $txt = "From: {$_POST["fullname"]}
-    Email: {$_POST["email"]}
-    Message: {$_POST["message"]}";
-    $_POST["sent"] = sendemail("m194020@usna.edu","eChits Contact Email",$txt,"From: eChits@noreply.edu \r\n");
+    $to = "m194020@usna.edu";
+    $subject = "A chit is ready for your approval!";
+    $txt = "Log in at midn.cs.usna.edu/project-echits to review the chit.
+    I am the better CS/IT major and platoon sam can eat my dust";
+    $headers = "From: eChits@noreply.edu" . "\r\n" .
+    "CC: m194020@usna.edu";
+    sendemail($to,$subject,$txt,$headers);
+    // $txt = "From: {$_POST["fullname"]}
+    // Email: {$_POST["email"]}
+    // Message: {$_POST["message"]}";
+    // $_POST["sent"] = sendemail("m194020@usna.edu","eChits Contact Email",$txt,"From: eChits@noreply.edu \r\n");
   }
 }
 
