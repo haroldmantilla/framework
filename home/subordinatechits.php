@@ -212,11 +212,11 @@ if (!empty($readychits)){
           $chitstatus = $chit['coc_2_status'];
           goto this;
         }
-        elseif(!empty($chit['coc_3_username'])){ // co
+        elseif(empty($chit['coc_2_username']) && !empty($chit['coc_3_username'])){ // co
           $chitstatus = $chit['coc_3_status'];
           goto this;
         }
-        elseif(!empty($chit['coc_4_username'])){ //sel
+        elseif(empty($chit['coc_2_username']) && empty($chit['coc_3_username'])&&!empty($chit['coc_4_username'])){ //sel
           $chitstatus = $chit['coc_4_status'];
           goto this;
         }
