@@ -118,10 +118,10 @@ isset($_POST['message'])){
                 <button id="sendMessageButton" class="btn btn-default" type="submit">Submit</button>
                 <?php
                 if($_POST['sent'] && isset($_POST['sent'])){
-                  echo "<div class = \"container\">
+                  echo " <br><div class = \"container\">
                   <div class = \"row\">
                   ";
-                  echo "<div class='alert alert-success' data-dismiss='alert' aria-label='close'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <strong>Sent.</strong> Sent!</div> ";
+                  echo "<div class='alert alert-success' data-dismiss='alert' aria-label='close'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <strong>Sent!</strong></div> ";
                   echo "</div></div>";
                 }
                 ?>
