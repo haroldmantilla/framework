@@ -106,11 +106,12 @@ isset($_POST['email']) &&
 isset($_POST['message'])){
   $to = "m194020@usna.edu";
   $subject = "eChits Contact Email";
-
+  $txt = "test";
   $headers = "From: eChits@noreply.edu" . "\r\n";
-  $txt = "From: {$_POST["fullname"]}
-  Email: {$_POST["email"]}
-  Message: {$_POST["message"]}";
+
+  // $txt = "From: {$_POST["fullname"]}
+  // Email: {$_POST["email"]}
+  // Message: {$_POST["message"]}";
 
   mail($to,$subject,$txt,$headers);
 
