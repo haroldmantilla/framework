@@ -221,7 +221,7 @@ if (!empty($readychits)){
           if(!empty($chit[''.$aggregate.''])){
             $aggregate = "coc_".$count."_status";
             $chitstatus = $chit[''.$aggregate.'']; //select the status of the top person in coc
-            break;
+            
           }
         }
       }
