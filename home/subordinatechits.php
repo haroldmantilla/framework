@@ -30,11 +30,11 @@
     header("Location: {$_SERVER['HTTP_REFERER']}");
   }
   elseif (isset($_REQUEST['print'])) {
-    
+
     header("Location: generate_pdf.php");
     die;
   }
-  
+
   # Load in The NavBar
   # Note: You too will have automated NavBar generation
   #       support in your future templates...
@@ -199,27 +199,35 @@ if (!empty($readychits)){
 
 
 
-        $chitstatus = "PENDING";
-        if($chit['coc_0_status'] == "DISAPPROVED" || $chit['coc_1_status'] == "DISAPPROVED" || $chit['coc_2_status'] == "DISAPPROVED" || $chit['coc_3_status'] == "DISAPPROVED" || $chit['coc_4_status'] == "DISAPPROVED" || $chit['coc_5_status'] == "DISAPPROVED" || $chit['coc_6_status'] == "DISAPPROVED"){
-          $chitstatus = "DISAPPROVED";
+      $chitstatus = "PENDING";
+      if($chit['coc_0_status'] == "DISAPPROVED" ||
+         $chit['coc_1_status'] == "DISAPPROVED" ||
+         $chit['coc_2_status'] == "DISAPPROVED" ||
+         $chit['coc_3_status'] == "DISAPPROVED" ||
+         $chit['coc_4_status'] == "DISAPPROVED" ||
+         $chit['coc_5_status'] == "DISAPPROVED" ||
+         $chit['coc_6_status'] == "DISAPPROVED" ||
+         $chit['coc_7_status'] == "DISAPPROVED" ||
+         $chit['coc_8_status'] == "DISAPPROVED" ){
+        $chitstatus = "DISAPPROVED";
+      }
+      elseif($chitstatus != "DISAPPROVED"){
+        if(!empty($chit['coc_0_username'])){ //dant
+          $chitstatus = $chit['coc_0_status'];
         }
-
-
-        if(!empty($chit['coc_0_username'])){
-          if($chit['coc_0_status'] != "PENDING"){
-            $chitstatus = $chit['coc_0_status'];
-          }
+        elseif(!empty($chit['coc_1_username'])){ //depdant
+          $chitstatus = $chit['coc_1_status'];
         }
-        elseif(!empty($chit['coc_1_username'])){
-          if($chit['coc_1_status'] != "PENDING"){
-            $chitstatus = $chit['coc_1_status'];
-          }
+        elseif(!empty($chit['coc_2_username'])){ //batt-o
+          $chitstatus = $chit['coc_2_status'];
         }
-        elseif(!empty($chit['coc_2_username'])){
-          if($chit['coc_1_status'] != "PENDING"){
-            $chitstatus = $chit['coc_2_status'];
-          }
+        elseif(!empty($chit['coc_3_username'])){ // co
+          $chitstatus = $chit['coc_3_status'];
         }
+        elseif(!empty($chit['coc_4_username'])){ //sel
+          $chitstatus = $chit['coc_4_status'];
+        }
+      }
 
 
         if($chitstatus == "PENDING"){
@@ -277,7 +285,7 @@ if (!empty($readychits)){
 			<input type=\"hidden\" name=\"archive\" value=\"{$chit['chitNumber']}\"/>
       <input type=\"submit\" class=\"btn btn-danger\" value=\"Archive\">
       </form>";
-      
+
       echo "<form style=\"float: right;\" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\"/><input type=\"submit\" class=\"btn btn-default\" name=\"print\" value=\"Print Chit\">
       </form>";
         }
@@ -351,27 +359,57 @@ if (!empty($subchits)){
 
 
 
-        $chitstatus = "PENDING";
-        if($chit['coc_0_status'] == "DISAPPROVED" || $chit['coc_1_status'] == "DISAPPROVED" || $chit['coc_2_status'] == "DISAPPROVED" || $chit['coc_3_status'] == "DISAPPROVED" || $chit['coc_4_status'] == "DISAPPROVED" || $chit['coc_5_status'] == "DISAPPROVED" || $chit['coc_6_status'] == "DISAPPROVED"){
-          $chitstatus = "DISAPPROVED";
+      $chitstatus = "PENDING";
+      if($chit['coc_0_status'] == "DISAPPROVED" ||
+         $chit['coc_1_status'] == "DISAPPROVED" ||
+         $chit['coc_2_status'] == "DISAPPROVED" ||
+         $chit['coc_3_status'] == "DISAPPROVED" ||
+         $chit['coc_4_status'] == "DISAPPROVED" ||
+         $chit['coc_5_status'] == "DISAPPROVED" ||
+         $chit['coc_6_status'] == "DISAPPROVED" ||
+         $chit['coc_7_status'] == "DISAPPROVED" ||
+         $chit['coc_8_status'] == "DISAPPROVED" ){
+        $chitstatus = "DISAPPROVED";
+      }
+      elseif($chitstatus != "DENIED"){
+        if(!empty($chit['coc_0_username'])){ //dant
+          $chitstatus = $chit['coc_0_status'];
         }
+        elseif(!empty($chit['coc_1_username'])){ //depdant
+          $chitstatus = $chit['coc_1_status'];
+        }
+        elseif(!empty($chit['coc_2_username'])){ //batt-o
+          $chitstatus = $chit['coc_2_status'];
+        }
+        elseif(!empty($chit['coc_3_username'])){ // co
+          $chitstatus = $chit['coc_3_status'];
+        }
+        elseif(!empty($chit['coc_4_username'])){ //sel
+          $chitstatus = $chit['coc_4_status'];
+        }
+      }
 
-
-        if(!empty($chit['coc_0_username'])){
-          if($chit['coc_0_status'] != "PENDING"){
-            $chitstatus = $chit['coc_0_status'];
-          }
-        }
-        elseif(!empty($chit['coc_1_username'])){
-          if($chit['coc_1_status'] != "PENDING"){
-            $chitstatus = $chit['coc_1_status'];
-          }
-        }
-        elseif(!empty($chit['coc_2_username'])){
-          if($chit['coc_1_status'] != "PENDING"){
-            $chitstatus = $chit['coc_2_status'];
-          }
-        }
+        // $chitstatus = "PENDING";
+        // if($chit['coc_0_status'] == "DISAPPROVED" || $chit['coc_1_status'] == "DISAPPROVED" || $chit['coc_2_status'] == "DISAPPROVED" || $chit['coc_3_status'] == "DISAPPROVED" || $chit['coc_4_status'] == "DISAPPROVED" || $chit['coc_5_status'] == "DISAPPROVED" || $chit['coc_6_status'] == "DISAPPROVED"){
+        //   $chitstatus = "DISAPPROVED";
+        // }
+        //
+        //
+        // if(!empty($chit['coc_0_username'])){
+        //   if($chit['coc_0_status'] != "PENDING"){
+        //     $chitstatus = $chit['coc_0_status'];
+        //   }
+        // }
+        // elseif(!empty($chit['coc_1_username'])){
+        //   if($chit['coc_1_status'] != "PENDING"){
+        //     $chitstatus = $chit['coc_1_status'];
+        //   }
+        // }
+        // elseif(!empty($chit['coc_2_username'])){
+        //   if($chit['coc_1_status'] != "PENDING"){
+        //     $chitstatus = $chit['coc_2_status'];
+        //   }
+        // }
 
 
         if($chitstatus == "PENDING"){
@@ -407,6 +445,12 @@ if (!empty($subchits)){
         elseif(USER['user'] == $chit['coc_6_username']){
           $mystatus = $chit['coc_6_status'];
         }
+        elseif(USER['user'] == $chit['coc_7_username']){
+          $mystatus = $chit['coc_7_status'];
+        }
+        elseif(USER['user'] == $chit['coc_8_username']){
+          $mystatus = $chit['coc_8_status'];
+        }
 
         if($mystatus == "PENDING"){
           echo "<td class=\"min\"><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-secondary\" disabled>Pending</button></td>";
@@ -416,6 +460,8 @@ if (!empty($subchits)){
         }
         elseif($mystatus == "DISAPPROVED"){
           echo "<td class=\"min\"><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>DISAPPROVED</button></td>";
+        } else {
+          echo "<td class=\"min\"><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-secondary\" disabled>Pending</button></td>";
         }
 
 
@@ -424,14 +470,16 @@ if (!empty($subchits)){
 
         if($chitstatus == "APPROVED"){
 
+          echo "<form style=\"float: right;\" action=\"?\" method=\"post\">
+          <input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\"/>
+          <input type=\"submit\" class=\"btn btn-default\" name=\"print\" value=\"Print Chit\">
+          </form>";
 
 			echo "<form style=\"float: right;\" action=\"?\" method=\"post\">
       <input type=\"hidden\" name=\"archive\" value=\"{$chit['chitNumber']}\"/>
       <input type=\"submit\" class=\"btn btn-danger\" value=\"Archive\">
       </form>";
-      
-      echo "<form style=\"float: right;\" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\"/><input type=\"submit\" class=\"btn btn-default\" name=\"print\" value=\"Print Chit\">
-      </form>";
+
     }
         elseif ($chitstatus == "DISAPPROVED") {
 
