@@ -54,7 +54,41 @@ isset($_POST['message'])){
 }
 
 if(isset($_POST['sent']) && $_POST['sent']){
-  echo "<div class='alert alert-success' data-dismiss='alert' aria-label='close'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <strong>Sent.</strong> Sent!</div> ";
+  ?>
+
+  <!-- Who Modal -->
+  <div id="whoModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h2 class="modal-title text-center"><div class='alert alert-success' data-dismiss='alert' aria-label='close'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <strong>Delivered.</strong></div></h2>
+        </div>
+        
+        <div class="modal-footer">
+
+          <div class="col-xs-8 text-left">
+            <div class="previous">
+              ** Not currently supported by eChits
+            </div>
+          </div>
+          <div class="col-xs-4 text-right">
+            <div class="next">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <?php
+  //echo "<div class='alert alert-success' data-dismiss='alert' aria-label='close'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <strong>Sent.</strong> Sent!</div> ";
 }
 ?>
 
