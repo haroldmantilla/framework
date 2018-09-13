@@ -46,8 +46,8 @@ isset($_POST['message'])){
    $headers = "From: eChits@noreply.edu \r\n";
 
   $txt = "From: {$_POST["fullname"]}
-          Email: {$_POST["email"]}
-          Message: {$_POST["message"]}";
+  Email: {$_POST["email"]}
+  Message: {$_POST["message"]}";
 
  $_POST['sent'] = mail($to,$subject,$txt,$headers);
 
@@ -74,6 +74,7 @@ if(isset($_POST['sent']) && $_POST['sent']){
 
   <!-- Contact -->
   <section id="contact">
+    <div class = "well">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -111,6 +112,7 @@ if(isset($_POST['sent']) && $_POST['sent']){
         </div>
       </div>
     </div>
+  </div>
   </section>
 
 
