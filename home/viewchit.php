@@ -107,7 +107,7 @@
 
        $subject = "Your chit has been disapproved.";
 
-       $txt = "Disapproved by ". {$coc_3_email['rank']}." ".{$coc_3_email['firstName']." ".{$coc_3_email['lastName']}.", ".{$coc_3_email['service']}.
+       $txt = "Disapproved by ". {$coc_3_email['rank']}." ".{$coc_3_email['firstName']}." ".{$coc_3_email['lastName']}.", ".{$coc_3_email['service']}.
        ." (".$chit['coc_3_username']."@usna.edu).
        Log in at midn.cs.usna.edu/project-echits to review the chit. \n";
 
