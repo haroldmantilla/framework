@@ -250,7 +250,7 @@ if(isset($_POST['sent']) && $_POST['sent']){
 </div>
 </div>
 
-<script>
+<!-- <script>
 function sanitize(){                          //SANITIZE URL INPUT, IF QUERY DISPLAYED IN URL, GET RID OF IT
   if(window.location.href.indexOf('?') != -1){  //IS QUERY IN URL?
     var myarr = document.location.href.split("?");//EXPLODE  URL BY "?"
@@ -259,4 +259,4 @@ function sanitize(){                          //SANITIZE URL INPUT, IF QUERY DIS
 }
 
 window.onload = sanitize;
-</script>
+</script> -->
