@@ -11,7 +11,7 @@
                       'student'    => true,
                       'instructor' => true,
                       'guest'      => false,
-                      'access'     => array('admin'=>'db'));
+                      'access'     => array('admin'=>'admin'));
   ###############################################################
 
   # Load in Configuration Parameters
@@ -21,6 +21,15 @@
   require_once(LIBRARY_PATH.'template.php');
 
   require_once(WEB_PATH.'navbar.php');
+
+// $to = "m194020@usna.edu";
+// $subject = "A chit is ready for your approval!";
+// $txt = "Log in at midn.cs.usna.edu/project-echits to review the chit.
+// I am the better CS/IT major and platoon sam can eat my dust";
+// $headers = "From: eChits@noreply.edu" . "\r\n" .
+// "CC: m194020@usna.edu";
+//
+// sendemail($to,$subject,$txt,$headers);
 
   echo "<pre>";
   echo "USER:";
@@ -44,8 +53,17 @@
   echo "CUSTOM: ";
   print_r($data);
   echo "</pre>";
-  
-  $results = coc_complete($db, "m183990");
+
+  $results = coc_complete($db, "m194020");
   echo "$results";
+
+//   $to = "m193978@usna.edu";
+// $subject = "A chit is ready for your approval!";
+// $txt = "Log in at midn.cs.usna.edu/project-echits to review the chit.
+// I am the better CS/IT major and platoon sam can eat my dust";
+// $headers = "From: eChits@noreply.edu" . "\r\n" .
+// "CC: m194020@usna.edu";
+//
+// sendmail($to,$subject,$txt,$headers);
 
 ?>
