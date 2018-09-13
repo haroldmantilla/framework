@@ -75,14 +75,14 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <textarea class="form-control" id="message" placeholder="Your Message *" required data-validation-required-message="Please enter a message."></textarea>
+                  <textarea class="form-control" id="message" placeholder="Your Message *" required data-validation-required-message="Please explain your problem in depth so we can better address it."></textarea>
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
               <div class="clearfix"></div>
               <div class="col-lg-12 text-center">
                 <div id="success"></div>
-                <button id="sendMessageButton" class="btn btn-xl" type="submit">Please explain your problem in depth so we can better address it.</button>
+                <button id="sendMessageButton" class="btn btn-xl" type="submit">Submit.</button>
               </div>
             </div>
           </form>
