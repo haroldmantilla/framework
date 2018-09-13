@@ -47,18 +47,18 @@ isset($_POST['message'])){
 
 
 
+  //
+   $to = "m194020@usna.edu";
+   $subject = "eChits Contact Email";
+  // $txt = "test";
+   $headers = "From: eChits@noreply.edu \r\n";
 
-  $to = "m194020@usna.edu";
-  $subject = "eChits Contact Email";
-  $txt = "test";
-  $headers = "From: eChits@noreply.edu \r\n";
+  $txt = "From: {$_POST["fullname"]}
+  Email: {$_POST["email"]}
+  Message: {$_POST["message"]}";
 
-  // $txt = "From: {$_POST["fullname"]}
-  // Email: {$_POST["email"]}
-  // Message: {$_POST["message"]}";
-
-  mail($to,$subject,$txt,$headers);
-  // $_POST['sent'] = mail($to,$subject,$txt,$headers);
+//  mail($to,$subject,$txt,$headers);
+ $_POST['sent'] = mail($to,$subject,$txt,$headers);
 
 }
 
@@ -81,25 +81,6 @@ if(isset($_POST['sent']) && $_POST['sent']){
 <div class = "col-md-8">
 
 
-
-
-  <form action="mailto:m194020@example.com" method="post" enctype="text/plain">
-  Name:<br>
-  <input type="text" name="name"><br>
-  E-mail:<br>
-  <input type="text" name="mail"><br>
-  Comment:<br>
-  <input type="text" name="comment" size="50"><br><br>
-  <input type="submit" value="Send">
-  <input type="reset" value="Reset">
-  </form>
-
-
-
-
-
-
-
   <!-- Contact -->
   <section id="contact">
     <div class="container">
@@ -111,7 +92,7 @@ if(isset($_POST['sent']) && $_POST['sent']){
       </div>
       <div class="row">
         <div class="col-lg-12">
-          <form id="contactForm" name="sentMessage" novalidate>
+          <form id="contactForm" method = "POST" name="sentMessage" novalidate>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
