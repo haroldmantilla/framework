@@ -35,6 +35,10 @@
   //
   // sendemail($to,$subject,$txt,$headers);
 
+if(isset($_POST["sent"]) && $_POST["sent"]){
+  echo "<h1>sent<h1>";
+}
+
 ?>
 
 
@@ -61,28 +65,24 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <input class="form-control" id="name" type="text" placeholder="Your Name *" required data-validation-required-message="Please enter your name.">
+                  <input class="form-control" id="fullname" name="fullname" type="text" placeholder="Your Name *" required data-validation-required-message="Please enter your name.">
                   <p class="help-block text-danger"></p>
                 </div>
                 <div class="form-group">
-                  <input class="form-control" id="email" type="email" placeholder="Your Email *" required data-validation-required-message="Please enter your email address.">
-                  <p class="help-block text-danger"></p>
-                </div>
-                <div class="form-group">
-                  <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" required data-validation-required-message="Please enter your phone number.">
+                  <input class="form-control" id="email" name="email" type="email" placeholder="Your Email *" required data-validation-required-message="Please enter your email address.">
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <textarea class="form-control" id="message" placeholder="Your Message *" required data-validation-required-message="Please explain your problem in depth so we can better address it."></textarea>
+                  <textarea class="form-control" id="message" placeholder="Please explain your problem in depth so we can better address it. *" required data-validation-required-message="Please enter a message."></textarea>
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
               <div class="clearfix"></div>
               <div class="col-lg-12 text-center">
                 <div id="success"></div>
-                <button id="sendMessageButton" class="btn btn-xl" type="submit">Submit.</button>
+                <button id="sendMessageButton" onclick="emailwrapper()" class="btn btn-xl" type="submit">Submit</button>
               </div>
             </div>
           </form>
@@ -90,6 +90,29 @@
       </div>
     </div>
   </section>
+
+  <?php
+  function emailwrapper()
+  {
+    if(isset($_POST["fullname"]) && isset($_POST["email"]) && isset($_FORM["message"])){
+      $txt = "From: {$_POST["fullname"]}
+              Email: {$_POST["email"]}
+              Message: {$_POST["message"]}";
+      $_POST["sent"] = sendemail("m194020@usna.edu","eChits Contact Email",$txt,"From: eChits@noreply.edu" . "\r\n");
+    }
+  }
+
+  ?>
+  <!-- <script>
+
+
+function emailwrapper() {
+    var fullname = document.getElementById("contactForm").fullname;
+    var email = document.getElementById("contactForm").email;
+    var message = document.getElementById("contactForm").message;
+
+}
+</script> -->
 
 Website Administrator is Harold Mantilla. If you run into any issues please contact me at:
 <br>
