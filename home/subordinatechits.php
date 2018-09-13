@@ -197,8 +197,6 @@ if (!empty($readychits)){
       echo "<td>{$chit['startDate']}</td>";
       echo "<td>{$chit['description']}</td>";
 
-
-
       $chitstatus = "PENDING";
       if($chit['coc_0_status'] == "DISAPPROVED" ||
          $chit['coc_1_status'] == "DISAPPROVED" ||
