@@ -104,7 +104,7 @@
        $to = "m194020@usna.edu";
        $subject = "Your chit has been disapproved.";
        $txt = "
-       Disapproved by ".$who."@usna.edu.
+       Disapproved by ".$chit['coc_3_username']."@usna.edu.
        Log in at midn.cs.usna.edu/project-echits to review the chit. \n
        ";
       $headers = "From: eChits@noreply.edu" . "\r\n" .
