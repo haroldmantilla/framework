@@ -168,7 +168,7 @@ elseif (!empty($subarchivedchits)){
           }
           elseif($mystatus == "DISAPPROVED"){
             echo "<td class=\"min\"><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>DISAPPROVED</button></td>";
-          } else($mystatus == "PENDING"){
+          } else {
             echo "<td class=\"min\"><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-secondary\" disabled>Pending</button></td>";
           }
 
