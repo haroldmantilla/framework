@@ -118,8 +118,8 @@
       $who = "coc_8";
     }
 
-    $aggregate = "'".$who."_username'";
-    $coc_email = get_user_information($db, $chit[$aggregate]);
+    $aggregate = .$who."_username";
+    $coc_email = get_user_information($db, $chit[''.$aggregate.'']);
     $to = "m194020@usna.edu";                     // CREATOR OF THE CHIT, WILL SEND EMAIL TO THEM
      //{$chit['creator']} this is who it should send to eventually
     $subject = "Your chit has been disapproved."; // SUBJECT OF THE EMAIL
