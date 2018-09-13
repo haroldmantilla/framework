@@ -200,15 +200,15 @@ if (!empty($readychits)){
       $chitstatus = "PENDING";
 
 
-        if(!empty($chit['coc_0_username'])){ //dant
-          $chitstatus = $chit['coc_0_status'];
-          goto this;
-        }
-        elseif(!empty($chit['coc_1_username'])){ //depdant
-          $chitstatus = $chit['coc_1_status'];
-          goto this;
-        }
-        elseif(!empty($chit['coc_2_username'])){ //batt-o
+        // if(!empty($chit['coc_0_username'])){ //dant
+        //   $chitstatus = $chit['coc_0_status'];
+        //   goto this;
+        // }
+        // elseif(!empty($chit['coc_1_username'])){ //depdant
+        //   $chitstatus = $chit['coc_1_status'];
+        //   goto this;
+        // }
+        if(!empty($chit['coc_2_username'])){ //batt-o
           $chitstatus = $chit['coc_2_status'];
           goto this;
         }
