@@ -198,18 +198,8 @@ if (!empty($readychits)){
       echo "<td>{$chit['description']}</td>";
 
       $chitstatus = "PENDING";
-      if($chit['coc_0_status'] == "DISAPPROVED" ||
-         $chit['coc_1_status'] == "DISAPPROVED" ||
-         $chit['coc_2_status'] == "DISAPPROVED" ||
-         $chit['coc_3_status'] == "DISAPPROVED" ||
-         $chit['coc_4_status'] == "DISAPPROVED" ||
-         $chit['coc_5_status'] == "DISAPPROVED" ||
-         $chit['coc_6_status'] == "DISAPPROVED" ||
-         $chit['coc_7_status'] == "DISAPPROVED" ||
-         $chit['coc_8_status'] == "DISAPPROVED" ){
-        $chitstatus = "DISAPPROVED";
-      }
-      elseif($chitstatus != "DISAPPROVED"){
+
+
         if(!empty($chit['coc_0_username'])){ //dant
           $chitstatus = $chit['coc_0_status'];
         }
@@ -225,7 +215,8 @@ if (!empty($readychits)){
         elseif(!empty($chit['coc_4_username'])){ //sel
           $chitstatus = $chit['coc_4_status'];
         }
-      }
+        // only the last person in the coc has authority to disapprove it
+
 
 
         if($chitstatus == "PENDING"){
