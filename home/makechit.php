@@ -379,6 +379,35 @@
           //WOULD NOT SAVE PC OR SQL FOR SOME REASON UNTIL I ADDED THIS BOTTOM LINE
           update_chit($db, $chitnumber, USER['user'], $_POST['SHORT_DESCRIPTION'], $_POST['REFERENCE'], $_POST['REQUEST_TYPE'], $requestOther, $addr_1, $_POST['ADDRESS_2'], $_POST['ADDRESS_CITY'], $_POST['ADDRESS_STATE'], $_POST['ADDRESS_ZIP'], $_POST['REMARKS'], $today, $_POST['BEGIN_DATE'], $_POST['BEGIN_TIME'], $_POST['END_DATE'], $_POST['END_TIME'], $_POST['ORM'], $_POST['DOCS'], $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6, $coc_7, $coc_8);
           // echo "<script type='text/javascript'>redirect('viewchit.php')</script>";
+//---------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------
+          //$aggregate = $aboveCoC."_username";  // grab whatever coc it is
+          $i = 8;
+          while(!isset($midshipmaninfo['coc_'.$i.''])){
+            $i++;
+            $upperCoC = $midshipmaninfo['coc_'.$i.''];
+          }
+          $userinfo = get_user_information($db, USER['user']);            // grab coc email
+          //$to = "m194020@usna.edu";
+          //$to = "{$chit[''.$aggregate.'']}@usna.edu";                                     // who to send email to
+          $to = "m194020@usna.edu";                                     // who to send email to
+          //{$chit['creator']} this is who it should send to eventually
+          $subject = "$upperCoC";                               // SUBJECT OF THE EMAIL
+
+          $txt = "TEST\n";
+
+//          $txt = "Chit by {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
+  //        \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
+
+          $headers = "From: eChits@noreply.usna" . "\r\n";
+          sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
+
+
+//---------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------
+
           header("Location: viewchit.php");
         }
         else{
