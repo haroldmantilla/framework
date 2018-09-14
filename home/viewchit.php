@@ -111,7 +111,7 @@
       $to = "{$chit[''.$aggregate.'']}@usna.edu";                                     // who to send email to
       //$to = "m194020@usna.edu";                                     // who to send email to
       //{$chit['creator']} this is who it should send to eventually
-      $subject = "A chit is ready for your review {$chit[''.$aggregate.'']}@usna.edu.";                               // SUBJECT OF THE EMAIL
+      $subject = "A chit is ready for your review.";                               // SUBJECT OF THE EMAIL
 
       $txt = "Chit by {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
       \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
