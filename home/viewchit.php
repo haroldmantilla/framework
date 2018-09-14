@@ -238,7 +238,7 @@
     $to = "{$chit['creator']}@usna.edu";
                                             // who to send email to
      //{$chit['creator']} this is who it should send to eventually
-    $subject = "A comment has been left on your chitt.";                               // SUBJECT OF THE EMAIL
+    $subject = "A comment has been left on your chit.";                               // SUBJECT OF THE EMAIL
 
     $txt = "{$coc_email['rank']} {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']} said:
           $comments.
