@@ -160,7 +160,7 @@
           header("Location: ./index.php");
         }
       }
-      header("Location: {$_SERVER['HTTP_REFERER']}");
+      header("Location: ./subordinatechits.php)");
       die;
 
     }
