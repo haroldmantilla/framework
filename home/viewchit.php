@@ -68,15 +68,15 @@
     }
     elseif($chit['coc_6_username'] == USER['user']){
       $who = "coc_6";
-      $aboveCoC = "coc_4";
+      $aboveCoC = "coc_5";
     }
     elseif($chit['coc_7_username'] == USER['user']){
       $who = "coc_7";
-      $aboveCoC = "coc_4";
+      $aboveCoC = "coc_6";
     }
     elseif($chit['coc_8_username'] == USER['user']){
       $who = "coc_8";
-      $aboveCoC = "coc_4";
+      $aboveCoC = "coc_7";
     }
 
     // echo "$who";
@@ -104,7 +104,7 @@
       sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
     } else {                                    // not the last person in the CoC
 
-      $aggregate = $who."_username";  // grab whatever coc it is
+      $aggregate = $aboveCoC."_username";  // grab whatever coc it is
 
       $coc_email = get_user_information($db, $chit['creator']);            // grab coc email
       //$to = "m194020@usna.edu";
