@@ -160,7 +160,7 @@
           header("Location: ./index.php");
         }
       }
-      header("Location: ./subordinatechits.php)");
+      header("Location: ./subordinatechits.php}");
       die;
 
     }
