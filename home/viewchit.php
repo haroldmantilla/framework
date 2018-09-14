@@ -95,15 +95,19 @@
     }
     elseif($chit['coc_1_username'] == USER['user']){
       $who = "coc_1";
+      $aboveCoC = "coc_2";
     }
     elseif($chit['coc_2_username'] == USER['user']){ // batt o
       $who = "coc_2";
+      $aboveCoC = "coc_3";
     }
     elseif($chit['coc_3_username'] == USER['user']){ // co
       $who = "coc_3";
+      $aboveCoC = "coc_4";
     }
     elseif($chit['coc_4_username'] == USER['user']){ // sel
       $who = "coc_4";
+      $aboveCoC = "coc_5";
     }
     elseif($chit['coc_5_username'] == USER['user']){
       $who = "coc_5";
@@ -142,6 +146,24 @@
     $chit = $_SESSION['chit'];
 
     action($db, $chit, $who, "DISAPPROVED", $today, $now);
+
+    $aggregate = $aboveCoC."_username";
+
+    if(!isset($chit[''.$aggregate.''])){
+
+      $chit = $chit['chitNumber'];
+      archive_chit($db, $chit);
+      unset($_SESSION['chit']);
+      //redirect
+      if(isset($_SERVER['HTTP_REFERER'])){
+        if(strpos($_SERVER['HTTP_REFERER'], "viewchit.php")){
+          header("Location: ./index.php");
+        }
+      }
+      header("Location: {$_SERVER['HTTP_REFERER']}");
+      die;
+
+    }
 
     //redirect
     header("Location: ./viewchit.php");
