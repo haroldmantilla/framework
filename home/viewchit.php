@@ -80,12 +80,6 @@
     }
 
     // echo "$who";
-    $today = date("dMy");
-    $today = strtoupper($today);
-    $now = date("Hi");
-    $chit = $_SESSION['chit'];
-
-    action($db, $chit, $who, "APPROVED", $today, $now);
 
     $aggregate = $aboveCoC."_username";
 
@@ -110,6 +104,12 @@
       sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
 
     }
+    $today = date("dMy");
+    $today = strtoupper($today);
+    $now = date("Hi");
+    $chit = $_SESSION['chit'];
+
+    action($db, $chit, $who, "APPROVED", $today, $now);
     //redirect
     header("Location: ./viewchit.php");
     die;
