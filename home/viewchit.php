@@ -226,12 +226,8 @@
     }
 
     //$chit = get_chit_information($db, $_SESSION['chit']);
-
-    //$chit = $_SESSION['chit'];
     $comments = addslashes($_POST['comments']);
 
-    //error_log("test error");
-    comment($db, $chit, $who, $comments);
 
 
 
@@ -256,7 +252,13 @@
     sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL              //send chit disapproval email to creator
 
 
-    
+
+    $chit = $_SESSION['chit'];
+    $comments = addslashes($_POST['comments']);
+
+    //error_log("test error");
+
+    comment($db, $chit, $who, $comments);
 
 
     //redirect
