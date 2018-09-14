@@ -234,8 +234,9 @@
 
     $aggregate = $who."_username";  // grab whatever coc it is
     $coc_email = get_user_information($db, $chit[''.$aggregate.'']);            // grab coc email
-    $to = "m194020@usna.edu";
-    //$to = "{$chit['creator']}@usna.edu";                                        // who to send email to
+    //$to = "m194020@usna.edu";
+    $to = "{$chit['creator']}@usna.edu";
+    $to = $to;                                        // who to send email to
      //{$chit['creator']} this is who it should send to eventually
     $subject = "this was a test for comments.";                               // SUBJECT OF THE EMAIL
 
