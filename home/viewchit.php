@@ -109,7 +109,7 @@
       $coc_email = get_user_information($db, $chit['creator']);            // grab coc email
       //$to = "m194020@usna.edu";
       $to = "{$chit[''.$aggregate.'']}@usna.edu";                                     // who to send email to
-      $to = "m194020@usna.edu";                                     // who to send email to
+      //$to = "m194020@usna.edu";                                     // who to send email to
       //{$chit['creator']} this is who it should send to eventually
       $subject = "A chit is ready for your review {$chit[''.$aggregate.'']}@usna.edu.";                               // SUBJECT OF THE EMAIL
 
