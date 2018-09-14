@@ -118,22 +118,22 @@
       $who = "coc_8";
     }
 
-    $aggregate = $who."_username";
-    $coc_email = get_user_information($db, $chit[''.$aggregate.'']);
-    //$to = "m194020@usna.edu";                     // CREATOR OF THE CHIT, WILL SEND EMAIL TO THEM
-    $to = "{$chit['creator']}@usna.edu";
+    $aggregate = $who."_username";  // grab whatever coc it is
+    $coc_email = get_user_information($db, $chit[''.$aggregate.'']);            // grab coc email
+    //$to = "m194020@usna.edu";
+    $to = "{$chit['creator']}@usna.edu";                                        // who to send email to
      //{$chit['creator']} this is who it should send to eventually
-    $subject = "Your chit has been disapproved."; // SUBJECT OF THE EMAIL
+    $subject = "Your chit has been disapproved.";                               // SUBJECT OF THE EMAIL
 
     $txt = "Disapproved by {$coc_email['rank']} {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
           \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
 
-    $headers = "From: eChits@noreply.edu" . "\r\n"; // IT WILL SEND FROM THIS ADDRESS
+    $headers = "From: eChits@noreply.usna" . "\r\n";                             // IT WILL SEND FROM THIS ADDRESS
 
     //  $headers = "From: eChits@noreply.edu" . "\r\n" . // IT WILL SEND FROM THIS ADDRESS
     //  "CC: m194020@usna.edu"; // THIS IS FOR FUTURE USE
 
-    sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
+    sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL              //send chit disapproval email to creator
 
 
     $today = date("dMy");
@@ -229,6 +229,23 @@
     $comments = addslashes($_POST['comments']);
 
     //error_log("test error");
+
+    $aggregate = $who."_username";  // grab whatever coc it is
+    $coc_email = get_user_information($db, $chit[''.$aggregate.'']);            // grab coc email
+    //$to = "m194020@usna.edu";
+    $to = "{$chit['creator']}@usna.edu";                                        // who to send email to
+     //{$chit['creator']} this is who it should send to eventually
+    $subject = "A comment has been added to your chit.";                               // SUBJECT OF THE EMAIL
+
+    $txt = "Comment added by {$coc_email['rank']} {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
+          \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
+
+    $headers = "From: eChits@noreply.usna" . "\r\n";                             // IT WILL SEND FROM THIS ADDRESS
+
+    //  $headers = "From: eChits@noreply.edu" . "\r\n" . // IT WILL SEND FROM THIS ADDRESS
+    //  "CC: m194020@usna.edu"; // THIS IS FOR FUTURE USE
+
+    sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL              //send chit disapproval email to creator
 
     comment($db, $chit, $who, $comments);
     //redirect
