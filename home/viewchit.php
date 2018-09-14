@@ -240,7 +240,7 @@
     $aggregate = $who."_username";  // grab whatever coc it is
     $coc_email = get_user_information($db, $chit[''.$aggregate.'']);            // grab coc email
     $to = "m194020@usna.edu";
-    $trash = "{$chit['creator']}@usna.edu {$chit['']}";
+    $trash = "{$chit['creator']}@usna.edu {$chit['coc_3_username']}";
                                             // who to send email to
      //{$chit['creator']} this is who it should send to eventually
     $subject = "Content is $trash.";                               // SUBJECT OF THE EMAIL
