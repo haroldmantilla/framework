@@ -80,12 +80,19 @@
     }
 
     // echo "$who";
+    $today = date("dMy");
+    $today = strtoupper($today);
+    $now = date("Hi");
+    $chit = $_SESSION['chit'];
+
+    action($db, $chit, $who, "APPROVED", $today, $now);
+
     $aggregate = $aboveCoC."_username";
 
     if(!isset($chit[''.$aggregate.''])){ // if this is the last person in CoC:
 
       $aggregate = $who."_username";  // grab whatever coc it is
-      $chit = get_chit_information($db, $_SESSION['chit']);
+
       $coc_email = get_user_information($db, $chit[''.$aggregate.'']);            // grab coc email
       //$to = "m194020@usna.edu";
       $to = "{$chit['creator']}@usna.edu";                                        // who to send email to
@@ -102,12 +109,6 @@
 
       sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
 
-    $today = date("dMy");
-    $today = strtoupper($today);
-    $now = date("Hi");
-    $chit = $_SESSION['chit'];
-
-    action($db, $chit, $who, "APPROVED", $today, $now);
 
 
 
