@@ -120,9 +120,10 @@
 
     $aggregate = $who."_username";
     $coc_email = get_user_information($db, $chit[''.$aggregate.'']);
-    $to = "m194020@usna.edu";                     // CREATOR OF THE CHIT, WILL SEND EMAIL TO THEM
+    //$to = "m194020@usna.edu";                     // CREATOR OF THE CHIT, WILL SEND EMAIL TO THEM
+    $to = "{$chit['creator']}@usna.edu";
      //{$chit['creator']} this is who it should send to eventually
-    $subject = "Your chit has been disapproved You are {$chit['creator']}."; // SUBJECT OF THE EMAIL
+    $subject = "Your chit has been disapproved."; // SUBJECT OF THE EMAIL
 
     $txt = "Disapproved by {$coc_email['rank']} {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
           \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
