@@ -109,12 +109,7 @@
 
       sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
 
-
-
-
     }
-
-
     //redirect
     header("Location: ./viewchit.php");
     die;
