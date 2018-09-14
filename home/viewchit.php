@@ -193,6 +193,9 @@
     die;
   }
   elseif (isset($_REQUEST['comments'])) {
+    if(isset($_REQUEST['chit'])){
+      $_SESSION['chit'] = $_REQUEST['chit'];
+    }
 
     $chit = get_chit_information($db, $_SESSION['chit']);
     $who = USER['user'];
@@ -226,7 +229,7 @@
     }
 
     $chit = get_chit_information($db, $_SESSION['chit']);
-    $who = USER['user'];
+
     $chit = $_SESSION['chit'];
     $comments = addslashes($_POST['comments']);
 
