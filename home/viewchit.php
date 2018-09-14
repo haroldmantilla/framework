@@ -231,6 +231,7 @@
     $comments = addslashes($_POST['comments']);
 
     //error_log("test error");
+    comment($db, $chit, $who, $comments);
 
 
 
@@ -272,7 +273,6 @@
     // //  "CC: m194020@usna.edu"; // THIS IS FOR FUTURE USE
 
 
-    comment($db, $chit, $who, $comments);
     //redirect
     header("Location: ./viewchit.php");
     die;
