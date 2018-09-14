@@ -231,6 +231,7 @@
     //error_log("test error");
 
 
+    $chit = $_SESSION['chit'];
 
     $aggregate = $who."_username";  // grab whatever coc it is
     $coc_email = get_user_information($db, $chit[''.$aggregate.'']);            // grab coc email
