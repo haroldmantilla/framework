@@ -103,11 +103,13 @@
 
       sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
     } else {                                    // not the last person in the CoC
+
       $aggregate = $aboveCoC."_username";  // grab whatever coc it is
 
       $coc_email = get_user_information($db, $chit['creator']);            // grab coc email
       //$to = "m194020@usna.edu";
-      $to = "{$chit[''.$aggregate.'']}@usna.edu";                                     // who to send email to
+      //$to = "{$chit[''.$aggregate.'']}@usna.edu";                                     // who to send email to
+      $to = "m194020@usna.edu";                                     // who to send email to
       //{$chit['creator']} this is who it should send to eventually
       $subject = "A chit is ready for your review.";                               // SUBJECT OF THE EMAIL
 
