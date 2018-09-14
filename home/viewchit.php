@@ -85,6 +85,7 @@
     if(!isset($chit[''.$aggregate.''])){ // if this is the last person in CoC:
 
       $aggregate = $who."_username";  // grab whatever coc it is
+      $chit = get_chit_information($db, $_SESSION['chit']);
       $coc_email = get_user_information($db, $chit[''.$aggregate.'']);            // grab coc email
       //$to = "m194020@usna.edu";
       $to = "{$chit['creator']}@usna.edu";                                        // who to send email to
