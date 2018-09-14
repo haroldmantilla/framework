@@ -114,7 +114,9 @@
       $txt = "Chit by {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
       \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
 
-      $headers = "From: eChits@noreply.usna" . "\r\n";                             // IT WILL SEND FROM THIS ADDRESS
+      $headers = "From: eChits@noreply.usna" . "\r\n";
+      sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
+                                  // IT WILL SEND FROM THIS ADDRESS
     }
 
     $today = date("dMy");
