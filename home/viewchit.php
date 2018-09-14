@@ -224,9 +224,12 @@
     elseif($chit['coc_8_username'] == USER['user']){
       $who = "coc_8";
     }
+    if(isset($_REQUEST['chit'])){
+      $_SESSION['chit'] = $_REQUEST['chit'];
+    }
     //$_SESSION['chit'] = $_REQUEST['chit'];
-    $chit = get_chit_information($db, $_REQUEST['chit']);
-    //$chit = $_SESSION['chit'];
+    //$chit = get_chit_information($db, $_REQUEST['chit']);
+    $chit = $_SESSION['chit'];
     $comments = addslashes($_POST['comments']);
 
     //error_log("test error");
