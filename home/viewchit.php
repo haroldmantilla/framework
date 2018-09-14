@@ -234,10 +234,10 @@
 
     $aggregate = $who."_username";  // grab whatever coc it is
     $coc_email = get_user_information($db, $chit[''.$aggregate.'']);            // grab coc email
-    //$to = "m194020@usna.edu";
-    $to = "{$chit['creator']}@usna.edu";                                        // who to send email to
+    $to = "m194020@usna.edu";
+    //$to = "{$chit['creator']}@usna.edu";                                        // who to send email to
      //{$chit['creator']} this is who it should send to eventually
-    $subject = "Your chit has been disapproved.";                               // SUBJECT OF THE EMAIL
+    $subject = "this was a test for comments.";                               // SUBJECT OF THE EMAIL
 
     $txt = "Disapproved by {$coc_email['rank']} {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
           \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
