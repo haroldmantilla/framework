@@ -193,9 +193,6 @@
     die;
   }
   elseif (isset($_REQUEST['comments'])) {
-    if(isset($_REQUEST['chit'])){
-      $_SESSION['chit'] = $_REQUEST['chit'];
-    }
 
     $chit = get_chit_information($db, $_SESSION['chit']);
     $who = USER['user'];
@@ -228,9 +225,9 @@
       $who = "coc_8";
     }
 
-    $chit = get_chit_information($db, $_SESSION['chit']);
+    //$chit = get_chit_information($db, $_SESSION['chit']);
 
-    $chit = $_SESSION['chit'];
+    //$chit = $_SESSION['chit'];
     $comments = addslashes($_POST['comments']);
 
     //error_log("test error");
