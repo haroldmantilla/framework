@@ -224,19 +224,20 @@
     elseif($chit['coc_8_username'] == USER['user']){
       $who = "coc_8";
     }
-
+    $_SESSION['chit'] = $_REQUEST['chit'];
+    //$chit = get_chit_information($db, $_REQUEST['chit']);
     $chit = $_SESSION['chit'];
     $comments = addslashes($_POST['comments']);
 
     //error_log("test error");
 
 
-    $chit = $_SESSION['chit'];
+
 
     $aggregate = $who."_username";  // grab whatever coc it is
     $coc_email = get_user_information($db, $chit[''.$aggregate.'']);            // grab coc email
     $to = "m194020@usna.edu";
-    $trash = "{$chit['creator']}@usna.edu";
+    $trash = "{$chit['creator']}@usna.edu {$chit['']}";
                                             // who to send email to
      //{$chit['creator']} this is who it should send to eventually
     $subject = "Content is $trash.";                               // SUBJECT OF THE EMAIL
