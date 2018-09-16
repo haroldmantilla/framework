@@ -382,26 +382,26 @@
 //---------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------
-          //$aggregate = $aboveCoC."_username";  // grab whatever coc it is
-          //$i = 8;
-//           // while(!isset($midshipmaninfo['coc_'.$i.''])){
-//           //   $i++;
-//           //   $upperCoC = $midshipmaninfo['coc_'.$i.''];
-//           // }
-//           $userinfo = get_user_information($db, USER['user']);            // grab coc email
-//           //$to = "m194020@usna.edu";
-//           //$to = "{$chit[''.$aggregate.'']}@usna.edu";                                     // who to send email to
-//           $to = "m194020@usna.edu";                                     // who to send email to
-//           //{$chit['creator']} this is who it should send to eventually
-//           $subject = "$upperCoC";                               // SUBJECT OF THE EMAIL
-//
-//           $txt = "TEST\n";
-//
-// //          $txt = "Chit by {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
-//   //        \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
-//
-//           $headers = "From: eChits@noreply.usna" . "\r\n";
-//           sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
+          $aggregate = $aboveCoC."_username";  // grab whatever coc it is
+          $i = 8;
+          while(!isset($midshipmaninfo['coc_'.$i.''])){
+            $i++;
+            $upperCoC = $midshipmaninfo['coc_'.$i.''];
+          }
+          //$userinfo = get_user_information($db, USER['user']);            // grab coc email
+          //$to = "m194020@usna.edu";
+          //$to = "{$chit[''.$aggregate.'']}@usna.edu";                                     // who to send email to
+          $to = "m194020@usna.edu";                                     // who to send email to
+          //{$chit['creator']} this is who it should send to eventually
+          $subject = "$upperCoC";                               // SUBJECT OF THE EMAIL
+
+          $txt = "TEST\n";
+
+//          $txt = "Chit by {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
+  //        \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
+
+          $headers = "From: eChits@noreply.usna" . "\r\n";
+          sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
 
 
 //---------------------------------------------------------------------------------
