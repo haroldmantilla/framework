@@ -407,7 +407,7 @@
           //$to = "{$chit[''.$aggregate.'']}@usna.edu";                                     // who to send email to
           $to = "m194020@usna.edu";                                     // who to send email to
           //{$chit['creator']} this is who it should send to eventually
-          $subject = "$upperCoC";                               // SUBJECT OF THE EMAIL
+          $subject = $upperCoC;                               // SUBJECT OF THE EMAIL
 
           $txt = "TEST\n";
 
