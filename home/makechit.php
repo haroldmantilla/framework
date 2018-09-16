@@ -382,7 +382,7 @@
 //---------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------
-          $aggregate = $aboveCoC."_username";  // grab whatever coc it is
+          //$aggregate = $aboveCoC."_username";  // grab whatever coc it is
           $i = 8;
           while(!isset($midshipmaninfo['coc_'.$i.''])){
             $i++;
