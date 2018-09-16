@@ -384,32 +384,32 @@
 //-------------------------------------------------------------------------------------
           //$aggregate = $aboveCoC."_username";  // grab whatever coc it is
           if($coc_8!=null){
-            $subject = $coc_8;
+            $upperCoC = $coc_8;
           } elseif($coc_7!=null){
-            $subject = $coc_7;
+            $upperCoC = $coc_7;
           }elseif($coc_6!=null){
-            $subject = $coc_6;
+            $upperCoC = $coc_6;
           }elseif($coc_5!=null){
-            $subject = $coc_5;
+            $upperCoC = $coc_5;
           }elseif($coc_4!=null){
-            $subject = $coc_4;
+            $upperCoC = $coc_4;
           }elseif($coc_3!=null){
-            $subject = $coc_3;
+            $upperCoC = $coc_3;
           }elseif($coc_2!=null){
-            $subject = $coc_2;
+            $upperCoC = $coc_2;
           }elseif($coc_1!=null){
-            $subject = $coc_1;
+            $upperCoC = $coc_1;
           }elseif($coc_0!=null){
-            $subject = $coc_0;
+            $upperCoC = $coc_0;
           }
           //$userinfo = get_user_information($db, USER['user']);            // grab coc email
           //$to = "m194020@usna.edu";
-          //$to = "{$chit[''.$aggregate.'']}@usna.edu";                                     // who to send email to
+          //$to = "$upperCoC@usna.edu";                                     // who to send email to
           $to = "m194020@usna.edu";                                     // who to send email to
           //{$chit['creator']} this is who it should send to eventually
           //$subject = $upperCoC;                               // SUBJECT OF THE EMAIL
 
-          $txt = "TEST\n";
+          $txt = "$upperCoC@usna.edu\n";
 
 //          $txt = "Chit by {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
   //        \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
