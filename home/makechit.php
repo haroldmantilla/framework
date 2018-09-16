@@ -384,9 +384,9 @@
 //-------------------------------------------------------------------------------------
           //$aggregate = $aboveCoC."_username";  // grab whatever coc it is
           $i = 8;
-          while(!isset($midshipmaninfo['coc_'.$i.''])){
+          while('coc_'.$i.'' == null){
             $i++;
-            $upperCoC = $midshipmaninfo['coc_'.$i.''];
+            $upperCoC = 'coc_'.$i.'';
           }
           //$userinfo = get_user_information($db, USER['user']);            // grab coc email
           //$to = "m194020@usna.edu";
