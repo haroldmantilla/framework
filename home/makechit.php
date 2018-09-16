@@ -383,10 +383,24 @@
 
 //-------------------------------------------------------------------------------------
           //$aggregate = $aboveCoC."_username";  // grab whatever coc it is
-          $i = 8;
-          while('coc_'.$i.'' == null){
-            $i++;
-            $upperCoC = 'coc_'.$i.'';
+          if($coc_8!=null){
+            $subject = $upperCoC;
+          } elseif($coc_7!=null){
+            $subject = $upperCoC;
+          }elseif($coc_6!=null){
+            $subject = $upperCoC;
+          }elseif($coc_5!=null){
+            $subject = $upperCoC;
+          }elseif($coc_4!=null){
+            $subject = $upperCoC;
+          }elseif($coc_3!=null){
+            $subject = $upperCoC;
+          }elseif($coc_2!=null){
+            $subject = $upperCoC;
+          }elseif($coc_1!=null){
+            $subject = $upperCoC;
+          }elseif($coc_0!=null){
+            $subject = $upperCoC;
           }
           //$userinfo = get_user_information($db, USER['user']);            // grab coc email
           //$to = "m194020@usna.edu";
