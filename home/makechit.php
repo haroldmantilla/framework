@@ -383,41 +383,47 @@
 //---------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------
-          // //$aggregate = $aboveCoC."_username";  // grab whatever coc it is
-          // if($coc_8!=null){
-          //   $upperCoC = $coc_8;
-          // } elseif($coc_7!=null){
-          //   $upperCoC = $coc_7;
-          // }elseif($coc_6!=null){
-          //   $upperCoC = $coc_6;
-          // }elseif($coc_5!=null){
-          //   $upperCoC = $coc_5;
-          // }elseif($coc_4!=null){
-          //   $upperCoC = $coc_4;
-          // }elseif($coc_3!=null){
-          //   $upperCoC = $coc_3;
-          // }elseif($coc_2!=null){
-          //   $upperCoC = $coc_2;
-          // }elseif($coc_1!=null){
-          //   $upperCoC = $coc_1;
-          // }elseif($coc_0!=null){
-          //   $upperCoC = $coc_0;
-          // }
-          //
-          // $to = "m194020@usna.edu";
-          //
-          // $subject = "A chit has been created.";
-          //                               // SUBJECT OF THE EMAIL
-          // $midshipmaninfo = get_user_information($db, USER['user']);
-          //
-          // $txt = "
-          // Creator: {$midshipmaninfo['rank']} {$midshipmaninfo['firstName']} {$midshipmaninfo['lastName']}, {$midshipmaninfo['service']}
-          // Description:\"{$_POST['SHORT_DESCRIPTION']}\"\n";
-          //
-          // $headers = "From: eChits@noreply.edu" . "\r\n"; // IT WILL SEND FROM THIS ADDRESS
-          //
-          //
-          // sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
+          //$aggregate = $aboveCoC."_username";  // grab whatever coc it is
+          if($coc_8!=null){
+            $upperCoC = $coc_8;
+          } elseif($coc_7!=null){
+            $upperCoC = $coc_7;
+          }elseif($coc_6!=null){
+            $upperCoC = $coc_6;
+          }elseif($coc_5!=null){
+            $upperCoC = $coc_5;
+          }elseif($coc_4!=null){
+            $upperCoC = $coc_4;
+          }elseif($coc_3!=null){
+            $upperCoC = $coc_3;
+          }elseif($coc_2!=null){
+            $upperCoC = $coc_2;
+          }elseif($coc_1!=null){
+            $upperCoC = $coc_1;
+          }elseif($coc_0!=null){
+            $upperCoC = $coc_0;
+          }
+
+          //$to = "m194020@usna.edu";
+
+          $to = "$upperCoC@usna.edu";                                     // who to send email to
+          //{$chit['creator']} this is who it should send to eventually
+          $subject = "A chit has been created.";
+                                        // SUBJECT OF THE EMAIL
+          $midshipmaninfo = get_user_information($db, USER['user']);
+          // THIS IS FOR FUTURE USE
+
+          $txt = "
+          Creator: {$midshipmaninfo['rank']} {$midshipmaninfo['firstName']} {$midshipmaninfo['lastName']}, {$midshipmaninfo['service']}
+          Description:\"{$_POST['SHORT_DESCRIPTION']}\"\n";
+
+//          $txt = "Chit by {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
+  //        \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
+
+          $headers = "From: eChits@noreply.edu" . "\r\n"; // IT WILL SEND FROM THIS ADDRESS
+
+
+          sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
 
 
 //---------------------------------------------------------------------------------
