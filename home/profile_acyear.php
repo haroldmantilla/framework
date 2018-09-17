@@ -482,6 +482,8 @@ function redirect(location){
           echo "<select class=\"form-control\" name=\"coc_3\">";
           echo "<option value=\"\"></option>";
           foreach($coc_options_officers as $user){
+            if($user['rank'] == "LT" || $user['rank'] == "LCDR" || $user['rank'] == "Capt" || $user['rank'] == "Maj"){
+
             echo "<option value=\"{$user['username']}\"";
 
             if($midshipmaninfo['coc_3'] == $user['username']){
@@ -489,6 +491,7 @@ function redirect(location){
             }
 
             echo ">{$user['rank']} {$user['lastName']}</option>";
+            }
           }
           echo "</select>";
           echo "</div>";
@@ -530,7 +533,7 @@ function redirect(location){
           echo "<select class=\"form-control\" name=\"coc_5\">";
           echo "<option value=\"\"></option>";
           foreach($coc_options_midn as $user){
-            if($user['rank']!= "MIDN 2/C" && $user['rank']!= "MIDN 3/C" && $user['rank']!= "MIDN 4/C"){
+            if($user['rank']== "MIDN LT"){
             echo "<option value=\"{$user['username']}\"";
 
             if($midshipmaninfo['coc_5'] == $user['username']){
