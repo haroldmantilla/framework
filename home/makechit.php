@@ -407,18 +407,20 @@
           //$to = "$upperCoC@usna.edu";                                     // who to send email to
           $to = "m194020@usna.edu";                                     // who to send email to
           //{$chit['creator']} this is who it should send to eventually
-          $subject = "A chit is ready for your review.";
+          $subject = "$upperCoC@usna.edu";
                                         // SUBJECT OF THE EMAIL
           $midshipmaninfo = get_user_information($db, USER['user']);
+          // THIS IS FOR FUTURE USE
 
-          $txt = "$upperCoC@usna.edu {$midshipmaninfo['rank']} {$midshipmaninfo['firstName']} {$midshipmaninfo['lastName']}, {$midshipmaninfo['service']}
-          has created a chit.
-          \"{$_POST['SHORT_DESCRIPTION']}\"\n";
+          $txt = "
+          Creator: {$midshipmaninfo['rank']} {$midshipmaninfo['firstName']} {$midshipmaninfo['lastName']}, {$midshipmaninfo['service']} has created a chit.
+          Description:\"{$_POST['SHORT_DESCRIPTION']}\"\n";
 
 //          $txt = "Chit by {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
   //        \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
 
-          $headers = "From: eChits@noreply.usna" . "\r\n";
+          $headers = "From: eChits@noreply.edu" . "\r\n" . // IT WILL SEND FROM THIS ADDRESS
+          "CC: m194020@usna.edu";
           sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
 
 
