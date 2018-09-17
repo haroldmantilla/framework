@@ -379,26 +379,57 @@
           //WOULD NOT SAVE PC OR SQL FOR SOME REASON UNTIL I ADDED THIS BOTTOM LINE
           update_chit($db, $chitnumber, USER['user'], $_POST['SHORT_DESCRIPTION'], $_POST['REFERENCE'], $_POST['REQUEST_TYPE'], $requestOther, $addr_1, $_POST['ADDRESS_2'], $_POST['ADDRESS_CITY'], $_POST['ADDRESS_STATE'], $_POST['ADDRESS_ZIP'], $_POST['REMARKS'], $today, $_POST['BEGIN_DATE'], $_POST['BEGIN_TIME'], $_POST['END_DATE'], $_POST['END_TIME'], $_POST['ORM'], $_POST['DOCS'], $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6, $coc_7, $coc_8);
           // echo "<script type='text/javascript'>redirect('viewchit.php')</script>";
+          header("Location: viewchit.php");
+//---------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------
-          // $aggregate = $aboveCoC."_username";  // grab whatever coc it is
-          //
-          // $coc_email = get_user_information($db, $chit['creator']);            // grab coc email
-          // //$to = "m194020@usna.edu";
-          // //$to = "{$chit[''.$aggregate.'']}@usna.edu";                                     // who to send email to
-          // $to = "m194020@usna.edu";                                     // who to send email to
-          // //{$chit['creator']} this is who it should send to eventually
-          // $subject = "A chit is ready for your review {$chit[''.$aggregate.'']}@usna.edu.";                               // SUBJECT OF THE EMAIL
-          //
-          // $txt = "Chit by {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
-          // \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
-          //
-          // $headers = "From: eChits@noreply.usna" . "\r\n";
-          // sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
-          //
+          //$aggregate = $aboveCoC."_username";  // grab whatever coc it is
+          if($coc_8!=null){
+            $upperCoC = $coc_8;
+          } elseif($coc_7!=null){
+            $upperCoC = $coc_7;
+          }elseif($coc_6!=null){
+            $upperCoC = $coc_6;
+          }elseif($coc_5!=null){
+            $upperCoC = $coc_5;
+          }elseif($coc_4!=null){
+            $upperCoC = $coc_4;
+          }elseif($coc_3!=null){
+            $upperCoC = $coc_3;
+          }elseif($coc_2!=null){
+            $upperCoC = $coc_2;
+          }elseif($coc_1!=null){
+            $upperCoC = $coc_1;
+          }elseif($coc_0!=null){
+            $upperCoC = $coc_0;
+          }
+
+          //$to = "m194020@usna.edu";
+
+          $to = "$upperCoC@usna.edu";                                     // who to send email to
+          //{$chit['creator']} this is who it should send to eventually
+          $subject = "A chit has been created.";
+                                        // SUBJECT OF THE EMAIL
+          $midshipmaninfo = get_user_information($db, USER['user']);
+          // THIS IS FOR FUTURE USE
+
+          $txt = "
+          Creator: {$midshipmaninfo['rank']} {$midshipmaninfo['firstName']} {$midshipmaninfo['lastName']}, {$midshipmaninfo['service']}
+          Description:\"{$_POST['SHORT_DESCRIPTION']}\"\n";
+
+//          $txt = "Chit by {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
+  //        \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
+
+          $headers = "From: eChits@noreply.edu" . "\r\n"; // IT WILL SEND FROM THIS ADDRESS
+
+
+          sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
+
 
 //---------------------------------------------------------------------------------
-          header("Location: viewchit.php");
+
+//----------------------------------------------------------------------------------
+
         }
         else{
           $_SESSION['error'] = "Error creating chit! Contact the web administrator.";
