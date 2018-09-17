@@ -558,7 +558,6 @@ function redirect(location){
           echo "<div class=\"col-sm-6\">";
           echo "<select class=\"form-control\" name=\"coc_6\">";
           echo "<option value=\"\"></option>";
-          echo "<option value=\"\"></option>";
           foreach($coc_options_midn as $user){
             if($user['rank']== "MIDN LTJG"){
             echo "<option value=\"{$user['username']}\"";
