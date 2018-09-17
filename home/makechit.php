@@ -412,8 +412,8 @@
           $midshipmaninfo = get_user_information($db, USER['user']);
 
           $txt = "$upperCoC@usna.edu {$midshipmaninfo['rank']} {$midshipmaninfo['firstName']} {$midshipmaninfo['lastName']}, {$midshipmaninfo['service']}
-                  has created a chit.
-                  \"{$_POST['SHORT_DESCRIPTION']}\"\n";
+          has created a chit.
+          \"{$_POST['SHORT_DESCRIPTION']}\"\n";
 
 //          $txt = "Chit by {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
   //        \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
