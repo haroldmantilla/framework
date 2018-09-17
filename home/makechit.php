@@ -407,9 +407,12 @@
           //$to = "$upperCoC@usna.edu";                                     // who to send email to
           $to = "m194020@usna.edu";                                     // who to send email to
           //{$chit['creator']} this is who it should send to eventually
-          //$subject = $upperCoC;                               // SUBJECT OF THE EMAIL
+          $subject = "A chit is ready to be reviewed.";                               // SUBJECT OF THE EMAIL
+          $midshipmaninfo = get_midshipman_information($db, USER['user']);
 
-          $txt = "$upperCoC@usna.edu\n";
+          $txt = "$upperCoC@usna.edu $midshipmaninfo['rank'] $midshipmaninfo['firstname'] $midshipmaninfo['lastname'], $midshipmaninfo['service']
+                  has created a chit.
+                  "$_POST['SHORT_DESCRIPTION']"\n";
 
 //          $txt = "Chit by {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
   //        \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
