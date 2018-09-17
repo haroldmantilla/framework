@@ -407,10 +407,11 @@
           //$to = "$upperCoC@usna.edu";                                     // who to send email to
           $to = "m194020@usna.edu";                                     // who to send email to
           //{$chit['creator']} this is who it should send to eventually
-          $subject = "A chit is ready to be reviewed.";                               // SUBJECT OF THE EMAIL
+          $subject = "A chit is ready to be reviewed.";
+                                        // SUBJECT OF THE EMAIL
           $midshipmaninfo = get_midshipman_information($db, USER['user']);
 
-          $txt = "$upperCoC@usna.edu $midshipmaninfo['rank'] $midshipmaninfo['firstname'] $midshipmaninfo['lastname'], $midshipmaninfo['service']
+          $txt = "$upperCoC@usna.edu 
                   has created a chit.
                   \"$_POST['SHORT_DESCRIPTION']\"\n";
 
