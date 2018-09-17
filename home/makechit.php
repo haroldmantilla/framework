@@ -411,7 +411,7 @@
                                         // SUBJECT OF THE EMAIL
           $midshipmaninfo = get_user_information($db, USER['user']);
 
-          $txt = "$upperCoC@usna.edu {$midshipmaninfo['rank']} {$midshipmaninfo['firstname']} {$midshipmaninfo['lastname']}, {$midshipmaninfo['service']}
+          $txt = "$upperCoC@usna.edu {$midshipmaninfo['rank']} {$midshipmaninfo['firstName']} {$midshipmaninfo['lastName']}, {$midshipmaninfo['service']}
                   has created a chit.
                   \"{$_POST['SHORT_DESCRIPTION']}\"\n";
 
