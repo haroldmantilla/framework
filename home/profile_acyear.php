@@ -456,7 +456,7 @@ function redirect(location){
           echo "<select class=\"form-control\" name=\"coc_2\">";
           echo "<option value=\"\"></option>";
           foreach($coc_options_officers as $user){
-            if($user['rank'] == "CDR" || $user['rank'] == "LtCol" || $user['rank'] == "CAPT" || $user['rank'] == "Col")
+            if($user['rank'] == "CDR" || $user['rank'] == "LtCol" || $user['rank'] == "CAPT" || $user['rank'] == "Col"){
             echo "<option value=\"{$user['username']}\"";
 
             if($midshipmaninfo['coc_2'] == $user['username']){
@@ -464,7 +464,7 @@ function redirect(location){
             }
 
             echo ">{$user['rank']} {$user['lastName']}</option>";
-
+            }
           }
           echo "</select>";
           echo "</div>";
