@@ -20,6 +20,7 @@
   # Load in template, if not already loaded
   require_once(LIBRARY_PATH.'template.php');
 
+  require_once(WEB_PATH.'navbar.php');
   ?>
   <div class="container-fluid">
 
