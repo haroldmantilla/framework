@@ -25,7 +25,7 @@
   <div class="container-fluid">
 
 <?php
-echo "<h4 class=\"text-center\">Chit creation removed due to eChits shutdown on 31OCT2018</h4>";
+echo "<h4 class=\"text-center\">Chit creation disabled due to eChits shutdown on 31OCT2018</h4>";
 ?>
 
 </div>
