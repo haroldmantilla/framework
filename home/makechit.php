@@ -20,6 +20,11 @@
   # Load in template, if not already loaded
   require_once(LIBRARY_PATH.'template.php');
 
-echo "<h4 class=\"text-center\">Chit creation removed due to eChits shutdown on 31OCT2018</h4>";
+  ?>
+  <div class="container-fluid">
 
+<?php
+echo "<h4 class=\"text-center\">Chit creation removed due to eChits shutdown on 31OCT2018</h4>";
 ?>
+
+</div>
