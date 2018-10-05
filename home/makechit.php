@@ -456,15 +456,15 @@ echo "<h4 class=\"text-center\">Unable to create chit due to shutdown on 31OCT20
 //
 //
 // ?>
-//
-//
-// <script type="text/javascript">
+
+
+<!-- // <script type="text/javascript">
 // function redirect(location){
 //   window.location = location;
 // }
-// </script>
-//
-// <script type="text/javascript">
+ // </script>
+
+ <script type="text/javascript">
 // function routeTo(){
 //   var to_username = document.getElementById("route_to").value;
 //
@@ -521,7 +521,7 @@ echo "<h4 class=\"text-center\">Unable to create chit due to shutdown on 31OCT20
 //
 //
 // ?>
-<!--
+
 // <div class="container" id="courier">
 //
 //
