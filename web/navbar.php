@@ -138,7 +138,7 @@
   }
 
   if(in_midshipman_table($db, USER['user']) && coc_complete($db, USER['user'])){
-    $NAVBAR[] = array('type'=>'url', 'title'=>'Make Chit', 'ltext'=>" Make Chit", 'url'=>'makechit.php');
+    //$NAVBAR[] = array('type'=>'url', 'title'=>'Make Chit', 'ltext'=>" Make Chit", 'url'=>'makechit.php');
   }
 
   $query = "SELECT * FROM  auth_access where user=? AND access = 'level' AND value = 'MID'";
