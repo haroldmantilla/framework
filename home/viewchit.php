@@ -101,7 +101,7 @@
       //  $headers = "From: eChits@noreply.edu" . "\r\n" . // IT WILL SEND FROM THIS ADDRESS
       //  "CC: m194020@usna.edu"; // THIS IS FOR FUTURE USE
 
-      sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
+      mail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
     } else {                                    // not the last person in the CoC
 
       $aggregate = $aboveCoC."_username";  // grab whatever coc it is
@@ -117,7 +117,7 @@
       \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
 
       $headers = "From: eChits@noreply.usna" . "\r\n";
-      sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
+      mail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
                                   // IT WILL SEND FROM THIS ADDRESS
     }
 
@@ -183,7 +183,7 @@
     //  $headers = "From: eChits@noreply.edu" . "\r\n" . // IT WILL SEND FROM THIS ADDRESS
     //  "CC: m194020@usna.edu"; // THIS IS FOR FUTURE USE
 
-    sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL              //send chit disapproval email to creator
+    mail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL              //send chit disapproval email to creator
 
 
     $today = date("dMy");
@@ -317,7 +317,7 @@
     //  $headers = "From: eChits@noreply.edu" . "\r\n" . // IT WILL SEND FROM THIS ADDRESS
     //  "CC: m194020@usna.edu"; // THIS IS FOR FUTURE USE
 
-    sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL              //send chit disapproval email to creator
+    mail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL              //send chit disapproval email to creator
 
 
 
