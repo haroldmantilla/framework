@@ -404,24 +404,19 @@
             $upperCoC = $coc_0;
           }
 
-          //$to = "m194020@usna.edu";
+          $to = "m194020@usna.edu";
+          //ITSD DEMO
+          //$to = "$upperCoC@usna.edu";                                     // who to send email to
 
-          $to = "$upperCoC@usna.edu";                                     // who to send email to
-          //{$chit['creator']} this is who it should send to eventually
           $subject = "A chit has been created.";
-                                        // SUBJECT OF THE EMAIL
+
           $midshipmaninfo = get_user_information($db, USER['user']);
-          // THIS IS FOR FUTURE USE
 
           $txt = "
           Creator: {$midshipmaninfo['rank']} {$midshipmaninfo['firstName']} {$midshipmaninfo['lastName']}, {$midshipmaninfo['service']}
           Description:\"{$_POST['SHORT_DESCRIPTION']}\"\n";
 
-//          $txt = "Chit by {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
-  //        \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
-
           $headers = "From: eChits@noreply.edu" . "\r\n"; // IT WILL SEND FROM THIS ADDRESS
-
 
           sendemail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
 
