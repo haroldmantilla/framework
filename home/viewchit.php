@@ -88,9 +88,10 @@
       $aggregate = $who."_username";  // grab whatever coc it is
 
       $coc_email = get_user_information($db, $chit[''.$aggregate.'']);            // grab coc email
-      //$to = "m194020@usna.edu";
-      $to = "{$chit['creator']}@usna.edu";                                        // who to send email to
-      //{$chit['creator']} this is who it should send to eventually
+
+      $to = "m194020@usna.edu";
+      //$to = "{$chit['creator']}@usna.edu";                                        // who to send email to
+      //ITSD DEMO
       $subject = "Your chit has been approved!";                               // SUBJECT OF THE EMAIL
 
       $txt = "Final approval by {$coc_email['rank']} {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
@@ -98,19 +99,15 @@
 
       $headers = "From: eChits@noreply.usna" . "\r\n";                             // IT WILL SEND FROM THIS ADDRESS
 
-      //  $headers = "From: eChits@noreply.edu" . "\r\n" . // IT WILL SEND FROM THIS ADDRESS
-      //  "CC: m194020@usna.edu"; // THIS IS FOR FUTURE USE
-
       mail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL
     } else {                                    // not the last person in the CoC
 
       $aggregate = $aboveCoC."_username";  // grab whatever coc it is
 
       $coc_email = get_user_information($db, $chit['creator']);            // grab coc email
-      //$to = "m194020@usna.edu";
-      $to = "{$chit[''.$aggregate.'']}@usna.edu";                                     // who to send email to
-      //$to = "m194020@usna.edu";                                     // who to send email to
-      //{$chit['creator']} this is who it should send to eventually
+      $to = "m194020@usna.edu";
+      //$to = "{$chit[''.$aggregate.'']}@usna.edu";                                     // who to send email to
+      //ITSD DEMO
       $subject = "A chit is ready for your review.";                               // SUBJECT OF THE EMAIL
 
       $txt = "Chit by {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
@@ -170,18 +167,16 @@
 
     $aggregate = $who."_username";  // grab whatever coc it is
     $coc_email = get_user_information($db, $chit[''.$aggregate.'']);            // grab coc email
-    //$to = "m194020@usna.edu";
-    $to = "{$chit['creator']}@usna.edu";                                        // who to send email to
-     //{$chit['creator']} this is who it should send to eventually
+
+    $to = "m194020@usna.edu";
+    //$to = "{$chit['creator']}@usna.edu";                                        // who to send email to
+    //ITSD DEMO
     $subject = "Your chit has been disapproved.";                               // SUBJECT OF THE EMAIL
 
     $txt = "Disapproved by {$coc_email['rank']} {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']}
           \nLog in at midn.cs.usna.edu/project-echits to review the chit. \n";
 
     $headers = "From: eChits@noreply.usna" . "\r\n";                             // IT WILL SEND FROM THIS ADDRESS
-
-    //  $headers = "From: eChits@noreply.edu" . "\r\n" . // IT WILL SEND FROM THIS ADDRESS
-    //  "CC: m194020@usna.edu"; // THIS IS FOR FUTURE USE
 
     mail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL              //send chit disapproval email to creator
 
@@ -302,10 +297,9 @@
 
     $aggregate = $who."_username";  // grab whatever coc it is
     $coc_email = get_user_information($db, $chit[''.$aggregate.'']);            // grab coc email
-    //$to = "m194020@usna.edu";
-    $to = "{$chit['creator']}@usna.edu";
-                                            // who to send email to
-     //{$chit['creator']} this is who it should send to eventually
+    $to = "m194020@usna.edu";
+    //$to = "{$chit['creator']}@usna.edu";
+    //ITSD DEMO
     $subject = "A comment has been left on your chit.";                               // SUBJECT OF THE EMAIL
 
     $txt = "{$coc_email['rank']} {$coc_email['firstName']} {$coc_email['lastName']}, {$coc_email['service']} commented:
@@ -314,8 +308,6 @@
 
     $headers = "From: eChits@noreply.usna" . "\r\n";                             // IT WILL SEND FROM THIS ADDRESS
 
-    //  $headers = "From: eChits@noreply.edu" . "\r\n" . // IT WILL SEND FROM THIS ADDRESS
-    //  "CC: m194020@usna.edu"; // THIS IS FOR FUTURE USE
 
     mail($to,$subject,$txt,$headers); // ACTUALLY SENDS EMAIL              //send chit disapproval email to creator
 
