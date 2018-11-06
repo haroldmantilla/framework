@@ -20,7 +20,6 @@
   # Load in template, if not already loaded
   require_once(LIBRARY_PATH.'template.php');
 
-header("Location: profile_acyear.php");
 
 /******************************************************************************
 *******************************************************************************
