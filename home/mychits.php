@@ -80,8 +80,7 @@ elseif(is_midshipman($db, USER['user'])){
     echo "</div>";
     echo "<div class='col-md-8 text-center'>";
     echo "<h4>Welcome to eChits!</h4>";
-    echo "<button type=button class='btn btn-default' onclick=\"window.location.href='./profile_acyear.php'\">Profile</button>";
-    echo "</div>";
+     echo "<button type=button class='btn btn-default' onclick=\"window.location.href='./makechit.php'\">Make Chit</button>";     echo "</div>";
     echo "<div class='col-md-2'>";
     echo "</div>";
     echo "</div>";
