@@ -1,5 +1,11 @@
 <?php
 
+
+function sendemail($to,$subject,$txt,$headers){
+mail($to,$subject,$txt,$headers);
+}
+
+
 function get_users($db){
   $query = "call getUsers()";
   $stmt = build_query($db, $query, array());
