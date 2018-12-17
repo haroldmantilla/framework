@@ -14,6 +14,17 @@
                       'access'     => array('admin'=>'safety'));
   ###############################################################
 
+  ################################################################
+  #                  Commented on 16DEC18 by                     #
+  #                       Harold Mantilla                        #
+  ################################################################
+
+  ################################################################
+  #          Old page used by company safety officers            #
+  #           currently no use for the functionality,            #
+  #            but there may be in the future                    #
+  ################################################################
+
   # Load in Configuration Parameters
   require_once("../etc/config.inc.php");
 
@@ -22,7 +33,7 @@
 
 
   if (isset($_REQUEST['restore'])) {
-    
+
     $chit = $_REQUEST['chit'];
 
     restore_chit($db, $chit);
@@ -35,10 +46,10 @@
     die;
   }
   elseif (isset($_REQUEST['view'])) {
-    
+
     $chit = $_REQUEST['chit'];
     $_SESSION['chit'] = $chit;
-    
+
     //redirect
     header("Location: viewchit.php");
 
@@ -47,13 +58,13 @@
   }
   elseif (isset($_REQUEST['archive'])) {
     $chit = $_REQUEST['archive'];
-    
+
     archive_chit($db, $chit);
-    
+
     unset($_SESSION['chit']);
-        
+
     header("Location: {$_SERVER['HTTP_REFERER']}");
-  }  
+  }
 
   # Load in The NavBar
   # Note: You too will have automated NavBar generation
@@ -192,7 +203,7 @@ $archivedchits = get_archived_orm_chits_company($db, $company);
         <input type=\"hidden\" name=\"archive\" value=\"{$chit['chitNumber']}\"/>
         <input type=\"submit\" class=\"btn btn-danger\" value=\"Archive\">
         </form>";
-        
+
         echo "<form style=\"float: right; \" action=\"viewchit.php\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-default\" name=\"viewbutton\" value=\"View Chit\"></form>";
 
       echo "<td>";
@@ -288,9 +299,9 @@ $archivedchits = get_archived_orm_chits_company($db, $company);
 
 
       echo "<td>";
-      
+
       echo "<form style=\"float: right;\" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-primary\" name=\"restore\" value=\"Restore Chit\"></form>";
-      
+
       echo "<form style=\"float: right; \" action=\"viewchit.php\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-default\" name=\"viewbutton\" value=\"View Chit\"></form>";
 
 
@@ -337,7 +348,7 @@ echo "</div>";
 // 		<!-- Blast Chits Modal -->
 // 		<div id=\"blastModal\" class=\"modal fade\" role=\"dialog\">
 // 			<div class=\"modal-dialog\">
-// 
+//
 // 				<!-- Modal content-->
 // 				<div class=\"modal-content\">
 // 					<div class=\"modal-header text-center\">
@@ -346,7 +357,7 @@ echo "</div>";
 //             <h5 class=\"modal-title\">This action cannot be undone.</h5>
 // 					</div>
 // 					<div class=\"modal-footer\">
-// 
+//
 // 						<div class=\"col-xs-6 text-left\">
 // 							<div class=\"previous\">
 // 								<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cancel</button>
@@ -360,11 +371,11 @@ echo "</div>";
 //               </form>
 // 							</div>
 // 						</div>
-// 
-// 
+//
+//
 // 					</div>
 // 				</div>
-// 
+//
 // 			</div>
 // 		</div>
 // ";
