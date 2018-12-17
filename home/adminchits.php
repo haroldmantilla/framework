@@ -1,5 +1,4 @@
 <?php
-
   ###############################################################
   #              Security and Navbar Configuration              #
   ###############################################################
@@ -14,55 +13,65 @@
                       'access'     => array('admin'=>'admin'));
   ###############################################################
 
+ ################################################################
+ #                  Only admins may use this page               #
+ #                  used to see all chits on the system         #
+ ################################################################
+
+ ################################################################
+ #                  Commented on 16DEC18 by                     #
+ #                       Harold Mantilla                        #
+ ################################################################
+
   # Load in Configuration Parameters
   require_once("../etc/config.inc.php");
 
   # Load in template, if not already loaded
   require_once(LIBRARY_PATH.'template.php');
 
+  #if archived chit is selected to be restored to active status
   if (isset($_REQUEST['restore'])) {
-
+    #set $chit variable to the chit requested to be restored
     $chit = $_REQUEST['chit'];
-
+    #restore chit
     restore_chit($db, $chit);
-
-    //redirect
+    #redirect
     $_SESSION['success'] = "Chit successfully restored!";
     header("Location: {$_SERVER['HTTP_REFERER']}");
-
-
     die;
   }
   elseif (isset($_REQUEST['view'])) {
-
+    #if admin selects a chit to be viewed
     $chit = $_REQUEST['chit'];
+    #set current chit session variable to chit to be viewed
     $_SESSION['chit'] = $chit;
-
-    //redirect
+    #redirect
     header("Location: viewchit.php");
-
-
     die;
   }
   elseif (isset($_REQUEST['archive'])) {
+    #if admin is archiving a chit
     $chit = $_REQUEST['archive'];
-
+    #archive chit
     archive_chit($db, $chit);
-
+    #unset current chit session variable
     unset($_SESSION['chit']);
-
+    #redirect
     header("Location: {$_SERVER['HTTP_REFERER']}");
   }
   elseif (isset($_REQUEST['delete'])) {
+    #if admin is deleting a chit
     $chit = $_REQUEST['delete'];
-
+    #delete chit
     delete_chit($db, $chit);
-
+    #unset chit session variable
     unset($_SESSION['chit']);
-
+    #redirect
     header("Location: {$_SERVER['HTTP_REFERER']}");
   }
   elseif(isset($_REQUEST['deleteall']) && !empty($_REQUEST['deleteall'])){
+    #if deleting all chits on the system
+    #i've only used this once
     blast_chits($db);
   }
 
@@ -70,7 +79,6 @@
   # Note: You too will have automated NavBar generation
   #       support in your future templates...
   require_once(WEB_PATH.'navbar.php');
-
 
 
 ?>
@@ -115,9 +123,9 @@ $debug = false;
 
 <?php
 
+#grab active and archived chits from DB
 $activechits = get_active_chits($db);
 $archivedchits = get_archived_chits($db);
-
 
   //active chits
   if(!empty($activechits)){
@@ -140,35 +148,31 @@ $archivedchits = get_archived_chits($db);
     //rows go here
     echo "<table class='table table-hover'>";
     echo "<thead>";
+    #display creator, date, company, descrition, status
     echo "<tr><th>Creator</th><th>Date</th><th>Company</th><th>Description</th><th>Status</th><th class=\"text-right\">Actions</th></tr></thead>";
 
+    #sort through active chits
     foreach ($activechits as $chit){
-
+      #if admin is querying chits by a filter
       if(isset($_POST['FILTER']) && !empty($_POST['FILTER'])){
-
         $datepos = stripos($chit['createdDate'], $_POST['FILTER']);
         $descpos = stripos($chit['description'], $_POST['FILTER']);
         $unamepos = stripos($chit['lastName'], $_POST['FILTER']);
-
         if($datepos === false && $descpos === false && $unamepos === false) {
           continue;
         }
-
       }
 
-
-
+      #past chit querying via filter
+      #grab description from current chit
       $chit['description'] = stripslashes($chit['description']);
-
+      #print rank, firstname, lastname, and service on same row
       echo "<tr>";
       echo "<td>{$chit['rank']} {$chit['firstName']} {$chit['lastName']}, {$chit['service']} </td>";
-
+      #print date created, company, and description
       echo "<td>{$chit['createdDate']}</td>";
-
       echo "<td>{$chit['company']}</td>";
       echo "<td>{$chit['description']}</td>";
-
-
       $chitstatus = "PENDING";
 
      if(!empty($chit['coc_2_username'])){ //batt-o
@@ -180,9 +184,7 @@ $archivedchits = get_archived_chits($db);
      elseif(empty($chit['coc_2_username']) && empty($chit['coc_3_username'])&&!empty($chit['coc_4_username'])){ //sel
        $chitstatus = $chit['coc_4_status'];
      }
-
-
-
+     ####################    old code ignore    ###############################
       // $chitstatus = "PENDING";
       // if($chit['coc_0_status'] == "DISAPPROVED" ||
       //    $chit['coc_1_status'] == "DISAPPROVED" ||
@@ -212,7 +214,9 @@ $archivedchits = get_archived_chits($db);
       //     $chitstatus = $chit['coc_4_status'];
       //   }
       // }
+      ####################    old code ignore    ###############################
 
+      #set buttons depending on chit status
       if($chitstatus == "PENDING"){
         echo "<td><button style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-secondary\" disabled>Pending</button></td>";
       }
@@ -222,23 +226,16 @@ $archivedchits = get_archived_chits($db);
       elseif($chitstatus == "DISAPPROVED"){
         echo "<td><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>Denied</button></td>";
       }
-
-
       echo "<td>";
-
-
       echo "<form style=\"float: right;\" action=\"?\" method=\"post\">
         <input type=\"hidden\" name=\"archive\" value=\"{$chit['chitNumber']}\"/>
         <input type=\"submit\" class=\"btn btn-danger\" value=\"Archive\">
         </form>";
-
         echo "<form style=\"float: right;\" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-default\" name=\"view\" value=\"View Chit\"></form>";
       echo "<td>";
-
       echo "</td>";
       echo "</tr>";
     }
-
     echo "</table>";
     echo "</div>";
     echo "<div class='col-md-1'>";
@@ -250,7 +247,7 @@ $archivedchits = get_archived_chits($db);
   }
 
 
-  //archived chits
+  //same process as above but for archived chits
   if(!empty($archivedchits)){
     echo "<div class='row'>";
     echo "<div class='col-md-1'>";
@@ -274,44 +271,31 @@ $archivedchits = get_archived_chits($db);
     echo "<tr><th>Creator</th><th>Date</th><th>Company</th><th>Description</th><th>Status</th><th class=\"text-right\">Actions</th></tr></thead>";
 
     foreach ($archivedchits as $chit){
-
       if(isset($_POST['FILTER']) && !empty($_POST['FILTER'])){
-
         $datepos = stripos($chit['createdDate'], $_POST['FILTER']);
         $descpos = stripos($chit['description'], $_POST['FILTER']);
         $unamepos = stripos($chit['lastName'], $_POST['FILTER']);
-
         if($datepos === false && $descpos === false && $unamepos === false) {
           continue;
         }
-
       }
 
-
-
       $chit['description'] = stripslashes($chit['description']);
-
       echo "<tr>";
       echo "<td>{$chit['rank']} {$chit['firstName']} {$chit['lastName']}, {$chit['service']} </td>";
-
       echo "<td>{$chit['createdDate']}</td>";
-
       echo "<td>{$chit['company']}</td>";
       echo "<td>{$chit['description']}</td>";
-
       $chitstatus = "PENDING";
 
      if(!empty($chit['coc_2_username'])){ //batt-o
        $chitstatus = $chit['coc_2_status'];
-
      }
      elseif(empty($chit['coc_2_username']) && !empty($chit['coc_3_username'])){ // co
        $chitstatus = $chit['coc_3_status'];
-
      }
      elseif(empty($chit['coc_2_username']) && empty($chit['coc_3_username'])&&!empty($chit['coc_4_username'])){ //sel
        $chitstatus = $chit['coc_4_status'];
-
      }
 
 
@@ -355,21 +339,12 @@ $archivedchits = get_archived_chits($db);
         echo "<td><button  style=\"cursor: auto !important\" type=\"button\" class=\"btn btn-danger\" disabled>Denied</button></td>";
       }
 
-
       echo "<td>";
-
       echo "<form style=\"float: right;\" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"delete\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-danger\" name=\"deletebutton\" value=\"Delete Forever\"></form>";
-
       echo "<form style=\"float: right;\" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-primary\" name=\"restore\" value=\"Restore Chit\"></form>";
-
       echo "<form style=\"float: right;\" action=\"?\" method=\"post\"><input type=\"hidden\" name=\"chit\" value=\"{$chit['chitNumber']}\" /><input type=\"submit\" class=\"btn btn-default\" name=\"view\" value=\"View Chit\"></form>";
 
-
-
-
-
       echo "<td>";
-
       echo "</td>";
       echo "</tr>";
     }
@@ -393,7 +368,6 @@ $archivedchits = get_archived_chits($db);
 //
 //
 // echo "</div>";
-
 
 echo "
 		<!-- Blast Chits Modal -->
