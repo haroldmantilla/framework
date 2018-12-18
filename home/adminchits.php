@@ -23,6 +23,11 @@
  #                       Harold Mantilla                        #
  ################################################################
 
+ ################################################################
+ #                       Repetitive Page                        #
+ #              Could be streamlined using functions            #
+ ################################################################
+
   # Load in Configuration Parameters
   require_once("../etc/config.inc.php");
 
@@ -362,12 +367,12 @@ $archivedchits = get_archived_chits($db);
   echo "</div>";
 
 
-echo "<div class=\"navbar navbar-fixed-bottom text-center\">";
-
-  echo "<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#blastModal\">Permanently Delete All Chits</button>";
-
-
-echo "</div>";
+// echo "<div class=\"navbar navbar-fixed-bottom text-center\">";
+//
+//   echo "<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#blastModal\">Permanently Delete All Chits</button>";
+//
+//
+// echo "</div>";
 
 echo "
 		<!-- Blast Chits Modal -->
