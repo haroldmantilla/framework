@@ -14,17 +14,32 @@
                       'access'     => array('admin'=>'admin'));
   ###############################################################
 
+  ################################################################
+  #                  Commented on 17DEC18 by                     #
+  #                       Harold Mantilla                        #
+  ################################################################
+
+  ################################################################
+  #                     Admin only page                          #
+  #             Simply displays all users by type                #
+  ################################################################
+
+  ################################################################
+  #                       Repetitive Page                        #
+  #              Could be streamlined using functions            #
+  ################################################################
+
   # Load in Configuration Parameters
   require_once("../etc/config.inc.php");
 
   # Load in template, if not already loaded
   require_once(LIBRARY_PATH.'template.php');
 
-  if (isset($_REQUEST['deleteuser'])) {                                         //check if someone wants to delete a user
-    delete_user($db, $_REQUEST['username']);                                    //delete the user
+  if (isset($_REQUEST['deleteuser'])) {                //check if someone wants to delete a user
+    delete_user($db, $_REQUEST['username']);           //delete the user
   }
-  elseif (isset($_REQUEST['designatemislo'])) {                                 //check if someone wants to designate MISLO
-    designate_MISLO($db, $_POST['username']);                                   //designate MISLO
+  elseif (isset($_REQUEST['designatemislo'])) {        //check if someone wants to designate MISLO
+    designate_MISLO($db, $_POST['username']);          //designate MISLO
   }
   elseif (isset($_REQUEST['designatesafety'])) {
     designate_safety($db, $_REQUEST['username']);
@@ -57,7 +72,7 @@
 
 $debug = false;
 
-$company = get_company_number($db, USER['user']);                               //get user's company
+$company = get_company_number($db, USER['user']);   //get user's company
 
 
 ?>
@@ -89,12 +104,12 @@ $company = get_company_number($db, USER['user']);                               
 <?php
 
 
-$admins = get_admins($db);                                                      // get list of admins
-$MISLOs = get_MISLOs($db);                                                      // get list of mislos
-$safeties = get_safeties($db);                                                  // get list of safeties
-$staff = get_staff($db);                                                        // get officers
-$completemids = get_complete_mids($db);                                         // get mids that have all info updated
-$incompletemids = get_incomplete_mids($db);                                     // get mids that do not have all info updated
+$admins = get_admins($db);                       // get list of admins
+$MISLOs = get_MISLOs($db);                       // get list of mislos
+$safeties = get_safeties($db);                   // get list of safeties
+$staff = get_staff($db);                         // get officers
+$completemids = get_complete_mids($db);          // get mids that have all info updated
+$incompletemids = get_incomplete_mids($db);      // get mids that do not have all info updated
 
 
 //************************** FILTER AND DISPLAY ADMINS ***********************//
@@ -116,6 +131,8 @@ $incompletemids = get_incomplete_mids($db);                                     
 
     echo "<div id=\"collapse1\" class=\"panel-collapse collapse ";
     $in = false;
+
+    //******************** if filter is set *******************************//
     if(isset($_POST['FILTER']) && !empty($_POST['FILTER'])){
       foreach ($admins as $user){
 
@@ -130,6 +147,8 @@ $incompletemids = get_incomplete_mids($db);                                     
         }
       }
     }
+    //******************** if filter is set *******************************//
+
     if($in){ echo "in \"> ";}
     else{
       echo " \"> ";
@@ -141,6 +160,7 @@ $incompletemids = get_incomplete_mids($db);                                     
     echo "<thead>";
     echo "<tr><th>Username</th><th>Name</th><th>Level</th><th class=\"text-right\">Actions</th></tr></thead>";
 
+    //******************** Display admins start *******************************//
     foreach ($admins as $user){
 
       if(isset($_POST['FILTER']) && !empty($_POST['FILTER'])){
@@ -170,6 +190,7 @@ $incompletemids = get_incomplete_mids($db);                                     
       echo "</td>";
       echo "</tr>";
     }
+    //******************** Display admin stop *******************************//
 
     echo "</table>";
     echo "</div>"; //panel
@@ -271,6 +292,9 @@ $incompletemids = get_incomplete_mids($db);                                     
     echo "</div>"; // row
   }
 
+  //******************** end filter and display mislos *******************************//
+
+
 //************************** FILTER AND DISPLAY SAFETIES *********************//
   if(!empty($safeties)){
 
@@ -356,6 +380,9 @@ $incompletemids = get_incomplete_mids($db);                                     
     echo "</div>"; // col
     echo "</div>"; // row
   }
+  //******************** end filter and display safeties *******************************//
+
+
 
 //************************** FILTER AND DISPLAY STAFF ************************//
   if(!empty($staff)){
@@ -391,11 +418,11 @@ $incompletemids = get_incomplete_mids($db);                                     
         }
       }
     }
+
     if($in){ echo "in \"> ";}
     else{
       echo " \"> ";
     }
-
 
     echo "<div class=\"panel-body\">";
     //rows go here
@@ -455,6 +482,9 @@ $incompletemids = get_incomplete_mids($db);                                     
     echo "</div>"; // col
     echo "</div>"; // row
   }
+  //******************** end filter and display staff *******************************//
+
+
 
 //************************** FILTER AND DISPLAY COMPLETE MIDS ****************//
   if(!empty($completemids)){
@@ -574,8 +604,11 @@ $incompletemids = get_incomplete_mids($db);                                     
     echo "</div>"; // col
     echo "</div>"; // row
   }
+  //******************** end filter and display complete mids *******************************//
 
-//************************** FILTER AND DISPLAY INCOMPLETE MIDS ****************//
+
+
+//************************** FILTER AND DISPLAY mids unassigned to companies ****************//
   if(!empty($incompletemids)){
 
     echo "<div class='row'>";
