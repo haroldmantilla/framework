@@ -23,6 +23,11 @@
  #                       Harold Mantilla                        #
  ################################################################
 
+ ################################################################
+ #                       Repetitive Page                        #
+ #              Could be streamlined using functions            #
+ ################################################################
+
   # Load in Configuration Parameters
   require_once("../etc/config.inc.php");
 
