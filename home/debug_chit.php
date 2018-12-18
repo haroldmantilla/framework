@@ -1,3 +1,19 @@
+<?php
+################################################################
+#                  Commented on 17DEC18 by                     #
+#                       Harold Mantilla                        #
+################################################################
+
+################################################################
+#                     Admin only page                          #
+#                         Debugs                               #
+################################################################
+
+################################################################
+#                       Defunct page.                          #
+#                  Keeping in case one day I will use it       #
+################################################################
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,14 +37,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/~m190108/IT350/css/bootstrap/js/bootstrap.min.js"></script>
-    
+
     <!-- Local Styles-->
     <link href="/~m190108/IT350/css/bootstrapped_main.css" rel="stylesheet">
-    
+
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="Douglas Alpuche">
-    
+
     <link href="https://fonts.googleapis.com/css?family=Wendy+One" rel="stylesheet">
 </head>
 <body>
