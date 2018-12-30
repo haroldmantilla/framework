@@ -12,13 +12,23 @@ $MODULE_DEF = array('name'       => 'Generate PDF',
                     'guest'      => false,
                     'access'     => array());
 
+        ################################################################
+        #                  Commented on 29DEC18 by                     #
+        #                       Harold Mantilla                        #
+        ################################################################
+
+        ################################################################
+        #                  generate pdf of complete chit
+        #                       very straightforward                   #
+        ################################################################
+
+
 # Load in Configuration Parameters
 
 require_once("../etc/config.inc.php");
 
 # Load in template, if not already loaded
 require_once(LIBRARY_PATH.'template.php');
-
 
 use setasign\Fpdi\Fpdi;
 use setasign\Fpdi\PdfReader;
@@ -29,12 +39,12 @@ $req2 = WEB_PATH . "fpdi/src/autoload.php";
 require_once($req1);
 require_once($req2);
 
+// if chit is set grab all of the information
 if(isset($_SESSION['chit'])){
 
   $chit = get_chit_information($db, $_SESSION['chit']);
   $midshipmaninfo = get_midshipman_information($db, $chit['creator']);
   $ownerinfo = get_user_information($db, $chit['creator']);
-
 
   $chit['description'] = stripslashes($chit['description']);
   $chit['reference'] = stripslashes($chit['reference']);
@@ -61,7 +71,6 @@ $printpending = false;
 
 $filename='./blank_chit_custom.pdf';
 
-
 $template_pdf=new Fpdi();
 $template_pdf->AddPage();
 $template_pdf->setSourceFile($filename);
@@ -71,7 +80,6 @@ $template_pdf->SetMargins(0,0,0);
 $template_pdf->SetFont('Courier');
 $template_pdf->SetFontSize(8);
 $template_pdf->SetTextColor(0,0,0);
-
 
 $template_pdf->SetXY(8, 32);
 
@@ -101,18 +109,13 @@ elseif(isset($chit['coc_4_username'])){ //sel
 }
 $template_pdf->Write(0, "".$to);
 
-// $template_pdf->SetXY(30, 32);
-// $from =  "{$ownerinfo['rank']} {$ownerinfo['firstName']} {$ownerinfo['lastName']}, {$ownerinfo['service']}";
-// $template_pdf->Write(0, "".$from);
-
+// set location of text that will be grabbed from chit array and printed on the page
 $template_pdf->SetXY(105, 32);
 $from =  "{$ownerinfo['rank']} {$ownerinfo['firstName']} {$ownerinfo['lastName']}, {$ownerinfo['service']}";
 $template_pdf->Write(0, "".$from);
 
-
 $template_pdf->SetXY(180, 32);
 $template_pdf->Write(0, "".$midshipmaninfo['alpha']);
-
 
 $template_pdf->SetXY(8, 47);
 $template_pdf->Write(0, "".$chit['reference']);
@@ -159,13 +162,13 @@ $template_pdf->Write(0, "".$chit['addr_zip']);
 $template_pdf->SetXY(175, 60);
 $template_pdf->Write(0, "".$midshipmaninfo['phoneNumber']);
 
-
 $reference = preg_split('/\h+/', $chit['remarks']);
 
 $x = 8;
 $y = 66;
 $count = 0;
 $line = "";
+
 foreach ($reference as $word) {
   if(strstr($word, "\n")){
     $arr = preg_split('/\s+/', $word);
@@ -222,9 +225,8 @@ $template_pdf->SetXY(135, 53);
 $template_pdf->Write(0, "".$chit['requestOther']);
 }
 
+
 #ADDRESS
-
-
 $template_pdf->SetXY(85, 152);
 $template_pdf->Write(0, "".$chit['createdDate']);
 
@@ -243,7 +245,6 @@ $template_pdf->Write(0, "".$chit['endDate']);
 
 
 //formats the coc positions
-
 $coc_0 = array("username"=>$chit['coc_0_username'], "status"=>$chit['coc_0_status'], "comments"=> $chit['coc_0_comments'], "date"=> $chit['coc_0_date'], "time"=> $chit['coc_0_time']);
 
 $coc_1 = array("username"=>$chit['coc_1_username'], "status"=>$chit['coc_1_status'], "comments"=> $chit['coc_1_comments'], "date"=> $chit['coc_1_date'], "time"=> $chit['coc_1_time']);
@@ -342,6 +343,10 @@ if(isset($pos_6['comments']) && !empty($pos_6['comments'])){
 
 $template_pdf->SetFontSize(6);
 
+
+// ctrl + f "//[a number]" from 8 to 1 in order to see each CoC's chunk of this code
+// it repeats 9 times for every member in the CoC and prints their information on the chit
+// (comments, rank, name, approval, etc)
 //8
 if(isset($pos_8['username'])){
   $y = 165;
