@@ -15,6 +15,19 @@
                       'access'     => array());
   ###############################################################
 
+  ################################################################
+  #                  Commented on 29DEC18 by                     #
+  #                       Harold Mantilla                        #
+  ################################################################
+
+  ################################################################
+  #                  page made for feedback, problems, etc       #
+  #                       emails me with information             #
+  #  When I was admin, they could simply email me directly but   #
+  # this could be useful if someone else is admin that is harder #
+  # to contact.                                                  #
+  ################################################################
+
   # Load in Configuration Parameters
   require_once("../etc/config.inc.php");
 
@@ -26,23 +39,17 @@
   #       support in your future templates...
   require_once(WEB_PATH.'navbar.php');
 
-
-
 ?>
 
 <?php
-
 
 if(isset($_POST['fullname']) &&
 isset($_POST['email']) &&
 isset($_POST['message'])){
 
-
-
-  //
    $to = "m194020@usna.edu";
    $subject = "eChits Contact Email";
-  // $txt = "test";
+
    $headers = "From: eChits@noreply.edu \r\n";
 
   $txt = "From: {$_POST["fullname"]}
@@ -51,27 +58,11 @@ isset($_POST['message'])){
 
  $_POST['sent'] = mail($to,$subject,$txt,$headers);
 
-
-
 }
 
-//if(isset($_POST['sent']) && $_POST['sent']){
-
 ?>
-
-
-
 <?php
-
-  //echo "<div class='alert alert-success' data-dismiss='alert' aria-label='close'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a> <strong>Sent.</strong> Sent!</div> ";
-//}
 ?>
-
-
-
-
-
-
 
 <div class = "container">
 <div class = "row">
