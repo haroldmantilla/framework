@@ -14,6 +14,20 @@
                       'access'     => array());
   ###############################################################
 
+  ################################################################
+  #                  Commented on 29DEC18 by                     #
+  #                       Harold Mantilla                        #
+  ################################################################
+
+  ################################################################
+  #                     page to edit chits                       #
+  ################################################################
+
+  ################################################################
+  #                       Repetitive Page                        #
+  #              Could be streamlined using functions            #
+  ################################################################
+
   # Load in Configuration Parameters
   require_once("../etc/config.inc.php");
 
@@ -31,15 +45,17 @@
 
 // make chit array from the chit stored in the database
   $chit = get_chit_information($db, $_SESSION['chit']);
-// grab chit creator info from the creator of the chit
+// grab chit creator info from the db using the creator's alpha
   $midshipmaninfo = get_midshipman_information($db, $chit['creator']);
-//not sure what this second one is
+//grabs user's information from Leader table
   $ownerinfo = get_user_information($db, $chit['creator']);
 
+// make sure that only the creator can edit their chit
   if(USER['user'] != $chit['creator']){
     header("Location: ./viewchit.php");
   }
 
+//unquote strings and set variables
 $chit['description'] = stripslashes($chit['description']);
 $chit['reference'] = stripslashes($chit['reference']);
 $chit['addr_city'] = stripslashes($chit['addr_city']);
@@ -56,8 +72,6 @@ $chit['endTime'] = stripslashes($chit['endTime']);
 if(
     isset($_POST['SHORT_DESCRIPTION']) && isset($_POST['TO_USERNAME']) && isset($_POST['REFERENCE']) && isset($_POST['REQUEST_TYPE']) && isset($_POST['ADDRESS_CITY']) && isset($_POST['ADDRESS_2']) && isset($_POST['ADDRESS_STATE']) && isset($_POST['ADDRESS_ZIP']) && isset($_POST['REMARKS']) && isset($_POST['BEGIN_DATE']) && isset($_POST['BEGIN_TIME']) && isset($_POST['END_DATE']) && isset($_POST['END_TIME'])){
 
-
-
       $_POST['SHORT_DESCRIPTION'] = addslashes($_POST['SHORT_DESCRIPTION']);
       $_POST['REFERENCE'] = addslashes($_POST['REFERENCE']);
       $_POST['ADDRESS_CITY'] = addslashes($_POST['ADDRESS_CITY']);
@@ -70,11 +84,11 @@ if(
       $_POST['END_DATE'] = addslashes($_POST['END_DATE']);
       $_POST['END_TIME'] = addslashes($_POST['END_TIME']);
 
-
       $chitnumber = $chit['chitNumber'];
 
       $date = $chit['createdDate'];
 
+      // fix this section with a function instead of copy/pasting
       if($_POST['TO_USERNAME'] == $midshipmaninfo['coc_0']){
         $coc_0 = $midshipmaninfo['coc_0'];
         $coc_1 = $midshipmaninfo['coc_1'];
@@ -86,6 +100,7 @@ if(
         $coc_7 = $midshipmaninfo['coc_7'];
         $coc_8 = $midshipmaninfo['coc_8'];
       }
+      // fix this section with a function instead of copy/pasting
       elseif($_POST['TO_USERNAME'] == $midshipmaninfo['coc_1']){
         $coc_0 = null;
         $coc_1 = $midshipmaninfo['coc_1'];
@@ -97,6 +112,7 @@ if(
         $coc_7 = $midshipmaninfo['coc_7'];
         $coc_8 = $midshipmaninfo['coc_8'];
       }
+      // fix this section with a function instead of copy/pasting
       elseif($_POST['TO_USERNAME'] == $midshipmaninfo['coc_2']){
         $coc_0 = null;
         $coc_1 = null;
@@ -108,6 +124,7 @@ if(
         $coc_7 = $midshipmaninfo['coc_7'];
         $coc_8 = $midshipmaninfo['coc_8'];
       }
+      // fix this section with a function instead of copy/pasting
       elseif($_POST['TO_USERNAME'] == $midshipmaninfo['coc_3']){
         $coc_0 = null;
         $coc_1 = null;
@@ -119,6 +136,7 @@ if(
         $coc_7 = $midshipmaninfo['coc_7'];
         $coc_8 = $midshipmaninfo['coc_8'];
       }
+      // fix this section with a function instead of copy/pasting
       elseif($_POST['TO_USERNAME'] == $midshipmaninfo['coc_4']){
         $coc_0 = null;
         $coc_1 = null;
@@ -131,14 +149,12 @@ if(
         $coc_8 = $midshipmaninfo['coc_8'];
       }
 
-
       if(isset($_POST['REQUEST_OTHER'])){
         $requestOther = addslashes($_POST['REQUEST_OTHER']);
       }
       else{
         $requestOther = null;
       }
-
 
       if(isset($_POST['ADDRESS_1'])){
         $addr_1 = addslashes($_POST['ADDRESS_1']);
@@ -161,9 +177,7 @@ if(
 
       update_chit($db, $chitnumber, $chit['creator'], $_POST['SHORT_DESCRIPTION'], $_POST['REFERENCE'], $_POST['REQUEST_TYPE'], $requestOther, $addr_1, $_POST['ADDRESS_2'], $_POST['ADDRESS_CITY'], $_POST['ADDRESS_STATE'], $_POST['ADDRESS_ZIP'], $_POST['REMARKS'], $date, $_POST['BEGIN_DATE'], $_POST['BEGIN_TIME'], $_POST['END_DATE'], $_POST['END_TIME'], $_POST['ORM'], $_POST['DOCS'], $coc_0, $coc_1, $coc_2, $coc_3, $coc_4, $coc_5, $coc_6, $coc_7, $coc_8);
 
-
       header("Location: viewchit.php");
-
 
     }
 
@@ -233,10 +247,6 @@ if(
       </div>
 
 
-
-
-
-
 <?php
 
 # Load in The NavBar
@@ -271,6 +281,9 @@ require_once(WEB_PATH.'navbar.php');
 
 
         <div class="col-sm-11">
+          <!-- submit information to ajax call -->
+          <!-- This portion is just to update the "to" portion with the user's CoC -->
+
           <select id="route_to" onchange="routeTo();" class="form-control" name="TO_USERNAME" >
             <?php
             if(isset($midshipmaninfo['coc_3'])  && !is_midshipman($db, $midshipmaninfo['coc_4'])){
@@ -283,7 +296,8 @@ require_once(WEB_PATH.'navbar.php');
             }
             ?>
 
-            <?php if(isset($midshipmaninfo['coc_4'])  && !is_midshipman($db, $midshipmaninfo['coc_3'])){
+            <?php
+            if(isset($midshipmaninfo['coc_4'])  && !is_midshipman($db, $midshipmaninfo['coc_3'])){
               $option_info = get_user_information($db, $midshipmaninfo['coc_3']);
               echo "<option value=\"{$midshipmaninfo['coc_3']}\" ";
               if(!isset($chit['coc_0_username']) && !isset($chit['coc_1_username'])  && !isset($chit['coc_2_username']) && isset($chit['coc_3_username']) && $chit['coc_3_username'] == $midshipmaninfo['coc_3']){
@@ -463,15 +477,13 @@ require_once(WEB_PATH.'navbar.php');
             <div class="row">
               <div class="col-sm-12">
                 <select class="form-control" name="REFERENCE" >
-
+                  <!-- all of the commandant instructions -->
                 <?php
-
                 echo "<option value=\"COMDTMIDNINST 5400.6T MIDREGS\" ";
                 if(isset($chit['reference']) && $chit['reference'] == "COMDTMIDNINST 5400.6T MIDREGS"){
                   echo "selected=\"selected\"";
                 }
                 echo ">COMDTMIDNINST 5400.6T MIDREGS</option>";
-
 
                 echo "<option value=\"COMDTMIDNINST 1020.3B MIDSHIPMEN UNIFORM REGULATIONS\" ";
                 if(isset($chit['reference']) && $chit['reference'] == "COMDTMIDNINST 1020.3B MIDSHIPMEN UNIFORM REGULATIONS"){
@@ -515,11 +527,8 @@ require_once(WEB_PATH.'navbar.php');
                   echo "selected=\"selected\"";
                 }
                 echo ">COMDTMIDNINST 1600.2H APTITUDE FOR COMMISSION SYSTEM</option>";
-
-
                 ?>
               </select>
-
 
               </div>
             </div>
@@ -528,7 +537,6 @@ require_once(WEB_PATH.'navbar.php');
             <div class="row">
               <div class="col-sm-12">
                 <div class="row">
-
                   <div class="col-sm-3" style="border-left: 1px solid #000000; border-top: 1px solid #000000; padding-bottom: 6px">
                     <div class="row">
                       <div class="col-sm-12">
@@ -591,6 +599,8 @@ require_once(WEB_PATH.'navbar.php');
           </div>
         </div>
 
+
+        <!-- place to put all of the request types for the request type of a chit (weekend liberty,dining out, leave, etc) -->
 
 <div class="form-check">
   <div class="row" style="border-left: 1px solid #000000; border-right:1px solid #000000; border-top: 1px solid #000000;">
@@ -862,7 +872,6 @@ require_once(WEB_PATH.'navbar.php');
           </div>
         </div>
       </div>
-
 
       <div class="row" style="border-left: 1px solid #000000; border-bottom:1px solid #000000;">
         <div class="col-sm-4">
